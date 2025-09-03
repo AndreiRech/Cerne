@@ -48,16 +48,6 @@
 			path = Cerne;
 			sourceTree = "<group>";
 		};
-		4DBE3DF02E68CC960036B193 /* CerneTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = CerneTests;
-			sourceTree = "<group>";
-		};
-		4DBE3DFA2E68CC960036B193 /* CerneUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = CerneUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,8 +79,6 @@
 			isa = PBXGroup;
 			children = (
 				4DBE3DDE2E68CC950036B193 /* Cerne */,
-				4DBE3DF02E68CC960036B193 /* CerneTests */,
-				4DBE3DFA2E68CC960036B193 /* CerneUITests */,
 				4DBE3DDD2E68CC950036B193 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -143,9 +131,6 @@
 			dependencies = (
 				4DBE3DEF2E68CC960036B193 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				4DBE3DF02E68CC960036B193 /* CerneTests */,
-			);
 			name = CerneTests;
 			packageProductDependencies = (
 			);
@@ -165,9 +150,6 @@
 			);
 			dependencies = (
 				4DBE3DF92E68CC960036B193 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				4DBE3DFA2E68CC960036B193 /* CerneUITests */,
 			);
 			name = CerneUITests;
 			packageProductDependencies = (
@@ -290,6 +272,7 @@
 				CODE_SIGN_ENTITLEMENTS = Cerne/Cerne.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7K37UYKQLZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cerne/Info.plist;
@@ -319,6 +302,7 @@
 				CODE_SIGN_ENTITLEMENTS = Cerne/Cerne.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7K37UYKQLZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cerne/Info.plist;
