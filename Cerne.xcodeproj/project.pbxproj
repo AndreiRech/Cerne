@@ -7,14 +7,7 @@
 	objects = {
 
 /* Begin PBXContainerItemProxy section */
-		4DBE3DEE2E68CC960036B193 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4DBE3DD42E68CC950036B193 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4DBE3DDB2E68CC950036B193;
-			remoteInfo = Cerne;
-		};
-		4DBE3DF82E68CC960036B193 /* PBXContainerItemProxy */ = {
+		4DBE41342E6A27A50036B193 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4DBE3DD42E68CC950036B193 /* Project object */;
 			proxyType = 1;
@@ -25,8 +18,7 @@
 
 /* Begin PBXFileReference section */
 		4DBE3DDC2E68CC950036B193 /* Cerne.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cerne.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4DBE3DED2E68CC960036B193 /* CerneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CerneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4DBE3DF72E68CC960036B193 /* CerneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CerneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4DBE41302E6A27A50036B193 /* CerneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CerneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -48,6 +40,11 @@
 			path = Cerne;
 			sourceTree = "<group>";
 		};
+		4DBE41312E6A27A50036B193 /* CerneTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = CerneTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,14 +55,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4DBE3DEA2E68CC960036B193 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4DBE3DF42E68CC960036B193 /* Frameworks */ = {
+		4DBE412D2E6A27A50036B193 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -79,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				4DBE3DDE2E68CC950036B193 /* Cerne */,
+				4DBE41312E6A27A50036B193 /* CerneTests */,
 				4DBE3DDD2E68CC950036B193 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,8 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				4DBE3DDC2E68CC950036B193 /* Cerne.app */,
-				4DBE3DED2E68CC960036B193 /* CerneTests.xctest */,
-				4DBE3DF72E68CC960036B193 /* CerneUITests.xctest */,
+				4DBE41302E6A27A50036B193 /* CerneTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -118,45 +108,28 @@
 			productReference = 4DBE3DDC2E68CC950036B193 /* Cerne.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4DBE3DEC2E68CC960036B193 /* CerneTests */ = {
+		4DBE412F2E6A27A50036B193 /* CerneTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4DBE3E052E68CC960036B193 /* Build configuration list for PBXNativeTarget "CerneTests" */;
+			buildConfigurationList = 4DBE41362E6A27A50036B193 /* Build configuration list for PBXNativeTarget "CerneTests" */;
 			buildPhases = (
-				4DBE3DE92E68CC960036B193 /* Sources */,
-				4DBE3DEA2E68CC960036B193 /* Frameworks */,
-				4DBE3DEB2E68CC960036B193 /* Resources */,
+				4DBE412C2E6A27A50036B193 /* Sources */,
+				4DBE412D2E6A27A50036B193 /* Frameworks */,
+				4DBE412E2E6A27A50036B193 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				4DBE3DEF2E68CC960036B193 /* PBXTargetDependency */,
+				4DBE41352E6A27A50036B193 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				4DBE41312E6A27A50036B193 /* CerneTests */,
 			);
 			name = CerneTests;
 			packageProductDependencies = (
 			);
 			productName = CerneTests;
-			productReference = 4DBE3DED2E68CC960036B193 /* CerneTests.xctest */;
+			productReference = 4DBE41302E6A27A50036B193 /* CerneTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		4DBE3DF62E68CC960036B193 /* CerneUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4DBE3E082E68CC960036B193 /* Build configuration list for PBXNativeTarget "CerneUITests" */;
-			buildPhases = (
-				4DBE3DF32E68CC960036B193 /* Sources */,
-				4DBE3DF42E68CC960036B193 /* Frameworks */,
-				4DBE3DF52E68CC960036B193 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4DBE3DF92E68CC960036B193 /* PBXTargetDependency */,
-			);
-			name = CerneUITests;
-			packageProductDependencies = (
-			);
-			productName = CerneUITests;
-			productReference = 4DBE3DF72E68CC960036B193 /* CerneUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -171,11 +144,7 @@
 					4DBE3DDB2E68CC950036B193 = {
 						CreatedOnToolsVersion = 16.3;
 					};
-					4DBE3DEC2E68CC960036B193 = {
-						CreatedOnToolsVersion = 16.3;
-						TestTargetID = 4DBE3DDB2E68CC950036B193;
-					};
-					4DBE3DF62E68CC960036B193 = {
+					4DBE412F2E6A27A50036B193 = {
 						CreatedOnToolsVersion = 16.3;
 						TestTargetID = 4DBE3DDB2E68CC950036B193;
 					};
@@ -196,8 +165,7 @@
 			projectRoot = "";
 			targets = (
 				4DBE3DDB2E68CC950036B193 /* Cerne */,
-				4DBE3DEC2E68CC960036B193 /* CerneTests */,
-				4DBE3DF62E68CC960036B193 /* CerneUITests */,
+				4DBE412F2E6A27A50036B193 /* CerneTests */,
 			);
 		};
 /* End PBXProject section */
@@ -210,14 +178,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4DBE3DEB2E68CC960036B193 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4DBE3DF52E68CC960036B193 /* Resources */ = {
+		4DBE412E2E6A27A50036B193 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -234,14 +195,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4DBE3DE92E68CC960036B193 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4DBE3DF32E68CC960036B193 /* Sources */ = {
+		4DBE412C2E6A27A50036B193 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -251,15 +205,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		4DBE3DEF2E68CC960036B193 /* PBXTargetDependency */ = {
+		4DBE41352E6A27A50036B193 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4DBE3DDB2E68CC950036B193 /* Cerne */;
-			targetProxy = 4DBE3DEE2E68CC960036B193 /* PBXContainerItemProxy */;
-		};
-		4DBE3DF92E68CC960036B193 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4DBE3DDB2E68CC950036B193 /* Cerne */;
-			targetProxy = 4DBE3DF82E68CC960036B193 /* PBXContainerItemProxy */;
+			targetProxy = 4DBE41342E6A27A50036B193 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -279,8 +228,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -288,9 +237,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Academy.Cerne;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -309,8 +262,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -318,9 +271,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Academy.Cerne;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -443,71 +400,47 @@
 			};
 			name = Release;
 		};
-		4DBE3E062E68CC960036B193 /* Debug */ = {
+		4DBE41372E6A27A50036B193 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7K37UYKQLZ;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Academy.CerneTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cerne.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Cerne";
 			};
 			name = Debug;
 		};
-		4DBE3E072E68CC960036B193 /* Release */ = {
+		4DBE41382E6A27A50036B193 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7K37UYKQLZ;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Academy.CerneTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cerne.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Cerne";
-			};
-			name = Release;
-		};
-		4DBE3E092E68CC960036B193 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Academy.CerneUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Cerne;
-			};
-			name = Debug;
-		};
-		4DBE3E0A2E68CC960036B193 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Academy.CerneUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Cerne;
 			};
 			name = Release;
 		};
@@ -532,20 +465,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4DBE3E052E68CC960036B193 /* Build configuration list for PBXNativeTarget "CerneTests" */ = {
+		4DBE41362E6A27A50036B193 /* Build configuration list for PBXNativeTarget "CerneTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4DBE3E062E68CC960036B193 /* Debug */,
-				4DBE3E072E68CC960036B193 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4DBE3E082E68CC960036B193 /* Build configuration list for PBXNativeTarget "CerneUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4DBE3E092E68CC960036B193 /* Debug */,
-				4DBE3E0A2E68CC960036B193 /* Release */,
+				4DBE41372E6A27A50036B193 /* Debug */,
+				4DBE41382E6A27A50036B193 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
