@@ -1,0 +1,34 @@
+[
+    {
+        "id": 1,
+        "text": "Quantos quilômetros você dirige por semana?",
+        "options": [
+            {
+                "id": 1,
+                "text": "Exemplo de perguntas",
+                "value": 0.5
+            },
+            {
+                "id": 2,
+                "text": "Exemplo de perguntas",
+                "value": 1.0
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "text": "Quantos plasticos você descarta por semana?",
+        "options": [
+            {
+                "id": 1,
+                "text": "Exemplo de perguntas",
+                "value": 1.0
+            },
+            {
+                "id": 2,
+                "text": "Exemplo de perguntas",
+                "value": 2.0
+            }
+        ]
+    }
+]
