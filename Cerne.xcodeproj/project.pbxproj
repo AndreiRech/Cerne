@@ -225,6 +225,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cerne/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Precisamos de sua localização para marcar árvores escaneadas no mapa";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -259,6 +260,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cerne/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Precisamos de sua localização para marcar árvores escaneadas no mapa";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
