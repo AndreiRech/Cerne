@@ -15,7 +15,7 @@ struct TabBar: View {
             }
             
             Tab("Map", systemImage: "map.fill") {
-                ContentView()
+                MapView(viewModel: MapViewModel())
             }
             
             Tab("Footprint", systemImage: "arrow.3.trianglepath") {
