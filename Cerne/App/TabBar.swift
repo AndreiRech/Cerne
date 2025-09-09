@@ -21,6 +21,10 @@ struct TabBar: View {
             Tab("Footprint", systemImage: "arrow.3.trianglepath") {
                 ContentView()
             }
+            
+            Tab("Add", systemImage: "plus") {
+                HeightView(viewModel: HeightViewModel(cameraService: CameraService(), userHeight: 1.85, distanceToTree: 5))
+            }
         }
     }
 }
