@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct HeightView<ViewModel: HeightViewModelProtocol>: View {
-    @StateObject var viewModel: ViewModel
+struct HeightView: View {
+    @State var viewModel: HeightViewModelProtocol
     
     var body: some View {
         ZStack {
