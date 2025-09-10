@@ -15,7 +15,7 @@ struct TabBar: View {
             }
             
             Tab("Map", systemImage: "map.fill") {
-                ContentView()
+//                DiameterView(viewModel: DiameterViewModel(cameraService: CameraService()))
             }
             
             Tab("Footprint", systemImage: "arrow.3.trianglepath") {
