@@ -64,17 +64,15 @@ class PhotoViewModel: PhotoViewModelProtocol {
     func identifyTree(image: UIImage) async {
         isLoading = true
         
-        Task {
-            do {
-                let result = try await treeAPIService.identifyTree(image: image)
-                self.identifiedTree = result
-            } catch let error as NetworkError {
-                self.errorMessage = error.errorDescription
-            } catch {
-                self.errorMessage = "Ocorreu um erro inesperado: \(error.localizedDescription)"
-            }
-        }
+        defer { isLoading = false }
         
-        isLoading = false
+        do {
+            let result = try await treeAPIService.identifyTree(image: image)
+            self.identifiedTree = result
+        } catch let error as NetworkError {
+            self.errorMessage = error.errorDescription
+        } catch {
+            self.errorMessage = "Ocorreu um erro inesperado: \(error.localizedDescription)"
+        }
     }
 }

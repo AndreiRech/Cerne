@@ -140,7 +140,24 @@ struct PhotoViewModelTests {
         #expect(viewModel.identifiedTree?.bestMatch == "value")
     }
     
-    @Test func shouldFailIdentifyTree() async {
+    @Test func shouldFailNetworkErrorIdentifyTree() async {
+        let mockCameraService = MockCameraService(shouldFail: false)
+        let mockTreeAPIService = MockTreeAPIService(shouldFail: true, isNetworkError: true)
+        let viewModel = PhotoViewModel(
+            cameraService: mockCameraService,
+            treeAPIService: mockTreeAPIService
+        )
+        
+        // When
+        await viewModel.identifyTree(image: UIImage())
+        await Task.yield()
+
+        // Then
+        #expect(!mockTreeAPIService.isCorret)
+        #expect(viewModel.errorMessage == NetworkError.invalidResponse.errorDescription)
+    }
+    
+    @Test func shouldFailOtherErrorsIdentifyTree() async {
         let mockCameraService = MockCameraService(shouldFail: false)
         let mockTreeAPIService = MockTreeAPIService(shouldFail: true)
         let viewModel = PhotoViewModel(
