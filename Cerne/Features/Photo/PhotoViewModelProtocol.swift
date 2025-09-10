@@ -9,13 +9,18 @@ import Foundation
 import UIKit
 
 protocol PhotoViewModelProtocol {
-    var estimatedHeight: Double { get }
     var cameraService: CameraServiceProtocol { get }
-    var errorMessage: String? { get }
+    var treeAPIService: TreeAPIServiceProtocol { get }
+    
+    var isLoading: Bool { get }
+    var errorMessage: String? { get set }
     var capturedImage: UIImage? { get }
+    var identifiedTree: TreeResponse? { get }
     
     func onAppear()
     func onDisappear()
     func capturePhoto()
     func retakePhoto()
+    
+    func identifyTree(image: UIImage) async
 }

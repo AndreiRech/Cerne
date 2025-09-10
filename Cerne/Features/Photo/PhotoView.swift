@@ -12,37 +12,91 @@ struct PhotoView: View {
     
     var body: some View {
         ZStack {
-            CameraPreview(service: viewModel.cameraService)
-                .ignoresSafeArea()
-            
-            Circle()
-                .stroke(Color.white.opacity(0.8), lineWidth: 2)
-                .frame(width: 30, height: 30)
+            if let capturedImage = viewModel.capturedImage {
+                Image(uiImage: capturedImage)
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
+                
+                
+                if viewModel.isLoading {
+                    ZStack {
+                        Color.black.opacity(0.5).ignoresSafeArea()
+                        ProgressView("Identificando...")
+                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                            .foregroundColor(.white)
+                    }
+                } else {
+                    Text(viewModel.identifiedTree?.bestMatch ?? "")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.black)
+                }
+            } else {
+                CameraPreview(service: viewModel.cameraService)
+                    .ignoresSafeArea()
+            }
             
             VStack {
                 Spacer()
                 
-                VStack(spacing: 12) {
-                    Text("Ângulo Atual")
-                        .font(.caption)
-                        .foregroundColor(.white.opacity(0.8))
-                    
-                    Text("Altura Estimada da Árvore")
-                        .font(.caption)
-                        .foregroundColor(.white.opacity(0.8))
-                        .padding(.top)
-
-                    Text(String(format: "%.2f metros", 2))
-                        .font(.system(size: 50, weight: .bold, design: .monospaced))
-                        .foregroundColor(.green)
+                if let capturedImage = viewModel.capturedImage {
+                    HStack {
+                        Button("Refazer") {
+                            viewModel.retakePhoto()
+                        }
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding()
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            Task {
+                                await viewModel.identifyTree(image: capturedImage)
+                            }
+                        }) {
+                            Text("Identificar")
+                                .font(.headline)
+                                .fontWeight(.bold)
+                                .foregroundColor(.black)
+                                .padding()
+                                .background(Color.white)
+                                .cornerRadius(15)
+                        }
+                    }
+                    .padding(.horizontal, 30)
+                    .frame(height: 100)
+                } else {
+                    HStack {
+                        Spacer()
+                        Button(action: viewModel.capturePhoto) {
+                            ZStack {
+                                Circle()
+                                    .fill(Color.white)
+                                    .frame(width: 70, height: 70)
+                                Circle()
+                                    .stroke(Color.white, lineWidth: 4)
+                                    .frame(width: 80, height: 80)
+                            }
+                        }
+                        Spacer()
+                    }
+                    .frame(height: 100)
                 }
-                .padding()
-                .background(Color.black.opacity(0.5))
-                .cornerRadius(20)
-                .padding()
             }
+            .padding(.bottom, 30)
         }
         .onAppear(perform: viewModel.onAppear)
         .onDisappear(perform: viewModel.onDisappear)
+        .alert("Erro", isPresented: Binding<Bool>(
+            get: { viewModel.errorMessage != nil },
+            set: { _ in viewModel.errorMessage = nil }
+        )) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text(viewModel.errorMessage ?? "Ocorreu um erro desconhecido.")
+        }
     }
 }
+

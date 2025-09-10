@@ -21,7 +21,6 @@ class MotionService: MotionServiceProtocol {
     
     private func setupMotionManager() {
         guard motionManager.isDeviceMotionAvailable else {
-            print("Erro: Device Motion não está disponível.")
             return
         }
         motionManager.deviceMotionUpdateInterval = 1.0 / 60.0
