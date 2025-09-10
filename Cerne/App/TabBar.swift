@@ -11,18 +11,40 @@ struct TabBar: View {
     
     @State private var mapViewModel: MapViewModelProtocol = MapViewModel()
     
+    @EnvironmentObject var quickActionService: QuickActionService
+    @State private var selectedTab: Int = 0
+
     var body: some View {
-        TabView {
-            Tab("Home", systemImage: "house.fill") {
-                ContentView()
-            }
+        TabView(selection: $selectedTab) {
+            ContentView()
+                .tabItem {
+                    Label("Home", systemImage: "house.fill")
+                }
+                .tag(0)
             
-            Tab("Map", systemImage: "map.fill") {
-                MapView(viewModel: mapViewModel)
-            }
+            ContentView()
+                .tabItem {
+                    MapView(viewModel: mapViewModel)
+                }
+                .tag(1)
             
-            Tab("Footprint", systemImage: "arrow.3.trianglepath") {
-                ContentView()
+            PhotoView(viewModel: PhotoViewModel(cameraService: CameraService()))
+                .tabItem {
+                    Label("Footprint", systemImage: "arrow.3.trianglepath")
+                }
+                .tag(2)
+            
+            HeightView(viewModel: HeightViewModel(cameraService: CameraService(), motionService: MotionService(), userHeight: 1.85, distanceToTree: 5))
+                .tabItem {
+                    Label("Add", systemImage: "plus")
+                }
+                .tag(3)
+        }
+        .onReceive(quickActionService.$selectedAction) { action in
+            guard let action = action else { return }
+            switch action {
+            case .mapTree:
+                selectedTab = 3
             }
         }
     }

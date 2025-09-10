@@ -1,0 +1,73 @@
+//
+//  HeightViewModel.swift
+//  Cerne
+//
+//  Created by Andrei Rech on 08/09/25.
+//
+
+import SwiftUI
+import CoreMotion
+import AVFoundation
+import Combine
+
+@Observable
+class HeightViewModel: HeightViewModelProtocol {
+    let motionService: MotionServiceProtocol
+    let cameraService: CameraServiceProtocol
+    private var cancellables = Set<AnyCancellable>()
+    
+    let userHeight: Double
+    let distanceToTree: Double
+    var estimatedHeight: Double = 0.0
+    var errorMessage: String?
+    
+    var previewLayer: AVCaptureVideoPreviewLayer {
+        return cameraService.previewLayer
+    }
+    
+    init(cameraService: CameraServiceProtocol, motionService: MotionServiceProtocol, userHeight: Double, distanceToTree: Double) {
+        self.motionService = motionService
+        self.cameraService = cameraService
+        self.userHeight = userHeight
+        self.distanceToTree = distanceToTree
+        
+        subscribeToPublishers()
+    }
+    
+    private func subscribeToPublishers() {
+        motionService.anglePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] angleInDegrees in
+                self?.calculateHeight(angleInDegrees: angleInDegrees)
+            }
+            .store(in: &cancellables)
+    }
+    
+    func onAppear() {
+        Task {
+            if await cameraService.requestPermissions() {
+                cameraService.startSession()
+            } else {
+                errorMessage = cameraService.errorMessage
+            }
+        }
+        motionService.startUpdates()
+    }
+    
+    func onDisappear() {
+        cameraService.stopSession()
+        motionService.stopUpdates()
+    }
+    
+    func calculateHeight(angleInDegrees: Double) {
+        let angleElevation = 90.0 - angleInDegrees
+        let angleInRadians = angleElevation * .pi / 180
+        var calculatedHeight = self.distanceToTree * tan(angleInRadians) + self.userHeight
+        
+        if calculatedHeight < 0 { calculatedHeight = 0 }
+        
+        self.estimatedHeight = calculatedHeight
+    }
+}
+
+
