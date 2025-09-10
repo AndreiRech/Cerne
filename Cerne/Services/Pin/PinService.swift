@@ -23,6 +23,9 @@ class PinService: PinServiceProtocol {
     
     func addReport(to pin: Pin) throws {
         pin.reports += 1
+        if pin.reports == 5 {
+            modelContext.delete(pin)
+        }
         try save()
     }
     
