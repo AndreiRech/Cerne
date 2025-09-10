@@ -8,25 +8,39 @@
 import SwiftUI
 import CoreMotion
 import AVFoundation
+import Combine
 
-class HeightViewModel: HeightViewModelProtocol, ObservableObject {
-    private let motionManager = CMMotionManager()
-    
-    @Published var estimatedHeight: Double = 0.0
+@Observable
+class HeightViewModel: HeightViewModelProtocol {
+    let motionService: MotionServiceProtocol
+    let cameraService: CameraServiceProtocol
+    private var cancellables = Set<AnyCancellable>()
     
     let userHeight: Double
     let distanceToTree: Double
-    var cameraService: CameraServiceProtocol
+    var estimatedHeight: Double = 0.0
     var errorMessage: String?
     
     var previewLayer: AVCaptureVideoPreviewLayer {
         return cameraService.previewLayer
     }
     
-    init(cameraService: CameraServiceProtocol, userHeight: Double, distanceToTree: Double) {
+    init(cameraService: CameraServiceProtocol, motionService: MotionServiceProtocol, userHeight: Double, distanceToTree: Double) {
+        self.motionService = motionService
         self.cameraService = cameraService
         self.userHeight = userHeight
         self.distanceToTree = distanceToTree
+        
+        subscribeToPublishers()
+    }
+    
+    private func subscribeToPublishers() {
+        motionService.anglePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] angleInDegrees in
+                self?.calculateHeight(angleInDegrees: angleInDegrees)
+            }
+            .store(in: &cancellables)
     }
     
     func onAppear() {
@@ -37,44 +51,22 @@ class HeightViewModel: HeightViewModelProtocol, ObservableObject {
                 errorMessage = cameraService.errorMessage
             }
         }
-        startMotionUpdates()
+        motionService.startUpdates()
     }
     
     func onDisappear() {
         cameraService.stopSession()
-        stopMotionUpdates()
-    }
-    
-    func startMotionUpdates() {
-        if motionManager.isDeviceMotionAvailable {
-            motionManager.deviceMotionUpdateInterval = 1.0 / 60.0
-            motionManager.startDeviceMotionUpdates(to: .main) { [weak self] (data, error) in
-                guard let self = self, let data = data else { return }
-                
-                let g = data.gravity
-                let angle = atan2(g.z, g.y)
-                
-                let angleInDegrees: Double
-                if angle > 0 {
-                    angleInDegrees = (angle * 180 / .pi ) - 90
-                } else {
-                    angleInDegrees = (angle * 180 / .pi) + 270
-                }
-                
-                self.calculateHeight(angleInDegrees: angleInDegrees)
-            }
-        }
+        motionService.stopUpdates()
     }
     
     func calculateHeight(angleInDegrees: Double) {
         let angleElevation = 90.0 - angleInDegrees
         let angleInRadians = angleElevation * .pi / 180
-        let calculatedHeight = self.distanceToTree * tan(angleInRadians) + self.userHeight
+        var calculatedHeight = self.distanceToTree * tan(angleInRadians) + self.userHeight
+        
+        if calculatedHeight < 0 { calculatedHeight = 0 }
+        
         self.estimatedHeight = calculatedHeight
-    }
-    
-    func stopMotionUpdates() {
-        motionManager.stopDeviceMotionUpdates()
     }
 }
 

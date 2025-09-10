@@ -13,10 +13,12 @@ struct HeightViewModelTests {
     @Test func shouldStartSession() async {
         // Given
         let mockCameraService = MockCameraService(shouldFail: false)
+        let mockMotionService = MockMotionService()
         let userHeight: Double = 1.80
         let distanceToTree: Double = 5.0
         let viewModel = HeightViewModel(
             cameraService: mockCameraService,
+            motionService: mockMotionService,
             userHeight: userHeight,
             distanceToTree: distanceToTree
         )
@@ -37,10 +39,12 @@ struct HeightViewModelTests {
     @Test func shouldFailStartSession() async {
         // Given
         let mockCameraService = MockCameraService(shouldFail: true)
+        let mockMotionService = MockMotionService()
         let userHeight: Double = 1.80
         let distanceToTree: Double = 5.0
         let viewModel = HeightViewModel(
             cameraService: mockCameraService,
+            motionService: mockMotionService,
             userHeight: userHeight,
             distanceToTree: distanceToTree
         )
@@ -61,10 +65,12 @@ struct HeightViewModelTests {
     @Test func shouldStopSession() async {
         // Given
         let mockCameraService = MockCameraService(shouldFail: false)
+        let mockMotionService = MockMotionService()
         let userHeight: Double = 1.80
         let distanceToTree: Double = 5.0
         let viewModel = HeightViewModel(
             cameraService: mockCameraService,
+            motionService: mockMotionService,
             userHeight: userHeight,
             distanceToTree: distanceToTree
         )
@@ -87,10 +93,12 @@ struct HeightViewModelTests {
     @Test func shouldGetLayer() async {
         // Given
         let mockCameraService = MockCameraService(shouldFail: false)
+        let mockMotionService = MockMotionService()
         let userHeight: Double = 1.80
         let distanceToTree: Double = 5.0
         let viewModel = HeightViewModel(
             cameraService: mockCameraService,
+            motionService: mockMotionService,
             userHeight: userHeight,
             distanceToTree: distanceToTree
         )
@@ -104,26 +112,42 @@ struct HeightViewModelTests {
         #expect(mockCameraService.errorMessage == nil)
     }
     
-    @Test func shouldCalculateCorrectHeightDegreeChange() async {
+    @Test func shouldCalculateCorrectHeightDegreeChangeUp() async {
         // Given
         let mockCameraService = MockCameraService(shouldFail: false)
+        let mockMotionService = MockMotionService(angleInDegrees: 100)
         let userHeight: Double = 1.80
         let distanceToTree: Double = 5.0
         let viewModel = HeightViewModel(
             cameraService: mockCameraService,
+            motionService: mockMotionService,
             userHeight: userHeight,
             distanceToTree: distanceToTree
         )
         
         // When
-        viewModel.calculateHeight(angleInDegrees: 100)
+        viewModel.calculateHeight(angleInDegrees: mockMotionService.getCurrentAngle())
         
         // Then
         #expect(viewModel.estimatedHeight != userHeight)
         #expect(viewModel.errorMessage == nil)
+    }
+    
+    @Test func shouldCalculateCorrectHeightDegreeChangeDown() async {
+        // Given
+        let mockCameraService = MockCameraService(shouldFail: false)
+        let mockMotionService = MockMotionService(angleInDegrees: 80)
+        let userHeight: Double = 1.80
+        let distanceToTree: Double = 5.0
+        let viewModel = HeightViewModel(
+            cameraService: mockCameraService,
+            motionService: mockMotionService,
+            userHeight: userHeight,
+            distanceToTree: distanceToTree
+        )
         
         // When
-        viewModel.calculateHeight(angleInDegrees: 80)
+        viewModel.calculateHeight(angleInDegrees: mockMotionService.getCurrentAngle())
         
         // Then
         #expect(viewModel.estimatedHeight != userHeight)
@@ -133,16 +157,18 @@ struct HeightViewModelTests {
     @Test func shouldCalculateCorrectHeightNoDegreeChange() async {
         // Given
         let mockCameraService = MockCameraService(shouldFail: false)
+        let mockMotionService = MockMotionService(angleInDegrees: 90)
         let userHeight: Double = 1.80
         let distanceToTree: Double = 5.0
         let viewModel = HeightViewModel(
             cameraService: mockCameraService,
+            motionService: mockMotionService,
             userHeight: userHeight,
             distanceToTree: distanceToTree
         )
         
         // When
-        viewModel.calculateHeight(angleInDegrees: 90)
+        viewModel.calculateHeight(angleInDegrees: mockMotionService.getCurrentAngle())
         
         // Then
         #expect(viewModel.estimatedHeight == userHeight)

@@ -11,7 +11,7 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         let quickActionService = (UIApplication.shared.delegate as? AppDelegate)?.quickActionService
-        quickActionService?.selectedAction = QuickAction(rawValue: shortcutItem.type)
+        quickActionService?.selectedAction = QuickActionEnum(rawValue: shortcutItem.type)
         completionHandler(true)
     }
 }

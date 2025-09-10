@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         sceneConfiguration.delegateClass = SceneDelegate.self 
 
         if let shortcutItem = options.shortcutItem {
-            quickActionService.selectedAction = QuickAction(rawValue: shortcutItem.type)
+            quickActionService.selectedAction = QuickActionEnum(rawValue: shortcutItem.type)
         }
         
         return sceneConfiguration

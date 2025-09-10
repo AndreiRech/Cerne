@@ -1,14 +1,14 @@
 //
-//  HeightView.swift
+//  PhotoView.swift
 //  Cerne
 //
-//  Created by Andrei Rech on 08/09/25.
+//  Created by Andrei Rech on 09/09/25.
 //
 
 import SwiftUI
 
-struct HeightView: View {
-    @State var viewModel: HeightViewModelProtocol
+struct PhotoView: View {
+    @State var viewModel: PhotoViewModelProtocol
     
     var body: some View {
         ZStack {
@@ -32,7 +32,7 @@ struct HeightView: View {
                         .foregroundColor(.white.opacity(0.8))
                         .padding(.top)
 
-                    Text(String(format: "%.2f metros", viewModel.estimatedHeight))
+                    Text(String(format: "%.2f metros", 2))
                         .font(.system(size: 50, weight: .bold, design: .monospaced))
                         .foregroundColor(.green)
                 }

@@ -18,20 +18,20 @@ struct TabBar: View {
                     Label("Home", systemImage: "house.fill")
                 }
                 .tag(0)
-
+            
             ContentView()
                 .tabItem {
                     Label("Map", systemImage: "map.fill")
                 }
                 .tag(1)
             
-            ContentView()
+            PhotoView(viewModel: PhotoViewModel(cameraService: CameraService()))
                 .tabItem {
                     Label("Footprint", systemImage: "arrow.3.trianglepath")
                 }
                 .tag(2)
             
-            HeightView(viewModel: HeightViewModel(cameraService: CameraService(), userHeight: 1.85, distanceToTree: 5))
+            HeightView(viewModel: HeightViewModel(cameraService: CameraService(), motionService: MotionService(), userHeight: 1.85, distanceToTree: 5))
                 .tabItem {
                     Label("Add", systemImage: "plus")
                 }
