@@ -19,7 +19,7 @@ struct TabBar: View {
             }
             
             Tab("Footprint", systemImage: "arrow.3.trianglepath") {
-                PhotoView(viewModel: PhotoViewModel(cameraService: CameraService()))
+                PhotoView(viewModel: PhotoViewModel(cameraService: CameraService(), treeAPIService: TreeAPIService()))
             }
             
             Tab("Add", systemImage: "plus") {
