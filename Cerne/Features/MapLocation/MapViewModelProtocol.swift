@@ -5,13 +5,9 @@
 //  Created by Richard Fagundes Rodrigues on 09/09/25.
 //
 
-import Foundation
+import SwiftUI
 import MapKit
-import Combine
-import _MapKit_SwiftUI
 
-protocol MapViewModelProtocol: ObservableObject {
-    
+protocol MapViewModelProtocol {
     var position: MapCameraPosition { get set }
-    
 }

@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct TabBar: View {
+    
+    @State private var mapViewModel: MapViewModelProtocol = MapViewModel()
+    
     var body: some View {
         TabView {
             Tab("Home", systemImage: "house.fill") {
@@ -15,7 +18,7 @@ struct TabBar: View {
             }
             
             Tab("Map", systemImage: "map.fill") {
-                MapView(viewModel: MapViewModel())
+                MapView(viewModel: mapViewModel)
             }
             
             Tab("Footprint", systemImage: "arrow.3.trianglepath") {

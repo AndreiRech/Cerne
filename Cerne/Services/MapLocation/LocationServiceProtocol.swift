@@ -5,12 +5,8 @@
 //  Created by Richard Fagundes Rodrigues on 09/09/25.
 //
 
-import Foundation
-import Combine
+import Observation
 
-protocol LocationServiceProtocol {
-    
-    var userLocationPublisher: Published<UserLocation?>.Publisher { get }
-    
-    func requestLocationAuthorization()
+protocol LocationServiceProtocol: Observable {
+    var userLocation: UserLocation? { get set }
 }
