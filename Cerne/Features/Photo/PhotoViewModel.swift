@@ -10,15 +10,19 @@ import Combine
 
 @Observable
 class PhotoViewModel: PhotoViewModelProtocol {
-    var estimatedHeight: Double = 0.0
     let cameraService: CameraServiceProtocol
+    let treeAPIService: TreeAPIServiceProtocol
+    
+    var isLoading: Bool = false
     var capturedImage: UIImage?
+    var identifiedTree: TreeResponse?
     var errorMessage: String?
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(cameraService: CameraServiceProtocol) {
+    init(cameraService: CameraServiceProtocol, treeAPIService: TreeAPIServiceProtocol) {
         self.cameraService = cameraService
+        self.treeAPIService = treeAPIService
         subscribeToPublishers()
     }
     
@@ -31,7 +35,7 @@ class PhotoViewModel: PhotoViewModelProtocol {
             }
             .store(in: &cancellables)
     }
-
+    
     func onAppear() {
         Task {
             if await cameraService.requestPermissions() {
@@ -51,6 +55,24 @@ class PhotoViewModel: PhotoViewModelProtocol {
     }
     
     func retakePhoto() {
+        identifiedTree = nil
+        isLoading = false
+        
         cameraService.clearImage()
+    }
+    
+    func identifyTree(image: UIImage) async {
+        isLoading = true
+        
+        defer { isLoading = false }
+        
+        do {
+            let result = try await treeAPIService.identifyTree(image: image)
+            self.identifiedTree = result
+        } catch let error as NetworkError {
+            self.errorMessage = error.errorDescription
+        } catch {
+            self.errorMessage = "Ocorreu um erro inesperado: \(error.localizedDescription)"
+        }
     }
 }

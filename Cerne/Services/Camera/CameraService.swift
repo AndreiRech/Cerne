@@ -62,7 +62,18 @@ class CameraService: NSObject, ObservableObject, CameraServiceProtocol, AVCaptur
     }
     
     func clearImage() {
-        capturedImage = nil
+        DispatchQueue.main.async {
+            self.capturedImage = nil
+        }
+        
+        if !session.isRunning {
+            startSession()
+        }
+        
+        DispatchQueue.main.async {
+            self.previewLayer.connection?.isEnabled = false
+            self.previewLayer.connection?.isEnabled = true
+        }
     }
     
     private func setupSession() {

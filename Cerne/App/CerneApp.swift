@@ -10,6 +10,8 @@ import SwiftData
 
 @main
 struct CerneApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             User.self,
@@ -30,6 +32,7 @@ struct CerneApp: App {
     var body: some Scene {
         WindowGroup {
             TabBar()
+                .environmentObject(appDelegate.quickActionService)
         }
         .modelContainer(sharedModelContainer)
     }
