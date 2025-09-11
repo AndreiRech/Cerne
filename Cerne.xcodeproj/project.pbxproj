@@ -229,6 +229,7 @@
 				INFOPLIST_FILE = Cerne/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Precisamos da câmera para capturar as medidas da árvore e concluir o registro. Deseja permitir o uso da câmera?";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Precisamos da sua localização para criar um Pin no mapa e registrar a árvore na posição exata. Deseja permitir o uso da sua localização?";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -268,6 +269,7 @@
 				INFOPLIST_FILE = Cerne/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Precisamos da câmera para capturar as medidas da árvore e concluir o registro. Deseja permitir o uso da câmera?";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Precisamos da sua localização para criar um Pin no mapa e registrar a árvore na posição exata. Deseja permitir o uso da sua localização?";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
