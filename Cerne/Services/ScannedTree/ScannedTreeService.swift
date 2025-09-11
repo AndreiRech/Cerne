@@ -15,6 +15,17 @@ class ScannedTreeService: ScannedTreeServiceProtocol {
         self.modelContext = modelContext
     }
     
+    func fetchScannedTrees() throws -> [ScannedTree] {
+        let descriptor = FetchDescriptor<ScannedTree>()
+
+        do {
+            let pins = try modelContext.fetch(descriptor)
+            return pins
+        } catch {
+            throw GenericError.serviceError
+        }
+    }
+    
     func createScannedTree(species: String, height: Double, dap: Double, totalCO2: Double) throws -> ScannedTree {
         let newTree = ScannedTree(species: species, height: height, dap: dap, totalCO2: totalCO2)
         modelContext.insert(newTree)

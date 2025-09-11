@@ -19,6 +19,14 @@ class MockPinService: PinServiceProtocol {
         self.details = details
     }
     
+    func fetchPins() throws -> [Pin] {
+        if shouldFail {
+            throw GenericError.serviceError
+        }
+        
+        return pins
+    }
+    
     func createPin(image: Data?, latitude: Double, longitude: Double, user: User, tree: ScannedTree) throws {
         if shouldFail {
             throw NSError(domain: "MockPinService", code: 1, userInfo: [NSLocalizedDescriptionKey: "Failed to create Pin"])

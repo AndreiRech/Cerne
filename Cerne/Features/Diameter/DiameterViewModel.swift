@@ -43,8 +43,14 @@ class DiameterViewModel: NSObject, DiameterViewModelProtocol, ObservableObject, 
 
     
     func handleTap(at location: CGPoint, in sceneView: ARSCNView) {
-        let results = sceneView.hitTest(location, types: .featurePoint)
-        guard let result = results.first else { return }
+        guard let query = sceneView.raycastQuery(from: location, allowing: .estimatedPlane, alignment: .any) else {
+           return
+        }
+                
+        let results = sceneView.session.raycast(query)
+        guard let result = results.first else {
+           return
+        }
         
         let position = SCNVector3(
             result.worldTransform.columns.3.x,

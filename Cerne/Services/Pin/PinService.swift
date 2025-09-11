@@ -17,6 +17,17 @@ class PinService: PinServiceProtocol {
         self.details = []
     }
     
+    func fetchPins() throws -> [Pin] {
+        let descriptor = FetchDescriptor<Pin>()
+
+        do {
+            let pins = try modelContext.fetch(descriptor)
+            return pins
+        } catch {
+            throw GenericError.serviceError
+        }
+    }
+    
     func createPin(image: Data?, latitude: Double, longitude: Double, user: User, tree: ScannedTree) throws {
         let newPin = Pin(image: image, latitude: latitude, longitude: longitude, date: Date(), user: user, tree: tree)
         modelContext.insert(newPin)
