@@ -9,7 +9,11 @@ import SwiftUI
 import ARKit
 import SceneKit
 
+@Observable
 class DiameterViewModel: NSObject, DiameterViewModelProtocol, ObservableObject, ARSCNViewDelegate {
+    
+    var result: Float? = nil
+    var shouldNavigate: Bool = false
     
     var startNode: SCNNode?
     var endNode: SCNNode?
@@ -40,7 +44,6 @@ class DiameterViewModel: NSObject, DiameterViewModelProtocol, ObservableObject, 
     func onDisappear() {
         cameraService.stopSession()
     }
-
     
     func handleTap(at location: CGPoint, in sceneView: ARSCNView) {
         let results = sceneView.hitTest(location, types: .featurePoint)
@@ -81,6 +84,8 @@ class DiameterViewModel: NSObject, DiameterViewModelProtocol, ObservableObject, 
             sceneView.scene.rootNode.addChildNode(textNode!)
             
             print("📝 Distance between points: \(String(format: "%.2f", distance)) meters")
+            self.result = distance
+
         } else {
             resetNodes()
         }
@@ -96,6 +101,14 @@ class DiameterViewModel: NSObject, DiameterViewModelProtocol, ObservableObject, 
         endNode = nil
         lineNode = nil
         textNode = nil
+    }
+    
+    func finishMeasurement() {
+        if let distance = result {
+            if distance > 0 {
+                shouldNavigate = true
+            }
+        } 
     }
     
     // MARK: - Helper Methods
