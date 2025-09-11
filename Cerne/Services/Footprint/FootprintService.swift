@@ -15,6 +15,17 @@ class FootprintService: FootprintServiceProtocol {
         self.modelContext = modelContext
     }
     
+    func fetchFootprints() throws -> [Footprint] {
+        let descriptor = FetchDescriptor<Footprint>()
+
+        do {
+            let pins = try modelContext.fetch(descriptor)
+            return pins
+        } catch {
+            throw GenericError.serviceError
+        }
+    }
+    
     func createOrUpdateFootprint(for user: User, with newResponses: [Response]) throws {
         let newTotal = newResponses.reduce(0) { $0 + $1.value }
         
@@ -38,6 +49,25 @@ class FootprintService: FootprintServiceProtocol {
             let newFootprint = Footprint(total: newTotal, responses: newResponses)
             
             user.footprint = newFootprint
+        }
+    }
+    
+    func getQuestions(fileName: String) throws -> [Question] {
+        guard let url = Bundle.main.url(forResource: fileName, withExtension: "json") else {
+            throw JsonError.fileNotFound
+        }
+        
+        guard let data = try? Data(contentsOf: url) else {
+            throw JsonError.errorLoadingData
+        }
+        
+        let decoder = JSONDecoder()
+        
+        do {
+            let questions = try decoder.decode([Question].self, from: data)
+            return questions
+        } catch {
+            throw JsonError.invalidJsonFormat
         }
     }
 }

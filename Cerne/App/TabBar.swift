@@ -25,7 +25,7 @@ struct TabBar: View {
                 }
                 .tag(1)
             
-            PhotoView(viewModel: PhotoViewModel(cameraService: CameraService()))
+            PhotoView(viewModel: PhotoViewModel(cameraService: CameraService(), treeAPIService: TreeAPIService()))
                 .tabItem {
                     Label("Footprint", systemImage: "arrow.3.trianglepath")
                 }

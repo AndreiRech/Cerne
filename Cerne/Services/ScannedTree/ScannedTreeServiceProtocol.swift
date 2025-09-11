@@ -9,6 +9,8 @@ import Foundation
 import SwiftData
 
 protocol ScannedTreeServiceProtocol {
+    func fetchScannedTrees() throws -> [ScannedTree]
+    
     func createScannedTree(species: String, height: Double, dap: Double, totalCO2: Double) throws -> ScannedTree
 
     func updateScannedTree(tree: ScannedTree, newSpecies: String?, newHeight: Double?, newDap: Double?) throws
