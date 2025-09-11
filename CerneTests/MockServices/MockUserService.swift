@@ -13,8 +13,16 @@ class MockUserService: UserServiceProtocol {
     var users: [User] = []
     var shouldFail: Bool
     
-    init(shouldFail: Bool = false) {
+    init(shouldFail: Bool = false, users: [User] = [User(name: "name", height: 1.70)]) {
         self.shouldFail = shouldFail
+    }
+    
+    func fetchUsers() throws -> [User] {
+        if shouldFail {
+            throw GenericError.serviceError
+        }
+        
+        return users
     }
     
     func createUser(name: String, height: Double) throws {

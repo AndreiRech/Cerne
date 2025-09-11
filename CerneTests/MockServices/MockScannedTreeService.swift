@@ -10,11 +10,19 @@ import Foundation
 import SwiftData
 
 class MockScannedTreeService: ScannedTreeServiceProtocol {
-        var scannedTrees: [ScannedTree] = []
+    var scannedTrees: [ScannedTree] = []
     var shouldFail: Bool
     
     init(shouldFail: Bool = false) {
         self.shouldFail = shouldFail
+    }
+    
+    func fetchScannedTrees() throws -> [ScannedTree] {
+        if shouldFail {
+            throw GenericError.serviceError
+        }
+        
+        return scannedTrees
     }
     
     func createScannedTree(species: String, height: Double, dap: Double, totalCO2: Double) throws -> ScannedTree {

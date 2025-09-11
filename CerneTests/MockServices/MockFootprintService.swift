@@ -10,11 +10,20 @@ import Foundation
 import SwiftData
 
 class MockFootprintService: FootprintServiceProtocol {
-    var footprints: [UUID: Footprint] = [:]
+    var footprints: [Footprint]
     var shouldFail: Bool
     
-    init(shouldFail: Bool = false) {
+    init(shouldFail: Bool = false, footprints: [Footprint] = [Footprint(id: UUID(), total: 2.0, responses: [Response(questionId: 1, optionId: 1, value: 2.0)])]) {
         self.shouldFail = shouldFail
+        self.footprints = footprints
+    }
+    
+    func fetchFootprints() throws -> [Footprint] {
+        if shouldFail {
+            throw GenericError.serviceError
+        }
+        
+        return footprints
     }
     
     func createOrUpdateFootprint(for user: User, with newResponses: [Response]) throws {
@@ -24,15 +33,7 @@ class MockFootprintService: FootprintServiceProtocol {
         
         let newTotal = newResponses.reduce(0) { $0 + $1.value }
         
-        if let existingFootprint = footprints[user.id] {
-            existingFootprint.responses = newResponses
-            existingFootprint.total = newTotal
-        } else {
-            let newFootprint = Footprint(total: newTotal, responses: newResponses)
-            footprints[user.id] = newFootprint
-            
-            user.footprint = newFootprint
-        }
+        user.footprint = Footprint(id: user.id, total: newTotal, responses: newResponses)
     }
     
     func getQuestions(fileName: String) throws -> [Question] {
