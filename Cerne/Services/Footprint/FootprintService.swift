@@ -15,6 +15,17 @@ class FootprintService: FootprintServiceProtocol {
         self.modelContext = modelContext
     }
     
+    func fetchFootprints() throws -> [Footprint] {
+        let descriptor = FetchDescriptor<Footprint>()
+
+        do {
+            let pins = try modelContext.fetch(descriptor)
+            return pins
+        } catch {
+            throw GenericError.serviceError
+        }
+    }
+    
     func createOrUpdateFootprint(for user: User, with newResponses: [Response]) throws {
         let newTotal = newResponses.reduce(0) { $0 + $1.value }
         

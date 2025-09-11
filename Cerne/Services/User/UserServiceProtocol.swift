@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 protocol UserServiceProtocol {
+    func fetchUsers() throws -> [User]
     func createUser(name: String, height: Double) throws
-    
     func updateUser(user: User, newName: String?, newHeight: Double?) throws
 }
