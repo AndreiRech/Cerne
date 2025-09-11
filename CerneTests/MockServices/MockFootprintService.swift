@@ -10,7 +10,7 @@ import Foundation
 import SwiftData
 
 class MockFootprintService: FootprintServiceProtocol {
-        var footprints: [UUID: Footprint] = [:]
+    var footprints: [UUID: Footprint] = [:]
     var shouldFail: Bool
     
     init(shouldFail: Bool = false) {
@@ -33,5 +33,13 @@ class MockFootprintService: FootprintServiceProtocol {
             
             user.footprint = newFootprint
         }
+    }
+    
+    func getQuestions(fileName: String) throws -> [Question] {
+        if shouldFail {
+            throw JsonError.fileNotFound
+        }
+        
+        return [Question(id: 1, text: "Question", options: [Option(id: 1, text: "Pergunta", value: 1)])]
     }
 }
