@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct TabBar: View {
-    
-    @State private var mapViewModel: MapViewModelProtocol = MapViewModel()
-    
+    @Environment(\.modelContext) private var modelContext
     @EnvironmentObject var quickActionService: QuickActionService
     @State private var selectedTab: Int = 0
 
@@ -22,9 +20,9 @@ struct TabBar: View {
                 }
                 .tag(0)
             
-            ContentView()
+            MapView(viewModel: MapViewModel(locationService: LocationService(), pinService: PinService(modelContext: modelContext), userService: UserService(modelContext: modelContext), scannedTreeService: ScannedTreeService(modelContext: modelContext)))
                 .tabItem {
-                    MapView(viewModel: mapViewModel)
+                    Label("Map", systemImage: "map")
                 }
                 .tag(1)
             
