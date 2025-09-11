@@ -15,6 +15,17 @@ class UserService: UserServiceProtocol {
         self.modelContext = modelContext
     }
     
+    func fetchUsers() throws -> [User] {
+        let descriptor = FetchDescriptor<User>()
+
+        do {
+            let pins = try modelContext.fetch(descriptor)
+            return pins
+        } catch {
+            throw GenericError.serviceError
+        }
+    }
+    
     func createUser(name: String, height: Double) throws {
         let newUser = User(name: name, height: height)
         modelContext.insert(newUser)
