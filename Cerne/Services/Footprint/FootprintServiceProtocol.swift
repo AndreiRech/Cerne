@@ -10,4 +10,6 @@ import SwiftData
 
 protocol FootprintServiceProtocol {
     func createOrUpdateFootprint(for user: User, with newResponses: [Response]) throws
+    
+    func getQuestions(fileName: String) throws -> [Question]
 }

@@ -40,4 +40,23 @@ class FootprintService: FootprintServiceProtocol {
             user.footprint = newFootprint
         }
     }
+    
+    func getQuestions(fileName: String) throws -> [Question] {
+        guard let url = Bundle.main.url(forResource: fileName, withExtension: "json") else {
+            throw JsonError.fileNotFound
+        }
+        
+        guard let data = try? Data(contentsOf: url) else {
+            throw JsonError.errorLoadingData
+        }
+        
+        let decoder = JSONDecoder()
+        
+        do {
+            let questions = try decoder.decode([Question].self, from: data)
+            return questions
+        } catch {
+            throw JsonError.invalidJsonFormat
+        }
+    }
 }

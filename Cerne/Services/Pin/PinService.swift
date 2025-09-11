@@ -10,9 +10,11 @@ import SwiftData
 
 class PinService: PinServiceProtocol {
     private var modelContext: ModelContext
+    var details: [TreeDetails]
     
-    init(modelContext: ModelContext) {
+    init(modelContext: ModelContext, details: [TreeDetails] = []) {
         self.modelContext = modelContext
+        self.details = []
     }
     
     func createPin(image: Data?, latitude: Double, longitude: Double, user: User, tree: ScannedTree) throws {
@@ -32,6 +34,37 @@ class PinService: PinServiceProtocol {
     func deletePin(pin: Pin) throws {
         modelContext.delete(pin)
         try save()
+    }
+    
+    func getDetails(fileName: String) throws -> [TreeDetails] {
+        guard let url = Bundle.main.url(forResource: fileName, withExtension: "json") else {
+            throw JsonError.fileNotFound
+        }
+        
+        guard let data = try? Data(contentsOf: url) else {
+            throw JsonError.errorLoadingData
+        }
+        
+        let decoder = JSONDecoder()
+        
+        do {
+            let details = try decoder.decode([TreeDetails].self, from: data)
+            return details
+        } catch {
+            throw JsonError.invalidJsonFormat
+        }
+    }
+    
+    func getDetails(for tree: ScannedTree) throws -> TreeDetails {
+        let treeName = tree.species.lowercased()
+        
+        for detail in details {
+            if detail.scientificName.contains(treeName) {
+                return detail
+            }
+        }
+        
+        throw GenericError.detailsNotFound
     }
     
     private func save() throws {
