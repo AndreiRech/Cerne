@@ -69,8 +69,8 @@ struct PhotoView: View {
                                 .navigationDestination(isPresented: $viewModel.shouldNavigate) {
                                         DiameterView(
                                             viewModel: DiameterViewModel(
-                                                cameraService: CameraService()
-                                                
+                                                cameraService: CameraService(),
+                                                treeImage: capturedImage
                                             )
                                         )
                                         .navigationBarHidden(true)

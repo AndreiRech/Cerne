@@ -25,7 +25,7 @@ struct TabBar: View {
                 }
                 .tag(1)
             
-            DiameterView(viewModel: DiameterViewModel(cameraService: CameraService()))
+            ContentView()
                 .tabItem {
                     Label("Footprint", systemImage: "arrow.3.trianglepath")
                 }

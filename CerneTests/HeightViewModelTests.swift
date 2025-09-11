@@ -22,7 +22,8 @@ struct HeightViewModelTests {
             motionService: mockMotionService,
             userHeight: userHeight,
             distanceToTree: distanceToTree,
-            measuredDiameter: measureDiameter
+            measuredDiameter: measureDiameter,
+            treeImage: nil
         )
         
         // When
@@ -50,7 +51,9 @@ struct HeightViewModelTests {
             motionService: mockMotionService,
             userHeight: userHeight,
             distanceToTree: distanceToTree,
-            measuredDiameter: measureDiameter
+            measuredDiameter: measureDiameter,
+            treeImage: nil
+
             
         )
         
@@ -79,7 +82,9 @@ struct HeightViewModelTests {
             motionService: mockMotionService,
             userHeight: userHeight,
             distanceToTree: distanceToTree,
-            measuredDiameter: measureDiameter
+            measuredDiameter: measureDiameter,
+            treeImage: nil
+
         )
         
         // When
@@ -109,7 +114,9 @@ struct HeightViewModelTests {
             motionService: mockMotionService,
             userHeight: userHeight,
             distanceToTree: distanceToTree,
-            measuredDiameter: measureDiameter
+            measuredDiameter: measureDiameter,
+            treeImage: nil
+
         )
         
         // When
@@ -133,7 +140,9 @@ struct HeightViewModelTests {
             motionService: mockMotionService,
             userHeight: userHeight,
             distanceToTree: distanceToTree,
-            measuredDiameter: measureDiameter
+            measuredDiameter: measureDiameter,
+            treeImage: nil
+
         )
         
         // When
@@ -156,7 +165,9 @@ struct HeightViewModelTests {
             motionService: mockMotionService,
             userHeight: userHeight,
             distanceToTree: distanceToTree,
-            measuredDiameter: measureDiameter
+            measuredDiameter: measureDiameter,
+            treeImage: nil
+
         )
         
         // When
@@ -179,7 +190,9 @@ struct HeightViewModelTests {
             motionService: mockMotionService,
             userHeight: userHeight,
             distanceToTree: distanceToTree,
-            measuredDiameter: measureDiameter
+            measuredDiameter: measureDiameter,
+            treeImage: nil
+
         )
         
         // When

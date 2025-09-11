@@ -41,7 +41,8 @@ struct DiameterView: View {
                                     motionService: MotionService(),
                                     userHeight: 1.85,
                                     distanceToTree: 5,
-                                    measuredDiameter: viewModel.result ?? 0.0
+                                    measuredDiameter: viewModel.result ?? 0.0,
+                                    treeImage: viewModel.treeImage
                                 )
                             )
                             .navigationBarHidden(true)

@@ -14,6 +14,7 @@ class DiameterViewModel: NSObject, DiameterViewModelProtocol, ObservableObject, 
     
     var result: Float? = nil
     var shouldNavigate: Bool = false
+    var treeImage: UIImage?
     
     var startNode: SCNNode?
     var endNode: SCNNode?
@@ -23,12 +24,13 @@ class DiameterViewModel: NSObject, DiameterViewModelProtocol, ObservableObject, 
     var cameraService: CameraServiceProtocol
     var errorMessage: String?
     
-    init(startNode: SCNNode? = nil, endNode: SCNNode? = nil, lineNode: SCNNode? = nil, textNode: SCNNode? = nil, cameraService: CameraServiceProtocol) {
+    init(startNode: SCNNode? = nil, endNode: SCNNode? = nil, lineNode: SCNNode? = nil, textNode: SCNNode? = nil, cameraService: CameraServiceProtocol, treeImage: UIImage?) {
         self.startNode = startNode
         self.endNode = endNode
         self.lineNode = lineNode
         self.textNode = textNode
         self.cameraService = cameraService
+        self.treeImage = treeImage
     }
     
     func onAppear() {
@@ -65,12 +67,6 @@ class DiameterViewModel: NSObject, DiameterViewModelProtocol, ObservableObject, 
             startNode = createSphere(at: position)
             sceneView.scene.rootNode.addChildNode(startNode!)
             
-            if let cameraNode = sceneView.pointOfView {
-                let distanceToCamera = distanceBetween(cameraNode.position, position)
-                let text = addText("Camera: \(String(format: "%.2f", distanceToCamera)) m",
-                                   at: SCNVector3(position.x, position.y + 0.02, position.z))
-                sceneView.scene.rootNode.addChildNode(text)
-            }
         } else if endNode == nil {
             endNode = createSphere(at: position)
             sceneView.scene.rootNode.addChildNode(endNode!)

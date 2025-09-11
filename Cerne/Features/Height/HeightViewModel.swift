@@ -21,17 +21,19 @@ class HeightViewModel: HeightViewModelProtocol {
     var estimatedHeight: Double = 0.0
     var errorMessage: String?
     var measuredDiameter: Float
+    var treeImage: UIImage?
     
     var previewLayer: AVCaptureVideoPreviewLayer {
         return cameraService.previewLayer
     }
     
-    init(cameraService: CameraServiceProtocol, motionService: MotionServiceProtocol, userHeight: Double, distanceToTree: Double, measuredDiameter: Float) {
+    init(cameraService: CameraServiceProtocol, motionService: MotionServiceProtocol, userHeight: Double, distanceToTree: Double, measuredDiameter: Float, treeImage: UIImage?) {
         self.motionService = motionService
         self.cameraService = cameraService
         self.userHeight = userHeight
         self.distanceToTree = distanceToTree
         self.measuredDiameter = measuredDiameter
+        self.treeImage = treeImage
         
         subscribeToPublishers()
     }
