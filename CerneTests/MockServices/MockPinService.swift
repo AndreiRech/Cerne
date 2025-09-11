@@ -10,11 +10,13 @@ import Foundation
 import SwiftData
 
 class MockPinService: PinServiceProtocol {
+    var details: [TreeDetails]
     var pins: [Pin] = []
     var shouldFail: Bool
     
-    init(shouldFail: Bool = false) {
+    init(shouldFail: Bool = false, details: [TreeDetails] = [TreeDetails(commonName: "normal", scientificName: "cientifico", density: 1.0, description: "texto")]) {
         self.shouldFail = shouldFail
+        self.details = details
     }
     
     func createPin(image: Data?, latitude: Double, longitude: Double, user: User, tree: ScannedTree) throws {
@@ -42,5 +44,24 @@ class MockPinService: PinServiceProtocol {
         }
         
         pins.removeAll { $0.id == pin.id }
+    }
+    
+    
+    func getDetails(fileName: String) throws -> [TreeDetails] {
+        if shouldFail {
+            throw JsonError.fileNotFound
+        }
+        
+        return [TreeDetails(commonName: "normal", scientificName: "cientifico", density: 1.0, description: "texto")]
+    }
+    
+    func getDetails(for tree: ScannedTree) throws -> TreeDetails {
+        for detail in details {
+            if detail.scientificName.contains(tree.species.lowercased()) {
+                return detail
+            }
+        }
+        
+        throw GenericError.detailsNotFound
     }
 }

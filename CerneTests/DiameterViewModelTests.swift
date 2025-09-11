@@ -170,7 +170,6 @@ struct DiameterViewModelTests {
         let rulerNode = viewModel.drawRuler(from: point1, to: point2)
         
         //Then
-        #expect(rulerNode is SCNNode)
         #expect(rulerNode.childNodes.count > 1)
         #expect(rulerNode.childNodes.first!.geometry != nil)        
     }
