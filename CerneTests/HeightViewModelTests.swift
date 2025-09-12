@@ -16,11 +16,14 @@ struct HeightViewModelTests {
         let mockMotionService = MockMotionService()
         let userHeight: Double = 1.80
         let distanceToTree: Double = 5.0
+        let measureDiameter: Float = 0.8
         let viewModel = HeightViewModel(
             cameraService: mockCameraService,
             motionService: mockMotionService,
             userHeight: userHeight,
-            distanceToTree: distanceToTree
+            distanceToTree: distanceToTree,
+            measuredDiameter: measureDiameter,
+            treeImage: nil
         )
         
         // When
@@ -42,11 +45,16 @@ struct HeightViewModelTests {
         let mockMotionService = MockMotionService()
         let userHeight: Double = 1.80
         let distanceToTree: Double = 5.0
+        let measureDiameter: Float = 0.8
         let viewModel = HeightViewModel(
             cameraService: mockCameraService,
             motionService: mockMotionService,
             userHeight: userHeight,
-            distanceToTree: distanceToTree
+            distanceToTree: distanceToTree,
+            measuredDiameter: measureDiameter,
+            treeImage: nil
+
+            
         )
         
         // When
@@ -68,11 +76,15 @@ struct HeightViewModelTests {
         let mockMotionService = MockMotionService()
         let userHeight: Double = 1.80
         let distanceToTree: Double = 5.0
+        let measureDiameter: Float = 0.8
         let viewModel = HeightViewModel(
             cameraService: mockCameraService,
             motionService: mockMotionService,
             userHeight: userHeight,
-            distanceToTree: distanceToTree
+            distanceToTree: distanceToTree,
+            measuredDiameter: measureDiameter,
+            treeImage: nil
+
         )
         
         // When
@@ -96,11 +108,15 @@ struct HeightViewModelTests {
         let mockMotionService = MockMotionService()
         let userHeight: Double = 1.80
         let distanceToTree: Double = 5.0
+        let measureDiameter: Float = 0.8
         let viewModel = HeightViewModel(
             cameraService: mockCameraService,
             motionService: mockMotionService,
             userHeight: userHeight,
-            distanceToTree: distanceToTree
+            distanceToTree: distanceToTree,
+            measuredDiameter: measureDiameter,
+            treeImage: nil
+
         )
         
         // When
@@ -118,11 +134,15 @@ struct HeightViewModelTests {
         let mockMotionService = MockMotionService(angleInDegrees: 100)
         let userHeight: Double = 1.80
         let distanceToTree: Double = 5.0
+        let measureDiameter: Float = 0.8
         let viewModel = HeightViewModel(
             cameraService: mockCameraService,
             motionService: mockMotionService,
             userHeight: userHeight,
-            distanceToTree: distanceToTree
+            distanceToTree: distanceToTree,
+            measuredDiameter: measureDiameter,
+            treeImage: nil
+
         )
         
         // When
@@ -139,11 +159,15 @@ struct HeightViewModelTests {
         let mockMotionService = MockMotionService(angleInDegrees: 80)
         let userHeight: Double = 1.80
         let distanceToTree: Double = 5.0
+        let measureDiameter: Float = 0.8
         let viewModel = HeightViewModel(
             cameraService: mockCameraService,
             motionService: mockMotionService,
             userHeight: userHeight,
-            distanceToTree: distanceToTree
+            distanceToTree: distanceToTree,
+            measuredDiameter: measureDiameter,
+            treeImage: nil
+
         )
         
         // When
@@ -160,11 +184,15 @@ struct HeightViewModelTests {
         let mockMotionService = MockMotionService(angleInDegrees: 90)
         let userHeight: Double = 1.80
         let distanceToTree: Double = 5.0
+        let measureDiameter: Float = 0.8
         let viewModel = HeightViewModel(
             cameraService: mockCameraService,
             motionService: mockMotionService,
             userHeight: userHeight,
-            distanceToTree: distanceToTree
+            distanceToTree: distanceToTree,
+            measuredDiameter: measureDiameter,
+            treeImage: nil
+
         )
         
         // When

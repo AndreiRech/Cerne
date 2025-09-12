@@ -26,13 +26,13 @@ struct TabBar: View {
                 }
                 .tag(1)
             
-            PhotoView(viewModel: PhotoViewModel(cameraService: CameraService(), treeAPIService: TreeAPIService()))
+            ContentView()
                 .tabItem {
                     Label("Footprint", systemImage: "arrow.3.trianglepath")
                 }
                 .tag(2)
             
-            HeightView(viewModel: HeightViewModel(cameraService: CameraService(), motionService: MotionService(), userHeight: 1.85, distanceToTree: 5))
+            PhotoView(viewModel: PhotoViewModel(cameraService: CameraService(), treeAPIService: TreeAPIService()))
                 .tabItem {
                     Label("Add", systemImage: "plus")
                 }

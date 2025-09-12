@@ -12,6 +12,7 @@ protocol PhotoViewModelProtocol {
     var cameraService: CameraServiceProtocol { get }
     var treeAPIService: TreeAPIServiceProtocol { get }
     
+    var shouldNavigate: Bool { get set }
     var isLoading: Bool { get }
     var errorMessage: String? { get set }
     var capturedImage: UIImage? { get }
