@@ -30,12 +30,9 @@ struct ContentView: View {
         
         .navigationTitle("Cerne")
         .sheet(isPresented: $isShowingDetails) {
-            ScrollView{
-                PinDetailsView(pin: samplePin)
-                    .presentationDetents([.height(265), .height(475)])
-                    .presentationDragIndicator(.visible)
-            }
-            .scrollDisabled(true)
+            PinDetailsView(pin: samplePin)
+                .presentationDetents([.height(265), .height(500)])
+                .presentationDragIndicator(.visible)
         }
     }
 }

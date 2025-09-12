@@ -13,4 +13,5 @@ protocol PinDetailsViewModelProtocol {
     func fetchPin(id: UUID)
     func deletePin(pin: Pin)
     func reportPin(to pin: Pin)
+    func sharePin()
 }

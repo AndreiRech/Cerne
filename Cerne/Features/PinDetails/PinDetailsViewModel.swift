@@ -9,6 +9,10 @@ import Foundation
 
 @Observable
 class PinDetailsViewModel: PinDetailsViewModelProtocol {
+    func sharePin() {
+        
+    }
+    
     var pin: Pin?
     
     private let pinService: PinService
@@ -38,6 +42,4 @@ class PinDetailsViewModel: PinDetailsViewModelProtocol {
         }
         
     }
-    
-    
 }
