@@ -8,14 +8,62 @@
 import SwiftUI
 import ARKit
 
+struct DiameterView: View {
+    @State var viewModel: DiameterViewModel
+    
+    var body: some View {
+        NavigationStack {
+            ZStack {
+                ARSceneView(viewModel: viewModel)
+                    .edgesIgnoringSafeArea(.all)
+                
+                VStack {
+                    Spacer()
+                    
+                    Button(action: {
+                        viewModel.finishMeasurement()
+                        viewModel.shouldNavigate = true
+                    }) {
+                        Text("Concluir Medida")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundColor(.black)
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(15)
+                    }
+                    .padding(.horizontal, 30)
+                    .frame(height: 100)
+                    .navigationDestination(isPresented: $viewModel.shouldNavigate) {
+                            HeightView(
+                                viewModel: HeightViewModel(
+                                    cameraService: CameraService(),
+                                    motionService: MotionService(),
+                                    userHeight: 1.85,
+                                    distanceToTree: 5,
+                                    measuredDiameter: viewModel.result ?? 0.0,
+                                    treeImage: viewModel.treeImage
+                                )
+                            )
+                            .navigationBarHidden(true)
+                        }
+                    
+                }
+            }
+            .navigationTitle("Medir Diâmetro")
+        }
+    }
+}
+
+
 // MARK: - View
-struct DiameterView: UIViewRepresentable {
+struct ARSceneView: UIViewRepresentable {
     @ObservedObject var viewModel: DiameterViewModel
     
     func makeUIView(context: Context) -> ARSCNView {
         let sceneView = ARSCNView()
         sceneView.delegate = viewModel
-        sceneView.debugOptions = [.showFeaturePoints]
+        sceneView.debugOptions = [.showFeaturePoints] //esse da p tirar
         sceneView.autoenablesDefaultLighting = true
         
         let configuration = ARWorldTrackingConfiguration()
