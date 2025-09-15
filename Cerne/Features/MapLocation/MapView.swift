@@ -19,7 +19,7 @@ struct MapView: View {
                     Button {
                         viewModel.selectedPin = pin
                     } label: {
-                        Image(uiImage: UIImage(data: pin.image ?? Data()) ?? UIImage(systemName: "tree.circle.fill")!)
+                        Image(uiImage: UIImage(data: pin.image) ?? UIImage(systemName: "tree.circle.fill")!)
                             .resizable()
                             .scaledToFill()
                             .frame(width: 40, height: 40)

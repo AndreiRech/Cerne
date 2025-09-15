@@ -19,8 +19,8 @@ struct MapViewModelTests {
         let treeService = MockScannedTreeService()
         
         pinService.pins = [
-            Pin(latitude: 1.0, longitude: 1.0, date: Date(), user: User(name: "User1", height: 1.70), tree: ScannedTree(species: "A", height: 10.0, dap: 1, totalCO2: 1)),
-            Pin(latitude: 10.0, longitude: 10.0, date: Date(), user: User(name: "User2", height: 1.64), tree: ScannedTree(species: "b", height: 8.32, dap: 2, totalCO2: 2))
+            Pin(image: Data(), latitude: 1.0, longitude: 1.0, date: Date(), user: User(name: "User1", height: 1.70), tree: ScannedTree(species: "A", height: 10.0, dap: 1, totalCO2: 1)),
+            Pin(image: Data(), latitude: 10.0, longitude: 10.0, date: Date(), user: User(name: "User2", height: 1.64), tree: ScannedTree(species: "b", height: 8.32, dap: 2, totalCO2: 2))
         ]
         
         let viewModel = MapViewModel(locationService: locationService,
@@ -57,18 +57,15 @@ struct MapViewModelTests {
     }
     
     @Test func testGetPins() async throws {
-//        let locationService = MockLocationService(userLocation: UserLocation(latitude: -23.5, longitude: -46.6))
         let locationService = MockLocationService()
         let pinService = MockPinService()
         let userService = MockUserService()
         let treeService = MockScannedTreeService()
         
-        let expectedPins = [
-            Pin(latitude: -23.5, longitude: -46.6, date: Date(), user: User(name: "User 1", height: 2.65), tree: ScannedTree(species: "asmucha lagusta", height: 10.0, dap: 50.0, totalCO2: 168.0)),
-            Pin(latitude: -23.5, longitude: -46.6, date: Date(), user: User(name: "User 2", height: 2.65), tree: ScannedTree(species: "uaiviaja naozé", height: 10.0, dap: 50.0, totalCO2: 168.0)),
+        pinService.pins = [
+            Pin(image: Data(), latitude: 1.0, longitude: 1.0, date: Date(), user: User(name: "User1", height: 1.70), tree: ScannedTree(species: "A", height: 10.0, dap: 1, totalCO2: 1)),
+            Pin(image: Data(), latitude: 10.0, longitude: 10.0, date: Date(), user: User(name: "User2", height: 1.64), tree: ScannedTree(species: "b", height: 8.32, dap: 2, totalCO2: 2))
         ]
-        
-        pinService.pins = expectedPins
 
         let viewModel = MapViewModel(locationService: locationService,
                                pinService: pinService,
@@ -78,7 +75,7 @@ struct MapViewModelTests {
         viewModel.getPins()
         
         #expect(viewModel.pins.count > 0)
-        #expect(viewModel.pins.first?.tree.species == "asmucha lagusta")
+        #expect(viewModel.pins.first?.tree.species == "A")
     }
     
     @Test func testGetPinsFailure() async throws {
