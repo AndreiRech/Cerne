@@ -13,6 +13,7 @@ class PhotoViewModel: PhotoViewModelProtocol {
     let cameraService: CameraServiceProtocol
     let treeAPIService: TreeAPIServiceProtocol
     
+    var shouldNavigate: Bool = false
     var isLoading: Bool = false
     var capturedImage: UIImage?
     var identifiedTree: TreeResponse?
@@ -69,6 +70,7 @@ class PhotoViewModel: PhotoViewModelProtocol {
         do {
             let result = try await treeAPIService.identifyTree(image: image)
             self.identifiedTree = result
+            shouldNavigate = true
         } catch let error as NetworkError {
             self.errorMessage = error.errorDescription
         } catch {

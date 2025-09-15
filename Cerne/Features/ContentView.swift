@@ -8,13 +8,13 @@
 import SwiftUI
 import SwiftData
 
-struct ContentView: View {
+struct ContentView: View {    
     @State private var isShowingDetails: Bool = false
         
     let samplePin: Pin = {
         let user = User(name: "Marina Carvalho", height: 1.65)
         let tree = ScannedTree(species: "Ipê-amarelo", height: 15.0, dap: 0.8, totalCO2: 668)
-        return Pin(latitude: 0, longitude: 0, date: Date(), user: user, tree: tree)
+        return Pin(image: UIImage(resource: .treeDefault).pngData()!, latitude: 0, longitude: 0, date: Date(), user: user, tree: tree)
     }()
 
     var body: some View {
@@ -30,7 +30,7 @@ struct ContentView: View {
         
         .navigationTitle("Cerne")
         .sheet(isPresented: $isShowingDetails) {
-            PinDetailsView(pin: samplePin)
+            PinDetailsView(viewModel: PinDetailsViewModel(pin: samplePin, pinService: PinService()))
                 .presentationDetents([.height(265), .height(500)])
                 .presentationDragIndicator(.visible)
         }

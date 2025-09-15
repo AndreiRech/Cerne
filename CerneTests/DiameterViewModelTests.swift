@@ -15,7 +15,8 @@ struct DiameterViewModelTests {
         // Given
         let mockCameraService = MockCameraService(shouldFail: false)
         let viewModel = DiameterViewModel(
-            cameraService: mockCameraService
+            cameraService: mockCameraService,
+            treeImage: nil
         )
         
         // When
@@ -36,6 +37,7 @@ struct DiameterViewModelTests {
         let mockCameraService = MockCameraService(shouldFail: true)
         let viewModel = DiameterViewModel(
             cameraService: mockCameraService,
+            treeImage: nil
         )
         
         // When
@@ -56,6 +58,7 @@ struct DiameterViewModelTests {
         let mockCameraService = MockCameraService(shouldFail: false)
         let viewModel = DiameterViewModel(
             cameraService: mockCameraService,
+            treeImage: nil
         )
         
         // When
@@ -77,7 +80,9 @@ struct DiameterViewModelTests {
         //Given
         let mockCameraService = MockCameraService(shouldFail: false)
         let viewModel = DiameterViewModel(
-            cameraService: mockCameraService
+            cameraService: mockCameraService,
+            treeImage: nil
+            
         )
         
         viewModel.startNode = SCNNode()
@@ -95,11 +100,45 @@ struct DiameterViewModelTests {
         #expect(viewModel.textNode == nil)
     }
     
+    @Test func shouldFinishMeasurement() async {
+        // Given
+        let mockCameraService = MockCameraService(shouldFail: false)
+        let viewModel = DiameterViewModel(
+            cameraService: mockCameraService,
+            treeImage: nil
+        )
+        viewModel.result = 1
+        
+        // When
+        viewModel.finishMeasurement()
+        
+        // Then
+        #expect(viewModel.shouldNavigate != false)
+    }
+    
+    @Test func shouldNotFinishMeasurement() async {
+        // Given
+        let mockCameraService = MockCameraService(shouldFail: false)
+        let viewModel = DiameterViewModel(
+            cameraService: mockCameraService,
+            treeImage: nil
+        )
+        viewModel.result = 0
+        
+        // When
+        viewModel.finishMeasurement()
+        
+        // Then
+        #expect(viewModel.shouldNavigate == false)
+    }
+    
     @Test func shouldCreateSphere() async {
         //Given
         let mockCameraService = MockCameraService(shouldFail: false)
         let viewModel = DiameterViewModel(
-            cameraService: mockCameraService
+            cameraService: mockCameraService,
+            treeImage: nil
+            
         )
         let position = SCNVector3(1, 2, 3)
         
@@ -118,7 +157,9 @@ struct DiameterViewModelTests {
         //Given
         let mockCameraService = MockCameraService(shouldFail: false)
         let viewModel = DiameterViewModel(
-            cameraService: mockCameraService
+            cameraService: mockCameraService,
+            treeImage: nil
+            
         )
         
         let point1 = SCNVector3(0, 0, 0)
@@ -126,17 +167,19 @@ struct DiameterViewModelTests {
         
         // When
         let distance = viewModel.distanceBetween(point1, point2)
-
+        
         // Then
         #expect(distance == 3.0)
-
+        
     }
     
     @Test func shouldAddText() async {
         //Given
         let mockCameraService = MockCameraService(shouldFail: false)
         let viewModel = DiameterViewModel(
-            cameraService: mockCameraService
+            cameraService: mockCameraService,
+            treeImage: nil
+            
         )
         let text = "Test"
         let position = SCNVector3(1, 2, 3)
@@ -151,7 +194,7 @@ struct DiameterViewModelTests {
         #expect(node.position.x == 1.0)
         #expect(node.position.y == 2.0)
         #expect(node.position.z == 3.0)
-
+        
         #expect(node.geometry is SCNText)
         
     }
@@ -160,7 +203,9 @@ struct DiameterViewModelTests {
         //Given
         let mockCameraService = MockCameraService(shouldFail: false)
         let viewModel = DiameterViewModel(
-            cameraService: mockCameraService
+            cameraService: mockCameraService,
+            treeImage: nil
+            
         )
         
         let point1 = SCNVector3(0, 0, 0)
@@ -171,14 +216,16 @@ struct DiameterViewModelTests {
         
         //Then
         #expect(rulerNode.childNodes.count > 1)
-        #expect(rulerNode.childNodes.first!.geometry != nil)        
+        #expect(rulerNode.childNodes.first!.geometry != nil)
     }
     
     @Test func shouldNotDrawRule() async {
         //Given
         let mockCameraService = MockCameraService(shouldFail: false)
         let viewModel = DiameterViewModel(
-            cameraService: mockCameraService
+            cameraService: mockCameraService,
+            treeImage: nil
+            
         )
         
         let point1 = SCNVector3(0, 0, 0)
@@ -191,6 +238,6 @@ struct DiameterViewModelTests {
         #expect(rulerNode.childNodes.count == 1)
         #expect(rulerNode.childNodes.first!.geometry != nil)
     }
-
+    
 }
 
