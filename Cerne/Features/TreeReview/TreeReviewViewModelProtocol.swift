@@ -17,7 +17,7 @@ protocol TreeReviewViewModelProtocol {
     var pinLongitude: Double { get }
 //    var pinUser: User { get }
 
-    var measuredDiameter: Float { get }
+    var measuredDiameter: Double { get }
     var treeImage: UIImage? { get }
     var estimatedHeight: Double { get }
     var errorMessage: String? { get set }
@@ -26,6 +26,6 @@ protocol TreeReviewViewModelProtocol {
     func calculateCO2(height: Double, dap: Float, density: Double) -> Double
     func calculateBiomass(height: Double, dap: Float, density: Double) -> Double
     func createPin()
-    func editScannedTree()
-    func cancel() //Pensar. eu preciso dessa cancel aq? pq seria so nao salvar uma tree ne
+    func updateScannedTree() async
+    func cancel()
 }

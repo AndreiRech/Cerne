@@ -18,8 +18,6 @@ protocol HeightViewModelProtocol {
     var motionService: MotionServiceProtocol { get }
     var scannedTreeService: ScannedTreeServiceProtocol { get }
     var errorMessage: String? { get }
-    var treeImage: UIImage? { get }
-    var measuredDiameter: Float { get }
     
     var userHeight: Double { get }
     var distanceToTree: Double { get }

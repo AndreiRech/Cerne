@@ -10,9 +10,6 @@ import ARKit
 
 struct DiameterView: View {
     @State var viewModel: DiameterViewModel
-    @Environment(\.modelContext) private var modelContext
-
-    //TO DO: Arrumar o modelContext
     
     var body: some View {
         NavigationStack {
@@ -48,9 +45,6 @@ struct DiameterView: View {
                         )
                         .navigationBarHidden(true)
                     }
-                        )
-                        .navigationBarHidden(true)
-                    }
                     
                 }
             }
@@ -67,7 +61,7 @@ struct ARSceneView: UIViewRepresentable {
     func makeUIView(context: Context) -> ARSCNView {
         let sceneView = ARSCNView()
         sceneView.delegate = viewModel
-        sceneView.debugOptions = [.showFeaturePoints] //esse da p tirar
+        sceneView.debugOptions = [.showFeaturePoints] //TO DO: Tirar essa linha que so mostra os pontos clicaveis amarelos
         sceneView.autoenablesDefaultLighting = true
         
         let configuration = ARWorldTrackingConfiguration()

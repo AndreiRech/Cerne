@@ -9,8 +9,6 @@ import SwiftUI
 
 struct HeightView: View {
     @State var viewModel: HeightViewModelProtocol
-    @Environment(\.modelContext) private var modelContext
-
     
     var body: some View {
         NavigationStack {
@@ -61,21 +59,25 @@ struct HeightView: View {
                     }
                     .padding(.horizontal, 30)
                     .frame(height: 100)
-                    .navigationDestination(isPresented: $viewModel.shouldNavigate) {
+                    .sheet(isPresented: $viewModel.shouldNavigate) {
                             TreeReviewView(
                                 viewModel: TreeReviewViewModel(
                                     cameraService: CameraService(),
-                                    scannedTreeService: ScannedTreeService(modelContext: modelContext),
+                                    scannedTreeService: ScannedTreeService(),
                                     treeAPIService: TreeAPIService(),
-                                    pinService: PinService(modelContext: modelContext),
+                                    pinService: PinService(),
                                     measuredDiameter: viewModel.measuredDiameter,
                                     treeImage: viewModel.treeImage,
                                     estimatedHeight: viewModel.estimatedHeight,
-                                    pinLatitude: 10.2,
-                                    pinLongitude: 11.4
+                                    pinLatitude: viewModel.userLatitude,
+                                    pinLongitude: viewModel.userLongitude 
                                 )
                             )
-                            .navigationBarHidden(true)
+                            .presentationDragIndicator(.hidden)
+                            .presentationDetents([.height(350)]) 
+                            .presentationDragIndicator(.hidden)
+                            .background(.ultraThinMaterial)
+                            .cornerRadius(15)
                         }
                 }
             }

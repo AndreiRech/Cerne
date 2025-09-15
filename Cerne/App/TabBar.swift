@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TabBar: View {
+    @Environment(\.modelContext) var modelContext
     @EnvironmentObject var quickActionService: QuickActionService
     @State private var selectedTab: Int = 0
 
@@ -20,7 +21,7 @@ struct TabBar: View {
             }
             
             Tab("Map", systemImage: "map", value: 1) {
-                ContentView()
+                MapView(viewModel: MapViewModel(locationService: LocationService(), pinService: PinService(), userService: UserService(), scannedTreeService: ScannedTreeService()))
             }
 
             Tab("Footprint", systemImage: "leaf.arrow.trianglehead.clockwise", value: 2)

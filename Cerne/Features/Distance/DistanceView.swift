@@ -35,18 +35,18 @@ struct DistanceView: View {
         .onDisappear(perform: viewModel.onDisappear)
         .navigationDestination(isPresented: $viewModel.shouldNavigate) {
             HeightView(
-                viewModel: HeightViewModel(
-                    cameraService: CameraService(),
-                    motionService: MotionService(),
-                    userHeight: viewModel.userHeight,
-                    distanceToTree: viewModel.distance,
-                    measuredDiameter: viewModel.measuredDiameter,
-                    treeImage: viewModel.treeImage,
-                    userLatitude: viewModel.userLatitude,
-                    userLongitude: viewModel.userLongitude
-                    
-                )
-            )
+                 viewModel: HeightViewModel(
+                     cameraService: CameraService(),
+                     motionService: MotionService(),
+                     scannedTreeService: ScannedTreeService(),
+                     userHeight: 1.85,
+                     distanceToTree: 5,
+                     measuredDiameter: viewModel.measuredDiameter,
+                     treeImage: viewModel.treeImage,
+                     userLatitude: viewModel.userLatitude,
+                     userLongitude: viewModel.userLongitude
+                 )
+             )
             .navigationBarHidden(true)
         }
     }

@@ -23,8 +23,6 @@ class HeightViewModel: HeightViewModelProtocol {
     var estimatedHeight: Double = 0.0
     var errorMessage: String?
     
-    let userHeight: Double
-    let distanceToTree: Double
     let measuredDiameter: Double
     let treeImage: UIImage
     let userLatitude: Double
@@ -34,14 +32,14 @@ class HeightViewModel: HeightViewModelProtocol {
         return cameraService.previewLayer
     }
     
-    init(cameraService: CameraServiceProtocol, motionService: MotionServiceProtocol, scannedTreeService: ScannedTreeServiceProtocol, userHeight: Double, distanceToTree: Double, measuredDiameter: Float, treeImage: UIImage?) {
+    init(cameraService: CameraServiceProtocol, motionService: MotionServiceProtocol, scannedTreeService: ScannedTreeServiceProtocol, userHeight: Double, distanceToTree: Double, measuredDiameter: Double, treeImage: UIImage?, userLatitude: Double, userLongitude: Double) {
         self.motionService = motionService
         self.cameraService = cameraService
         self.scannedTreeService = scannedTreeService
         self.userHeight = userHeight
         self.distanceToTree = distanceToTree
         self.measuredDiameter = measuredDiameter
-        self.treeImage = treeImage
+        self.treeImage = treeImage ?? UIImage()
         self.userLatitude = userLatitude
         self.userLongitude = userLongitude
         

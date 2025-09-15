@@ -16,7 +16,7 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
     var treeAPIService: TreeAPIServiceProtocol
     var pinService: PinServiceProtocol
     
-    var measuredDiameter: Float
+    var measuredDiameter: Double
     var treeImage: UIImage?
     var estimatedHeight: Double
     var pinLatitude: Double
@@ -24,11 +24,15 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
     var pinUser: User?
     var tree: ScannedTree?
     
+    var updateSpecies: String = ""
+    var updateHeight: Double = 0.0
+    var updateDap: Double = 0.0
+    
     
     var isLoading: Bool = false
     var errorMessage: String?
     
-    init(cameraService: CameraServiceProtocol, scannedTreeService: ScannedTreeServiceProtocol, treeAPIService: TreeAPIServiceProtocol, pinService: PinServiceProtocol, measuredDiameter: Float, treeImage: UIImage? = nil, estimatedHeight: Double, pinLatitude: Double, pinLongitude: Double /*pinUser: User*/) {
+    init(cameraService: CameraServiceProtocol, scannedTreeService: ScannedTreeServiceProtocol, treeAPIService: TreeAPIServiceProtocol, pinService: PinServiceProtocol, measuredDiameter: Double, treeImage: UIImage? = nil, estimatedHeight: Double, pinLatitude: Double, pinLongitude: Double /*pinUser: User*/) {
         self.cameraService = cameraService
         self.scannedTreeService = scannedTreeService
         self.treeAPIService = treeAPIService
@@ -38,7 +42,7 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
         self.estimatedHeight = estimatedHeight
         self.pinLatitude = pinLatitude
         self.pinLongitude = pinLongitude
-//        self.pinUser = pinUser
+        //        self.pinUser = pinUser //TO DO: Pegar o user e receber aqui
     }
     
     func createScannedTree() async {
@@ -59,17 +63,12 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
                 species: species,
                 height: estimatedHeight,
                 dap: Double(measuredDiameter),
-                totalCO2: calculateCO2(height: estimatedHeight, dap: measuredDiameter, density: 1.5)
+                totalCO2: calculateCO2(height: estimatedHeight, dap: Float(measuredDiameter), density: 1.5)
             )
             
             tree = newTree
-            
-            print("🌱 Árvore criada com sucesso: \(newTree)")
-            print(newTree.species)
-            print(newTree.height)
-            print(newTree.dap)
-            print(newTree.totalCO2)
-//            createPin()
+
+            createPin()
             
             
             
@@ -95,34 +94,61 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
     
     func createPin() {
         do {
-            guard let treeImage else {
-                errorMessage = "Nenhuma imagem disponível para identificar."
+            guard let treeImage,
+                  let imageData = treeImage.pngData(),
+                  let tree = self.tree else {
+                errorMessage = "Não foi possível criar o pin. Faltam dados da árvore ou da imagem."
                 return
             }
-            guard let tree = self.tree else {
-                errorMessage = "Árvore não foi criada."
-                return
-            }
+            let mockUser = User(name: "Mock User", height: 1.75)
             
-            //TO DO: Pegar o user, nn sei como
-            let newPin = try pinService.createPin(image: treeImage.pngData(), latitude: pinLatitude, longitude: pinLongitude, user: pinUser!, tree: tree)
-            
-            print("🌱 Árvore criada com sucesso: \(newPin)")
-
-            
+            let newPin = try pinService.createPin (
+                image: imageData,
+                latitude: pinLatitude,
+                longitude: pinLongitude,
+                user: mockUser,
+                tree: tree
+            )
+                        
         } catch {
             errorMessage = "Ocorreu um erro ao criar o pino: \(error.localizedDescription)"
         }
         
     }
     
-    func editScannedTree() {
-        print("a")
+    func updateScannedTree() async {
+        isLoading = true
+        defer { isLoading = false }
+        
+        guard let tree = self.tree else {
+            errorMessage = "No tree to update."
+            return
+        }
+        
+        do {
+            try scannedTreeService.updateScannedTree(
+                tree: tree,
+                newSpecies: updateSpecies,
+                newHeight: updateHeight,
+                newDap: updateDap
+            )
+            
+            //TO DO: Pegar a density da árvore
+            tree.totalCO2 = calculateCO2(height: updateHeight, dap: Float(updateDap), density: 1.5)
+
+        } catch {
+            errorMessage = "An error occurred while updating the tree: \(error.localizedDescription)"
+        }
     }
+    
     
     func cancel() {
-        print("a")
+        self.tree = nil
+        self.errorMessage = nil
+        self.isLoading = false
+        self.updateSpecies = ""
+        self.updateHeight = 0.0
+        self.updateDap = 0.0
     }
-    
     
 }
