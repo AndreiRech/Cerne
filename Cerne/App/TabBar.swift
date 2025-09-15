@@ -13,20 +13,22 @@ struct TabBar: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            
-            Tab("Home", systemImage: "arrow.trianglehead.2.clockwise.rotate.90.icloud", value: 0) {
-                ContentView()
+
+            Tab("Home", systemImage: "arrow.trianglehead.2.clockwise.rotate.90.icloud", value: 0)
             {
+                ContentView()
+            }
+            
             Tab("Map", systemImage: "map", value: 1) {
                 ContentView()
             }
-            
-            Tab("Footprint", systemImage: "leaf.arrow.trianglehead.clockwise", value: 2) {
-                PhotoView(viewModel: PhotoViewModel(cameraService: CameraService(), treeAPIService: TreeAPIService()))
+
+            Tab("Footprint", systemImage: "leaf.arrow.trianglehead.clockwise", value: 2)
+            {
+                PhotoView(viewModel: PhotoViewModel(cameraService: CameraService(),treeAPIService: TreeAPIService()))
             }
-            
-            Tab("Add", systemImage: "plus", value: 3, role: .search) {
-                PhotoView(viewModel: PhotoViewModel(cameraService: CameraService(), treeAPIService: TreeAPIService()))
+
+            Tab("Add", systemImage: "plus", value: 3, role: .search) {PhotoView(viewModel: PhotoViewModel(cameraService: CameraService(), treeAPIService: TreeAPIService()))
             }
         }
         .onReceive(quickActionService.$selectedAction) { action in
