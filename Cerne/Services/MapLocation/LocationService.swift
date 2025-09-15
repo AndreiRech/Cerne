@@ -18,6 +18,9 @@ class LocationService: NSObject, CLLocationManagerDelegate, LocationServiceProto
         super.init()
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
+    }
+    
+    func start() {
         manager.requestWhenInUseAuthorization()
         manager.startUpdatingLocation()
     }

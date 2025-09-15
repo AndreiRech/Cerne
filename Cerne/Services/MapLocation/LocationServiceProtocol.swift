@@ -9,4 +9,5 @@ import Observation
 
 protocol LocationServiceProtocol: Observable {
     var userLocation: UserLocation? { get set }
+    func start()
 }
