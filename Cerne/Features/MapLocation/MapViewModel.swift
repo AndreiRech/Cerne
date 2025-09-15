@@ -18,10 +18,9 @@ final class MapViewModel: MapViewModelProtocol {
     var selectedPin: Pin?
     
     private var userService: UserServiceProtocol
-    var pinService: PinServiceProtocol
+    private var pinService: PinServiceProtocol
     private var scannedTreeService: ScannedTreeServiceProtocol
     private var locationService: LocationServiceProtocol
-    
     
     init(locationService: LocationServiceProtocol,
          pinService: PinServiceProtocol,
@@ -31,6 +30,12 @@ final class MapViewModel: MapViewModelProtocol {
         self.pinService = pinService
         self.userService = userService
         self.scannedTreeService = scannedTreeService
+    }
+    
+    func onMapAppear() {
+        locationService.start()
+        refreshLocation()
+        getPins()
     }
     
     func refreshLocation() {
@@ -50,35 +55,10 @@ final class MapViewModel: MapViewModelProtocol {
     
     func getPins() {
         do {
-            try             pins = pinService.fetchPins()
-            
+            try pins = pinService.fetchPins()
         } catch {
-            print("erro")
+            print("Was not possible to fetch pins: \(error)")
         }
     }
     
-    func addPin(image: Data?, species: String, height: Double, dap: Double) {
-        guard let userLocation = userLocation else { return }
-        
-        do {
-            let newTree = try scannedTreeService.createScannedTree(species: species, height: height, dap: dap, totalCO2: 0)
-            
-            // TODO: Substituir pela lógica de usuário logado
-            let currentUser = User(name: "Username", height: 1.65)
-            try userService.createUser(name: currentUser.name, height: currentUser.height)
-            
-            try pinService.createPin(
-                image: image,
-                latitude: userLocation.latitude,
-                longitude: userLocation.longitude,
-                user: currentUser,
-                tree: newTree
-            )
-                        
-            getPins()
-            
-        } catch {
-            print("Erro ao salvar o Pin: \(error.localizedDescription)")
-        }
-    }
 }

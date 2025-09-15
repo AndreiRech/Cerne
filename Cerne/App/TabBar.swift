@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TabBar: View {
-    @Environment(\.modelContext) private var modelContext
+    @Environment(\.modelContext) var modelContext
     @EnvironmentObject var quickActionService: QuickActionService
     @State private var selectedTab: Int = 0
 

@@ -9,15 +9,14 @@ import SwiftUI
 import MapKit
 
 protocol MapViewModelProtocol {
-    var position: MapCameraPosition { get set }
-    var userLocation: UserLocation? { get set }
-    var pins: [Pin] { get set }
+    var position: MapCameraPosition { get }
+    var userLocation: UserLocation? { get }
+    var pins: [Pin] { get }
     var selectedPin: Pin? { get set }
-    var pinService: PinServiceProtocol { get }
     
     func getPins()
     
-    func addPin(image: Data?, species: String, height: Double, dap: Double)
-    
     func refreshLocation()
+    
+    func onMapAppear()
 }
