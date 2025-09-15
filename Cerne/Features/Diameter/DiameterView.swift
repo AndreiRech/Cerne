@@ -10,6 +10,9 @@ import ARKit
 
 struct DiameterView: View {
     @State var viewModel: DiameterViewModel
+    @Environment(\.modelContext) private var modelContext
+
+    //TO DO: Arrumar o modelContext
     
     var body: some View {
         NavigationStack {
@@ -39,6 +42,7 @@ struct DiameterView: View {
                                 viewModel: HeightViewModel(
                                     cameraService: CameraService(),
                                     motionService: MotionService(),
+                                    scannedTreeService: ScannedTreeService(modelContext: modelContext),
                                     userHeight: 1.85,
                                     distanceToTree: 5,
                                     measuredDiameter: viewModel.result ?? 0.0,
