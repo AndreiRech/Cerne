@@ -11,8 +11,9 @@ import SwiftData
 class UserService: UserServiceProtocol {
     private var modelContext: ModelContext
     
-    init(modelContext: ModelContext) {
-        self.modelContext = modelContext
+    @MainActor
+    init() {
+        self.modelContext = Persistence.shared.modelContext
     }
     
     func fetchUsers() throws -> [User] {

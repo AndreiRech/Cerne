@@ -21,6 +21,13 @@ protocol HeightViewModelProtocol {
     var treeImage: UIImage? { get }
     var measuredDiameter: Float { get }
     
+    var userHeight: Double { get }
+    var distanceToTree: Double { get }
+    var measuredDiameter: Double { get }
+    var treeImage: UIImage { get }
+    var userLatitude: Double { get }
+    var userLongitude: Double { get }
+    
     func onAppear()
     func onDisappear()
     func calculateHeight(angleInDegrees: Double)

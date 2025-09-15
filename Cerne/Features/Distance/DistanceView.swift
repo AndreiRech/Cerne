@@ -23,8 +23,31 @@ struct DistanceView: View {
                 .foregroundColor(.white)
                 .cornerRadius(10)
                 .padding(.bottom, 30)
+            
+            Button {
+                viewModel.shouldNavigate = true
+                viewModel.getUserLocation()
+            } label: {
+                Text("Continuar")
+            }
         }
         .onAppear(perform: viewModel.onAppear)
         .onDisappear(perform: viewModel.onDisappear)
+        .navigationDestination(isPresented: $viewModel.shouldNavigate) {
+            HeightView(
+                viewModel: HeightViewModel(
+                    cameraService: CameraService(),
+                    motionService: MotionService(),
+                    userHeight: viewModel.userHeight,
+                    distanceToTree: viewModel.distance,
+                    measuredDiameter: viewModel.measuredDiameter,
+                    treeImage: viewModel.treeImage,
+                    userLatitude: viewModel.userLatitude,
+                    userLongitude: viewModel.userLongitude
+                    
+                )
+            )
+            .navigationBarHidden(true)
+        }
     }
 }

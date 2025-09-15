@@ -9,7 +9,7 @@
 import Foundation
 import SwiftData
 
-class MockPinService: PinServiceProtocol {
+class MockPinService: PinServiceProtocol {    
     var details: [TreeDetails]
     var pins: [Pin] = []
     var shouldFail: Bool
@@ -27,7 +27,7 @@ class MockPinService: PinServiceProtocol {
         return pins
     }
     
-    func createPin(image: Data?, latitude: Double, longitude: Double, user: User, tree: ScannedTree) throws {
+    func createPin(image: Data, latitude: Double, longitude: Double, user: Cerne.User, tree: Cerne.ScannedTree) throws {
         if shouldFail {
             throw NSError(domain: "MockPinService", code: 1, userInfo: [NSLocalizedDescriptionKey: "Failed to create Pin"])
         }

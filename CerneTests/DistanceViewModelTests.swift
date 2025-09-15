@@ -8,13 +8,19 @@
 import Foundation
 import Testing
 @testable import Cerne
+import UIKit
 
 //@MainActor
 //struct DistanceViewModelTests {
 //    @Test func shouldStartSession() {
 //        // Given
 //        let mockARService = MockARService(shouldFail: false)
-//        let viewModel = DistanceViewModel(arService: mockARService)
+//        let viewModel = DistanceViewModel(
+//            arService: mockARService,
+//            userHeight: 0.0,
+//            measuredDiameter: 0.0,
+//            treeImage: UIImage()
+//        )
 //        
 //        // When
 //        viewModel.onAppear()
@@ -26,7 +32,12 @@ import Testing
 //    @Test func shouldFinishSession() {
 //        // Given
 //        let mockARService = MockARService(shouldFail: false)
-//        let viewModel = DistanceViewModel(arService: mockARService)
+//        let viewModel = DistanceViewModel(
+//            arService: mockARService,
+//            userHeight: 0.0,
+//            measuredDiameter: 0.0,
+//            treeImage: UIImage()
+//        )
 //        
 //        // When
 //        viewModel.onAppear()
@@ -39,9 +50,14 @@ import Testing
 //    @Test func shouldUpdateDistanceTextOnNewValue() async throws {
 //        // Given
 //        let mockARService = MockARService()
-//        let viewModel = DistanceViewModel(arService: mockARService)
+//        let viewModel = DistanceViewModel(
+//            arService: mockARService,
+//            userHeight: 0.0,
+//            measuredDiameter: 0.0,
+//            treeImage: UIImage()
+//        )
 //        let inputDistance: Float = 1.2345
-//        let expectedText = "Distância: 1.23 m"
+//        let expectedText = "1.23 m de altura"
 //        
 //        // When
 //        mockARService.distancePublisher.send(inputDistance)
