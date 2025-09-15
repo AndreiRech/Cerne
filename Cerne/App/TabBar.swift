@@ -14,29 +14,23 @@ struct TabBar: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            ContentView()
-                .tabItem {
-                    Label("Home", systemImage: "house.fill")
-                }
-                .tag(0)
+
+            Tab("Home", systemImage: "arrow.trianglehead.2.clockwise.rotate.90.icloud", value: 0)
+            {
+                ContentView()
+            }
             
-            MapView(viewModel: MapViewModel(locationService: LocationService(), pinService: PinService(modelContext: modelContext), userService: UserService(modelContext: modelContext), scannedTreeService: ScannedTreeService(modelContext: modelContext)))
-                .tabItem {
-                    Label("Map", systemImage: "map")
-                }
-                .tag(1)
-            
-            ContentView()
-                .tabItem {
-                    Label("Footprint", systemImage: "arrow.3.trianglepath")
-                }
-                .tag(2)
-            
-            PhotoView(viewModel: PhotoViewModel(cameraService: CameraService(), treeAPIService: TreeAPIService()))
-                .tabItem {
-                    Label("Add", systemImage: "plus")
-                }
-                .tag(3)
+            Tab("Map", systemImage: "map", value: 1) {
+                ContentView()
+            }
+
+            Tab("Footprint", systemImage: "leaf.arrow.trianglehead.clockwise", value: 2)
+            {
+                PhotoView(viewModel: PhotoViewModel(cameraService: CameraService(),treeAPIService: TreeAPIService()))
+            }
+
+            Tab("Add", systemImage: "plus", value: 3, role: .search) {PhotoView(viewModel: PhotoViewModel(cameraService: CameraService(), treeAPIService: TreeAPIService()))
+            }
         }
         .onReceive(quickActionService.$selectedAction) { action in
             guard let action = action else { return }

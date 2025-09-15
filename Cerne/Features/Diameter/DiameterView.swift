@@ -35,18 +35,16 @@ struct DiameterView: View {
                     .padding(.horizontal, 30)
                     .frame(height: 100)
                     .navigationDestination(isPresented: $viewModel.shouldNavigate) {
-                            HeightView(
-                                viewModel: HeightViewModel(
-                                    cameraService: CameraService(),
-                                    motionService: MotionService(),
-                                    userHeight: 1.85,
-                                    distanceToTree: 5,
-                                    measuredDiameter: viewModel.result ?? 0.0,
-                                    treeImage: viewModel.treeImage
-                                )
+                        DistanceView(
+                            viewModel: DistanceViewModel(
+                                arService: ARService(),
+                                userHeight: 1.85,
+                                measuredDiameter: Double(viewModel.result ?? 0.0),
+                                treeImage: viewModel.treeImage
                             )
-                            .navigationBarHidden(true)
-                        }
+                        )
+                        .navigationBarHidden(true)
+                    }
                     
                 }
             }

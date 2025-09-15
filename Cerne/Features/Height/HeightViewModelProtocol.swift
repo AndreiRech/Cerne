@@ -8,6 +8,7 @@
 import Foundation
 import AVFoundation
 import Combine
+import UIKit
 
 protocol HeightViewModelProtocol {
     var estimatedHeight: Double { get }
@@ -15,6 +16,13 @@ protocol HeightViewModelProtocol {
     var cameraService: CameraServiceProtocol { get }
     var motionService: MotionServiceProtocol { get }
     var errorMessage: String? { get }
+    
+    var userHeight: Double { get }
+    var distanceToTree: Double { get }
+    var measuredDiameter: Double { get }
+    var treeImage: UIImage { get }
+    var userLatitude: Double { get }
+    var userLongitude: Double { get }
     
     func onAppear()
     func onDisappear()

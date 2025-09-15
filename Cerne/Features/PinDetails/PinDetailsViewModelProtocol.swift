@@ -8,9 +8,10 @@
 import Foundation
 
 protocol PinDetailsViewModelProtocol {
-    var pin: Pin? { get }
+    var pin: Pin { get }
+    var details: TreeDetails? { get set }
     
-    func fetchPin(id: UUID)
     func deletePin(pin: Pin)
     func reportPin(to pin: Pin)
+    func isPinFromUser() -> Bool
 }

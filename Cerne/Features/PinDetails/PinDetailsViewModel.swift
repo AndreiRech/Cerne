@@ -8,17 +8,25 @@
 import Foundation
 
 @Observable
-class PinDetailsViewModel: PinDetailsViewModelProtocol {
-    var pin: Pin?
+class PinDetailsViewModel: PinDetailsViewModelProtocol {    
+    var pin: Pin
+    let pinService: PinService
+    var allDetails: [TreeDetails] = []
+    var details: TreeDetails?
     
-    private let pinService: PinService
-    
-    init(pinService: PinService) {
+    init(pin: Pin, pinService: PinService) {
+        self.pin = pin
         self.pinService = pinService
+        setup()
     }
     
-    func fetchPin(id: UUID) {
-        //MARK: TO DO: Fetch Pin
+    private func setup() {
+        do {
+            try allDetails = pinService.getDetails(fileName: "Tree")
+            try details = pinService.getDetails(for: pin.tree)
+        } catch {
+            print("Failed to get details")
+        }
     }
     
     func deletePin(pin: Pin) {
@@ -27,7 +35,6 @@ class PinDetailsViewModel: PinDetailsViewModelProtocol {
         } catch {
             print("Failed to delete")
         }
-        
     }
     
     func reportPin(to pin: Pin) {
@@ -36,8 +43,9 @@ class PinDetailsViewModel: PinDetailsViewModelProtocol {
         } catch {
             print("Failed to report pin")
         }
-        
     }
     
-    
+    func isPinFromUser() -> Bool {
+        return false
+    }
 }
