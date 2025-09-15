@@ -11,8 +11,9 @@ import SwiftData
 class ScannedTreeService: ScannedTreeServiceProtocol {
     private var modelContext: ModelContext
     
-    init(modelContext: ModelContext) {
-        self.modelContext = modelContext
+    @MainActor
+    init() {
+        self.modelContext = Persistence.shared.modelContext
     }
     
     func fetchScannedTrees() throws -> [ScannedTree] {

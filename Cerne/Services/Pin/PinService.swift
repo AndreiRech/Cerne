@@ -12,8 +12,9 @@ class PinService: PinServiceProtocol {
     private var modelContext: ModelContext
     var details: [TreeDetails]
     
-    init(modelContext: ModelContext, details: [TreeDetails] = []) {
-        self.modelContext = modelContext
+    @MainActor
+    init(details: [TreeDetails] = []) {
+        self.modelContext = Persistence.shared.modelContext
         self.details = []
     }
     
@@ -28,7 +29,7 @@ class PinService: PinServiceProtocol {
         }
     }
     
-    func createPin(image: Data?, latitude: Double, longitude: Double, user: User, tree: ScannedTree) throws {
+    func createPin(image: Data, latitude: Double, longitude: Double, user: User, tree: ScannedTree) throws {
         let newPin = Pin(image: image, latitude: latitude, longitude: longitude, date: Date(), user: user, tree: tree)
         modelContext.insert(newPin)
         try save()
