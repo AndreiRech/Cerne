@@ -16,24 +16,30 @@ class HeightViewModel: HeightViewModelProtocol {
     let cameraService: CameraServiceProtocol
     private var cancellables = Set<AnyCancellable>()
     
-    let userHeight: Double
-    let distanceToTree: Double
     var estimatedHeight: Double = 0.0
     var errorMessage: String?
-    var measuredDiameter: Float
-    var treeImage: UIImage?
+    
+    let userHeight: Double
+    let distanceToTree: Double
+    let measuredDiameter: Double
+    let treeImage: UIImage
+    let userLatitude: Double
+    let userLongitude: Double
     
     var previewLayer: AVCaptureVideoPreviewLayer {
         return cameraService.previewLayer
     }
     
-    init(cameraService: CameraServiceProtocol, motionService: MotionServiceProtocol, userHeight: Double, distanceToTree: Double, measuredDiameter: Float, treeImage: UIImage?) {
+    init(cameraService: CameraServiceProtocol, motionService: MotionServiceProtocol, userHeight: Double, distanceToTree: Double, measuredDiameter: Double, treeImage: UIImage, userLatitude: Double, userLongitude: Double) {
         self.motionService = motionService
         self.cameraService = cameraService
+        
         self.userHeight = userHeight
         self.distanceToTree = distanceToTree
         self.measuredDiameter = measuredDiameter
         self.treeImage = treeImage
+        self.userLatitude = userLatitude
+        self.userLongitude = userLongitude
         
         subscribeToPublishers()
     }
