@@ -7,15 +7,37 @@
 
 import Foundation
 import Combine
+import UIKit
+import CoreLocation
 
 @Observable
-class DistanceViewModel: DistanceViewModelProtocol {
+class DistanceViewModel: NSObject, DistanceViewModelProtocol, CLLocationManagerDelegate {
     private var cancellables = Set<AnyCancellable>()
+    private let locationManager = CLLocationManager()
+    
     var arService: ARServiceProtocol
     var distanceText: String = ""
+    var shouldNavigate: Bool = false
     
-    init(arService: ARServiceProtocol) {
+    let userHeight: Double
+    let measuredDiameter: Double
+    var treeImage: UIImage
+    var userLatitude: Double = 0.0
+    var userLongitude: Double = 0.0
+    var distance: Double = 0.0
+    
+    init(arService: ARServiceProtocol,
+         userHeight: Double,
+         measuredDiameter: Double,
+         treeImage: UIImage) {
         self.arService = arService
+        self.userHeight = userHeight
+        self.measuredDiameter = measuredDiameter
+        self.treeImage = treeImage
+        
+        super.init()
+        self.locationManager.delegate = self
+        
         subscribeToPublishers()
     }
     
@@ -23,7 +45,8 @@ class DistanceViewModel: DistanceViewModelProtocol {
         arService.distancePublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] distance in
-                self?.distanceText = String(format: "Distância: %.2f m", distance)
+                self?.distanceText = String(format: "%.2f longe da arvore", distance)
+                self?.distance = Double(distance)
             }
             .store(in: &cancellables)
     }
@@ -34,5 +57,21 @@ class DistanceViewModel: DistanceViewModelProtocol {
     
     func onDisappear() {
         arService.stop()
+    }
+    
+    func getUserLocation() {
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
+    }
+    
+    internal func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            self.userLatitude = location.coordinate.latitude
+            self.userLongitude = location.coordinate.longitude
+        }
+    }
+    
+    internal func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Erro ao obter a localização: \(error.localizedDescription)")
     }
 }

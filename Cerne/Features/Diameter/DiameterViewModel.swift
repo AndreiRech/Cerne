@@ -14,7 +14,7 @@ class DiameterViewModel: NSObject, DiameterViewModelProtocol, ObservableObject, 
     
     var result: Float? = nil
     var shouldNavigate: Bool = false
-    var treeImage: UIImage?
+    var treeImage: UIImage
     
     var startNode: SCNNode?
     var endNode: SCNNode?
@@ -24,7 +24,7 @@ class DiameterViewModel: NSObject, DiameterViewModelProtocol, ObservableObject, 
     var cameraService: CameraServiceProtocol
     var errorMessage: String?
     
-    init(startNode: SCNNode? = nil, endNode: SCNNode? = nil, lineNode: SCNNode? = nil, textNode: SCNNode? = nil, cameraService: CameraServiceProtocol, treeImage: UIImage?) {
+    init(startNode: SCNNode? = nil, endNode: SCNNode? = nil, lineNode: SCNNode? = nil, textNode: SCNNode? = nil, cameraService: CameraServiceProtocol, treeImage: UIImage) {
         self.startNode = startNode
         self.endNode = endNode
         self.lineNode = lineNode
