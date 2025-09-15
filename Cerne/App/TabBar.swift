@@ -16,8 +16,7 @@ struct TabBar: View {
             
             Tab("Home", systemImage: "arrow.trianglehead.2.clockwise.rotate.90.icloud", value: 0) {
                 ContentView()
-            }
-            
+            {
             Tab("Map", systemImage: "map", value: 1) {
                 ContentView()
             }
