@@ -17,7 +17,6 @@ class DistanceViewModel: NSObject, DistanceViewModelProtocol, CLLocationManagerD
     
     var arService: ARServiceProtocol
     var distanceText: String = ""
-    var shouldNavigate: Bool = false
     
     let userHeight: Double
     let measuredDiameter: Double
@@ -25,6 +24,10 @@ class DistanceViewModel: NSObject, DistanceViewModelProtocol, CLLocationManagerD
     var userLatitude: Double = 0.0
     var userLongitude: Double = 0.0
     var distance: Double = 0.0
+    
+    var showInfo: Bool = true
+    var isMeasuring: Bool = false
+    var shouldNavigate: Bool = false
     
     init(arService: ARServiceProtocol,
          userHeight: Double,
