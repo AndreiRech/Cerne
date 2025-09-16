@@ -45,8 +45,7 @@ struct HeightView: View {
                                     .fontWeight(.semibold)
                             }
                             .foregroundColor(.white)
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 12)
+                            .padding(20)
                             .glassEffect()
                             .offset(y: 120)
                         } else {
@@ -60,8 +59,7 @@ struct HeightView: View {
                                     .fontWeight(.semibold)
                             }
                             .foregroundColor(.white)
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 12)
+                            .padding(20)
                             .background(.ultraThinMaterial)
                             .clipShape(Capsule())
                             .offset(y: 120)
@@ -76,22 +74,22 @@ struct HeightView: View {
                                 Text(viewModel.isMeasuring ? "Posicionar" : "Finalizar")
                                     .font(.body)
                                     .fontWeight(.semibold)
-                                    .foregroundColor(.white)
-                                    .padding(.horizontal, 40)
-                                    .padding(.vertical, 15)
+                                    .foregroundColor(.black)
+                                    .padding(.horizontal, 20)
+                                    .padding(.vertical, 14)
                                     .glassEffect()
                             } else {
                                 Text(viewModel.isMeasuring ? "Posicionar" : "Finalizar")
                                     .font(.body)
                                     .fontWeight(.semibold)
-                                    .foregroundColor(.white)
-                                    .padding(.horizontal, 40)
-                                    .padding(.vertical, 15)
+                                    .foregroundColor(.black)
+                                    .padding(.horizontal, 20)
+                                    .padding(.vertical, 14)
                                     .background(.ultraThinMaterial)
                                     .clipShape(Capsule())
                             }
                         }
-                        .padding(.bottom, 50)
+                        .padding(.bottom, 100)
                         .sheet(isPresented: $viewModel.shouldNavigate) {
                             TreeReviewView(
                                 viewModel: TreeReviewViewModel(
