@@ -9,12 +9,12 @@
 import Foundation
 import SwiftData
 
-class MockPinService: PinServiceProtocol {    
+class MockPinService: PinServiceProtocol {
     var details: [TreeDetails]
     var pins: [Pin] = []
     var shouldFail: Bool
     
-    init(shouldFail: Bool = false, details: [TreeDetails] = [TreeDetails(commonName: "normal", scientificName: "cientifico", density: 1.0, description: "texto")]) {
+    init(shouldFail: Bool = false, details: [TreeDetails] = [TreeDetails(commonName: "Ipê-amarelo", scientificName: "Handroanthus albus (Ipê-Amarelo)", density: 1.0, description: "texto")]) {
         self.shouldFail = shouldFail
         self.details = details
     }
@@ -60,12 +60,12 @@ class MockPinService: PinServiceProtocol {
             throw JsonError.fileNotFound
         }
         
-        return [TreeDetails(commonName: "normal", scientificName: "cientifico", density: 1.0, description: "texto")]
+        return details
     }
     
     func getDetails(for tree: ScannedTree) throws -> TreeDetails {
         for detail in details {
-            if detail.scientificName.contains(tree.species.lowercased()) {
+            if detail.scientificName.lowercased().contains(tree.species.lowercased()) {
                 return detail
             }
         }
