@@ -17,6 +17,7 @@ class HeightViewModel: HeightViewModelProtocol {
     private var cancellables = Set<AnyCancellable>()
     
     var estimatedHeight: Double = 0.0
+    var finalHeight: Double = 0.0
     var errorMessage: String?
     
     let userHeight: Double
@@ -25,6 +26,9 @@ class HeightViewModel: HeightViewModelProtocol {
     let treeImage: UIImage
     let userLatitude: Double
     let userLongitude: Double
+    
+    var showInfo: Bool = true
+    var isMeasuring: Bool = false
     
     var previewLayer: AVCaptureVideoPreviewLayer {
         return cameraService.previewLayer
@@ -77,6 +81,11 @@ class HeightViewModel: HeightViewModelProtocol {
         if calculatedHeight < 0 { calculatedHeight = 0 }
         
         self.estimatedHeight = calculatedHeight
+    }
+    
+    func saveHeight() {
+        isMeasuring = false
+        finalHeight = estimatedHeight
     }
 }
 

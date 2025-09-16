@@ -23,8 +23,13 @@ protocol HeightViewModelProtocol {
     var treeImage: UIImage { get }
     var userLatitude: Double { get }
     var userLongitude: Double { get }
+    var finalHeight: Double { get }
+    
+    var showInfo: Bool { get set }
+    var isMeasuring: Bool { get set }
     
     func onAppear()
     func onDisappear()
     func calculateHeight(angleInDegrees: Double)
+    func saveHeight()
 }
