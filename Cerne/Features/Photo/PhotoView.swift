@@ -73,7 +73,7 @@ struct PhotoView: View {
                                                 treeImage: capturedImage
                                             )
                                         )
-                                        .navigationBarHidden(true)
+                                        .navigationBarHidden(false)
                                     }
                             }
                             .padding(.horizontal, 30)

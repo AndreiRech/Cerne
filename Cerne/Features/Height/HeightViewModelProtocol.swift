@@ -11,7 +11,6 @@ import Combine
 import UIKit
 
 protocol HeightViewModelProtocol {
-    var shouldNavigate: Bool { get set }
     var estimatedHeight: Double { get }
     var previewLayer: AVCaptureVideoPreviewLayer { get }
     var cameraService: CameraServiceProtocol { get }
@@ -25,10 +24,15 @@ protocol HeightViewModelProtocol {
     var treeImage: UIImage { get }
     var userLatitude: Double { get }
     var userLongitude: Double { get }
+    var finalHeight: Double { get }
+    
+    var firstInstruction: Bool { get set }
+    var shouldNavigate: Bool { get set }
+    var showInfo: Bool { get set }
+    var isMeasuring: Bool { get set }
     
     func onAppear()
     func onDisappear()
     func calculateHeight(angleInDegrees: Double)
-    func finishMeasurement(estimatedHeight: Double)
-
+    func saveHeight()
 }
