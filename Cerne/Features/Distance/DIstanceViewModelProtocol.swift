@@ -12,7 +12,6 @@ import UIKit
 protocol DistanceViewModelProtocol: ObservableObject {
     var distanceText: String { get }
     var arService: ARServiceProtocol { get }
-    var shouldNavigate: Bool { get set }
     
     var userHeight: Double { get }
     var measuredDiameter: Double { get }
@@ -20,6 +19,10 @@ protocol DistanceViewModelProtocol: ObservableObject {
     var userLatitude: Double { get }
     var userLongitude: Double { get }
     var distance: Double { get }
+    
+    var showInfo: Bool { get set }
+    var isMeasuring: Bool { get set }
+    var shouldNavigate: Bool { get set }
     
     func onAppear()
     func onDisappear()

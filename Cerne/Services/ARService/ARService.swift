@@ -22,9 +22,11 @@ class ARService: NSObject, ARServiceProtocol, ARSessionDelegate, ObservableObjec
         setupGestures()
     }
     
-    func start() {
+    func start(showOverlay: Bool = false) {
         createConfiguration()
-        showCoachOverlay()
+        if showOverlay {
+            showCoachOverlay()
+        }
         placeInitialObject()
     }
     

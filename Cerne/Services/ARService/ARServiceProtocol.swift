@@ -14,6 +14,6 @@ protocol ARServiceProtocol {
     var arView: ARView { get }
     var distancePublisher: PassthroughSubject<Float, Never> { get }
     
-    func start()
+    func start(showOverlay: Bool)
     func stop()
 }
