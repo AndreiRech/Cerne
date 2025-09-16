@@ -21,7 +21,7 @@ class MockARService: ARServiceProtocol {
         self.shouldFail = shouldFail
     }
     
-    func start() {
+    func start(showOverlay: Bool = false) {
         isCorrect = !shouldFail
     }
     
