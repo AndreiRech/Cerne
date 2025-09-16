@@ -13,12 +13,17 @@ struct HeightView: View {
                     .ignoresSafeArea()
                 
                 InstructionComponent(
-                    imageName: "chevron.up.2",
-                    title: "Mire no ponto mais alto da árvore e adicione o ponto para registrar a altura",
-                    buttonText: "Capturar o topo",
+                    imageName: viewModel.firstInstruction ? "figure.walk" : "chevron.up.2",
+                    title: viewModel.firstInstruction ? "Para medirmos a altura, dê alguns passos para longe da árvore até o topo aparecer na tela" : "Mire no ponto mais alto da árvore e adicione o ponto para registrar a altura",
+                    buttonText: viewModel.firstInstruction ? "Encontrar distância ideal" : "Capturar o topo",
                     onTap: {
-                        viewModel.showInfo.toggle()
-                        viewModel.isMeasuring.toggle()
+                        if viewModel.firstInstruction {
+                            viewModel.firstInstruction.toggle()
+                        } else {
+                            viewModel.showInfo.toggle()
+                            viewModel.isMeasuring.toggle()
+                            viewModel.firstInstruction.toggle()
+                        }
                     })
             } else {
                 ZStack {

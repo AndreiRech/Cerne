@@ -26,6 +26,7 @@ protocol HeightViewModelProtocol {
     var userLongitude: Double { get }
     var finalHeight: Double { get }
     
+    var firstInstruction: Bool { get set }
     var shouldNavigate: Bool { get set }
     var showInfo: Bool { get set }
     var isMeasuring: Bool { get set }

@@ -28,6 +28,7 @@ class HeightViewModel: HeightViewModelProtocol {
     let userLatitude: Double
     let userLongitude: Double
     
+    var firstInstruction: Bool = true
     var showInfo: Bool = true
     var isMeasuring: Bool = false
     var shouldNavigate: Bool = false
