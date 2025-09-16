@@ -133,7 +133,6 @@ struct PhotoViewModelTests {
         
         // When
         await viewModel.identifyTree(image: UIImage())
-//        try? await Task.sleep(for: .seconds(2))
 
         // Then
         #expect(mockTreeAPIService.isCorret)
@@ -150,7 +149,6 @@ struct PhotoViewModelTests {
         
         // When
         await viewModel.identifyTree(image: UIImage())
-//        await Task.yield()
 
         // Then
         #expect(!mockTreeAPIService.isCorret)
@@ -167,7 +165,6 @@ struct PhotoViewModelTests {
         
         // When
         await viewModel.identifyTree(image: UIImage())
-        await Task.yield()
 
         // Then
         #expect(!mockTreeAPIService.isCorret)
