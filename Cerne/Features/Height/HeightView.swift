@@ -38,7 +38,7 @@ struct HeightView: View {
                             HStack(spacing: 10) {
                                 Image(systemName: "tree")
                                     .font(.system(size: 16, weight: .semibold))
-                                    .foregroundStyle(.yellow)
+                                    .foregroundStyle(.CTA)
                                 
                                 Text(String(format: "%.2f m de altura", viewModel.isMeasuring ? viewModel.estimatedHeight : viewModel.finalHeight))
                                     .font(.body)
@@ -52,7 +52,7 @@ struct HeightView: View {
                             HStack(spacing: 10) {
                                 Image(systemName: "tree")
                                     .font(.system(size: 16, weight: .semibold))
-                                    .foregroundStyle(.yellow)
+                                    .foregroundStyle(.CTA)
                                 
                                 Text(String(format: "%.2f m de altura", viewModel.isMeasuring ? viewModel.estimatedHeight : viewModel.finalHeight))
                                     .font(.body)

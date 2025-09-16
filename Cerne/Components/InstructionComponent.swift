@@ -18,7 +18,7 @@ struct InstructionComponent: View {
             VStack(alignment: .center, spacing: 10) {
                 Image(systemName: imageName)
                     .font(.largeTitle)
-                    .foregroundColor(.yellow)
+                    .foregroundColor(.CTA)
                 
                 Text(title)
                     .font(.title3)
