@@ -28,8 +28,10 @@ struct TabBar: View {
             }
 
             Tab("Add", systemImage: "plus", value: 3, role: .search) {
-                PhotoView(viewModel: PhotoViewModel(cameraService: CameraService(), treeAPIService: TreeAPIService()))
-                    .toolbar(.hidden, for: .tabBar)
+                NavigationStack {
+                    PhotoView(viewModel: PhotoViewModel(cameraService: CameraService(), treeAPIService: TreeAPIService()))
+                        .toolbar(.hidden, for: .tabBar)
+                }
             }
         }
         .onReceive(quickActionService.$selectedAction) { action in
