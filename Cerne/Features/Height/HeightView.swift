@@ -11,35 +11,75 @@ struct HeightView: View {
     @State var viewModel: HeightViewModelProtocol
     
     var body: some View {
-        ZStack {
-            CameraPreview(service: viewModel.cameraService)
-                .ignoresSafeArea()
-            
-            Circle()
-                .stroke(Color.white.opacity(0.8), lineWidth: 2)
-                .frame(width: 30, height: 30)
-            
-            VStack {
-                Spacer()
+        NavigationStack {
+            ZStack {
+                CameraPreview(service: viewModel.cameraService)
+                    .ignoresSafeArea()
                 
-                VStack(spacing: 12) {
-                    Text("Ângulo Atual")
-                        .font(.caption)
-                        .foregroundColor(.white.opacity(0.8))
+                Circle()
+                    .stroke(Color.white.opacity(0.8), lineWidth: 2)
+                    .frame(width: 30, height: 30)
+                
+                VStack {
+                    Spacer()
                     
-                    Text("Altura Estimada da Árvore")
-                        .font(.caption)
-                        .foregroundColor(.white.opacity(0.8))
-                        .padding(.top)
+                    VStack(spacing: 12) {
+                        Text("Ângulo Atual")
+                            .font(.caption)
+                            .foregroundColor(.white.opacity(0.8))
+                        
+                        Text("Altura Estimada da Árvore")
+                            .font(.caption)
+                            .foregroundColor(.white.opacity(0.8))
+                            .padding(.top)
 
-                    Text(String(format: "%.2f metros", viewModel.estimatedHeight))
-                        .font(.system(size: 50, weight: .bold, design: .monospaced))
-                        .foregroundColor(.green)
+                        Text(String(format: "%.2f metros", viewModel.estimatedHeight))
+                            .font(.system(size: 50, weight: .bold, design: .monospaced))
+                            .foregroundColor(.green)
+                    }
+                    .padding()
+                    .background(Color.black.opacity(0.5))
+                    .cornerRadius(20)
+                    .padding()
                 }
-                .padding()
-                .background(Color.black.opacity(0.5))
-                .cornerRadius(20)
-                .padding()
+                VStack {
+                    Spacer()
+                    
+                    Button(action: {
+                        viewModel.finishMeasurement(estimatedHeight: viewModel.estimatedHeight)
+                        viewModel.shouldNavigate = true
+                    }) {
+                        Text("Concluir Medida")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundColor(.black)
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(15)
+                    }
+                    .padding(.horizontal, 30)
+                    .frame(height: 100)
+                    .sheet(isPresented: $viewModel.shouldNavigate) {
+                            TreeReviewView(
+                                viewModel: TreeReviewViewModel(
+                                    cameraService: CameraService(),
+                                    scannedTreeService: ScannedTreeService(),
+                                    treeAPIService: TreeAPIService(),
+                                    pinService: PinService(),
+                                    measuredDiameter: viewModel.measuredDiameter,
+                                    treeImage: viewModel.treeImage,
+                                    estimatedHeight: viewModel.estimatedHeight,
+                                    pinLatitude: viewModel.userLatitude,
+                                    pinLongitude: viewModel.userLongitude 
+                                )
+                            )
+                            .presentationDragIndicator(.hidden)
+                            .presentationDetents([.height(350)]) 
+                            .presentationDragIndicator(.hidden)
+                            .background(.ultraThinMaterial)
+                            .cornerRadius(15)
+                        }
+                }
             }
         }
         .onAppear(perform: viewModel.onAppear)
