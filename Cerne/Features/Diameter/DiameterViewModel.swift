@@ -12,7 +12,7 @@ import SceneKit
 @Observable
 class DiameterViewModel: NSObject, DiameterViewModelProtocol, ObservableObject, ARSCNViewDelegate {
     
-    var result: Float? = nil
+    var result: Double? = nil
     var shouldNavigate: Bool = false
     var treeImage: UIImage
     
@@ -86,7 +86,7 @@ class DiameterViewModel: NSObject, DiameterViewModelProtocol, ObservableObject, 
             sceneView.scene.rootNode.addChildNode(textNode!)
             
             print("📝 Distance between points: \(String(format: "%.2f", distance)) meters")
-            self.result = distance
+            self.result = Double(distance)
 
         } else {
             resetNodes()

@@ -15,12 +15,14 @@ struct HeightViewModelTests {
         // Given
         let mockCameraService = MockCameraService(shouldFail: false)
         let mockMotionService = MockMotionService()
+        let mockScannedTreeService = MockScannedTreeService()
         let userHeight: Double = 1.80
         let distanceToTree: Double = 5.0
         let measureDiameter: Double = 0.8
         let viewModel = HeightViewModel(
             cameraService: mockCameraService,
             motionService: mockMotionService,
+            scannedTreeService: mockScannedTreeService,
             userHeight: userHeight,
             distanceToTree: distanceToTree,
             measuredDiameter: measureDiameter,
@@ -46,12 +48,14 @@ struct HeightViewModelTests {
         // Given
         let mockCameraService = MockCameraService(shouldFail: true)
         let mockMotionService = MockMotionService()
+        let mockScannedTreeService = MockScannedTreeService()
         let userHeight: Double = 1.80
         let distanceToTree: Double = 5.0
         let measureDiameter: Double = 0.8
         let viewModel = HeightViewModel(
             cameraService: mockCameraService,
             motionService: mockMotionService,
+            scannedTreeService: mockScannedTreeService,
             userHeight: userHeight,
             distanceToTree: distanceToTree,
             measuredDiameter: measureDiameter,
@@ -77,12 +81,14 @@ struct HeightViewModelTests {
         // Given
         let mockCameraService = MockCameraService(shouldFail: false)
         let mockMotionService = MockMotionService()
+        let mockScannedTreeService = MockScannedTreeService()
         let userHeight: Double = 1.80
         let distanceToTree: Double = 5.0
         let measureDiameter: Double = 0.8
         let viewModel = HeightViewModel(
             cameraService: mockCameraService,
             motionService: mockMotionService,
+            scannedTreeService: mockScannedTreeService,
             userHeight: userHeight,
             distanceToTree: distanceToTree,
             measuredDiameter: measureDiameter,
@@ -110,12 +116,14 @@ struct HeightViewModelTests {
         // Given
         let mockCameraService = MockCameraService(shouldFail: false)
         let mockMotionService = MockMotionService()
+        let mockScannedTreeService = MockScannedTreeService()
         let userHeight: Double = 1.80
         let distanceToTree: Double = 5.0
         let measureDiameter: Double = 0.8
         let viewModel = HeightViewModel(
             cameraService: mockCameraService,
             motionService: mockMotionService,
+            scannedTreeService: mockScannedTreeService,
             userHeight: userHeight,
             distanceToTree: distanceToTree,
             measuredDiameter: measureDiameter,
@@ -137,12 +145,14 @@ struct HeightViewModelTests {
         // Given
         let mockCameraService = MockCameraService(shouldFail: false)
         let mockMotionService = MockMotionService(angleInDegrees: 100)
+        let mockScannedTreeService = MockScannedTreeService()
         let userHeight: Double = 1.80
         let distanceToTree: Double = 5.0
         let measureDiameter: Double = 0.8
         let viewModel = HeightViewModel(
             cameraService: mockCameraService,
             motionService: mockMotionService,
+            scannedTreeService: mockScannedTreeService,
             userHeight: userHeight,
             distanceToTree: distanceToTree,
             measuredDiameter: measureDiameter,
@@ -163,12 +173,14 @@ struct HeightViewModelTests {
         // Given
         let mockCameraService = MockCameraService(shouldFail: false)
         let mockMotionService = MockMotionService(angleInDegrees: 80)
+        let mockScannedTreeService = MockScannedTreeService()
         let userHeight: Double = 1.80
         let distanceToTree: Double = 5.0
         let measureDiameter: Double = 0.8
         let viewModel = HeightViewModel(
             cameraService: mockCameraService,
             motionService: mockMotionService,
+            scannedTreeService: mockScannedTreeService,
             userHeight: userHeight,
             distanceToTree: distanceToTree,
             measuredDiameter: measureDiameter,
@@ -189,12 +201,14 @@ struct HeightViewModelTests {
         // Given
         let mockCameraService = MockCameraService(shouldFail: false)
         let mockMotionService = MockMotionService(angleInDegrees: 90)
+        let mockScannedTreeService = MockScannedTreeService()
         let userHeight: Double = 1.80
         let distanceToTree: Double = 5.0
         let measureDiameter: Double = 0.8
         let viewModel = HeightViewModel(
             cameraService: mockCameraService,
             motionService: mockMotionService,
+            scannedTreeService: mockScannedTreeService,
             userHeight: userHeight,
             distanceToTree: distanceToTree,
             measuredDiameter: measureDiameter,

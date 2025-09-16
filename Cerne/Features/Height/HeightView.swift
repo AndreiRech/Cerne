@@ -2,8 +2,7 @@ import SwiftUI
 
 struct HeightView: View {
     @State var viewModel: HeightViewModelProtocol
-    @Environment(\.dismiss) var dismiss
-
+    
     var body: some View {
         ZStack {
             CameraPreview(service: viewModel.cameraService)
@@ -20,13 +19,13 @@ struct HeightView: View {
                     onTap: {
                         viewModel.showInfo.toggle()
                         viewModel.isMeasuring.toggle()
-                })
+                    })
             } else {
                 ZStack {
                     Circle()
                         .fill(Color.white)
                         .frame(width: 8, height: 8)
-
+                    
                     VStack {
                         Spacer()
                         
@@ -66,7 +65,7 @@ struct HeightView: View {
                         Spacer()
                         
                         Button {
-                            viewModel.isMeasuring ? viewModel.saveHeight() : dismiss()
+                            viewModel.isMeasuring ? viewModel.saveHeight() : viewModel.shouldNavigate.toggle()
                         } label: {
                             if #available(iOS 26.0, *) {
                                 Text(viewModel.isMeasuring ? "Posicionar" : "Finalizar")
@@ -88,6 +87,26 @@ struct HeightView: View {
                             }
                         }
                         .padding(.bottom, 50)
+                        .sheet(isPresented: $viewModel.shouldNavigate) {
+                            TreeReviewView(
+                                viewModel: TreeReviewViewModel(
+                                    cameraService: CameraService(),
+                                    scannedTreeService: ScannedTreeService(),
+                                    treeAPIService: TreeAPIService(),
+                                    pinService: PinService(),
+                                    measuredDiameter: viewModel.measuredDiameter,
+                                    treeImage: viewModel.treeImage,
+                                    estimatedHeight: viewModel.estimatedHeight,
+                                    pinLatitude: viewModel.userLatitude,
+                                    pinLongitude: viewModel.userLongitude
+                                )
+                            )
+                            .presentationDragIndicator(.hidden)
+                            .presentationDetents([.height(350)])
+                            .presentationDragIndicator(.hidden)
+                            .background(.ultraThinMaterial)
+                            .cornerRadius(15)
+                        }
                     }
                 }
                 .ignoresSafeArea()
@@ -95,5 +114,18 @@ struct HeightView: View {
         }
         .onAppear(perform: viewModel.onAppear)
         .onDisappear(perform: viewModel.onDisappear)
+        .toolbar {
+            ToolbarItem {
+                Button("", systemImage: viewModel.showInfo ? "xmark" : viewModel.isMeasuring ? "info" : "trash") {
+                    if viewModel.showInfo {
+                        viewModel.showInfo = false
+                        viewModel.isMeasuring = true
+                    } else if viewModel.isMeasuring {
+                        viewModel.showInfo = true
+                        viewModel.isMeasuring = false
+                    }
+                }
+            }
+        }
     }
 }
