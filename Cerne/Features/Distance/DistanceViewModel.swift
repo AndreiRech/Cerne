@@ -55,7 +55,7 @@ class DistanceViewModel: NSObject, DistanceViewModelProtocol, CLLocationManagerD
     }
     
     func onAppear() {
-        arService.start()
+        arService.start(showOverlay: false)
     }
     
     func onDisappear() {
