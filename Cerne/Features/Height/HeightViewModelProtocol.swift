@@ -11,7 +11,6 @@ import Combine
 import UIKit
 
 protocol HeightViewModelProtocol {
-    var shouldNavigate: Bool { get set }
     var estimatedHeight: Double { get }
     var previewLayer: AVCaptureVideoPreviewLayer { get }
     var cameraService: CameraServiceProtocol { get }
@@ -27,6 +26,7 @@ protocol HeightViewModelProtocol {
     var userLongitude: Double { get }
     var finalHeight: Double { get }
     
+    var shouldNavigate: Bool { get set }
     var showInfo: Bool { get set }
     var isMeasuring: Bool { get set }
     

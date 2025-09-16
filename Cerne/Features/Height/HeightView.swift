@@ -114,6 +114,7 @@ struct HeightView: View {
         }
         .onAppear(perform: viewModel.onAppear)
         .onDisappear(perform: viewModel.onDisappear)
+        .navigationBarHidden(false)
         .toolbar {
             ToolbarItem {
                 Button("", systemImage: viewModel.showInfo ? "xmark" : viewModel.isMeasuring ? "info" : "trash") {
@@ -123,6 +124,9 @@ struct HeightView: View {
                     } else if viewModel.isMeasuring {
                         viewModel.showInfo = true
                         viewModel.isMeasuring = false
+                    } else {
+                        viewModel.showInfo = false
+                        viewModel.isMeasuring = true
                     }
                 }
             }
