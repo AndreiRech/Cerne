@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 import Combine
 
 @Observable
@@ -93,27 +94,32 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
     }
     
     func createPin() {
+        let feedbackGenerator = UINotificationFeedbackGenerator()
+
         do {
             guard let treeImage,
                   let imageData = treeImage.pngData(),
                   let tree = self.tree else {
                 errorMessage = "Não foi possível criar o pin. Faltam dados da árvore ou da imagem."
+                feedbackGenerator.notificationOccurred(.error)
                 return
             }
+
             let mockUser = User(name: "Mock User", height: 1.75)
-            
-            let _ = try pinService.createPin (
+
+            let _ = try pinService.createPin(
                 image: imageData,
                 latitude: pinLatitude,
                 longitude: pinLongitude,
                 user: mockUser,
                 tree: tree
             )
-                        
+
+            feedbackGenerator.notificationOccurred(.success)
         } catch {
             errorMessage = "Ocorreu um erro ao criar o pino: \(error.localizedDescription)"
+            feedbackGenerator.notificationOccurred(.error)
         }
-        
     }
     
     func updateScannedTree() async {
