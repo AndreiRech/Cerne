@@ -12,11 +12,14 @@ protocol PhotoViewModelProtocol {
     var cameraService: CameraServiceProtocol { get }
     var treeAPIService: TreeAPIServiceProtocol { get }
     
-    var shouldNavigate: Bool { get set }
     var isLoading: Bool { get }
     var errorMessage: String? { get set }
-    var capturedImage: UIImage? { get }
+    var capturedImage: UIImage? { get set }
     var identifiedTree: TreeResponse? { get }
+    
+    var showInfo: Bool { get set }
+    var isMeasuring: Bool { get set }
+    var shouldNavigate: Bool { get set }
     
     func onAppear()
     func onDisappear()

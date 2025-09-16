@@ -11,92 +11,88 @@ struct PhotoView: View {
     @State var viewModel: PhotoViewModelProtocol
     
     var body: some View {
-
-        NavigationStack {
-            ZStack {
-                if let capturedImage = viewModel.capturedImage {
-                    Image(uiImage: capturedImage)
-                        .resizable()
-                        .scaledToFill()
-                        .ignoresSafeArea()
-                    
-                    
-                    if viewModel.isLoading {
-                        ZStack {
-                            Color.black.opacity(0.5).ignoresSafeArea()
-                            ProgressView("Identificando...")
-                                .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                                .foregroundColor(.white)
-                        }
-                    } else {
-                        Text(viewModel.identifiedTree?.bestMatch ?? "")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .foregroundStyle(.black)
-                    }
-                } else {
-                    CameraPreview(service: viewModel.cameraService)
-                        .ignoresSafeArea()
-                }
+        ZStack {
+            if let capturedImage = viewModel.capturedImage {
+                Image(uiImage: capturedImage)
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
                 
+                VStack {
+                    Spacer()
+                    
+                    Button {
+                        Task {
+                            await viewModel.identifyTree(image: capturedImage)
+                        }
+                        viewModel.shouldNavigate.toggle()
+                    } label: {
+                        if #available(iOS 26.0, *) {
+                            Text("Continuar")
+                                .font(.body)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.black)
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 14)
+                                .glassEffect()
+                        } else {
+                            Text("Continuar")
+                                .font(.body)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.black)
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 14)
+                                .background(.ultraThinMaterial)
+                                .clipShape(Capsule())
+                        }
+                    }
+                    .padding(.bottom, 100)
+                    .navigationDestination(isPresented: $viewModel.shouldNavigate) {
+                        DiameterView(
+                            viewModel: DiameterViewModel(
+                                cameraService: CameraService(),
+                                treeImage: capturedImage
+                            )
+                        )
+                        .navigationBarHidden(false)
+                    }
+                }
+            } else {
+                CameraPreview(service: viewModel.cameraService)
+                    .ignoresSafeArea()
+                
+                if viewModel.showInfo {
+                    Color.black.opacity(0.4)
+                        .ignoresSafeArea()
+                    
+                    InstructionComponent(
+                        imageName: "camera",
+                        title: "Tire uma foto capturando o máximo da árvore para identificarmos a espécie",
+                        buttonText: "Registrar agora",
+                        onTap: {
+                            viewModel.showInfo.toggle()
+                            viewModel.isMeasuring.toggle()
+                        })
+                } else {
                     VStack {
                         Spacer()
                         
-                        if let capturedImage = viewModel.capturedImage {
-                            HStack {
-                                Button("Refazer") {
-                                    viewModel.retakePhoto()
-                                }
-                                .font(.headline)
-                                .foregroundColor(.white)
-                                .padding()
-                                
-                                Spacer()
-                                
-                                Button(action: {
-                                    Task {
-                                        await viewModel.identifyTree(image: capturedImage)
-                                    }
-                                }) {
-                                    Text("Identificar")
-                                        .font(.headline)
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.black)
-                                        .padding()
-                                        .background(Color.white)
-                                        .cornerRadius(15)
-                                }
-                                .navigationDestination(isPresented: $viewModel.shouldNavigate) {
-                                        DiameterView(
-                                            viewModel: DiameterViewModel(
-                                                cameraService: CameraService(),
-                                                treeImage: capturedImage
-                                            )
-                                        )
-                                        .navigationBarHidden(false)
-                                    }
+                        Button {
+                            viewModel.capturePhoto()
+                            viewModel.isMeasuring.toggle()
+                        } label: {
+                            ZStack {
+                                Circle()
+                                    .fill(Color.white)
+                                    .frame(width: 70, height: 70)
+                                Circle()
+                                    .stroke(Color.white, lineWidth: 4)
+                                    .frame(width: 80, height: 80)
                             }
-                            .padding(.horizontal, 30)
-                            .frame(height: 100)
-                        } else {
-                            HStack {
-                                Spacer()
-                                Button(action: viewModel.capturePhoto) {
-                                    ZStack {
-                                        Circle()
-                                            .fill(Color.white)
-                                            .frame(width: 70, height: 70)
-                                        Circle()
-                                            .stroke(Color.white, lineWidth: 4)
-                                            .frame(width: 80, height: 80)
-                                    }
-                                }
-                                Spacer()
-                            }
-                            .frame(height: 100)
                         }
+                        .padding(.bottom, 50)
                     }
-                .padding(.bottom, 30)
+                }
             }
         }
         .onAppear(perform: viewModel.onAppear)
@@ -108,6 +104,24 @@ struct PhotoView: View {
             Button("OK", role: .cancel) { }
         } message: {
             Text(viewModel.errorMessage ?? "Ocorreu um erro desconhecido.")
+        }
+        .navigationBarHidden(false)
+        .toolbar {
+            ToolbarItem {
+                Button("", systemImage: viewModel.showInfo ? "xmark" : viewModel.isMeasuring ? "info" : "xmark") {
+                    if viewModel.showInfo {
+                        viewModel.showInfo = false
+                        viewModel.isMeasuring = true
+                    } else if viewModel.isMeasuring {
+                        viewModel.showInfo = true
+                        viewModel.isMeasuring = false
+                    } else {
+                        viewModel.showInfo = false
+                        viewModel.isMeasuring = true
+                        viewModel.capturedImage = nil
+                    }
+                }
+            }
         }
     }
 }

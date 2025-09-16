@@ -13,11 +13,14 @@ class PhotoViewModel: PhotoViewModelProtocol {
     let cameraService: CameraServiceProtocol
     let treeAPIService: TreeAPIServiceProtocol
     
-    var shouldNavigate: Bool = false
     var isLoading: Bool = false
     var capturedImage: UIImage?
     var identifiedTree: TreeResponse?
     var errorMessage: String?
+    
+    var showInfo: Bool = true
+    var isMeasuring: Bool = false
+    var shouldNavigate: Bool = false
     
     private var cancellables = Set<AnyCancellable>()
     
