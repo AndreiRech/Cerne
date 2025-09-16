@@ -1,45 +1,96 @@
-//
-//  HeightView.swift
-//  Cerne
-//
-//  Created by Andrei Rech on 08/09/25.
-//
-
 import SwiftUI
 
 struct HeightView: View {
     @State var viewModel: HeightViewModelProtocol
-    
+    @Environment(\.dismiss) var dismiss
+
     var body: some View {
         ZStack {
             CameraPreview(service: viewModel.cameraService)
                 .ignoresSafeArea()
             
-            Circle()
-                .stroke(Color.white.opacity(0.8), lineWidth: 2)
-                .frame(width: 30, height: 30)
-            
-            VStack {
-                Spacer()
+            if viewModel.showInfo {
+                Color.black.opacity(0.4)
+                    .ignoresSafeArea()
                 
-                VStack(spacing: 12) {
-                    Text("Ângulo Atual")
-                        .font(.caption)
-                        .foregroundColor(.white.opacity(0.8))
-                    
-                    Text("Altura Estimada da Árvore")
-                        .font(.caption)
-                        .foregroundColor(.white.opacity(0.8))
-                        .padding(.top)
+                InstructionComponent(
+                    imageName: "chevron.up.2",
+                    title: "Mire no ponto mais alto da árvore e adicione o ponto para registrar a altura",
+                    buttonText: "Capturar o topo",
+                    onTap: {
+                        viewModel.showInfo.toggle()
+                        viewModel.isMeasuring.toggle()
+                })
+            } else {
+                ZStack {
+                    Circle()
+                        .fill(Color.white)
+                        .frame(width: 8, height: 8)
 
-                    Text(String(format: "%.2f metros", viewModel.estimatedHeight))
-                        .font(.system(size: 50, weight: .bold, design: .monospaced))
-                        .foregroundColor(.green)
+                    VStack {
+                        Spacer()
+                        
+                        if #available(iOS 26.0, *) {
+                            HStack(spacing: 10) {
+                                Image(systemName: "tree")
+                                    .font(.system(size: 16, weight: .semibold))
+                                    .foregroundStyle(.yellow)
+                                
+                                Text(String(format: "%.2f m de altura", viewModel.isMeasuring ? viewModel.estimatedHeight : viewModel.finalHeight))
+                                    .font(.body)
+                                    .fontWeight(.semibold)
+                            }
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 12)
+                            .glassEffect()
+                            .offset(y: 120)
+                        } else {
+                            HStack(spacing: 10) {
+                                Image(systemName: "tree")
+                                    .font(.system(size: 16, weight: .semibold))
+                                    .foregroundStyle(.yellow)
+                                
+                                Text(String(format: "%.2f m de altura", viewModel.isMeasuring ? viewModel.estimatedHeight : viewModel.finalHeight))
+                                    .font(.body)
+                                    .fontWeight(.semibold)
+                            }
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 12)
+                            .background(.ultraThinMaterial)
+                            .clipShape(Capsule())
+                            .offset(y: 120)
+                        }
+                        
+                        Spacer()
+                        
+                        Button {
+                            viewModel.isMeasuring ? viewModel.saveHeight() : dismiss()
+                        } label: {
+                            if #available(iOS 26.0, *) {
+                                Text(viewModel.isMeasuring ? "Posicionar" : "Finalizar")
+                                    .font(.body)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.white)
+                                    .padding(.horizontal, 40)
+                                    .padding(.vertical, 15)
+                                    .glassEffect()
+                            } else {
+                                Text(viewModel.isMeasuring ? "Posicionar" : "Finalizar")
+                                    .font(.body)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.white)
+                                    .padding(.horizontal, 40)
+                                    .padding(.vertical, 15)
+                                    .background(.ultraThinMaterial)
+                                    .clipShape(Capsule())
+                            }
+                        }
+                        .padding(.bottom, 50)
+                    }
                 }
-                .padding()
-                .background(Color.black.opacity(0.5))
-                .cornerRadius(20)
-                .padding()
+                .ignoresSafeArea()
             }
         }
         .onAppear(perform: viewModel.onAppear)
