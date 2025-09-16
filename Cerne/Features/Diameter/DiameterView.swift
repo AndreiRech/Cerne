@@ -43,7 +43,7 @@ struct DiameterView: View {
                                 treeImage: viewModel.treeImage
                             )
                         )
-                        .navigationBarHidden(true)
+                        .navigationBarHidden(false)
                     }
                     
                 }

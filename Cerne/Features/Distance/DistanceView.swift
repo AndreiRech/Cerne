@@ -47,7 +47,7 @@ struct DistanceView: View {
                      userLongitude: viewModel.userLongitude
                  )
              )
-            .navigationBarHidden(true)
+            .navigationBarHidden(false)
         }
     }
 }

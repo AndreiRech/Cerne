@@ -1,65 +1,98 @@
-//
-//  HeightView.swift
-//  Cerne
-//
-//  Created by Andrei Rech on 08/09/25.
-//
-
 import SwiftUI
 
 struct HeightView: View {
     @State var viewModel: HeightViewModelProtocol
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                CameraPreview(service: viewModel.cameraService)
+        ZStack {
+            CameraPreview(service: viewModel.cameraService)
+                .ignoresSafeArea()
+            
+            if viewModel.showInfo {
+                Color.black.opacity(0.4)
                     .ignoresSafeArea()
                 
-                Circle()
-                    .stroke(Color.white.opacity(0.8), lineWidth: 2)
-                    .frame(width: 30, height: 30)
-                
-                VStack {
-                    Spacer()
+                InstructionComponent(
+                    imageName: viewModel.firstInstruction ? "figure.walk" : "chevron.up.2",
+                    title: viewModel.firstInstruction ? "Para medirmos a altura, dê alguns passos para longe da árvore até o topo aparecer na tela" : "Mire no ponto mais alto da árvore e adicione o ponto para registrar a altura",
+                    buttonText: viewModel.firstInstruction ? "Encontrar distância ideal" : "Capturar o topo",
+                    onTap: {
+                        if viewModel.firstInstruction {
+                            viewModel.firstInstruction.toggle()
+                        } else {
+                            viewModel.showInfo.toggle()
+                            viewModel.isMeasuring.toggle()
+                            viewModel.firstInstruction.toggle()
+                        }
+                    })
+            } else {
+                ZStack {
+                    Circle()
+                        .fill(Color.white)
+                        .frame(width: 8, height: 8)
                     
-                    VStack(spacing: 12) {
-                        Text("Ângulo Atual")
-                            .font(.caption)
-                            .foregroundColor(.white.opacity(0.8))
+                    VStack {
+                        Spacer()
                         
-                        Text("Altura Estimada da Árvore")
-                            .font(.caption)
-                            .foregroundColor(.white.opacity(0.8))
-                            .padding(.top)
-
-                        Text(String(format: "%.2f metros", viewModel.estimatedHeight))
-                            .font(.system(size: 50, weight: .bold, design: .monospaced))
-                            .foregroundColor(.green)
-                    }
-                    .padding()
-                    .background(Color.black.opacity(0.5))
-                    .cornerRadius(20)
-                    .padding()
-                }
-                VStack {
-                    Spacer()
-                    
-                    Button(action: {
-                        viewModel.finishMeasurement(estimatedHeight: viewModel.estimatedHeight)
-                        viewModel.shouldNavigate = true
-                    }) {
-                        Text("Concluir Medida")
-                            .font(.headline)
-                            .fontWeight(.bold)
-                            .foregroundColor(.black)
-                            .padding()
-                            .background(Color.white)
-                            .cornerRadius(15)
-                    }
-                    .padding(.horizontal, 30)
-                    .frame(height: 100)
-                    .sheet(isPresented: $viewModel.shouldNavigate) {
+                        if #available(iOS 26.0, *) {
+                            HStack(spacing: 10) {
+                                Image(systemName: "tree")
+                                    .font(.system(size: 16, weight: .semibold))
+                                    .foregroundStyle(.yellow)
+                                
+                                Text(String(format: "%.2f m de altura", viewModel.isMeasuring ? viewModel.estimatedHeight : viewModel.finalHeight))
+                                    .font(.body)
+                                    .fontWeight(.semibold)
+                            }
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 12)
+                            .glassEffect()
+                            .offset(y: 120)
+                        } else {
+                            HStack(spacing: 10) {
+                                Image(systemName: "tree")
+                                    .font(.system(size: 16, weight: .semibold))
+                                    .foregroundStyle(.yellow)
+                                
+                                Text(String(format: "%.2f m de altura", viewModel.isMeasuring ? viewModel.estimatedHeight : viewModel.finalHeight))
+                                    .font(.body)
+                                    .fontWeight(.semibold)
+                            }
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 12)
+                            .background(.ultraThinMaterial)
+                            .clipShape(Capsule())
+                            .offset(y: 120)
+                        }
+                        
+                        Spacer()
+                        
+                        Button {
+                            viewModel.isMeasuring ? viewModel.saveHeight() : viewModel.shouldNavigate.toggle()
+                        } label: {
+                            if #available(iOS 26.0, *) {
+                                Text(viewModel.isMeasuring ? "Posicionar" : "Finalizar")
+                                    .font(.body)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.white)
+                                    .padding(.horizontal, 40)
+                                    .padding(.vertical, 15)
+                                    .glassEffect()
+                            } else {
+                                Text(viewModel.isMeasuring ? "Posicionar" : "Finalizar")
+                                    .font(.body)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.white)
+                                    .padding(.horizontal, 40)
+                                    .padding(.vertical, 15)
+                                    .background(.ultraThinMaterial)
+                                    .clipShape(Capsule())
+                            }
+                        }
+                        .padding(.bottom, 50)
+                        .sheet(isPresented: $viewModel.shouldNavigate) {
                             TreeReviewView(
                                 viewModel: TreeReviewViewModel(
                                     cameraService: CameraService(),
@@ -70,19 +103,38 @@ struct HeightView: View {
                                     treeImage: viewModel.treeImage,
                                     estimatedHeight: viewModel.estimatedHeight,
                                     pinLatitude: viewModel.userLatitude,
-                                    pinLongitude: viewModel.userLongitude 
+                                    pinLongitude: viewModel.userLongitude
                                 )
                             )
                             .presentationDragIndicator(.hidden)
-                            .presentationDetents([.height(350)]) 
+                            .presentationDetents([.height(350)])
                             .presentationDragIndicator(.hidden)
                             .background(.ultraThinMaterial)
                             .cornerRadius(15)
                         }
+                    }
                 }
+                .ignoresSafeArea()
             }
         }
         .onAppear(perform: viewModel.onAppear)
         .onDisappear(perform: viewModel.onDisappear)
+        .navigationBarHidden(false)
+        .toolbar {
+            ToolbarItem {
+                Button("", systemImage: viewModel.showInfo ? "xmark" : viewModel.isMeasuring ? "info" : "trash") {
+                    if viewModel.showInfo {
+                        viewModel.showInfo = false
+                        viewModel.isMeasuring = true
+                    } else if viewModel.isMeasuring {
+                        viewModel.showInfo = true
+                        viewModel.isMeasuring = false
+                    } else {
+                        viewModel.showInfo = false
+                        viewModel.isMeasuring = true
+                    }
+                }
+            }
+        }
     }
 }

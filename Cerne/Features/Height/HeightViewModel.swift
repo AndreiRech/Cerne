@@ -17,29 +17,42 @@ class HeightViewModel: HeightViewModelProtocol {
     let scannedTreeService: ScannedTreeServiceProtocol
     private var cancellables = Set<AnyCancellable>()
     
-    var shouldNavigate: Bool = false
-    let userHeight: Double
-    let distanceToTree: Double
     var estimatedHeight: Double = 0.0
+    var finalHeight: Double = 0.0
     var errorMessage: String?
     
+    let userHeight: Double
+    let distanceToTree: Double
     let measuredDiameter: Double
     let treeImage: UIImage
     let userLatitude: Double
     let userLongitude: Double
     
+    var firstInstruction: Bool = true
+    var showInfo: Bool = true
+    var isMeasuring: Bool = false
+    var shouldNavigate: Bool = false
+    
     var previewLayer: AVCaptureVideoPreviewLayer {
         return cameraService.previewLayer
     }
     
-    init(cameraService: CameraServiceProtocol, motionService: MotionServiceProtocol, scannedTreeService: ScannedTreeServiceProtocol, userHeight: Double, distanceToTree: Double, measuredDiameter: Double, treeImage: UIImage?, userLatitude: Double, userLongitude: Double) {
+    init(cameraService: CameraServiceProtocol,
+         motionService: MotionServiceProtocol,
+         scannedTreeService: ScannedTreeServiceProtocol,
+         userHeight: Double,
+         distanceToTree: Double,
+         measuredDiameter: Double,
+         treeImage: UIImage,
+         userLatitude: Double,
+         userLongitude: Double) {
         self.motionService = motionService
         self.cameraService = cameraService
         self.scannedTreeService = scannedTreeService
         self.userHeight = userHeight
         self.distanceToTree = distanceToTree
         self.measuredDiameter = measuredDiameter
-        self.treeImage = treeImage ?? UIImage()
+        self.treeImage = treeImage
         self.userLatitude = userLatitude
         self.userLongitude = userLongitude
         
@@ -81,9 +94,9 @@ class HeightViewModel: HeightViewModelProtocol {
         self.estimatedHeight = calculatedHeight
     }
     
-    func finishMeasurement(estimatedHeight: Double) {
-        print("Estimated height: \(estimatedHeight) meters")
-        shouldNavigate = true
+    func saveHeight() {
+        isMeasuring = false
+        finalHeight = estimatedHeight
     }
 }
 
