@@ -14,13 +14,15 @@ import Combine
 class HeightViewModel: HeightViewModelProtocol {
     let motionService: MotionServiceProtocol
     let cameraService: CameraServiceProtocol
+    let scannedTreeService: ScannedTreeServiceProtocol
     private var cancellables = Set<AnyCancellable>()
     
+    var shouldNavigate: Bool = false
+    let userHeight: Double
+    let distanceToTree: Double
     var estimatedHeight: Double = 0.0
     var errorMessage: String?
     
-    let userHeight: Double
-    let distanceToTree: Double
     let measuredDiameter: Double
     let treeImage: UIImage
     let userLatitude: Double
@@ -30,14 +32,14 @@ class HeightViewModel: HeightViewModelProtocol {
         return cameraService.previewLayer
     }
     
-    init(cameraService: CameraServiceProtocol, motionService: MotionServiceProtocol, userHeight: Double, distanceToTree: Double, measuredDiameter: Double, treeImage: UIImage, userLatitude: Double, userLongitude: Double) {
+    init(cameraService: CameraServiceProtocol, motionService: MotionServiceProtocol, scannedTreeService: ScannedTreeServiceProtocol, userHeight: Double, distanceToTree: Double, measuredDiameter: Double, treeImage: UIImage?, userLatitude: Double, userLongitude: Double) {
         self.motionService = motionService
         self.cameraService = cameraService
-        
+        self.scannedTreeService = scannedTreeService
         self.userHeight = userHeight
         self.distanceToTree = distanceToTree
         self.measuredDiameter = measuredDiameter
-        self.treeImage = treeImage
+        self.treeImage = treeImage ?? UIImage()
         self.userLatitude = userLatitude
         self.userLongitude = userLongitude
         
@@ -77,6 +79,11 @@ class HeightViewModel: HeightViewModelProtocol {
         if calculatedHeight < 0 { calculatedHeight = 0 }
         
         self.estimatedHeight = calculatedHeight
+    }
+    
+    func finishMeasurement(estimatedHeight: Double) {
+        print("Estimated height: \(estimatedHeight) meters")
+        shouldNavigate = true
     }
 }
 
