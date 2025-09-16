@@ -8,13 +8,13 @@
 import Foundation
 
 @Observable
-class PinDetailsViewModel: PinDetailsViewModelProtocol {    
+class PinDetailsViewModel: PinDetailsViewModelProtocol {
     var pin: Pin
-    let pinService: PinService
+    let pinService: PinServiceProtocol
     var allDetails: [TreeDetails] = []
     var details: TreeDetails?
     
-    init(pin: Pin, pinService: PinService) {
+    init(pin: Pin, pinService: PinServiceProtocol) {
         self.pin = pin
         self.pinService = pinService
         setup()
@@ -22,8 +22,8 @@ class PinDetailsViewModel: PinDetailsViewModelProtocol {
     
     private func setup() {
         do {
-            try allDetails = pinService.getDetails(fileName: "Tree")
-            try details = pinService.getDetails(for: pin.tree)
+            allDetails = try pinService.getDetails(fileName: "Tree")
+            details = allDetails.first(where: { $0.scientificName.lowercased().contains(pin.tree.species.lowercased()) })
         } catch {
             print("Failed to get details")
         }

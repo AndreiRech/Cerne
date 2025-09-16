@@ -171,18 +171,20 @@ struct PinDetailsView: View {
             Button("Cancelar", role: .cancel) {
                 dismiss()
             }
-            Button("Continuar", role: .cancel) {
+            Button("Deletar", role: .destructive) {
                 viewModel.deletePin(pin: viewModel.pin)
             }
         } message: {
             Text("Este registro será removido e não poderá ser recuperado.")
         }
+        
         .alert("Denunciar Registro", isPresented: $isShowingReportAlert) {
             Button("Cancelar", role: .cancel) {
                 dismiss()
             }
-            Button("Continuar", role: .cancel) {
-                viewModel.reportPin(to: viewModel.pin)            }
+            Button("Denunciar", role: .destructive) {
+                viewModel.reportPin(to: viewModel.pin)
+            }
         } message: {
             Text("Registro duplicado, incorreto ou não deveria estar no Aplicativo.")
         }
