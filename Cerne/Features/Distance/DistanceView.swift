@@ -28,8 +28,19 @@ struct DistanceView: View {
                         viewModel.isMeasuring.toggle()
                     })
             } else {
-                VStack {
+                VStack (spacing: 15) {
                     Spacer()
+                    
+                    if viewModel.showAddPointHint {
+                        Text("Arraste e posicione o objeto")
+                            .font(.body)
+                            .fontWeight(.medium)
+                            .padding(.vertical, 12)
+                            .padding(.horizontal, 16)
+                            .background(.ultraThinMaterial)
+                            .clipShape(Capsule())
+                            .transition(.opacity.animation(.easeInOut))
+                    }
                     
                     Button {
                         viewModel.shouldNavigate = true
@@ -57,6 +68,14 @@ struct DistanceView: View {
                     .padding(.bottom, 100)
                 }
                 .ignoresSafeArea()
+                .onAppear {
+                    viewModel.showAddPointHint = true
+                    Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
+                        withAnimation {
+                            viewModel.showAddPointHint = false
+                        }
+                    }
+                }
             }
         }
         .onAppear(perform: viewModel.onAppear)

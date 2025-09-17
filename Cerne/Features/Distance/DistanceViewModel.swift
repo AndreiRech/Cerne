@@ -28,6 +28,7 @@ class DistanceViewModel: NSObject, DistanceViewModelProtocol, CLLocationManagerD
     var showInfo: Bool = true
     var isMeasuring: Bool = false
     var shouldNavigate: Bool = false
+    var showAddPointHint: Bool = false
     
     init(arService: ARServiceProtocol,
          userHeight: Double,
