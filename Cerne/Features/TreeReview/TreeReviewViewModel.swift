@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import UIKit
 import Combine
 
 @Observable
@@ -29,6 +28,7 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
     var updateHeight: Double = 0.0
     var updateDap: Double = 0.0
     
+    var isEditing: Bool = false
     
     var isLoading: Bool = false
     var errorMessage: String?
@@ -65,10 +65,10 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
                 height: estimatedHeight,
                 dap: Double(measuredDiameter),
                 totalCO2: calculateCO2(height: estimatedHeight, dap: Float(measuredDiameter), density: 1.5)
+                //TO DO: Pegar a density da árvore
             )
             
             tree = newTree
-
             createPin()
             
             
@@ -94,32 +94,27 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
     }
     
     func createPin() {
-        let feedbackGenerator = UINotificationFeedbackGenerator()
-
         do {
             guard let treeImage,
                   let imageData = treeImage.pngData(),
                   let tree = self.tree else {
                 errorMessage = "Não foi possível criar o pin. Faltam dados da árvore ou da imagem."
-                feedbackGenerator.notificationOccurred(.error)
                 return
             }
-
             let mockUser = User(name: "Mock User", height: 1.75)
-
-            let _ = try pinService.createPin(
+            
+            let newPin = try pinService.createPin (
                 image: imageData,
                 latitude: pinLatitude,
                 longitude: pinLongitude,
                 user: mockUser,
                 tree: tree
             )
-
-            feedbackGenerator.notificationOccurred(.success)
+                        
         } catch {
             errorMessage = "Ocorreu um erro ao criar o pino: \(error.localizedDescription)"
-            feedbackGenerator.notificationOccurred(.error)
         }
+        
     }
     
     func updateScannedTree() async {
@@ -130,6 +125,11 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
             errorMessage = "No tree to update."
             return
         }
+        
+        tree.species = updateSpecies
+            tree.height = updateHeight
+            tree.dap = updateDap
+            tree.totalCO2 = calculateCO2(height: updateHeight, dap: Float(updateDap), density: 1.5) // TO DO: Pegar a density
         
         do {
             try scannedTreeService.updateScannedTree(
