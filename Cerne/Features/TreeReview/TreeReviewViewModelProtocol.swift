@@ -16,7 +16,9 @@ protocol TreeReviewViewModelProtocol {
     var pinLatitude: Double { get }
     var pinLongitude: Double { get }
 //    var pinUser: User { get }
-
+    var updateSpecies: String { get set }
+    var updateHeight: Double  { get set }
+    var updateDap: Double  { get set }
     var measuredDiameter: Double { get }
     var treeImage: UIImage? { get }
     var estimatedHeight: Double { get }

@@ -1,111 +1,129 @@
+//
 // TreeReviewView.swift
+//  Cerne
+//
+//  Created by Maria Santellano on 10/09/25.
+//
+
 
 import SwiftUI
 
 struct TreeReviewView: View {
     @State var viewModel: TreeReviewViewModel
-    @State private var isEditing = false
+    @EnvironmentObject var router: Router
+    
     
     var body: some View {
-        Form {
-            Section(header: Text("Revisar Árvore")) {
-                if viewModel.isLoading {
-                    ProgressView("Processando...")
-                } else if let tree = viewModel.tree {
-                    if isEditing {
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text("Espécie")
-                            TextField("Espécie", text: $viewModel.updateSpecies)
-                                .textFieldStyle(.roundedBorder)
-                            
-                            HStack {
-                                Text("Altura:")
-                                TextField("Altura", value: $viewModel.updateHeight, format: .number)
-                                    .keyboardType(.decimalPad)
-                                    .textFieldStyle(.roundedBorder)
-                            }
-                            HStack {
-                                Text("DAP:")
-                                TextField("DAP", value: $viewModel.updateDap, format: .number)
-                                    .keyboardType(.decimalPad)
-                                    .textFieldStyle(.roundedBorder)
-                            }
-                        }
-                    } else {
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text("Espécie: \(tree.species)")
-                            Text("Altura: \(tree.height, specifier: "%.2f") m")
-                            Text("DAP: \(tree.dap, specifier: "%.2f") cm")
-                            Text("CO2 Total: \(tree.totalCO2, specifier: "%.2f") kg")
-                        }
-                    }
-                } else {
-                    Text("Nenhuma árvore para revisar. Toque em 'Criar' para começar.")
+        if #available(iOS 26.0, *) {
+            VStack(spacing: 16) {
+                Text("Revise os dados coletados")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(.primitive1)
+                Text("Verifique se as informações estão corretas e faça ajustes se necessário. Depois salve para concluir.")
+                    .font(.footnote)
+                    .multilineTextAlignment(.center)
+                    .foregroundStyle(.primitive1)
+                    .padding(.horizontal)
+                
+                VStack(spacing: 10) {
+                    TreeInfoComponent(
+                        title: viewModel.tree?.species ?? "",
+                        subtitle: "Espécie identificada",
+                        value: $viewModel.updateSpecies,
+                        isEditing: $viewModel.isEditing
+                    )
+                    NumericInfoComponent(
+                        title: String(format: "%.2f cm", viewModel.tree?.dap ?? 0.0),
+                        subtitle: "Diâmetro do tronco",
+                        value: $viewModel.updateDap,
+                        isEditing: $viewModel.isEditing
+                    )
+                    NumericInfoComponent(
+                        title: String(format: "%.2f m", viewModel.tree?.height ?? 0.0),
+                        subtitle: "Altura aproximada",
+                        value: $viewModel.updateHeight,
+                        isEditing: $viewModel.isEditing
+                        
+                    )
+                    
                 }
-            }
-            
-            Section {
-                if viewModel.isLoading {
-                } else if isEditing {
-                    Button("Salvar Alterações") {
+                .padding()
+                
+                Button {
+                    if viewModel.isEditing {
                         Task {
                             await viewModel.updateScannedTree()
-                            if viewModel.errorMessage == nil {
-                                isEditing = false
-                            }
+                            viewModel.isEditing = false
                         }
+                    } else {
+                        viewModel.isEditing = true
                     }
-                    .buttonStyle(.borderedProminent)
+                } label: {
+                    Image(systemName: viewModel.isEditing ? "text.badge.checkmark" : "pencil")
+                    Text(viewModel.isEditing ? "Concluir edição" : "Ajustar")
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 14)
+                .foregroundStyle(.black)
+                .background(
+                    RoundedRectangle(cornerRadius: 16)
+                        .foregroundStyle(.fillsTertiary)
+                )
+                
+                
+                Button {
+                    Task {
+                        await viewModel.createScannedTree()
+                    }
+                    router.popToRoot()
+                    router.selectedTab = 0
                     
-                    Button("Cancelar", role: .destructive) {
+                } label: {
+                    Image(systemName: "checkmark")
+                    Text("Salvar")
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 14)
+                .foregroundStyle(.white)
+                .background(
+                    RoundedRectangle(cornerRadius: 16)
+                        .foregroundStyle(.primitive1)
+                )
+                
+            }
+            .padding(.horizontal, 23)
+            .padding(.vertical, 25)
+            .glassEffect(in: .rect(cornerRadius: 16))
+            //padding dar
+            
+            .onAppear {
+                if viewModel.tree == nil {
+                    Task {
+                        await viewModel.createScannedTree()
                         if let tree = viewModel.tree {
                             viewModel.updateSpecies = tree.species
                             viewModel.updateHeight = tree.height
                             viewModel.updateDap = tree.dap
                         }
-                        isEditing = false
-                    }
-                } else {
-                    Button("Criar Nova Árvore") {
-                        Task {
-                            await viewModel.createScannedTree()
-                            if let tree = viewModel.tree {
-                                viewModel.updateSpecies = tree.species
-                                viewModel.updateHeight = tree.height
-                                viewModel.updateDap = tree.dap
-                            }
-                        }
-                    }
-                    .buttonStyle(.borderedProminent)
-
-                    if viewModel.tree != nil {
-                        Button("Editar") {
-                            isEditing = true
-                        }
-                        .buttonStyle(.bordered)
                     }
                 }
             }
-
-            if let errorMessage = viewModel.errorMessage {
-                Text(errorMessage)
-                    .foregroundColor(.red)
-                    .font(.caption)
-                    .multilineTextAlignment(.center)
-            }
-        }
-        .navigationTitle("Revisão da Árvore")
-        .onAppear {
-            if viewModel.tree == nil {
-                Task {
-                    await viewModel.createScannedTree()
-                    if let tree = viewModel.tree {
-                        viewModel.updateSpecies = tree.species
-                        viewModel.updateHeight = tree.height
-                        viewModel.updateDap = tree.dap
+            .toolbar {
+                ToolbarItem {
+                    Button {
+                        viewModel.cancel()
+                        router.popToRoot()
+                        router.selectedTab = 0
+                    } label: {
+                        Image(systemName: "xmark")
                     }
+                    
                 }
             }
+        } else {
+            // Fallback on earlier versions
         }
     }
+    
 }
