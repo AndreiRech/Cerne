@@ -25,7 +25,7 @@ struct HeightView: View {
                             viewModel.firstInstruction.toggle()
                         }
                     })
-            } else {
+            } else if !viewModel.shouldNavigate {
                 ZStack {
                     Circle()
                         .fill(Color.white)
@@ -90,49 +90,51 @@ struct HeightView: View {
                             }
                         }
                         .padding(.bottom, 100)
-                        .sheet(isPresented: $viewModel.shouldNavigate) {
-                            TreeReviewView(
-                                viewModel: TreeReviewViewModel(
-                                    cameraService: CameraService(),
-                                    scannedTreeService: ScannedTreeService(),
-                                    treeAPIService: TreeAPIService(),
-                                    pinService: PinService(),
-                                    measuredDiameter: viewModel.measuredDiameter,
-                                    treeImage: viewModel.treeImage,
-                                    estimatedHeight: viewModel.estimatedHeight,
-                                    pinLatitude: viewModel.userLatitude,
-                                    pinLongitude: viewModel.userLongitude
-                                )
-                            )
-                            .presentationDragIndicator(.hidden)
-                            .presentationDetents([.height(350)])
-                            .presentationDragIndicator(.hidden)
-                            .background(.ultraThinMaterial)
-                            .cornerRadius(15)
-                        }
                     }
                 }
                 .ignoresSafeArea()
+            }
+            
+            if viewModel.shouldNavigate {
+                TreeReviewView(
+                    viewModel: TreeReviewViewModel(
+                        cameraService: CameraService(),
+                        scannedTreeService: ScannedTreeService(),
+                        treeAPIService: TreeAPIService(),
+                        pinService: PinService(),
+                        measuredDiameter: viewModel.measuredDiameter,
+                        treeImage: viewModel.treeImage,
+                        estimatedHeight: viewModel.estimatedHeight,
+                        pinLatitude: viewModel.userLatitude,
+                        pinLongitude: viewModel.userLongitude
+                    )
+                )
+                .presentationDetents([.height(500)])
+                .presentationDragIndicator(.hidden)
+                .padding(.horizontal, 16)
             }
         }
         .onAppear(perform: viewModel.onAppear)
         .onDisappear(perform: viewModel.onDisappear)
         .navigationBarHidden(false)
         .toolbar {
-            ToolbarItem {
-                Button("", systemImage: viewModel.showInfo ? "xmark" : viewModel.isMeasuring ? "info" : "trash") {
-                    if viewModel.showInfo {
-                        viewModel.showInfo = false
-                        viewModel.isMeasuring = true
-                    } else if viewModel.isMeasuring {
-                        viewModel.showInfo = true
-                        viewModel.isMeasuring = false
-                    } else {
-                        viewModel.showInfo = false
-                        viewModel.isMeasuring = true
+            if !viewModel.shouldNavigate {
+                ToolbarItem {
+                    Button("", systemImage: viewModel.showInfo ? "xmark" : viewModel.isMeasuring ? "info" : "trash") {
+                        if viewModel.showInfo {
+                            viewModel.showInfo = false
+                            viewModel.isMeasuring = true
+                        } else if viewModel.isMeasuring {
+                            viewModel.showInfo = true
+                            viewModel.isMeasuring = false
+                        } else {
+                            viewModel.showInfo = false
+                            viewModel.isMeasuring = true
+                        }
                     }
                 }
             }
         }
+        .toolbar(viewModel.shouldNavigate ? .visible : .hidden, for: .navigationBar)
     }
 }
