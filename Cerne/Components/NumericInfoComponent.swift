@@ -19,6 +19,7 @@ struct NumericInfoComponent: View {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.maximumFractionDigits = 2
+        formatter.decimalSeparator = "."
         return formatter
     }()
     

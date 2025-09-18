@@ -34,7 +34,7 @@ struct TreeReviewView: View {
                         isEditing: $viewModel.isEditing
                     )
                     NumericInfoComponent(
-                        title: String(format: "%.2f cm", viewModel.tree?.dap ?? 0.0),
+                        title: String(format: "%.2f m", viewModel.tree?.dap ?? 0.0),
                         subtitle: "Diâmetro do tronco",
                         isHeight: false,
                         value: $viewModel.updateDap,
