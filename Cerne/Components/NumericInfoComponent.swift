@@ -10,6 +10,7 @@ import SwiftUI
 struct NumericInfoComponent: View {
     let title: String
     let subtitle: String
+    let isHeight: Bool
     
     @Binding var value: Double
     @Binding var isEditing: Bool
@@ -23,8 +24,16 @@ struct NumericInfoComponent: View {
     
     var body: some View {
         HStack(spacing: 7) {
-            Image(.treeIcon)
-                .font(.title3)
+            if isHeight {
+                Image(systemName: "base.unit")
+                    .font(.title3)
+                    .foregroundStyle(.CTA)
+                    .rotationEffect(.degrees(90))
+            } else {
+                Image(systemName: "base.unit")
+                    .font(.title3)
+                    .foregroundStyle(.CTA)
+            }
             
             if isEditing {
                 VStack(alignment: .leading, spacing: 0) {
