@@ -28,18 +28,28 @@ struct MapView: View {
                             .shadow(radius: 5)
                     }
                     .onTapGesture {
-                        // TODO: Implementar chamada da view que mostra detalhes do pin.
+                        viewModel.isShowingDetails.toggle()
                     }
                 }
             }
+        }
+        .mapControls {
+            MapUserLocationButton()
+            MapCompass()
         }
         .ignoresSafeArea()
         .onAppear {
             viewModel.onMapAppear()
         }
         .onChange(of: (viewModel.userLocation)) { _, _ in
-            viewModel.refreshLocation()
             viewModel.getPins()
+        }
+        .sheet(isPresented: $viewModel.isShowingDetails) {
+            if let pin = viewModel.selectedPin {
+                PinDetailsView(viewModel: PinDetailsViewModel(pin: pin, pinService: PinService()))
+                    .presentationDetents([.height(265), .height(500)])
+                    .presentationDragIndicator(.visible)
+            }
         }
     }
 }

@@ -6,13 +6,17 @@
 //
 
 import CoreLocation
+import Combine
 
 @Observable
 class LocationService: NSObject, CLLocationManagerDelegate, LocationServiceProtocol {
-
     private let manager = CLLocationManager()
-
+    private let userLocationSubject = PassthroughSubject<UserLocation, Never>()
     var userLocation: UserLocation?
+    
+    var userLocationPublisher: AnyPublisher<UserLocation, Never> {
+        userLocationSubject.eraseToAnyPublisher()
+    }
 
     override init() {
         super.init()
@@ -29,8 +33,13 @@ class LocationService: NSObject, CLLocationManagerDelegate, LocationServiceProto
 
         guard let location = locations.first else { return }
     
-        self.userLocation = UserLocation(latitude: location.coordinate.latitude,
-                                         longitude: location.coordinate.longitude)
+        let updatedLocation = UserLocation(
+            latitude: location.coordinate.latitude,
+            longitude: location.coordinate.longitude
+        )
+        self.userLocation = updatedLocation
+        
+        userLocationSubject.send(updatedLocation)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
