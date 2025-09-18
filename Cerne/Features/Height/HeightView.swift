@@ -46,7 +46,7 @@ struct HeightView: View {
                             }
                             .foregroundColor(.white)
                             .padding(20)
-                            .glassEffect()
+                            .glassEffect(in: .rect(cornerRadius: 24))
                             .offset(y: 120)
                         } else {
                             HStack(spacing: 10) {
