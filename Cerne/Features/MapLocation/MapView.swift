@@ -27,12 +27,14 @@ struct MapView: View {
                             .overlay(Circle().stroke(Color.white, lineWidth: 2))
                             .shadow(radius: 5)
                     }
-                    .onTapGesture {
-                        // TODO: Implementar chamada da view que mostra detalhes do pin.
-                    }
                 }
             }
         }
+        .sheet(item: $viewModel.selectedPin) { selectedPin in
+                    PinDetailsView(viewModel: PinDetailsViewModel(pin: selectedPin, pinService: PinService()))
+                        .presentationDetents([.height(265), .height(500)])
+                        .presentationDragIndicator(.visible)
+                }
         .ignoresSafeArea()
         .onAppear {
             viewModel.onMapAppear()
