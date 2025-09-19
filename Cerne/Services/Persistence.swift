@@ -1,17 +1,36 @@
+//
+//  Persistence.swift
+//  Cerne
+//
+//  Created by Gabriel Kowaleski on 12/09/25.
+//
+
 import SwiftData
 
+@MainActor
 final class Persistence {
-    @MainActor
     static let shared = Persistence()
     
     let modelContainer: ModelContainer
-    let modelContext: ModelContext
+    var modelContext: ModelContext {
+        modelContainer.mainContext
+    }
     
-    @MainActor
     init() {
-        self.modelContainer = try! ModelContainer(
-            for: Footprint.self, Pin.self, ScannedTree.self, User.self
-        )
-        self.modelContext = modelContainer.mainContext
+        let schema = Schema([
+            User.self,
+            ScannedTree.self,
+            Pin.self,
+            Footprint.self,
+            Response.self
+        ])
+        
+        let modelConfiguration = ModelConfiguration(schema: schema, cloudKitDatabase: .automatic)
+        
+        do {
+            modelContainer = try ModelContainer(for: schema, configurations: [modelConfiguration])
+        } catch {
+            fatalError("Could not create ModelContainer: \(error)")
+        }
     }
 }

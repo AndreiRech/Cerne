@@ -1,0 +1,596 @@
+[
+  {
+    "common_name": "Baraúna (Braúna)",
+    "scientific_name": "Schinopsis brasiliensis",
+    "density": 1.2,
+    "description": "Schinopsis brasiliensis (nome científico) é nativa do Brasil, presente na Caatinga. Alcança até 15m e sua madeira é extremamente densa e resistente, usada em construções."
+  },
+  {
+    "common_name": "Baraúna-vermelha",
+    "scientific_name": "Schinopsis brasiliensis var.",
+    "density": 1.2,
+    "description": "Schinopsis brasiliensis (nome científico) é nativa do Brasil, presente na Caatinga. Alcança até 15m e sua madeira é extremamente densa, sendo uma variação da Braúna."
+  },
+  {
+    "common_name": "Pau-ferro",
+    "scientific_name": "Libidibia ferrea",
+    "density": 1.15,
+    "description": "Libidibia ferrea (nome científico) é nativa do Brasil, presente na Mata Atlântica e Caatinga. Alcança até 30m e a casca é usada na medicina popular por suas propriedades anti-inflamatórias."
+  },
+  {
+    "common_name": "Aroeira-do-sertão",
+    "scientific_name": "Myracrodruon urundeuva",
+    "density": 1.1,
+    "description": "Myracrodruon urundeuva (nome científico) é nativa da América do Sul, presente no Cerrado e Caatinga. Alcança até 30m e sua madeira nobre é tão durável que é usada em postes e mourões."
+  },
+  {
+    "common_name": "Cumaru",
+    "scientific_name": "Dipteryx odorata",
+    "density": 1.1,
+    "description": "Dipteryx odorata (nome científico) é nativa da América do Sul, presente na Amazônia. Alcança até 30m e suas sementes aromáticas (fava tonka) são usadas em perfumaria e gastronomia."
+  },
+  {
+    "common_name": "Massaranduba",
+    "scientific_name": "Manilkara huberi",
+    "density": 1.1,
+    "description": "Manilkara huberi (nome científico) é nativa da América do Sul, presente na Amazônia. Alcança até 50m e produz um látex comestível, além de madeira muito resistente a cupins."
+  },
+  {
+    "common_name": "Ipê-amarelo",
+    "scientific_name": "Handroanthus serratifolius",
+    "density": 1.05,
+    "description": "Handroanthus serratifolius (nome científico) é nativo do Brasil, presente no Cerrado e Mata Atlântica. Alcança até 25m e possui uma das madeiras mais pesadas e duras do Brasil."
+  },
+  {
+    "common_name": "Roxinho (Amarante)",
+    "scientific_name": "Peltogyne spp.",
+    "density": 1.0,
+    "description": "Peltogyne spp. (nome científico) é nativo da América Central e do Sul, presente na Amazônia. Alcança até 50m e sua madeira oxida para uma cor roxa intensa quando cortada."
+  },
+  {
+    "common_name": "Angico",
+    "scientific_name": "Anadenanthera colubrina",
+    "density": 0.95,
+    "description": "Anadenanthera colubrina (nome científico) é nativa da América do Sul, presente no Cerrado e Caatinga. Alcança até 20m e seu tronco é coberto por espinhos cônicos e afiados."
+  },
+  {
+    "common_name": "Pereiro",
+    "scientific_name": "Aspidosperma pyrifolium",
+    "density": 0.95,
+    "description": "Aspidosperma pyrifolium (nome científico) é nativa do Brasil, presente na Caatinga. Alcança até 14m e sua madeira, apesar de macia, é muito durável, usada em marcenaria."
+  },
+  {
+    "common_name": "Quixabeira",
+    "scientific_name": "Sideroxylon obtusifolium",
+    "density": 0.95,
+    "description": "Sideroxylon obtusifolium (nome científico) é nativa do Brasil, presente na Caatinga e Cerrado. Alcança até 15m e seus frutos são apreciados pela fauna, especialmente por aves."
+  },
+  {
+    "common_name": "Gonçalo-alves",
+    "scientific_name": "Astronium fraxinifolium",
+    "density": 0.95,
+    "description": "Astronium fraxinifolium (nome científico) é nativo do Brasil, presente no Cerrado e Caatinga. Alcança até 30m e sua madeira tem belas manchas, sendo chamada de \"tigerwood\"."
+  },
+  {
+    "common_name": "Jatobá",
+    "scientific_name": "Hymenaea courbaril",
+    "density": 0.95,
+    "description": "Hymenaea courbaril (nome científico) é nativa da América Tropical, presente na Amazônia e Cerrado. Alcança até 40m e sua resina é usada como incenso e verniz (copal)."
+  },
+  {
+    "common_name": "Sucupira-preta",
+    "scientific_name": "Bowdichia nitida",
+    "density": 0.95,
+    "description": "Bowdichia nitida (nome científico) é nativa do Brasil, presente na Amazônia e Mata Atlântica. Alcança até 45m e sua madeira é extremamente resistente a fungos e cupins."
+  },
+  {
+    "common_name": "Juazeiro",
+    "scientific_name": "Ziziphus joazeiro",
+    "density": 0.9,
+    "description": "Ziziphus joazeiro (nome científico) é nativo do Brasil, presente na Caatinga. Alcança até 15m e mantém suas folhas verdes mesmo na seca, servindo de sombra e alimento para o gado."
+  },
+  {
+    "common_name": "Sabiá",
+    "scientific_name": "Mimosa caesalpiniifolia",
+    "density": 0.9,
+    "description": "Mimosa caesalpiniifolia (nome científico) é nativa do Brasil, presente na Caatinga e Cerrado. Alcança até 8m e é uma pioneira de rápido crescimento, ótima para reflorestamento."
+  },
+  {
+    "common_name": "Angelim-vermelho",
+    "scientific_name": "Dinizia excelsa",
+    "density": 0.9,
+    "description": "Dinizia excelsa (nome científico) é nativa do Brasil, presente na Amazônia. Alcança até 88m, sendo uma das árvores mais altas da floresta, com madeira muito durável."
+  },
+  {
+    "common_name": "Pau-ferro",
+    "scientific_name": "Astronium balansae",
+    "density": 0.975,
+    "description": "Astronium balansae (nome científico) é nativo da América do Sul, presente na Mata Atlântica e Chaco. Alcança até 35m e sua madeira de alta qualidade é usada em instrumentos musicais."
+  },
+  {
+    "common_name": "Pau-ferro",
+    "scientific_name": "Astronium fraxinifolium",
+    "density": 0.975,
+    "description": "Astronium fraxinifolium (nome científico) é nativo do Brasil, presente no Cerrado e Caatinga. Alcança até 30m e sua madeira tem belas manchas, sendo chamada de \"tigerwood\"."
+  },
+  {
+    "common_name": "Ipê-amarelo",
+    "scientific_name": "Handroanthus albus",
+    "density": 0.95,
+    "description": "Handroanthus albus (nome científico) é nativo do Brasil, presente no Cerrado e Pantanal. Alcança até 30m e sua floração exuberante ocorre com a árvore sem folhas."
+  },
+  {
+    "common_name": "Ipê-amarelo",
+    "scientific_name": "Handroanthus chrysotrichus",
+    "density": 0.95,
+    "description": "Handroanthus chrysotrichus (nome científico) é nativo do Brasil, presente na Mata Atlântica. Alcança até 10m e é uma das espécies de ipê mais cultivadas para arborização urbana."
+  },
+  {
+    "common_name": "Pau-de-arco",
+    "scientific_name": "Handroanthus impetiginosus",
+    "density": 0.95,
+    "description": "Handroanthus impetiginosus (nome científico) é nativo da América do Sul, presente no Cerrado. Alcança até 30m e a casca é usada na medicina popular como anti-inflamatório."
+  },
+  {
+    "common_name": "Ipê-roxo-do-cerrado",
+    "scientific_name": "Handroanthus impetiginosus",
+    "density": 0.95,
+    "description": "Handroanthus impetiginosus (nome científico) é nativo da América do Sul, presente no Cerrado. Alcança até 30m e a casca é usada na medicina popular como anti-inflamatório."
+  },
+  {
+    "common_name": "Ipê-roxo",
+    "scientific_name": "Handroanthus heptaphyllus",
+    "density": 0.9,
+    "description": "Handroanthus heptaphyllus (nome científico) é nativo da América do Sul, presente na Mata Atlântica. Alcança até 40m e sua madeira é tão resistente que era usada em navios."
+  },
+  {
+    "common_name": "Aroeira-do-pantanal",
+    "scientific_name": "Myracrodruon urundeuva",
+    "density": 0.9,
+    "description": "Myracrodruon urundeuva (nome científico) é nativa da América do Sul, presente no Cerrado e Pantanal. Alcança até 30m e sua madeira nobre é tão durável que é usada em postes."
+  },
+  {
+    "common_name": "Cumbaru (baru)",
+    "scientific_name": "Dipteryx alata",
+    "density": 0.9,
+    "description": "Dipteryx alata (nome científico) é nativo do Brasil, presente no Cerrado. Alcança até 25m e sua castanha (baru) é um superalimento rico em proteínas e ferro."
+  },
+  {
+    "common_name": "Baru (Cumbaru)",
+    "scientific_name": "Dipteryx alata",
+    "density": 0.9,
+    "description": "Dipteryx alata (nome científico) é nativo do Brasil, presente no Cerrado. Alcança até 25m e sua castanha (baru) é um superalimento rico em proteínas e ferro."
+  },
+  {
+    "common_name": "Ipê-amarelo-do-cerrado",
+    "scientific_name": "Handroanthus ochraceus",
+    "density": 0.9,
+    "description": "Handroanthus ochraceus (nome científico) é nativo do Brasil, presente no Cerrado. Alcança até 15m e sua floração amarela intensa é um espetáculo da estação seca."
+  },
+  {
+    "common_name": "Jatobá-do-cerrado",
+    "scientific_name": "Hymenaea stigonocarpa",
+    "density": 0.9,
+    "description": "Hymenaea stigonocarpa (nome científico) é nativo do Brasil, presente no Cerrado. Alcança até 20m e seu fruto tem uma polpa farinhenta e adocicada, consumida in natura."
+  },
+  {
+    "common_name": "Algarrobo",
+    "scientific_name": "Prosopis nigra",
+    "density": 0.9,
+    "description": "Prosopis nigra (nome científico) é nativa da América do Sul, presente no Chaco. Alcança até 15m e seus frutos são vagens usadas para fazer farinha e bebidas fermentadas."
+  },
+  {
+    "common_name": "Algarrobo",
+    "scientific_name": "Prosopis affinis",
+    "density": 0.9,
+    "description": "Prosopis affinis (nome científico) é nativo da América do Sul, presente no Pampa e Chaco. Alcança até 12m e é uma espécie espinhosa, importante para a fauna local."
+  },
+  {
+    "common_name": "Jacarandá-do-cerrado",
+    "scientific_name": "Dalbergia miscolobium",
+    "density": 0.875,
+    "description": "Dalbergia miscolobium (nome científico) é nativo do Brasil, presente no Cerrado. Alcança até 10m e sua floração roxa perfumada atrai muitas abelhas e polinizadores."
+  },
+  {
+    "common_name": "Cabreúva",
+    "scientific_name": "Myrocarpus frondosus",
+    "density": 0.85,
+    "description": "Myrocarpus frondosus (nome científico) é nativo da América do Sul, presente na Mata Atlântica. Alcança até 30m e seu óleo essencial (bálsamo) é usado em perfumes e medicamentos."
+  },
+  {
+    "common_name": "Angico-vermelho",
+    "scientific_name": "Anadenanthera colubrina",
+    "density": 0.85,
+    "description": "Anadenanthera colubrina (nome científico) é nativa da América do Sul, presente no Cerrado e Caatinga. Alcança até 20m e seu tronco é coberto por espinhos cônicos e afiados."
+  },
+  {
+    "common_name": "Sucupira-preta",
+    "scientific_name": "Bowdichia virgilioides",
+    "density": 0.85,
+    "description": "Bowdichia virgilioides (nome científico) é nativa do Brasil, presente no Cerrado. Alcança até 15m e suas sementes são usadas na medicina popular para tratar reumatismo."
+  },
+  {
+    "common_name": "Guatambu",
+    "scientific_name": "Aspidosperma parvifolium",
+    "density": 0.8,
+    "description": "Aspidosperma parvifolium (nome científico) é nativo do Brasil, presente na Mata Atlântica. Alcança até 12m e sua madeira nobre, de cor clara, é usada para móveis finos."
+  },
+  {
+    "common_name": "Imbuia",
+    "scientific_name": "Ocotea porosa",
+    "density": 0.8,
+    "description": "Ocotea porosa (nome científico) é nativa do Brasil, presente na Mata Atlântica. Alcança até 20m e sua madeira tem um cheiro agradável e veios únicos, muito valorizada em móveis de luxo."
+  },
+  {
+    "common_name": "Guajuvira",
+    "scientific_name": "Patagonula americana",
+    "density": 0.8,
+    "description": "Patagonula americana (nome científico) é nativa da América do Sul, presente no Pampa. Alcança até 25m e sua madeira é extremamente dura e resistente, usada para postes e lenha."
+  },
+  {
+    "common_name": "Copaíba",
+    "scientific_name": "Copaifera langsdorffii",
+    "density": 0.8,
+    "description": "Copaifera langsdorffii (nome científico) é nativa do Brasil, presente no Cerrado. Alcança até 35m e produz um óleo-resina com famosas propriedades medicinais anti-inflamatórias."
+  },
+  {
+    "common_name": "Guatambu",
+    "scientific_name": "Aspidosperma tomentosum",
+    "density": 0.8,
+    "description": "Aspidosperma tomentosum (nome científico) é nativo da América do Sul, presente no Cerrado. Alcança até 48m e sua madeira é utilizada na construção civil e marcenaria."
+  },
+  {
+    "common_name": "Grápia",
+    "scientific_name": "Apuleia leiocarpa",
+    "density": 0.775,
+    "description": "Apuleia leiocarpa (nome científico) é nativa da América do Sul, presente na Mata Atlântica. Alcança até 40m e sua madeira amarela é muito resistente ao apodrecimento."
+  },
+  {
+    "common_name": "Canela-preta",
+    "scientific_name": "Ocotea catharinensis",
+    "density": 0.75,
+    "description": "Ocotea catharinensis (nome científico) é nativa do Brasil, presente na Mata Atlântica. Alcança até 25m e sua madeira escura e aromática é muito valorizada, estando ameaçada."
+  },
+  {
+    "common_name": "Pau-marfim",
+    "scientific_name": "Balfourodendron riedelianum",
+    "density": 0.75,
+    "description": "Balfourodendron riedelianum (nome científico) é nativo da América do Sul, presente na Mata Atlântica. Alcança até 30m e sua madeira clara é usada em artigos de luxo e tacos de bilhar."
+  },
+  {
+    "common_name": "Pimenteira-brava",
+    "scientific_name": "Xylopia aromatica",
+    "density": 0.75,
+    "description": "Xylopia aromatica (nome científico) é nativa do Brasil, presente no Cerrado. Alcança até 6m e seus frutos picantes são usados como condimento, substitutos da pimenta-do-reino."
+  },
+  {
+    "common_name": "Pequi",
+    "scientific_name": "Caryocar brasiliense",
+    "density": 0.75,
+    "description": "Caryocar brasiliense (nome científico) é nativo do Brasil, presente no Cerrado. Alcança até 10m e seu fruto, de sabor e cheiro fortes, é um ícone da culinária regional."
+  },
+  {
+    "common_name": "Pau-santo",
+    "scientific_name": "Kielmeyera coriacea",
+    "density": 0.75,
+    "description": "Kielmeyera coriacea (nome científico) é nativa do Brasil, presente no Cerrado. Alcança até 7m e sua casca grossa e suberosa a protege contra o fogo, comum no bioma."
+  },
+  {
+    "common_name": "Sucupira-branca",
+    "scientific_name": "Pterodon pubescens",
+    "density": 0.75,
+    "description": "Pterodon pubescens (nome científico) é nativo do Brasil, presente no Cerrado. Alcança até 16m e o óleo de suas sementes é usado na medicina popular contra dores."
+  },
+  {
+    "common_name": "Pau-santo-do-cerrado",
+    "scientific_name": "Kielmeyera lathrophyton",
+    "density": 0.75,
+    "description": "Kielmeyera lathrophyton (nome científico) é nativo do Brasil, presente no Cerrado. Alcança até 8m e é adaptada ao fogo, com casca espessa e capacidade de rebrota."
+  },
+  {
+    "common_name": "Aroeira",
+    "scientific_name": "Schinus terebinthifolia",
+    "density": 0.7,
+    "description": "Schinus terebinthifolia (nome científico) é nativa da América do Sul, presente em vários biomas. Alcança até 10m e seus frutos são a pimenta-rosa, usada como especiaria."
+  },
+  {
+    "common_name": "Paratudo",
+    "scientific_name": "Tabebuia aurea",
+    "density": 0.7,
+    "description": "Tabebuia aurea (nome científico) é nativa da América do Sul, presente no Cerrado e Pantanal. Alcança até 12m e é conhecida por seu tronco tortuoso e casca suberosa."
+  },
+  {
+    "common_name": "Pau-terra",
+    "scientific_name": "Qualea grandiflora",
+    "density": 0.7,
+    "description": "Qualea grandiflora (nome científico) é nativa do Brasil, presente no Cerrado. Alcança até 15m e suas grandes flores brancas e perfumadas atraem mariposas e morcegos."
+  },
+  {
+    "common_name": "Lixeira-do-pantanal",
+    "scientific_name": "Curatella americana",
+    "density": 0.7,
+    "description": "Curatella americana (nome científico) é nativa da América Tropical, presente no Cerrado. Alcança até 10m e suas folhas ásperas são usadas como lixa para polir madeira."
+  },
+  {
+    "common_name": "Canela-sassafrás",
+    "scientific_name": "Ocotea odorifera",
+    "density": 0.675,
+    "description": "Ocotea odorifera (nome científico) é nativa do Brasil, presente na Mata Atlântica. Alcança até 25m e sua madeira e folhas têm forte cheiro de canela, devido ao safrol."
+  },
+  {
+    "common_name": "Canjerana",
+    "scientific_name": "Cabralea canjerana",
+    "density": 0.65,
+    "description": "Cabralea canjerana (nome científico) é nativa da América do Sul, presente na Mata Atlântica. Alcança até 30m e sua madeira avermelhada é muito apreciada em móveis e construções."
+  },
+  {
+    "common_name": "Canafístula",
+    "scientific_name": "Peltophorum dubium",
+    "density": 0.65,
+    "description": "Peltophorum dubium (nome científico) é nativo da América do Sul, presente no Cerrado e Mata Atlântica. Alcança até 40m e sua intensa floração amarela é usada no paisagismo."
+  },
+  {
+    "common_name": "Caroba",
+    "scientific_name": "Jacaranda micrantha",
+    "density": 0.65,
+    "description": "Jacaranda micrantha (nome científico) é nativo da América do Sul, presente na Mata Atlântica. Alcança até 15m e suas flores roxas vibrantes formam um belo espetáculo."
+  },
+  {
+    "common_name": "Canela-amarela",
+    "scientific_name": "Nectandra megapotamica",
+    "density": 0.65,
+    "description": "Nectandra megapotamica (nome científico) é nativa da América do Sul, presente na Mata Atlântica. Alcança até 30m e sua madeira de alta qualidade é usada em construção naval."
+  },
+  {
+    "common_name": "Tarumã",
+    "scientific_name": "Vitex cymosa",
+    "density": 0.65,
+    "description": "Vitex cymosa (nome científico) é nativo do Brasil, presente no Pantanal e Amazônia. Alcança até 15m e seus frutos são importante fonte de alimento para peixes na cheia."
+  },
+  {
+    "common_name": "Murici",
+    "scientific_name": "Byrsonima verbascifolia",
+    "density": 0.65,
+    "description": "Byrsonima verbascifolia (nome científico) é nativa do Brasil, presente no Cerrado. Alcança até 6m e seus frutos são consumidos pela fauna e usados em licores."
+  },
+  {
+    "common_name": "Louro-pardo",
+    "scientific_name": "Cordia trichotoma",
+    "density": 0.6,
+    "description": "Cordia trichotoma (nome científico) é nativo da América do Sul, presente na Mata Atlântica. Alcança até 35m e é muito usado em reflorestamento por atrair a avifauna."
+  },
+  {
+    "common_name": "Bracatinga",
+    "scientific_name": "Mimosa scabrella",
+    "density": 0.6,
+    "description": "Mimosa scabrella (nome científico) é nativa do Brasil, presente na Mata Atlântica. Alcança até 18m e é uma das árvores de crescimento mais rápido do mundo, usada para lenha."
+  },
+  {
+    "common_name": "Nhandavaí",
+    "scientific_name": "Ocotea puberula",
+    "density": 0.6,
+    "description": "Ocotea puberula (nome científico) é nativa da América do Sul, presente na Mata Atlântica. Alcança até 20m e é uma espécie pioneira, essencial na recuperação de áreas degradadas."
+  },
+  {
+    "common_name": "Angico-branco",
+    "scientific_name": "Albizia niopoides",
+    "density": 0.6,
+    "description": "Albizia niopoides (nome científico) é nativa da América Tropical, presente na Mata Atlântica. Alcança até 35m e tem crescimento rápido, sendo ornamental e boa para sombreamento."
+  },
+  {
+    "common_name": "Chal-chal",
+    "scientific_name": "Allophylus edulis",
+    "density": 0.6,
+    "description": "Allophylus edulis (nome científico) é nativo da América do Sul, presente em vários biomas. Alcança até 10m e seus frutos pequenos e doces atraem muitos pássaros."
+  },
+  {
+    "common_name": "Pau-de-novato",
+    "scientific_name": "Triplaris americana",
+    "density": 0.6,
+    "description": "Triplaris americana (nome científico) é nativa da América Tropical, presente na Mata Atlântica. Alcança até 30m e é conhecida por abrigar formigas em seu tronco oco."
+  },
+  {
+    "common_name": "Jenipapo",
+    "scientific_name": "Genipa americana",
+    "density": 0.6,
+    "description": "Genipa americana (nome científico) é nativo da América Tropical, presente em vários biomas. Alcança até 20m e seu fruto produz um corante natural preto, usado para pintar a pele."
+  },
+  {
+    "common_name": "Cagaita",
+    "scientific_name": "Eugenia dysenterica",
+    "density": 0.6,
+    "description": "Eugenia dysenterica (nome científico) é nativa do Brasil, presente no Cerrado. Alcança até 10m e seu fruto, azedo e saboroso, é famoso por seu efeito laxativo se consumido em excesso."
+  },
+  {
+    "common_name": "Araticum (Marolo)",
+    "scientific_name": "Annona crassiflora",
+    "density": 0.6,
+    "description": "Annona crassiflora (nome científico) é nativa do Brasil, presente no Cerrado. Alcança até 8m e seu fruto grande e perfumado é usado em sorvetes, licores e doces regionais."
+  },
+  {
+    "common_name": "Camboatá-vermelho",
+    "scientific_name": "Cupania vernalis",
+    "density": 0.55,
+    "description": "Cupania vernalis (nome científico) é nativo da América do Sul, presente na Mata Atlântica. Alcança até 20m e seus frutos atraem aves, sendo ótima para reflorestamento."
+  },
+  {
+    "common_name": "Timbaúva",
+    "scientific_name": "Enterolobium contortisiliquum",
+    "density": 0.5,
+    "description": "Enterolobium contortisiliquum (nome científico) é nativo da América do Sul, presente na Mata Atlântica. Alcança até 35m e seu fruto tem formato de orelha, por isso é chamada de orelha-de-macaco."
+  },
+  {
+    "common_name": "Araucária",
+    "scientific_name": "Araucaria angustifolia",
+    "density": 0.5,
+    "description": "Araucaria angustifolia (nome científico) é nativa do Brasil, presente na Mata Atlântica. Alcança até 35m e produz o pinhão, semente comestível muito popular no sul do país."
+  },
+  {
+    "common_name": "Cambará",
+    "scientific_name": "Vochysia divergens",
+    "density": 0.5,
+    "description": "Vochysia divergens (nome científico) é nativa do Brasil, presente no Pantanal. Alcança até 20m e forma os \"cambarazais\", matas que toleram longos períodos de inundação."
+  },
+  {
+    "common_name": "Ipucas (diversas)",
+    "scientific_name": "Inga spp.",
+    "density": 0.5,
+    "description": "Inga spp. (nome científico) é nativo da América Tropical, presente em vários biomas. Alcança até 20m e seus frutos são vagens com sementes cobertas por uma polpa branca e doce."
+  },
+  {
+    "common_name": "Cedro",
+    "scientific_name": "Cedrela fissilis",
+    "density": 0.475,
+    "description": "Cedrela fissilis (nome científico) é nativa da América Central e do Sul, presente na Mata Atlântica. Alcança até 35m e sua madeira aromática e leve é usada em móveis e caixas de charuto."
+  },
+  {
+    "common_name": "Pau-de-leite",
+    "scientific_name": "Sapium glandulosum",
+    "density": 0.45,
+    "description": "Sapium glandulosum (nome científico) é nativo da América Tropical, presente na Mata Atlântica. Alcança até 25m e libera um látex branco e tóxico quando cortado."
+  },
+  {
+    "common_name": "Figueira-brava",
+    "scientific_name": "Ficus insipida",
+    "density": 0.4,
+    "description": "Ficus insipida (nome científico) é nativa da América Tropical, presente na Amazônia e Mata Atlântica. Alcança até 40m e é uma figueira estranguladora, que cresce sobre outras árvores."
+  },
+  {
+    "common_name": "Guapuruvu",
+    "scientific_name": "Schizolobium parahyba",
+    "density": 0.35,
+    "description": "Schizolobium parahyba (nome científico) é nativo do Brasil, presente na Mata Atlântica. Alcança até 40m e tem crescimento extremamente rápido, chegando a 5m em 2 anos."
+  },
+  {
+    "common_name": "Mandacaru (cacto)",
+    "scientific_name": "Cereus jamacaru",
+    "density": 0.4,
+    "description": "Cereus jamacaru (nome científico) é nativo do Brasil, presente na Caatinga. Alcança até 6m e sua flor branca desabrocha à noite, sendo um símbolo do sertão nordestino."
+  },
+  {
+    "common_name": "Xiquexique (cacto)",
+    "scientific_name": "Pilosocereus gounellei",
+    "density": 0.35,
+    "description": "Pilosocereus gounellei (nome científico) é nativo do Brasil, presente na Caatinga. Alcança até 4m e cresce de forma arbustiva, com ramos que se espalham pelo chão."
+  },
+  {
+    "common_name": "Jurema-preta",
+    "scientific_name": "Mimosa tenuiflora",
+    "density": 0.85,
+    "description": "Mimosa tenuiflora (nome científico) é nativa do Brasil, presente na Caatinga. Alcança até 8m e a casca de sua raiz é conhecida por ter propriedades psicoativas (DMT)."
+  },
+  {
+    "common_name": "Pau-branco",
+    "scientific_name": "Auxemma oncocalyx",
+    "density": 0.85,
+    "description": "Auxemma oncocalyx (nome científico) é nativa do Brasil, presente na Caatinga. Alcança até 12m e sua madeira clara e resistente é utilizada na fabricação de móveis e peças de xadrez."
+  },
+  {
+    "common_name": "Castanheira-do-pará",
+    "scientific_name": "Bertholletia excelsa",
+    "density": 0.85,
+    "description": "Bertholletia excelsa (nome científico) é nativa da Amazônia. Alcança até 60m e produz a castanha-do-pará, um superalimento rico em selênio, famoso mundialmente."
+  },
+  {
+    "common_name": "Umbuzeiro",
+    "scientific_name": "Spondias tuberosa",
+    "density": 0.8,
+    "description": "Spondias tuberosa (nome científico) é nativa do Brasil, presente na Caatinga. Alcança até 7m e possui raízes que armazenam água, permitindo sua sobrevivência em longas secas."
+  },
+  {
+    "common_name": "Catingueira",
+    "scientific_name": "Poincianella pyramidalis",
+    "density": 0.8,
+    "description": "Poincianella pyramidalis (nome científico) é nativa do Brasil, presente na Caatinga. Alcança até 8m e perde suas folhas na seca, mas floresce intensamente antes das chuvas."
+  },
+  {
+    "common_name": "Angelim-pedra",
+    "scientific_name": "Hymenolobium petraeum",
+    "density": 0.8,
+    "description": "Hymenolobium petraeum (nome científico) é nativo do Brasil, presente na Amazônia. Alcança até 60m e é uma das maiores árvores da floresta, com madeira muito valorizada."
+  },
+  {
+    "common_name": "Baraúna-do-sertão",
+    "scientific_name": "Amburana cearensis",
+    "density": 0.75,
+    "description": "Amburana cearensis (nome científico) é nativa da América do Sul, presente na Caatinga e Cerrado. Alcança até 20m e sua madeira aromática é usada para envelhecer cachaça."
+  },
+  {
+    "common_name": "Andiroba",
+    "scientific_name": "Carapa guianensis",
+    "density": 0.75,
+    "description": "Carapa guianensis (nome científico) é nativa da Amazônia. Alcança até 55m e de suas sementes se extrai um óleo com propriedades repelentes e medicinais."
+  },
+  {
+    "common_name": "Louro-preto",
+    "scientific_name": "Ocotea cymbarum",
+    "density": 0.7,
+    "description": "Ocotea cymbarum (nome científico) é nativo da Amazônia. Alcança até 40m e sua madeira, de alta qualidade e escura, é usada na construção de embarcações de luxo."
+  },
+  {
+    "common_name": "Marmeleiro",
+    "scientific_name": "Croton sonderianus",
+    "density": 0.65,
+    "description": "Croton sonderianus (nome científico) é nativo do Brasil, presente na Caatinga. Alcança até 6m e é uma espécie pioneira, muito importante para a apicultura na região."
+  },
+  {
+    "common_name": "Seringueira",
+    "scientific_name": "Hevea brasiliensis",
+    "density": 0.65,
+    "description": "Hevea brasiliensis (nome científico) é nativa da Amazônia. Alcança até 30m e de seu tronco se extrai o látex, a matéria-prima para a produção da borracha natural."
+  },
+  {
+    "common_name": "Mogno",
+    "scientific_name": "Swietenia macrophylla",
+    "density": 0.65,
+    "description": "Swietenia macrophylla (nome científico) é nativo da América Tropical, presente na Amazônia. Alcança até 60m e sua madeira avermelhada é uma das mais valiosas e cobiçadas do mundo."
+  },
+  {
+    "common_name": "Breu-branco",
+    "scientific_name": "Protium heptaphyllum",
+    "density": 0.65,
+    "description": "Protium heptaphyllum (nome científico) é nativo do Brasil, presente na Amazônia e Cerrado. Alcança até 20m e produz uma resina branca e aromática, usada como incenso."
+  },
+  {
+    "common_name": "Tauari",
+    "scientific_name": "Couratari spp.",
+    "density": 0.65,
+    "description": "Couratari spp. (nome científico) é um gênero nativo da Amazônia. Alcança até 50m e sua madeira clara e leve é usada na produção de laminados, compensados e móveis."
+  },
+  {
+    "common_name": "Juá",
+    "scientific_name": "Solanum viarum",
+    "density": 0.6,
+    "description": "Solanum viarum (nome científico) é nativo da América do Sul, presente no Cerrado. Alcança até 2m e é um arbusto espinhoso com frutos que servem de alimento para o gado."
+  },
+  {
+    "common_name": "Murici",
+    "scientific_name": "Byrsonima crassifolia",
+    "density": 0.6,
+    "description": "Byrsonima crassifolia (nome científico) é nativa da América Tropical, presente no Cerrado. Alcança até 10m e seus pequenos frutos amarelos são usados em sucos, doces e sorvetes."
+  },
+  {
+    "common_name": "Mulungú",
+    "scientific_name": "Erythrina velutina",
+    "density": 0.55,
+    "description": "Erythrina velutina (nome científico) é nativa do Brasil, presente na Caatinga e Cerrado. Alcança até 15m e sua casca é popularmente usada para fazer chás com efeito calmante."
+  },
+  {
+    "common_name": "Cedro-rosa",
+    "scientific_name": "Cedrela odorata",
+    "density": 0.55,
+    "description": "Cedrela odorata (nome científico) é nativa da América Tropical, presente na Amazônia. Alcança até 40m e sua madeira aromática é a principal fonte para caixas de charutos."
+  },
+  {
+    "common_name": "Ucuúba",
+    "scientific_name": "Virola surinamensis",
+    "density": 0.45,
+    "description": "Virola surinamensis (nome científico) é nativa da Amazônia. Alcança até 30m e de suas sementes se extrai uma gordura usada na produção de velas e sabonetes."
+  },
+  {
+    "common_name": "Paricá",
+    "scientific_name": "Schizolobium amazonicum",
+    "density": 0.4,
+    "description": "Schizolobium amazonicum (nome científico) é nativo da Amazônia. Alcança até 40m e possui um dos crescimentos mais rápidos do mundo, sendo ideal para reflorestamento."
+  }
+]

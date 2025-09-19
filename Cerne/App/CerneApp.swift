@@ -10,10 +10,13 @@ import SwiftData
 
 @main
 struct CerneApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
     var body: some Scene {
         WindowGroup {
             TabBar()
+                .environmentObject(appDelegate.quickActionService)
         }
-        .modelContainer(for: [User.self, ScannedTree.self, Pin.self, Footprint.self])
+        .modelContainer(Persistence.shared.modelContainer)
     }
 }
