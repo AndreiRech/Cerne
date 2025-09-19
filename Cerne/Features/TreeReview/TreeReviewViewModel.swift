@@ -15,6 +15,7 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
     var scannedTreeService: ScannedTreeServiceProtocol
     var treeAPIService: TreeAPIServiceProtocol
     var pinService: PinServiceProtocol
+    var treeDataService: TreeDataServiceProtocol
     
     var measuredDiameter: Double
     var treeImage: UIImage?
@@ -33,11 +34,12 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
     var isLoading: Bool = false
     var errorMessage: String?
     
-    init(cameraService: CameraServiceProtocol, scannedTreeService: ScannedTreeServiceProtocol, treeAPIService: TreeAPIServiceProtocol, pinService: PinServiceProtocol, measuredDiameter: Double, treeImage: UIImage? = nil, estimatedHeight: Double, pinLatitude: Double, pinLongitude: Double /*pinUser: User*/) {
+    init(cameraService: CameraServiceProtocol, scannedTreeService: ScannedTreeServiceProtocol, treeAPIService: TreeAPIServiceProtocol, pinService: PinServiceProtocol, treeDataService: TreeDataServiceProtocol, measuredDiameter: Double, treeImage: UIImage? = nil, estimatedHeight: Double, pinLatitude: Double, pinLongitude: Double /*pinUser: User*/) {
         self.cameraService = cameraService
         self.scannedTreeService = scannedTreeService
         self.treeAPIService = treeAPIService
         self.pinService = pinService
+        self.treeDataService = treeDataService
         self.measuredDiameter = measuredDiameter
         self.treeImage = treeImage
         self.estimatedHeight = estimatedHeight
@@ -59,13 +61,19 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
             let response = try await treeAPIService.identifyTree(image: treeImage)
             let species = response.bestMatch
             
+            var density: Double
+            
+            if let foundTree = treeDataService.findTree(byScientificName: species) {
+                density = foundTree.density
+            } else {
+                density = 1.2
+            }
             
             let newTree = try scannedTreeService.createScannedTree(
                 species: species,
                 height: estimatedHeight,
                 dap: Double(measuredDiameter),
-                totalCO2: calculateCO2(height: estimatedHeight, dap: Float(measuredDiameter), density: 1.5)
-                //TO DO: Pegar a density da árvore
+                totalCO2: calculateCO2(height: estimatedHeight, dap: Float(measuredDiameter), density: density)
             )
             
             tree = newTree
@@ -110,7 +118,7 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
                 user: mockUser,
                 tree: tree
             )
-                        
+            
         } catch {
             errorMessage = "Ocorreu um erro ao criar o pino: \(error.localizedDescription)"
         }
@@ -126,10 +134,12 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
             return
         }
         
+        let density = treeDataService.findTree(byScientificName: updateSpecies)?.density ?? 1.0
+        
         tree.species = updateSpecies
-            tree.height = updateHeight
-            tree.dap = updateDap
-            tree.totalCO2 = calculateCO2(height: updateHeight, dap: Float(updateDap), density: 1.5) // TO DO: Pegar a density
+        tree.height = updateHeight
+        tree.dap = updateDap
+        tree.totalCO2 = calculateCO2(height: updateHeight, dap: Float(updateDap), density: density)
         
         do {
             try scannedTreeService.updateScannedTree(
@@ -139,9 +149,8 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
                 newDap: updateDap
             )
             
-            //TO DO: Pegar a density da árvore
-            tree.totalCO2 = calculateCO2(height: updateHeight, dap: Float(updateDap), density: 1.5)
-
+            tree.totalCO2 = calculateCO2(height: updateHeight, dap: Float(updateDap), density: density)
+            
         } catch {
             errorMessage = "An error occurred while updating the tree: \(error.localizedDescription)"
         }

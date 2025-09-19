@@ -102,6 +102,7 @@ struct HeightView: View {
                         scannedTreeService: ScannedTreeService(),
                         treeAPIService: TreeAPIService(),
                         pinService: PinService(),
+                        treeDataService: TreeDataService(),
                         measuredDiameter: viewModel.measuredDiameter,
                         treeImage: viewModel.treeImage,
                         estimatedHeight: viewModel.estimatedHeight,

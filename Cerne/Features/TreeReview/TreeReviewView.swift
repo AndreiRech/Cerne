@@ -34,14 +34,16 @@ struct TreeReviewView: View {
                         isEditing: $viewModel.isEditing
                     )
                     NumericInfoComponent(
-                        title: String(format: "%.2f cm", viewModel.tree?.dap ?? 0.0),
+                        title: String(format: "%.2f m", viewModel.tree?.dap ?? 0.0),
                         subtitle: "Diâmetro do tronco",
+                        isHeight: false,
                         value: $viewModel.updateDap,
                         isEditing: $viewModel.isEditing
                     )
                     NumericInfoComponent(
                         title: String(format: "%.2f m", viewModel.tree?.height ?? 0.0),
                         subtitle: "Altura aproximada",
+                        isHeight: true,
                         value: $viewModel.updateHeight,
                         isEditing: $viewModel.isEditing
                         
@@ -95,7 +97,6 @@ struct TreeReviewView: View {
             .padding(.horizontal, 23)
             .padding(.vertical, 25)
             .glassEffect(in: .rect(cornerRadius: 16))
-            //padding dar
             
             .onAppear {
                 if viewModel.tree == nil {
