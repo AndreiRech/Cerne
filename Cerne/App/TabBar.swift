@@ -10,11 +10,10 @@ import SwiftUI
 struct TabBar: View {
     @Environment(\.modelContext) var modelContext
     @EnvironmentObject var quickActionService: QuickActionService
-    @State private var selectedTab: Int = 0
+    @StateObject private var router = Router()
 
     var body: some View {
-        TabView(selection: $selectedTab) {
-
+        TabView(selection: $router.selectedTab) {
             Tab("Home", systemImage: "arrow.trianglehead.2.clockwise.rotate.90.icloud", value: 0) {
                 ContentView()
             }
@@ -28,17 +27,18 @@ struct TabBar: View {
             }
 
             Tab("Add", systemImage: "plus", value: 3, role: .search) {
-                NavigationStack {
+                NavigationStack(path: $router.path) {
                     PhotoView(viewModel: PhotoViewModel(cameraService: CameraService(), treeAPIService: TreeAPIService()))
                         .toolbar(.hidden, for: .tabBar)
                 }
             }
         }
+        .environmentObject(router)
         .onReceive(quickActionService.$selectedAction) { action in
             guard let action = action else { return }
             switch action {
             case .mapTree:
-                selectedTab = 3
+                router.selectedTab = 3
             }
         }
     }
