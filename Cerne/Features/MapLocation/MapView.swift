@@ -27,9 +27,6 @@ struct MapView: View {
                             .overlay(Circle().stroke(Color.white, lineWidth: 2))
                             .shadow(radius: 5)
                     }
-                    .onTapGesture {
-                        viewModel.isShowingDetails.toggle()
-                    }
                 }
             }
         }
@@ -44,12 +41,10 @@ struct MapView: View {
         .onChange(of: (viewModel.userLocation)) { _, _ in
             viewModel.getPins()
         }
-        .sheet(isPresented: $viewModel.isShowingDetails) {
-            if let pin = viewModel.selectedPin {
-                PinDetailsView(viewModel: PinDetailsViewModel(pin: pin, pinService: PinService()))
-                    .presentationDetents([.height(265), .height(500)])
-                    .presentationDragIndicator(.visible)
-            }
+        .sheet(item: $viewModel.selectedPin) { selectedPin in
+            PinDetailsView(viewModel: PinDetailsViewModel(pin: selectedPin, pinService: PinService()))
+                .presentationDetents([.height(265), .height(500)])
+                .presentationDragIndicator(.visible)
         }
     }
 }

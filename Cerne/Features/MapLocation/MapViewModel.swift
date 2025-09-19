@@ -16,7 +16,6 @@ final class MapViewModel: MapViewModelProtocol {
     var userLocation: UserLocation?
     var pins: [Pin] = []
     var selectedPin: Pin?
-    var isShowingDetails: Bool = false
     
     private var userService: UserServiceProtocol
     private var pinService: PinServiceProtocol

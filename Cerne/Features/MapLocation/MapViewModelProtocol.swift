@@ -13,7 +13,6 @@ protocol MapViewModelProtocol {
     var userLocation: UserLocation? { get }
     var pins: [Pin] { get }
     var selectedPin: Pin? { get set }
-    var isShowingDetails: Bool { get set }
     
     func getPins()
     func onMapAppear()
