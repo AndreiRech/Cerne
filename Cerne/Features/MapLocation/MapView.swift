@@ -30,18 +30,21 @@ struct MapView: View {
                 }
             }
         }
-        .sheet(item: $viewModel.selectedPin) { selectedPin in
-                    PinDetailsView(viewModel: PinDetailsViewModel(pin: selectedPin, pinService: PinService()))
-                        .presentationDetents([.height(265), .height(500)])
-                        .presentationDragIndicator(.visible)
-                }
+        .mapControls {
+            MapUserLocationButton()
+            MapCompass()
+        }
         .ignoresSafeArea()
         .onAppear {
             viewModel.onMapAppear()
         }
         .onChange(of: (viewModel.userLocation)) { _, _ in
-            viewModel.refreshLocation()
             viewModel.getPins()
+        }
+        .sheet(item: $viewModel.selectedPin) { selectedPin in
+            PinDetailsView(viewModel: PinDetailsViewModel(pin: selectedPin, pinService: PinService()))
+                .presentationDetents([.height(265), .height(500)])
+                .presentationDragIndicator(.visible)
         }
     }
 }

@@ -117,10 +117,8 @@ struct PhotoViewModelTests {
         viewModel.retakePhoto()
         
         // Then
-        #expect(mockCameraService.wasCalled)
         #expect(mockCameraService.isCorrect)
         #expect(mockCameraService.errorMessage == nil)
-        #expect(mockCameraService.message == "Cleared")
     }
     
     @Test func shouldIdentifyTree() async {

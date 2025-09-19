@@ -35,27 +35,6 @@ struct MapViewModelTests {
         #expect(viewModel.pins.isEmpty == false)
     }
     
-    @Test func testRefreshLocation() async throws {
-        let locationService = MockLocationService()
-        let pinService = MockPinService()
-        let userService = MockUserService()
-        let treeService = MockScannedTreeService()
-        let mockLocation = UserLocation(latitude: -23.5, longitude: -46.6)
-        
-        locationService.userLocation = mockLocation
-        
-        let viewModel = MapViewModel(locationService: locationService,
-                               pinService: pinService,
-                               userService: userService,
-                               scannedTreeService: treeService)
-        
-        viewModel.refreshLocation()
-        
-        #expect(viewModel.userLocation != nil)
-        #expect(viewModel.userLocation?.latitude == mockLocation.latitude)
-        #expect(viewModel.userLocation?.longitude == mockLocation.longitude)
-    }
-    
     @Test func testGetPins() async throws {
         let locationService = MockLocationService()
         let pinService = MockPinService()
@@ -75,7 +54,7 @@ struct MapViewModelTests {
         viewModel.getPins()
         
         #expect(viewModel.pins.count > 0)
-        #expect(viewModel.pins.first?.tree.species == "A")
+        #expect(viewModel.pins.first?.tree?.species ?? "" == "A")
     }
     
     @Test func testGetPinsFailure() async throws {

@@ -15,8 +15,5 @@ protocol MapViewModelProtocol {
     var selectedPin: Pin? { get set }
     
     func getPins()
-    
-    func refreshLocation()
-    
     func onMapAppear()
 }

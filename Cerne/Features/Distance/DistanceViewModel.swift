@@ -60,11 +60,13 @@ class DistanceViewModel: NSObject, DistanceViewModelProtocol, CLLocationManagerD
     
     func onDisappear() {
         arService.stop()
+        locationManager.stopUpdatingLocation()
     }
     
     func getUserLocation() {
         locationManager.requestWhenInUseAuthorization()
-        locationManager.requestLocation()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
     }
     
     internal func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

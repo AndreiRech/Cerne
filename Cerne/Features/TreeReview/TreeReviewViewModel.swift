@@ -111,7 +111,7 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
             }
             let mockUser = User(name: "Mock User", height: 1.75)
             
-            let newPin = try pinService.createPin (
+            let _ = try pinService.createPin (
                 image: imageData,
                 latitude: pinLatitude,
                 longitude: pinLongitude,

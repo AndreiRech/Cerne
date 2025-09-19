@@ -20,7 +20,7 @@ struct DistanceView: View {
                     .ignoresSafeArea()
                 
                 InstructionComponent(
-                    imageName: "scale.3d",
+                    imageName: "graph.3d",
                     title: "Aponte a câmera para a base do tronco e posicione o objeto 3D",
                     buttonText: "Fixar 3D na base",
                     onTap: {
@@ -54,6 +54,7 @@ struct DistanceView: View {
                                 .clipShape(Capsule())
                         }
                     }
+                    .disabled(viewModel.distance <= 0)
                     .padding(.bottom, 100)
                 }
                 .ignoresSafeArea()

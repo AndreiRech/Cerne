@@ -23,7 +23,7 @@ class PinDetailsViewModel: PinDetailsViewModelProtocol {
     private func setup() {
         do {
             allDetails = try pinService.getDetails(fileName: "Tree")
-            details = allDetails.first(where: { $0.scientificName.lowercased().contains(pin.tree.species.lowercased()) })
+            details = allDetails.first(where: { $0.scientificName.lowercased().contains(pin.tree?.species.lowercased() ?? "") })
         } catch {
             print("Failed to get details")
         }

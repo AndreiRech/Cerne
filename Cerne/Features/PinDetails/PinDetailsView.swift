@@ -33,7 +33,7 @@ struct PinDetailsView: View {
                         
                         Spacer()
                         
-                        Text(viewModel.pin.tree.species)
+                        Text(viewModel.pin.tree?.species ?? "")
                             .font(.headline)
                             .fontWeight(.semibold)
                         
@@ -130,7 +130,7 @@ struct PinDetailsView: View {
                             .frame(width: 26, height: 26, alignment: .center)
                         
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("\(viewModel.pin.user.name)")
+                            Text("\(viewModel.pin.user?.name ?? "Nome do usuário não disponível")")
                                 .font(.body)
                                 .fontWeight(.semibold)
                             

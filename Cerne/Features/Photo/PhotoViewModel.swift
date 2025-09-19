@@ -21,6 +21,7 @@ class PhotoViewModel: PhotoViewModelProtocol {
     var showInfo: Bool = true
     var isMeasuring: Bool = false
     var shouldNavigate: Bool = false
+    var isIdentifying: Bool = false
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -60,20 +61,22 @@ class PhotoViewModel: PhotoViewModelProtocol {
     
     func retakePhoto() {
         identifiedTree = nil
+        capturedImage = nil
+        isIdentifying = false
         isLoading = false
-        
-        cameraService.clearImage()
     }
     
     func identifyTree(image: UIImage) async {
         isLoading = true
+        isIdentifying = true
         
-        defer { isLoading = false }
+        defer {
+            isLoading = false
+        }
         
         do {
             let result = try await treeAPIService.identifyTree(image: image)
             self.identifiedTree = result
-            shouldNavigate = true
         } catch let error as NetworkError {
             self.errorMessage = error.errorDescription
         } catch {

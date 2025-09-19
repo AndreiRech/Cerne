@@ -31,6 +31,7 @@ struct TabBar: View {
                     PhotoView(viewModel: PhotoViewModel(cameraService: CameraService(), treeAPIService: TreeAPIService()))
                         .toolbar(.hidden, for: .tabBar)
                 }
+                .id(router.addFlowID)
             }
         }
         .environmentObject(router)
