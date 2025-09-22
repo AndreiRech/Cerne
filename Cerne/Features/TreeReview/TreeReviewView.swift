@@ -75,9 +75,6 @@ struct TreeReviewView: View {
                 
                 
                 Button {
-                    Task {
-                        await viewModel.createScannedTree()
-                    }
                     router.popToRoot()
                     router.selectedTab = 0
                     
@@ -85,12 +82,13 @@ struct TreeReviewView: View {
                     Image(systemName: "checkmark")
                     Text("Salvar")
                 }
+                .disabled(viewModel.isEditing)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 14)
                 .foregroundStyle(.white)
                 .background(
                     RoundedRectangle(cornerRadius: 16)
-                        .foregroundStyle(.primitive1)
+                        .foregroundStyle(viewModel.isEditing ? .primitive1Disabled : .primitive1 )
                 )
                 
             }

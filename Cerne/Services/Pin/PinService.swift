@@ -23,6 +23,7 @@ class PinService: PinServiceProtocol {
 
         do {
             let pins = try modelContext.fetch(descriptor)
+            print(pins)
             return pins
         } catch {
             throw GenericError.serviceError

@@ -14,6 +14,7 @@ import CoreLocation
 class DistanceViewModel: NSObject, DistanceViewModelProtocol, CLLocationManagerDelegate {
     private var cancellables = Set<AnyCancellable>()
     private let locationManager = CLLocationManager()
+    private var onLocationReceived: (() -> Void)?
     
     var arService: ARServiceProtocol
     var distanceText: String = ""
@@ -63,7 +64,8 @@ class DistanceViewModel: NSObject, DistanceViewModelProtocol, CLLocationManagerD
         locationManager.stopUpdatingLocation()
     }
     
-    func getUserLocation() {
+    func getUserLocation(completion: @escaping () -> Void) {
+        self.onLocationReceived = completion
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
@@ -73,6 +75,10 @@ class DistanceViewModel: NSObject, DistanceViewModelProtocol, CLLocationManagerD
         if let location = locations.first {
             self.userLatitude = location.coordinate.latitude
             self.userLongitude = location.coordinate.longitude
+        
+            onLocationReceived?()
+            onLocationReceived = nil
+            locationManager.stopUpdatingLocation()
         }
     }
     

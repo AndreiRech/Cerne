@@ -41,8 +41,10 @@ struct MapView: View {
         .onChange(of: (viewModel.userLocation)) { _, _ in
             viewModel.getPins()
         }
-        .sheet(item: $viewModel.selectedPin) { selectedPin in
-            PinDetailsView(viewModel: PinDetailsViewModel(pin: selectedPin, pinService: PinService(), userService: UserService()))
+        .sheet(item: $viewModel.selectedPin, onDismiss: {
+            viewModel.getPins()
+        }) { selectedPin in
+                PinDetailsView(viewModel: PinDetailsViewModel(pin: selectedPin, pinService: PinService(), userService: UserService()))
                 .presentationDetents([.height(265), .height(500)])
                 .presentationDragIndicator(.visible)
         }

@@ -106,7 +106,7 @@ struct HeightView: View {
                         userService: UserService(),
                         measuredDiameter: viewModel.measuredDiameter,
                         treeImage: viewModel.treeImage,
-                        estimatedHeight: viewModel.estimatedHeight,
+                        estimatedHeight: viewModel.finalHeight,
                         pinLatitude: viewModel.userLatitude,
                         pinLongitude: viewModel.userLongitude
                     )

@@ -32,8 +32,9 @@ struct DistanceView: View {
                     Spacer()
                     
                     Button {
-                        viewModel.shouldNavigate = true
-                        viewModel.getUserLocation()
+                        viewModel.getUserLocation {
+                            viewModel.shouldNavigate = true
+                        }
                     } label: {
                         if #available(iOS 26.0, *) {
                             Text("Continuar")
