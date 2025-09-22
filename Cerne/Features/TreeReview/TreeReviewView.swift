@@ -75,9 +75,6 @@ struct TreeReviewView: View {
                 
                 
                 Button {
-//                    Task {
-//                        await viewModel.createScannedTree()
-//                    }
                     router.popToRoot()
                     router.selectedTab = 0
                     
