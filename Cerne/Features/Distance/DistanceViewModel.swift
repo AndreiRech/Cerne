@@ -17,6 +17,7 @@ class DistanceViewModel: NSObject, DistanceViewModelProtocol, CLLocationManagerD
     private var onLocationReceived: (() -> Void)?
     
     var arService: ARServiceProtocol
+    let onboardingService: OnboardingServiceProtocol
     var distanceText: String = ""
     
     let userHeight: Double
@@ -31,6 +32,7 @@ class DistanceViewModel: NSObject, DistanceViewModelProtocol, CLLocationManagerD
     var shouldNavigate: Bool = false
     
     init(arService: ARServiceProtocol,
+         onboardingService: OnboardingServiceProtocol,
          userHeight: Double,
          measuredDiameter: Double,
          treeImage: UIImage) {
@@ -38,11 +40,14 @@ class DistanceViewModel: NSObject, DistanceViewModelProtocol, CLLocationManagerD
         self.userHeight = userHeight
         self.measuredDiameter = measuredDiameter
         self.treeImage = treeImage
+        self.onboardingService = onboardingService
         
         super.init()
         self.locationManager.delegate = self
         
         subscribeToPublishers()
+        
+        showInfo = onboardingService.isFirstTime()
     }
     
     private func subscribeToPublishers() {

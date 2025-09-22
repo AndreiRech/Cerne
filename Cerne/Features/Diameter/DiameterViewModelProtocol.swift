@@ -11,6 +11,7 @@ import SceneKit
 
 protocol DiameterViewModelProtocol: AnyObject {
     var cameraService: CameraServiceProtocol { get }
+    var onboardingService: OnboardingServiceProtocol { get }
     var errorMessage: String? { get }
 
     

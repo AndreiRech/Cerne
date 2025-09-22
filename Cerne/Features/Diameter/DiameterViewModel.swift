@@ -22,14 +22,16 @@ class DiameterViewModel: NSObject, DiameterViewModelProtocol, ObservableObject, 
     var textNode: SCNNode?
     
     var cameraService: CameraServiceProtocol
+    let onboardingService: OnboardingServiceProtocol
     var errorMessage: String?
     
-    init(startNode: SCNNode? = nil, endNode: SCNNode? = nil, lineNode: SCNNode? = nil, textNode: SCNNode? = nil, cameraService: CameraServiceProtocol, treeImage: UIImage) {
+    init(startNode: SCNNode? = nil, endNode: SCNNode? = nil, lineNode: SCNNode? = nil, textNode: SCNNode? = nil, cameraService: CameraServiceProtocol, treeImage: UIImage, onboardingService: OnboardingServiceProtocol) {
         self.startNode = startNode
         self.endNode = endNode
         self.lineNode = lineNode
         self.textNode = textNode
         self.cameraService = cameraService
+        self.onboardingService = onboardingService
         self.treeImage = treeImage
     }
     
