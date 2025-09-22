@@ -30,8 +30,8 @@ class FootprintService: FootprintServiceProtocol {
     func createOrUpdateFootprint(for user: User, with newResponses: [Response]) throws {
         let newTotal = newResponses.reduce(0) { $0 + $1.value }
         
-        if let existingFootprint = user.footprint {
-            existingFootprint.responses.forEach { oldResponse in
+        if let existingFootprint = user.footprint, let responses = existingFootprint.responses {
+            responses.forEach { oldResponse in
                 modelContext.delete(oldResponse)
             }
             

@@ -54,7 +54,7 @@ struct PinDetailsView: View {
                     .padding(.top)
                     
                     HStack(alignment: .top, spacing: 10) {
-                        Image(uiImage: UIImage(data: viewModel.pin.image) ?? UIImage(named: "placeholder")!)
+                        Image(uiImage: UIImage(data: viewModel.pin.image!) ?? UIImage(named: "placeholder")!)
                             .resizable()
                             .frame(width: 102, height: 137, alignment: .center)
                             .clipShape(RoundedRectangle(cornerRadius: 18))
@@ -142,26 +142,29 @@ struct PinDetailsView: View {
                 }
                 
                 Button {
-                    if viewModel.isPinFromUser() {
+                    if viewModel.isPinFromUser {
                         isShowingDeleteAlert = true
                     } else {
                         isShowingReportAlert = true
                     }
                 } label: {
                     HStack {
-                        Image(systemName: viewModel.isPinFromUser() ? "trash" : "exclamationmark.bubble")
-                        Text(viewModel.isPinFromUser() ? "Deletar Árvore" : "Relatar um Problema")
+                        Image(systemName: viewModel.isPinFromUser ? "trash" : "exclamationmark.bubble")
+                        Text(viewModel.isPinFromUser ? "Deletar Árvore" : "Relatar um Problema")
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 14)
-                    .foregroundStyle(viewModel.isPinFromUser() ? .red : .primary)
+                    .foregroundStyle(viewModel.isPinFromUser ? .red : .primary)
                     .background(
                         RoundedRectangle(cornerRadius: 1000)
-                            .foregroundStyle(viewModel.isPinFromUser() ? Color.red.opacity(0.2) : .secondary.opacity(0.2))
+                            .foregroundStyle(viewModel.isPinFromUser ? Color.red.opacity(0.2) : .secondary.opacity(0.2))
                     )
                 }
             }
             .padding(.horizontal, 23)
+        }
+        .task {
+            await viewModel.isPinFromUser()
         }
         .scrollDisabled(true)
         .sheet(isPresented: $isShowingShareSheet) {

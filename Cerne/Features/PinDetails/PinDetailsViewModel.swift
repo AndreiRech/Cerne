@@ -11,12 +11,15 @@ import Foundation
 class PinDetailsViewModel: PinDetailsViewModelProtocol {
     var pin: Pin
     let pinService: PinServiceProtocol
+    let userService: UserServiceProtocol
     var allDetails: [TreeDetails] = []
     var details: TreeDetails?
+    var isPinFromUser: Bool = false
     
-    init(pin: Pin, pinService: PinServiceProtocol) {
+    init(pin: Pin, pinService: PinServiceProtocol, userService: UserServiceProtocol) {
         self.pin = pin
         self.pinService = pinService
+        self.userService = userService
         setup()
     }
     
@@ -45,7 +48,13 @@ class PinDetailsViewModel: PinDetailsViewModelProtocol {
         }
     }
     
-    func isPinFromUser() -> Bool {
-        return false
+    func isPinFromUser() async {
+        do {
+            let currentUser = try await userService.fetchOrCreateCurrentUser()
+            
+            isPinFromUser = currentUser == pin.user ? true : false
+        } catch {
+            print("Failed to get details")
+        }
     }
 }

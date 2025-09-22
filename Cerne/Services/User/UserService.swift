@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftData
+import CloudKit
 
 class UserService: UserServiceProtocol {
     private var modelContext: ModelContext
@@ -24,6 +25,28 @@ class UserService: UserServiceProtocol {
             return pins
         } catch {
             throw GenericError.serviceError
+        }
+    }
+    
+    func fetchOrCreateCurrentUser() async throws -> User {
+        let container = CKContainer.default()
+        
+        let userRecordID = try await container.userRecordID()
+        let userID = userRecordID.recordName
+        
+        var descriptor = FetchDescriptor<User>(
+            predicate: #Predicate { $0.id == userID }
+        )
+        descriptor.fetchLimit = 1
+        
+        if let existingUser = try modelContext.fetch(descriptor).first {
+            return existingUser
+        } else {
+            let newUser = User(id: userID, name: "Novo Usuário", height: 1.65)
+            modelContext.insert(newUser)
+            try save()
+            
+            return newUser
         }
     }
     
