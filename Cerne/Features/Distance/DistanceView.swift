@@ -69,6 +69,7 @@ struct DistanceView: View {
                     cameraService: CameraService(),
                     motionService: MotionService(),
                     scannedTreeService: ScannedTreeService(),
+                    onboardingService: OnboardingService(),
                     userHeight: 1.80,
                     distanceToTree: viewModel.distance,
                     measuredDiameter: viewModel.measuredDiameter,

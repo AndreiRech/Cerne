@@ -38,6 +38,7 @@ struct DiameterView: View {
                             DistanceView(
                             viewModel: DistanceViewModel(
                                 arService: ARService(),
+                                onboardingService: OnboardingService(),
                                 userHeight: 1.85,
                                 measuredDiameter: Double(viewModel.result ?? 0.0),
                                 treeImage: viewModel.treeImage

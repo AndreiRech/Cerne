@@ -33,7 +33,7 @@ class MockFootprintService: FootprintServiceProtocol {
         
         let newTotal = newResponses.reduce(0) { $0 + $1.value }
         
-        user.footprint = Footprint(id: user.id, total: newTotal, responses: newResponses)
+        user.footprint = Footprint(id: UUID(), total: newTotal, responses: newResponses)
     }
     
     func getQuestions(fileName: String) throws -> [Question] {

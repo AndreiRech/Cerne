@@ -100,7 +100,8 @@ struct PhotoView: View {
                                 DiameterView(
                                     viewModel: DiameterViewModel(
                                         cameraService: CameraService(),
-                                        treeImage: capturedImage
+                                        treeImage: capturedImage,
+                                        onboardingService: OnboardingService()
                                     )
                                 )
                                 .navigationBarHidden(false)

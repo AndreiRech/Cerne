@@ -16,7 +16,8 @@ struct DiameterViewModelTests {
         let mockCameraService = MockCameraService(shouldFail: false)
         let viewModel = DiameterViewModel(
             cameraService: mockCameraService,
-            treeImage: UIImage()
+            treeImage: UIImage(),
+            onboardingService: MockOnboardingService()
         )
         
         // When
@@ -37,7 +38,8 @@ struct DiameterViewModelTests {
         let mockCameraService = MockCameraService(shouldFail: true)
         let viewModel = DiameterViewModel(
             cameraService: mockCameraService,
-            treeImage: UIImage()
+            treeImage: UIImage(),
+            onboardingService: MockOnboardingService()
         )
         
         // When
@@ -58,7 +60,8 @@ struct DiameterViewModelTests {
         let mockCameraService = MockCameraService(shouldFail: false)
         let viewModel = DiameterViewModel(
             cameraService: mockCameraService,
-            treeImage: UIImage()
+            treeImage: UIImage(),
+            onboardingService: MockOnboardingService()
         )
         
         // When
@@ -81,7 +84,8 @@ struct DiameterViewModelTests {
         let mockCameraService = MockCameraService(shouldFail: false)
         let viewModel = DiameterViewModel(
             cameraService: mockCameraService,
-            treeImage: UIImage()
+            treeImage: UIImage(),
+            onboardingService: MockOnboardingService()
             
         )
         
@@ -105,7 +109,8 @@ struct DiameterViewModelTests {
         let mockCameraService = MockCameraService(shouldFail: false)
         let viewModel = DiameterViewModel(
             cameraService: mockCameraService,
-            treeImage: UIImage()
+            treeImage: UIImage(),
+            onboardingService: MockOnboardingService()
         )
         viewModel.result = 1
         
@@ -121,7 +126,8 @@ struct DiameterViewModelTests {
         let mockCameraService = MockCameraService(shouldFail: false)
         let viewModel = DiameterViewModel(
             cameraService: mockCameraService,
-            treeImage: UIImage()
+            treeImage: UIImage(),
+            onboardingService: MockOnboardingService()
         )
         viewModel.result = 0
         
@@ -137,7 +143,8 @@ struct DiameterViewModelTests {
         let mockCameraService = MockCameraService(shouldFail: false)
         let viewModel = DiameterViewModel(
             cameraService: mockCameraService,
-            treeImage: UIImage()
+            treeImage: UIImage(),
+            onboardingService: MockOnboardingService()
             
         )
         let position = SCNVector3(1, 2, 3)
@@ -158,7 +165,8 @@ struct DiameterViewModelTests {
         let mockCameraService = MockCameraService(shouldFail: false)
         let viewModel = DiameterViewModel(
             cameraService: mockCameraService,
-            treeImage: UIImage()
+            treeImage: UIImage(),
+            onboardingService: MockOnboardingService()
             
         )
         
@@ -178,7 +186,8 @@ struct DiameterViewModelTests {
         let mockCameraService = MockCameraService(shouldFail: false)
         let viewModel = DiameterViewModel(
             cameraService: mockCameraService,
-            treeImage: UIImage()
+            treeImage: UIImage(),
+            onboardingService: MockOnboardingService()
             
         )
         let text = "Test"
@@ -204,7 +213,8 @@ struct DiameterViewModelTests {
         let mockCameraService = MockCameraService(shouldFail: false)
         let viewModel = DiameterViewModel(
             cameraService: mockCameraService,
-            treeImage: UIImage()
+            treeImage: UIImage(),
+            onboardingService: MockOnboardingService()
             
         )
         
@@ -224,7 +234,8 @@ struct DiameterViewModelTests {
         let mockCameraService = MockCameraService(shouldFail: false)
         let viewModel = DiameterViewModel(
             cameraService: mockCameraService,
-            treeImage: UIImage()
+            treeImage: UIImage(),
+            onboardingService: MockOnboardingService()
             
         )
         

@@ -11,6 +11,7 @@ import UIKit
 protocol PhotoViewModelProtocol {
     var cameraService: CameraServiceProtocol { get }
     var treeAPIService: TreeAPIServiceProtocol { get }
+    var onboardingService: OnboardingServiceProtocol { get }
     
     var isLoading: Bool { get }
     var errorMessage: String? { get set }

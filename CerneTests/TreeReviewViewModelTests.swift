@@ -26,6 +26,7 @@ struct TreeReviewViewModelTests {
             treeAPIService: mockTreeAPIService,
             pinService: mockPinService,
             treeDataService: mockTreeDataService,
+            userService: MockUserService(),
             measuredDiameter: 40.0,
             treeImage:  UIImage(named: "TreeTest"),
             estimatedHeight: 5.0,
@@ -56,6 +57,7 @@ struct TreeReviewViewModelTests {
             treeAPIService: mockTreeAPIService,
             pinService: mockPinService,
             treeDataService: mockTreeDataService,
+            userService: MockUserService(),
             measuredDiameter: 40.0,
             treeImage: UIImage(),
             estimatedHeight: 5.0,
@@ -87,6 +89,7 @@ struct TreeReviewViewModelTests {
             treeAPIService: mockTreeAPIService,
             pinService: mockPinService,
             treeDataService: mockTreeDataService,
+            userService: MockUserService(),
             measuredDiameter: 40.0,
             treeImage: nil,
             estimatedHeight: 5.0,
@@ -107,7 +110,6 @@ struct TreeReviewViewModelTests {
         let mockTreeAPIService = MockTreeAPIService(shouldFail: false, isNetworkError: false)
         let mockScannedTreeService = MockScannedTreeService(shouldFail: false)
         let mockPinService = MockPinService(shouldFail: true)
-        let mockCameraService = MockCameraService(shouldFail: false)
         let mockTreeDataService = MockTreeDataService()
 
         
@@ -117,6 +119,7 @@ struct TreeReviewViewModelTests {
             treeAPIService: mockTreeAPIService,
             pinService: mockPinService,
             treeDataService: mockTreeDataService,
+            userService: MockUserService(),
             measuredDiameter: 40.0,
             treeImage: UIImage(),
             estimatedHeight: 5.0,
@@ -149,6 +152,7 @@ struct TreeReviewViewModelTests {
             treeAPIService: mockTreeAPIService,
             pinService: mockPinService,
             treeDataService: mockTreeDataService,
+            userService: MockUserService(),
             measuredDiameter: 40.0,
             treeImage: UIImage(named: "TreeTest"),
             estimatedHeight: 5.0,
@@ -189,6 +193,7 @@ struct TreeReviewViewModelTests {
             treeAPIService: mockTreeAPIService,
             pinService: mockPinService,
             treeDataService: mockTreeDataService,
+            userService: MockUserService(),
             measuredDiameter: 15.0,
             treeImage: UIImage(),
             estimatedHeight: 20.0,

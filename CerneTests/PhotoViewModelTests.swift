@@ -17,7 +17,8 @@ struct PhotoViewModelTests {
         let mockTreeAPIService = MockTreeAPIService(shouldFail: false)
         let viewModel = PhotoViewModel(
             cameraService: mockCameraService,
-            treeAPIService: mockTreeAPIService
+            treeAPIService: mockTreeAPIService,
+            onboardingService: MockOnboardingService()
         )
         
         // When
@@ -39,7 +40,8 @@ struct PhotoViewModelTests {
         let mockTreeAPIService = MockTreeAPIService(shouldFail: false)
         let viewModel = PhotoViewModel(
             cameraService: mockCameraService,
-            treeAPIService: mockTreeAPIService
+            treeAPIService: mockTreeAPIService,
+            onboardingService: MockOnboardingService()
         )
         
         // When
@@ -61,7 +63,8 @@ struct PhotoViewModelTests {
         let mockTreeAPIService = MockTreeAPIService(shouldFail: false)
         let viewModel = PhotoViewModel(
             cameraService: mockCameraService,
-            treeAPIService: mockTreeAPIService
+            treeAPIService: mockTreeAPIService,
+            onboardingService: MockOnboardingService()
         )
         
         // When
@@ -85,7 +88,8 @@ struct PhotoViewModelTests {
         let mockTreeAPIService = MockTreeAPIService(shouldFail: false)
         let viewModel = PhotoViewModel(
             cameraService: mockCameraService,
-            treeAPIService: mockTreeAPIService
+            treeAPIService: mockTreeAPIService,
+            onboardingService: MockOnboardingService()
         )
         
         // When
@@ -107,7 +111,8 @@ struct PhotoViewModelTests {
         let mockTreeAPIService = MockTreeAPIService(shouldFail: false)
         let viewModel = PhotoViewModel(
             cameraService: mockCameraService,
-            treeAPIService: mockTreeAPIService
+            treeAPIService: mockTreeAPIService,
+            onboardingService: MockOnboardingService()
         )
         
         // When
@@ -126,7 +131,8 @@ struct PhotoViewModelTests {
         let mockTreeAPIService = MockTreeAPIService(shouldFail: false)
         let viewModel = PhotoViewModel(
             cameraService: mockCameraService,
-            treeAPIService: mockTreeAPIService
+            treeAPIService: mockTreeAPIService,
+            onboardingService: MockOnboardingService()
         )
         
         // When
@@ -142,7 +148,8 @@ struct PhotoViewModelTests {
         let mockTreeAPIService = MockTreeAPIService(shouldFail: true, isNetworkError: true)
         let viewModel = PhotoViewModel(
             cameraService: mockCameraService,
-            treeAPIService: mockTreeAPIService
+            treeAPIService: mockTreeAPIService,
+            onboardingService: MockOnboardingService()
         )
         
         // When
@@ -158,7 +165,8 @@ struct PhotoViewModelTests {
         let mockTreeAPIService = MockTreeAPIService(shouldFail: true)
         let viewModel = PhotoViewModel(
             cameraService: mockCameraService,
-            treeAPIService: mockTreeAPIService
+            treeAPIService: mockTreeAPIService,
+            onboardingService: MockOnboardingService()
         )
         
         // When
