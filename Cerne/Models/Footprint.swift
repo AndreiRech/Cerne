@@ -14,7 +14,7 @@ final class Footprint: Identifiable {
     var total: Double = 0.0
     
     @Relationship(deleteRule: .cascade, inverse: \Response.footprint)
-    var responses: [Response] = []
+    var responses: [Response]?
     
     var user: User?
     

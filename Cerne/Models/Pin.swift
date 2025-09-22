@@ -11,7 +11,7 @@ import SwiftData
 @Model
 final class Pin: Identifiable {
     var id: UUID = UUID()
-    @Attribute(.externalStorage) var image: Data
+    @Attribute(.externalStorage) var image: Data?
     var latitude: Double = 0.0
     var longitude: Double = 0.0
     var date: Date = Date()

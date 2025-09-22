@@ -30,7 +30,7 @@ struct ContentView: View {
         
         .navigationTitle("Cerne")
         .sheet(isPresented: $isShowingDetails) {
-            PinDetailsView(viewModel: PinDetailsViewModel(pin: samplePin, pinService: PinService()))
+            PinDetailsView(viewModel: PinDetailsViewModel(pin: samplePin, pinService: PinService(), userService: UserService()))
                 .presentationDetents([.height(265), .height(500)])
                 .presentationDragIndicator(.visible)
         }

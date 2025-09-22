@@ -19,7 +19,7 @@ struct MapView: View {
                     Button {
                         viewModel.selectedPin = pin
                     } label: {
-                        Image(uiImage: UIImage(data: pin.image) ?? UIImage(systemName: "tree.circle.fill")!)
+                        Image(uiImage: UIImage(data: pin.image!) ?? UIImage(systemName: "tree.circle.fill")!)
                             .resizable()
                             .scaledToFill()
                             .frame(width: 40, height: 40)
@@ -44,7 +44,7 @@ struct MapView: View {
         .sheet(item: $viewModel.selectedPin, onDismiss: {
             viewModel.getPins()
         }) { selectedPin in
-            PinDetailsView(viewModel: PinDetailsViewModel(pin: selectedPin, pinService: PinService()))
+                PinDetailsView(viewModel: PinDetailsViewModel(pin: selectedPin, pinService: PinService(), userService: UserService()))
                 .presentationDetents([.height(265), .height(500)])
                 .presentationDragIndicator(.visible)
         }

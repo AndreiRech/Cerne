@@ -27,7 +27,7 @@ protocol TreeReviewViewModelProtocol {
     func createScannedTree() async
     func calculateCO2(height: Double, dap: Float, density: Double) -> Double
     func calculateBiomass(height: Double, dap: Float, density: Double) -> Double
-    func createPin()
+    func createPin() async
     func updateScannedTree() async
     func cancel()
 }
