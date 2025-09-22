@@ -17,7 +17,7 @@ final class Pin: Identifiable {
     var date: Date = Date()
     var reports: Int = 0
     
-    @Relationship(deleteRule: .cascade, inverse: \User.pins)
+    @Relationship(deleteRule: .nullify, inverse: \User.pins)
     var user: User?
     
     @Relationship(deleteRule: .cascade, inverse: \ScannedTree.pin)

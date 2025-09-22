@@ -26,5 +26,5 @@ protocol DistanceViewModelProtocol: ObservableObject {
     
     func onAppear()
     func onDisappear()
-    func getUserLocation()
+    func getUserLocation(completion: @escaping () -> Void)
 }

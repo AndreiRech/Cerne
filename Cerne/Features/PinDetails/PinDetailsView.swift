@@ -15,7 +15,7 @@ struct PinDetailsView: View {
     @State private var isShowingShareSheet = false
     @State private var isShowingDeleteAlert = false
     @State private var isShowingReportAlert = false
-            
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
@@ -173,6 +173,8 @@ struct PinDetailsView: View {
             }
             Button("Deletar", role: .destructive) {
                 viewModel.deletePin(pin: viewModel.pin)
+                dismiss()
+                
             }
         } message: {
             Text("Este registro será removido e não poderá ser recuperado.")
@@ -184,6 +186,7 @@ struct PinDetailsView: View {
             }
             Button("Denunciar", role: .destructive) {
                 viewModel.reportPin(to: viewModel.pin)
+                dismiss()
             }
         } message: {
             Text("Registro duplicado, incorreto ou não deveria estar no Aplicativo.")
