@@ -11,13 +11,13 @@ import SwiftData
 @Model
 final class Pin: Identifiable {
     var id: UUID = UUID()
-    @Attribute(.externalStorage) var image: Data
+    @Attribute(.externalStorage) var image: Data?
     var latitude: Double = 0.0
     var longitude: Double = 0.0
     var date: Date = Date()
     var reports: Int = 0
     
-    @Relationship(deleteRule: .cascade, inverse: \User.pins)
+    @Relationship(deleteRule: .nullify, inverse: \User.pins)
     var user: User?
     
     @Relationship(deleteRule: .cascade, inverse: \ScannedTree.pin)
