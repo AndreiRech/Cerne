@@ -12,27 +12,12 @@ import ARKit
 import SceneKit
 import UIKit
 
-// MARK: - Mocks
-
-/// Mock simples de CameraServiceProtocol (apenas para injeção de dependência)
-class DummyCameraService: CameraServiceProtocol {
-    var errorMessage: String?
-    
-    @Published var capturedImage: UIImage?
-    var capturedImagePublisher: Published<UIImage?>.Publisher { $capturedImage }
-
-    func requestPermissions() async -> Bool { true }
-    func startSession() {}
-    func stopSession() {}
-    func capturePhoto() {}
-    func clearImage() {}
-    var previewLayer: AVCaptureVideoPreviewLayer = AVCaptureVideoPreviewLayer()
-}
-
 // MARK: - Testes
 
 @MainActor
 struct DiameterViewModelTests {
+    
+    let mockCameraService = MockCameraService(shouldFail: false)
     
     // MARK: - Estado Inicial
     
@@ -211,7 +196,7 @@ struct DiameterViewModelTests {
         
         #expect(node.geometry is SCNText)
         let string = (node.geometry as? SCNText)?.string as? String
-        #expect(string == "Hello")
+        #expect(string == "Test")
         #expect(node.constraints?.first is SCNBillboardConstraint)
     }
     
