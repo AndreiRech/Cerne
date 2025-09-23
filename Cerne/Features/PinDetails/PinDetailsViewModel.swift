@@ -28,7 +28,7 @@ class PinDetailsViewModel: PinDetailsViewModelProtocol {
             allDetails = try pinService.getDetails(fileName: "Tree")
             details = allDetails.first(where: { $0.scientificName.lowercased().contains(pin.tree?.species.lowercased() ?? "") })
         } catch {
-            print("Failed to get details")
+            print("Failed to get details - SETUP")
         }
     }
     
@@ -54,7 +54,7 @@ class PinDetailsViewModel: PinDetailsViewModelProtocol {
             
             isPinFromUser = currentUser == pin.user ? true : false
         } catch {
-            print("Failed to get details")
+            print("Failed to get details - USER")
         }
     }
 }

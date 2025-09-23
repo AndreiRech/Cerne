@@ -12,70 +12,151 @@ struct DiameterView: View {
     @State var viewModel: DiameterViewModel
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                ARSceneView(viewModel: viewModel)
-                    .edgesIgnoringSafeArea(.all)
+        ZStack {
+            
+            ARSceneView(viewModel: viewModel)
+                .edgesIgnoringSafeArea(.all)
+            
+            if viewModel.showInfo {
+                Color.black.opacity(0.4)
+                    .ignoresSafeArea()
                 
-                VStack {
-                    Spacer()
-                    
-                    Button(action: {
-                        viewModel.finishMeasurement()
-                        viewModel.shouldNavigate = true
-                    }) {
-                        Text("Concluir Medida")
-                            .font(.headline)
-                            .fontWeight(.bold)
-                            .foregroundColor(.black)
-                            .padding()
-                            .background(Color.white)
-                            .cornerRadius(15)
+                InstructionComponent(
+                    imageName: "ruler",
+                    title: "Na altura do peito, use os pontos para registrar o diâmetro do tronco",
+                    buttonText: "Medir diâmetro") {
+                        viewModel.showInfo = false
                     }
-                    .padding(.horizontal, 30)
-                    .frame(height: 100)
-                    .navigationDestination(isPresented: $viewModel.shouldNavigate) {
-                            DistanceView(
-                            viewModel: DistanceViewModel(
-                                arService: ARService(),
-                                onboardingService: OnboardingService(),
-                                userHeight: 1.85,
-                                measuredDiameter: Double(viewModel.result ?? 0.0),
-                                treeImage: viewModel.treeImage
-                            )
-                        )
-                        .navigationBarHidden(false)
-                    }
+            } else {
+                ZStack {
+                    Circle()
+                        .fill(Color.white)
+                        .frame(width: 8, height: 8)
                     
+                    VStack (spacing: 15) {
+                        Spacer()
+                        
+                        if viewModel.showAddPointHint {
+                            
+                            Text("Adicionar um ponto")
+                                .font(.body)
+                                .fontWeight(.medium)
+                                .padding(.vertical, 12)
+                                .padding(.horizontal, 16)
+                                .background(.ultraThinMaterial)
+                                .clipShape(Capsule())
+                                .transition(.opacity.animation(.easeInOut))
+                            
+                        }
+                        
+                        if viewModel.result == nil || viewModel.result == 0 {
+                            Button {
+                                viewModel.triggerPointPlacement()
+                            } label: {
+                                if #available(iOS 26.0, *) {
+                                    Image(systemName: "plus")
+                                        .font(.system(size: 24, weight: .bold))
+                                        .frame(width: 70, height: 70)
+                                        .foregroundColor(.black)
+                                        .glassEffect()
+                                } else {
+                                    Image(systemName: "plus")
+                                        .font(.system(size: 24, weight: .bold))
+                                        .frame(width: 70, height: 70)
+                                        .foregroundColor(.black)
+                                        .background(.ultraThinMaterial)
+                                        .clipShape(Capsule())
+                                }
+                                
+                            }
+                        } else {
+                            Button {
+                                viewModel.shouldNavigate = true
+                            } label: {
+                                if #available(iOS 26.0, *) {
+                                    Text("Continuar")
+                                        .font(.headline)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.black)
+                                        .padding()
+                                        .glassEffect()
+                                } else {
+                                    Text("Continuar")
+                                        .font(.headline)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.black)
+                                        .padding()
+                                        .background(.ultraThinMaterial)
+                                        .clipShape(Capsule())
+                                }
+                            }
+                        }
+                    }
+                    .padding(.bottom, 50)
+                    .onAppear {
+                        viewModel.showAddPointHint = true
+                        Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
+                            withAnimation {
+                                viewModel.showAddPointHint = false
+                            }
+                        }
+                    }
                 }
             }
-            .navigationTitle("Medir Diâmetro")
+        }
+        .onAppear { viewModel.runSession() }
+        .onDisappear { viewModel.pauseSession() }
+        
+        .toolbar {
+            ToolbarItem {
+                Button {
+                    if viewModel.result != nil && viewModel.result ?? 0 > 0 {
+                        viewModel.resetNodes()
+                    } else {
+                        viewModel.showInfo.toggle()
+                    }
+                } label: {
+                    if viewModel.showInfo {
+                        Image(systemName: "xmark")
+                    } else if viewModel.result != nil && viewModel.result ?? 0 > 0 {
+                        Image(systemName: "trash")
+                    } else {
+                        Image(systemName: "info.circle")
+                    }
+                }
+                .tint(.primary)
+            }
+        }
+        .navigationDestination(isPresented: $viewModel.shouldNavigate) {
+            DistanceView(
+                viewModel: DistanceViewModel(
+                    arService: ARService(),
+                    onboardingService: OnboardingService(),
+                    userHeight: 1.85,
+                    measuredDiameter: Double(viewModel.result ?? 0.0),
+                    treeImage: viewModel.treeImage
+                )
+            )
+            .navigationBarHidden(false)
         }
     }
 }
 
-
-// MARK: - View
 struct ARSceneView: UIViewRepresentable {
     @ObservedObject var viewModel: DiameterViewModel
     
     func makeUIView(context: Context) -> ARSCNView {
-        let sceneView = ARSCNView()
-        sceneView.delegate = viewModel
-        sceneView.debugOptions = [.showFeaturePoints] //TO DO: Tirar essa linha que so mostra os pontos clicaveis amarelos
-        sceneView.autoenablesDefaultLighting = true
-        
-        let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = []
-        sceneView.session.run(configuration)
-        
-        let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleTap(_:)))
-        sceneView.addGestureRecognizer(tapGesture)
-        
-        return sceneView
+        return viewModel.sceneView
     }
     
-    func updateUIView(_ uiView: ARSCNView, context: Context) {}
+    func updateUIView(_ uiView: ARSCNView, context: Context) {
+        if viewModel.placePointTrigger {
+            viewModel.addPointAtCenter(in: uiView)
+            DispatchQueue.main.async {
+                viewModel.placePointTrigger = false
+            }
+        }
+    }
     
     func makeCoordinator() -> Coordinator { Coordinator(viewModel: viewModel) }
     
@@ -84,12 +165,6 @@ struct ARSceneView: UIViewRepresentable {
         
         init(viewModel: DiameterViewModelProtocol) {
             self.viewModel = viewModel
-        }
-        
-        @objc func handleTap(_ gesture: UITapGestureRecognizer) {
-            guard let sceneView = gesture.view as? ARSCNView else { return }
-            let location = gesture.location(in: sceneView)
-            viewModel.handleTap(at: location, in: sceneView)
         }
     }
 }

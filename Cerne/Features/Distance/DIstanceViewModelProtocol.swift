@@ -24,6 +24,7 @@ protocol DistanceViewModelProtocol: ObservableObject {
     var showInfo: Bool { get set }
     var isMeasuring: Bool { get set }
     var shouldNavigate: Bool { get set }
+    var showAddPointHint: Bool { get set }
     
     func onAppear()
     func onDisappear()

@@ -27,7 +27,6 @@ class ARService: NSObject, ARServiceProtocol, ARSessionDelegate, ObservableObjec
         if showOverlay {
             showCoachOverlay()
         }
-        placeInitialObject()
     }
     
     func stop() {
@@ -62,15 +61,7 @@ class ARService: NSObject, ARServiceProtocol, ARSessionDelegate, ObservableObjec
         coachingOverlay.goal = .horizontalPlane
         arView.addSubview(coachingOverlay)
     }
-    
-    private func placeInitialObject() {
-        let anchor = AnchorEntity(plane: .horizontal)
-        let box = ModelEntity(mesh: .generateCylinder(height: 0.3, radius: 0.10), materials: [SimpleMaterial(color: .white.withAlphaComponent(0.6), isMetallic: false)])
-        box.generateCollisionShapes(recursive: false)
-        anchor.addChild(box)
-        arView.scene.addAnchor(anchor)
-    }
-    
+
     @objc private func handleTap(_ recognizer: UITapGestureRecognizer) {
         let location = recognizer.location(in: arView)
         
