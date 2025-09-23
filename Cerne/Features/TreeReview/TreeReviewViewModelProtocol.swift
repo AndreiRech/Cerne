@@ -13,9 +13,9 @@ protocol TreeReviewViewModelProtocol {
     var scannedTreeService: ScannedTreeServiceProtocol { get }
     var treeAPIService: TreeAPIServiceProtocol { get }
     var pinService: PinServiceProtocol { get }
+    var onboardingService: OnboardingServiceProtocol { get }
     var pinLatitude: Double { get }
     var pinLongitude: Double { get }
-//    var pinUser: User { get }
     var updateSpecies: String { get set }
     var updateHeight: Double  { get set }
     var updateDap: Double  { get set }

@@ -32,7 +32,7 @@ struct DistanceView: View {
                     Spacer()
                     
                     if viewModel.showAddPointHint {
-                        Text("Arraste e posicione o objeto")
+                        Text("Posicione o objeto")
                             .font(.body)
                             .fontWeight(.medium)
                             .padding(.vertical, 12)

@@ -1,3 +1,10 @@
+//
+//  HeightViewModel.swift
+//  Cerne
+//
+//  Created by Andrei Rech on 08/09/25.
+//
+
 import SwiftUI
 
 struct HeightView: View {
@@ -108,7 +115,8 @@ struct HeightView: View {
                         treeImage: viewModel.treeImage,
                         estimatedHeight: viewModel.finalHeight,
                         pinLatitude: viewModel.userLatitude,
-                        pinLongitude: viewModel.userLongitude
+                        pinLongitude: viewModel.userLongitude,
+                        onboardingService: OnboardingService()
                     )
                 )
                 .presentationDetents([.height(500)])
