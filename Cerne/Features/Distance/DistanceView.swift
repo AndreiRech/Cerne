@@ -80,8 +80,12 @@ struct DistanceView: View {
                 }
             }
         }
-        .onAppear(perform: viewModel.onAppear)
-        .onDisappear(perform: viewModel.onDisappear)
+        .onAppear {
+            viewModel.onAppear()
+        }
+        .onDisappear {
+            viewModel.onDisappear()
+        }
         .navigationDestination(isPresented: $viewModel.shouldNavigate) {
             HeightView(
                 viewModel: HeightViewModel(

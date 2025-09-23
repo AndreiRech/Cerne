@@ -183,7 +183,11 @@ struct PhotoView: View {
             get: { viewModel.errorMessage != nil },
             set: { _ in viewModel.errorMessage = nil }
         )) {
-            Button("OK", role: .cancel) { }
+            Button("OK", role: .cancel) {
+                viewModel.isMeasuring = true
+                viewModel.shouldNavigate = false
+                viewModel.retakePhoto()
+            }
         } message: {
             Text(viewModel.errorMessage ?? "Ocorreu um erro desconhecido.")
         }
