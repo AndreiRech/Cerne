@@ -76,7 +76,7 @@ struct TreeReviewView: View {
                 
                 Button {
                     router.popToRoot()
-                    router.selectedTab = 0
+                    router.selectedTab = 1
                     
                 } label: {
                     Image(systemName: "checkmark")
@@ -113,7 +113,7 @@ struct TreeReviewView: View {
                     Button {
                         viewModel.cancel()
                         router.popToRoot()
-                        router.selectedTab = 0
+                        router.selectedTab = 1
                     } label: {
                         Image(systemName: "xmark")
                     }
