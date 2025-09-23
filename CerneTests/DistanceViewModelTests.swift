@@ -17,7 +17,7 @@ struct DistanceViewModelTests {
         let mockARService = MockARService(shouldFail: false)
         let viewModel = DistanceViewModel(
             arService: mockARService,
-            onboardingService: MockOnboardingService(),
+            userDefaultService: MockUserDefaultService(),
             userHeight: 0.0,
             measuredDiameter: 0.0,
             treeImage: UIImage()
@@ -35,7 +35,7 @@ struct DistanceViewModelTests {
         let mockARService = MockARService(shouldFail: false)
         let viewModel = DistanceViewModel(
             arService: mockARService,
-            onboardingService: MockOnboardingService(),
+            userDefaultService: MockUserDefaultService(),
             userHeight: 0.0,
             measuredDiameter: 0.0,
             treeImage: UIImage()
@@ -54,7 +54,7 @@ struct DistanceViewModelTests {
         let mockARService = MockARService()
         let viewModel = DistanceViewModel(
             arService: mockARService,
-            onboardingService: MockOnboardingService(),
+            userDefaultService: MockUserDefaultService(),
             userHeight: 0.0,
             measuredDiameter: 0.0,
             treeImage: UIImage()

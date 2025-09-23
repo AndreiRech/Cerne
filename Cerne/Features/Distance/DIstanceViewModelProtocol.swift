@@ -12,7 +12,7 @@ import UIKit
 protocol DistanceViewModelProtocol: ObservableObject {
     var distanceText: String { get }
     var arService: ARServiceProtocol { get }
-    var onboardingService: OnboardingServiceProtocol { get }
+    var userDefaultService: UserDefaultServiceProtocol { get }
     
     var userHeight: Double { get }
     var measuredDiameter: Double { get }

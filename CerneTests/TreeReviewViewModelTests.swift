@@ -32,7 +32,7 @@ struct TreeReviewViewModelTests {
             estimatedHeight: 5.0,
             pinLatitude: -30.0,
             pinLongitude: -51.0,
-            onboardingService: MockOnboardingService()
+            userDefaultService: MockUserDefaultService(),
         )
         
         //When
@@ -64,7 +64,7 @@ struct TreeReviewViewModelTests {
             estimatedHeight: 5.0,
             pinLatitude: -30.0,
             pinLongitude: -51.0,
-            onboardingService: MockOnboardingService()
+            userDefaultService: MockUserDefaultService(),
         )
         
         //When
@@ -97,7 +97,7 @@ struct TreeReviewViewModelTests {
             estimatedHeight: 5.0,
             pinLatitude: -30.0,
             pinLongitude: -51.0,
-            onboardingService: MockOnboardingService()
+            userDefaultService: MockUserDefaultService(),
         )
         
         // When
@@ -128,7 +128,7 @@ struct TreeReviewViewModelTests {
             estimatedHeight: 5.0,
             pinLatitude: -30.0,
             pinLongitude: -51.0,
-            onboardingService: MockOnboardingService()
+            userDefaultService: MockUserDefaultService(),
         )
         
         // When
@@ -161,7 +161,7 @@ struct TreeReviewViewModelTests {
             estimatedHeight: 5.0,
             pinLatitude: -30.0,
             pinLongitude: -51.0,
-            onboardingService: MockOnboardingService()
+            userDefaultService: MockUserDefaultService(),
         )
         
         await viewModel.createScannedTree()
@@ -203,7 +203,7 @@ struct TreeReviewViewModelTests {
             estimatedHeight: 20.0,
             pinLatitude: -30.0,
             pinLongitude: -51.0,
-            onboardingService: MockOnboardingService()
+            userDefaultService: MockUserDefaultService(),
         )
         
         viewModel.isLoading = true

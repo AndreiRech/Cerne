@@ -32,11 +32,11 @@ class DiameterViewModel: NSObject, DiameterViewModelProtocol, ObservableObject, 
     let sceneView = ARSCNView()
     private var hasRunOnce = false
 
-    let onboardingService: OnboardingServiceProtocol
+    let userDefaultService: UserDefaultServiceProtocol
     
-    init(cameraService: CameraServiceProtocol, treeImage: UIImage, onboardingService: OnboardingServiceProtocol) {
+    init(cameraService: CameraServiceProtocol, treeImage: UIImage, userDefaultService: UserDefaultServiceProtocol) {
         self.cameraService = cameraService
-        self.onboardingService = onboardingService
+        self.userDefaultService = userDefaultService
         self.treeImage = treeImage
         super.init()
         setupSceneView()

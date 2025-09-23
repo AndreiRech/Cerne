@@ -9,8 +9,9 @@ import Testing
 @testable import Cerne
 import Combine
 
-class MockOnboardingService: OnboardingServiceProtocol {
+class MockUserDefaultService: UserDefaultServiceProtocol {
     var isFirst: Bool
+    var pins: [Pin] = []
     
     init(isFirst: Bool = true) {
         self.isFirst = isFirst
@@ -22,5 +23,16 @@ class MockOnboardingService: OnboardingServiceProtocol {
     
     func setFirstTimeDone() {
         isFirst = false
+    }
+    
+    func setPinReported(pin: Pin) {
+        pins.append(pin)
+    }
+    
+    func isPinReported(pin: Pin) -> Bool {
+        if pins.contains(where: { $0.id == pin.id }) {
+            return true
+        }
+        return false
     }
 }

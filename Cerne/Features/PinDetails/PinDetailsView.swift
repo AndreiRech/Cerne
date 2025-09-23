@@ -182,7 +182,6 @@ struct PinDetailsView: View {
         } message: {
             Text("Este registro será removido e não poderá ser recuperado.")
         }
-        
         .alert("Denunciar Registro", isPresented: $isShowingReportAlert) {
             Button("Cancelar", role: .cancel) {
                 dismiss()
