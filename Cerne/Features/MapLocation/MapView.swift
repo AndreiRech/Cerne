@@ -20,7 +20,6 @@ struct MapView: View {
                         viewModel.selectedPin = pin
                     } label: {
                         Image("PinImage")
-//                        Image(uiImage: UIImage(data: pin.image) ?? UIImage(systemName: "tree.circle.fill")!)
                             .resizable()
                             .scaledToFill()
                             .frame(width: 40, height: 40)
@@ -35,7 +34,6 @@ struct MapView: View {
             MapUserLocationButton()
             MapCompass()
         }
-        .ignoresSafeArea()
         .onAppear {
             viewModel.onMapAppear()
         }
