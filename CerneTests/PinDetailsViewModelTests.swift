@@ -32,7 +32,7 @@ struct PinDetailsViewModelTests {
         
         mockPinService.pins.append(testPin)
         
-        let viewModel = PinDetailsViewModel(pin: testPin, pinService: mockPinService, userService: MockUserService())
+        let viewModel = PinDetailsViewModel(pin: testPin, pinService: mockPinService, userService: MockUserService(), userDefaultService: MockUserDefaultService())
         
         return (viewModel, mockPinService)
     }

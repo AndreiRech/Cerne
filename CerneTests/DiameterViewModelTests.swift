@@ -233,7 +233,7 @@ struct DiameterViewModelTests {
     
     @Test func drawRulerShouldNotAddTicksWhenTooShort() {
         let viewModel = DiameterViewModel(
-            cameraService: DummyCameraService(),
+            cameraService: MockCameraService(),
             treeImage: UIImage(),
             userDefaultService: MockUserDefaultService()
         )
