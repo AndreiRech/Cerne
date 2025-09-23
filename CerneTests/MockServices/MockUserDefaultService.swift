@@ -9,7 +9,7 @@ import Testing
 @testable import Cerne
 import Combine
 
-class MockOnboardingService: OnboardingServiceProtocol {
+class MockUserDefaultService: UserDefaultServiceProtocol {
     var isFirst: Bool
     
     init(isFirst: Bool = true) {
