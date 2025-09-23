@@ -74,10 +74,3 @@ struct CommunityDataComponent: View {
         .padding(.vertical, 8)
     }
 }
-
-#Preview {
-    CommunityDataComponent(icon: .treeIcon, title: "12.500 árvores", infoType: .trees)
-    CommunityDataComponent(icon: .treeIcon, title: "180 espécies diferentes", infoType: .species)
-    CommunityDataComponent(icon: .treeIcon, title: "25 t de CO² sequestrados", infoType: .co2, co2Number: 2.7)
-    CommunityDataComponent(icon: .treeIcon, title: "18 t de O² para o planeta ", infoType: .oxygen, oxygenNumber: 63)
-}
