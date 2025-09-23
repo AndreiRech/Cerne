@@ -10,28 +10,18 @@ import SwiftData
 
 @Model
 final class Pin: Identifiable {
-    @Attribute(.unique) var id: UUID = UUID()
-    @Attribute(.externalStorage) var image: Data
+    var id: UUID = UUID()
+    @Attribute(.externalStorage) var image: Data?
     var latitude: Double = 0.0
     var longitude: Double = 0.0
     var date: Date = Date()
     var reports: Int = 0
     
-    var formattedTotalCO2: String {
-        return String(format: "%.0f", tree.totalCO2)
-    }
-        
-    var formattedDate: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yyyy"
-        return formatter.string(from: date)
-    }
-    
     @Relationship(deleteRule: .nullify, inverse: \User.pins)
-    var user: User
+    var user: User?
     
-    @Relationship(deleteRule: .cascade)
-    var tree: ScannedTree
+    @Relationship(deleteRule: .cascade, inverse: \ScannedTree.pin)
+    var tree: ScannedTree?
     
     init(id: UUID = UUID(), image: Data, latitude: Double, longitude: Double, date: Date, reports: Int = 0, user: User, tree: ScannedTree) {
         self.id = id
@@ -42,5 +32,15 @@ final class Pin: Identifiable {
         self.reports = reports
         self.user = user
         self.tree = tree
+    }
+    
+    var formattedTotalCO2: String {
+        return String(format: "%.0f", tree?.totalCO2 ?? 0.0)
+    }
+        
+    var formattedDate: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy"
+        return formatter.string(from: date)
     }
 }

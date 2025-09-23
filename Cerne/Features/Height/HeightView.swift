@@ -46,7 +46,7 @@ struct HeightView: View {
                             }
                             .foregroundColor(.white)
                             .padding(20)
-                            .glassEffect()
+                            .glassEffect(in: .rect(cornerRadius: 24))
                             .offset(y: 120)
                         } else {
                             HStack(spacing: 10) {
@@ -102,9 +102,11 @@ struct HeightView: View {
                         scannedTreeService: ScannedTreeService(),
                         treeAPIService: TreeAPIService(),
                         pinService: PinService(),
+                        treeDataService: TreeDataService(),
+                        userService: UserService(),
                         measuredDiameter: viewModel.measuredDiameter,
                         treeImage: viewModel.treeImage,
-                        estimatedHeight: viewModel.estimatedHeight,
+                        estimatedHeight: viewModel.finalHeight,
                         pinLatitude: viewModel.userLatitude,
                         pinLongitude: viewModel.userLongitude
                     )

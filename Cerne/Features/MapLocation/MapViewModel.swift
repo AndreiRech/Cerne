@@ -22,6 +22,8 @@ final class MapViewModel: MapViewModelProtocol {
     private var scannedTreeService: ScannedTreeServiceProtocol
     private var locationService: LocationServiceProtocol
     
+    private var cancellables = Set<AnyCancellable>()
+    
     init(locationService: LocationServiceProtocol,
          pinService: PinServiceProtocol,
          userService: UserServiceProtocol,
@@ -30,27 +32,13 @@ final class MapViewModel: MapViewModelProtocol {
         self.pinService = pinService
         self.userService = userService
         self.scannedTreeService = scannedTreeService
+        
+        setupLocationSubscription()
     }
     
     func onMapAppear() {
         locationService.start()
-        refreshLocation()
         getPins()
-    }
-    
-    func refreshLocation() {
-        userLocation = locationService.userLocation
-        updatePositionIfNeeded()
-    }
-    
-    private func updatePositionIfNeeded() {
-        guard let location = userLocation else { return }
-        position = .region(
-            MKCoordinateRegion(
-                center: location.coordinate,
-                span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-            )
-        )
     }
     
     func getPins() {
@@ -61,4 +49,21 @@ final class MapViewModel: MapViewModelProtocol {
         }
     }
     
+    private func setupLocationSubscription() {
+        locationService.userLocationPublisher
+            .first()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] location in
+                guard let self = self else { return }
+                
+                self.userLocation = location
+                self.position = .region(
+                    MKCoordinateRegion(
+                        center: location.coordinate,
+                        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+                    )
+                )
+            }
+            .store(in: &cancellables)
+    }
 }

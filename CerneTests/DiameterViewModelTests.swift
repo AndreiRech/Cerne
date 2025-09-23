@@ -38,8 +38,9 @@ struct DiameterViewModelTests {
     
     @Test func shouldStartWithDefaultValues() {
         let viewModel = DiameterViewModel(
-            cameraService: DummyCameraService(),
-            treeImage: UIImage()
+            cameraService: mockCameraService,
+            treeImage: UIImage(),
+            onboardingService: MockOnboardingService()
         )
         
         #expect(viewModel.result == nil)
@@ -53,8 +54,9 @@ struct DiameterViewModelTests {
     
     @Test func triggerPointPlacementShouldSetFlagTrue() {
         let viewModel = DiameterViewModel(
-            cameraService: DummyCameraService(),
-            treeImage: UIImage()
+            cameraService: mockCameraService,
+            treeImage: UIImage(),
+            onboardingService: MockOnboardingService()
         )
         
         viewModel.triggerPointPlacement()
@@ -62,12 +64,36 @@ struct DiameterViewModelTests {
         #expect(viewModel.placePointTrigger == true)
     }
     
-    // MARK: - Reset
+    @Test func shouldStopSession() async {
+        // Given
+        let mockCameraService = MockCameraService(shouldFail: false)
+        let viewModel = DiameterViewModel(
+            cameraService: mockCameraService,
+            treeImage: UIImage(),
+            onboardingService: MockOnboardingService()
+        )
+        
+        // When
+        let request = await mockCameraService.requestPermissions()
+        
+        viewModel.onAppear()
+        await Task.yield()
+        
+        viewModel.onDisappear()
+        
+        // Then
+        #expect(request)
+        #expect(mockCameraService.wasCalled)
+        #expect(mockCameraService.isCorrect)
+        #expect(mockCameraService.errorMessage == nil)
+    }
     
     @Test func resetNodesShouldClearAllReferencesAndScene() {
         let viewModel = DiameterViewModel(
-            cameraService: DummyCameraService(),
-            treeImage: UIImage()
+            cameraService: mockCameraService,
+            treeImage: UIImage(),
+            onboardingService: MockOnboardingService()
+            
         )
         
         let node = viewModel.createSphere(at: SCNVector3(0,0,0))
@@ -94,8 +120,9 @@ struct DiameterViewModelTests {
     
     @Test func finishMeasurementShouldNavigateWhenResultIsPositive() {
         let viewModel = DiameterViewModel(
-            cameraService: DummyCameraService(),
-            treeImage: UIImage()
+            cameraService: mockCameraService,
+            treeImage: UIImage(),
+            onboardingService: MockOnboardingService()
         )
         viewModel.result = 2.5
         viewModel.finishMeasurement()
@@ -104,8 +131,9 @@ struct DiameterViewModelTests {
     
     @Test func finishMeasurementShouldNotNavigateWhenResultIsNilOrZeroOrNegative() {
         let viewModel = DiameterViewModel(
-            cameraService: DummyCameraService(),
-            treeImage: UIImage()
+            cameraService: mockCameraService,
+            treeImage: UIImage(),
+            onboardingService: MockOnboardingService()
         )
         
         viewModel.result = nil
@@ -125,8 +153,10 @@ struct DiameterViewModelTests {
     
     @Test func createSphereShouldReturnRedSphere() {
         let viewModel = DiameterViewModel(
-            cameraService: DummyCameraService(),
-            treeImage: UIImage()
+            cameraService: mockCameraService,
+            treeImage: UIImage(),
+            onboardingService: MockOnboardingService()
+            
         )
         
         let node = viewModel.createSphere(at: SCNVector3(1,2,3))
@@ -139,11 +169,45 @@ struct DiameterViewModelTests {
     
     @Test func addTextShouldReturnTextNodeWithCorrectSettings() {
         let viewModel = DiameterViewModel(
-            cameraService: DummyCameraService(),
-            treeImage: UIImage()
+            cameraService: mockCameraService,
+            treeImage: UIImage(),
+            onboardingService: MockOnboardingService()
+            
         )
         
-        let node = viewModel.addText("Hello", at: SCNVector3(0,0,0))
+        let point1 = SCNVector3(0, 0, 0)
+        let point2 = SCNVector3(0, 0, 3)
+        
+        // When
+        let distance = viewModel.distanceBetween(point1, point2)
+        
+        // Then
+        #expect(distance == 3.0)
+        
+    }
+    
+    @Test func shouldAddText() async {
+        //Given
+        let mockCameraService = MockCameraService(shouldFail: false)
+        let viewModel = DiameterViewModel(
+            cameraService: mockCameraService,
+            treeImage: UIImage(),
+            onboardingService: MockOnboardingService()
+            
+        )
+        let text = "Test"
+        let position = SCNVector3(1, 2, 3)
+        
+        //When
+        let node = viewModel.addText(text, at: position)
+        
+        //Then
+        #expect(node.position.x == position.x)
+        #expect(node.position.y == position.y)
+        #expect(node.position.z == position.z)
+        #expect(node.position.x == 1.0)
+        #expect(node.position.y == 2.0)
+        #expect(node.position.z == 3.0)
         
         #expect(node.geometry is SCNText)
         let string = (node.geometry as? SCNText)?.string as? String
@@ -153,8 +217,15 @@ struct DiameterViewModelTests {
     
     @Test func distanceBetweenShouldCalculateEuclideanDistance() {
         let viewModel = DiameterViewModel(
+<<<<<<< HEAD
             cameraService: DummyCameraService(),
             treeImage: UIImage()
+=======
+            cameraService: mockCameraService,
+            treeImage: UIImage(),
+            onboardingService: MockOnboardingService()
+            
+>>>>>>> dc05cee0a4a7494143490776707cce158f0dc12e
         )
         
         let a = SCNVector3(0,0,0)
@@ -167,8 +238,10 @@ struct DiameterViewModelTests {
     
     @Test func drawRulerShouldAddTicksWhenLongEnough() {
         let viewModel = DiameterViewModel(
-            cameraService: DummyCameraService(),
-            treeImage: UIImage()
+            cameraService: mockCameraService,
+            treeImage: UIImage(),
+            onboardingService: MockOnboardingService()
+            
         )
         
         let ruler = viewModel.drawRuler(

@@ -10,10 +10,12 @@ import SwiftData
 
 @Model
 final class Response: Identifiable {
-    @Attribute(.unique) var id: UUID = UUID()
+    var id: UUID = UUID()
     var questionId: Int = 0
     var optionId: Int = 0
     var value: Double = 0.0
+    
+    var footprint: Footprint?
     
     init(id: UUID = UUID(), questionId: Int, optionId: Int, value: Double) {
         self.id = id

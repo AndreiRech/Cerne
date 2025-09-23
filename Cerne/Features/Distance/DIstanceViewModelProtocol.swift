@@ -12,6 +12,7 @@ import UIKit
 protocol DistanceViewModelProtocol: ObservableObject {
     var distanceText: String { get }
     var arService: ARServiceProtocol { get }
+    var onboardingService: OnboardingServiceProtocol { get }
     
     var userHeight: Double { get }
     var measuredDiameter: Double { get }
@@ -27,5 +28,5 @@ protocol DistanceViewModelProtocol: ObservableObject {
     
     func onAppear()
     func onDisappear()
-    func getUserLocation()
+    func getUserLocation(completion: @escaping () -> Void)
 }

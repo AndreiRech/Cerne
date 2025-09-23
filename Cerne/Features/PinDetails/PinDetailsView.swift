@@ -15,7 +15,7 @@ struct PinDetailsView: View {
     @State private var isShowingShareSheet = false
     @State private var isShowingDeleteAlert = false
     @State private var isShowingReportAlert = false
-            
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
@@ -33,7 +33,7 @@ struct PinDetailsView: View {
                         
                         Spacer()
                         
-                        Text(viewModel.pin.tree.species)
+                        Text(viewModel.pin.tree?.species ?? "")
                             .font(.headline)
                             .fontWeight(.semibold)
                         
@@ -54,7 +54,7 @@ struct PinDetailsView: View {
                     .padding(.top)
                     
                     HStack(alignment: .top, spacing: 10) {
-                        Image(uiImage: UIImage(data: viewModel.pin.image) ?? UIImage(named: "placeholder")!)
+                        Image(uiImage: UIImage(data: viewModel.pin.image!) ?? UIImage(named: "placeholder")!)
                             .resizable()
                             .frame(width: 102, height: 137, alignment: .center)
                             .clipShape(RoundedRectangle(cornerRadius: 18))
@@ -130,7 +130,7 @@ struct PinDetailsView: View {
                             .frame(width: 26, height: 26, alignment: .center)
                         
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("\(viewModel.pin.user.name)")
+                            Text("\(viewModel.pin.user?.name ?? "Nome do usuário não disponível")")
                                 .font(.body)
                                 .fontWeight(.semibold)
                             
@@ -142,26 +142,29 @@ struct PinDetailsView: View {
                 }
                 
                 Button {
-                    if viewModel.isPinFromUser() {
+                    if viewModel.isPinFromUser {
                         isShowingDeleteAlert = true
                     } else {
                         isShowingReportAlert = true
                     }
                 } label: {
                     HStack {
-                        Image(systemName: viewModel.isPinFromUser() ? "trash" : "exclamationmark.bubble")
-                        Text(viewModel.isPinFromUser() ? "Deletar Árvore" : "Relatar um Problema")
+                        Image(systemName: viewModel.isPinFromUser ? "trash" : "exclamationmark.bubble")
+                        Text(viewModel.isPinFromUser ? "Deletar Árvore" : "Relatar um Problema")
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 14)
-                    .foregroundStyle(viewModel.isPinFromUser() ? .red : .primary)
+                    .foregroundStyle(viewModel.isPinFromUser ? .red : .primary)
                     .background(
                         RoundedRectangle(cornerRadius: 1000)
-                            .foregroundStyle(viewModel.isPinFromUser() ? Color.red.opacity(0.2) : .secondary.opacity(0.2))
+                            .foregroundStyle(viewModel.isPinFromUser ? Color.red.opacity(0.2) : .secondary.opacity(0.2))
                     )
                 }
             }
             .padding(.horizontal, 23)
+        }
+        .task {
+            await viewModel.isPinFromUser()
         }
         .scrollDisabled(true)
         .sheet(isPresented: $isShowingShareSheet) {
@@ -173,6 +176,8 @@ struct PinDetailsView: View {
             }
             Button("Deletar", role: .destructive) {
                 viewModel.deletePin(pin: viewModel.pin)
+                dismiss()
+                
             }
         } message: {
             Text("Este registro será removido e não poderá ser recuperado.")
@@ -184,6 +189,7 @@ struct PinDetailsView: View {
             }
             Button("Denunciar", role: .destructive) {
                 viewModel.reportPin(to: viewModel.pin)
+                dismiss()
             }
         } message: {
             Text("Registro duplicado, incorreto ou não deveria estar no Aplicativo.")

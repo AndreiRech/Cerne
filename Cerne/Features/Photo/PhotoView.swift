@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PhotoView: View {
+    @EnvironmentObject var router: Router
     @State var viewModel: PhotoViewModelProtocol
     
     var body: some View {
@@ -19,44 +20,124 @@ struct PhotoView: View {
                     .ignoresSafeArea()
                 
                 VStack {
-                    Spacer()
-                    
-                    Button {
-                        Task {
-                            await viewModel.identifyTree(image: capturedImage)
-                        }
-                        viewModel.shouldNavigate.toggle()
-                    } label: {
-                        if #available(iOS 26.0, *) {
-                            Text("Continuar")
-                                .font(.body)
-                                .fontWeight(.semibold)
-                                .foregroundColor(.black)
-                                .padding(.horizontal, 20)
-                                .padding(.vertical, 14)
-                                .glassEffect()
+                    if viewModel.isIdentifying {
+                        if viewModel.isLoading {
+                            Spacer()
+                            
+                            ProgressView()
+                            
+                            Spacer()
                         } else {
-                            Text("Continuar")
-                                .font(.body)
-                                .fontWeight(.semibold)
-                                .foregroundColor(.black)
-                                .padding(.horizontal, 20)
-                                .padding(.vertical, 14)
+                            Spacer()
+                            
+                            if #available(iOS 26.0, *) {
+                                VStack(alignment: .center, spacing: 0) {
+                                    HStack(spacing: 10) {
+                                        Image(systemName: "tree")
+                                            .font(.system(size: 16, weight: .semibold))
+                                            .foregroundStyle(.CTA)
+                                        
+                                        Text(viewModel.identifiedTree?.bestMatch ?? "")
+                                            .font(.body)
+                                            .fontWeight(.semibold)
+                                    }
+                                    .foregroundColor(.white)
+                                    
+                                    Text("Espécie da árvore identificada")
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
+                                }
+                                .padding(20)
+                                .glassEffect(in: .rect(cornerRadius: 24))
+                            } else {
+                                VStack(alignment: .center, spacing: 0) {
+                                    HStack(spacing: 10) {
+                                        Image(systemName: "tree")
+                                            .font(.system(size: 16, weight: .semibold))
+                                            .foregroundStyle(.CTA)
+                                        
+                                        Text(viewModel.identifiedTree?.bestMatch ?? "")
+                                            .font(.body)
+                                            .fontWeight(.semibold)
+                                    }
+                                    .foregroundColor(.white)
+                                    
+                                    Text("Espécie da árvore identificada")
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
+                                }
+                                .padding(20)
                                 .background(.ultraThinMaterial)
-                                .clipShape(Capsule())
+                                .clipShape(Rectangle())
+                            }
+                            
+                            Spacer()
+                            
+                            Button {
+                                viewModel.shouldNavigate.toggle()
+                            } label: {
+                                if #available(iOS 26.0, *) {
+                                    Text("Continuar")
+                                        .font(.body)
+                                        .fontWeight(.semibold)
+                                        .foregroundColor(.black)
+                                        .padding(.horizontal, 20)
+                                        .padding(.vertical, 14)
+                                        .glassEffect()
+                                } else {
+                                    Text("Continuar")
+                                        .font(.body)
+                                        .fontWeight(.semibold)
+                                        .foregroundColor(.black)
+                                        .padding(.horizontal, 20)
+                                        .padding(.vertical, 14)
+                                        .background(.ultraThinMaterial)
+                                        .clipShape(Capsule())
+                                }
+                            }
+                            .padding(.bottom, 100)
+                            .navigationDestination(isPresented: $viewModel.shouldNavigate) {
+                                DiameterView(
+                                    viewModel: DiameterViewModel(
+                                        cameraService: CameraService(),
+                                        treeImage: capturedImage,
+                                        onboardingService: OnboardingService()
+                                    )
+                                )
+                                .navigationBarHidden(false)
+                            }
                         }
-                    }
-                    .padding(.bottom, 100)
-                    .navigationDestination(isPresented: $viewModel.shouldNavigate) {
-                        DiameterView(
-                            viewModel: DiameterViewModel(
-                                cameraService: CameraService(),
-                                treeImage: capturedImage
-                            )
-                        )
-                        .navigationBarHidden(false)
+                    } else {
+                        Spacer()
+                        
+                        Button {
+                            Task {
+                                await viewModel.identifyTree(image: capturedImage)
+                            }
+                        } label: {
+                            if #available(iOS 26.0, *) {
+                                Text("Identificar")
+                                    .font(.body)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.black)
+                                    .padding(.horizontal, 20)
+                                    .padding(.vertical, 14)
+                                    .glassEffect()
+                            } else {
+                                Text("Identificar")
+                                    .font(.body)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.black)
+                                    .padding(.horizontal, 20)
+                                    .padding(.vertical, 14)
+                                    .background(.ultraThinMaterial)
+                                    .clipShape(Capsule())
+                            }
+                        }
+                        .padding(.bottom, 100)
                     }
                 }
+                .ignoresSafeArea()
             } else {
                 CameraPreview(service: viewModel.cameraService)
                     .ignoresSafeArea()
@@ -90,8 +171,9 @@ struct PhotoView: View {
                                     .frame(width: 80, height: 80)
                             }
                         }
-                        .padding(.bottom, 50)
+                        .padding(.bottom, 85)
                     }
+                    .ignoresSafeArea()
                 }
             }
         }
@@ -118,8 +200,14 @@ struct PhotoView: View {
                     } else {
                         viewModel.showInfo = false
                         viewModel.isMeasuring = true
-                        viewModel.capturedImage = nil
+                        viewModel.retakePhoto()
                     }
+                }
+            }
+            
+            ToolbarItem {
+                Button("", systemImage: "chevron.backward") {
+                    router.popToRoot()
                 }
             }
         }

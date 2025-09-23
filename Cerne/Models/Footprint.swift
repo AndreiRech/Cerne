@@ -10,9 +10,13 @@ import SwiftData
 
 @Model
 final class Footprint: Identifiable {
-    @Attribute(.unique) var id: UUID = UUID()
+    var id: UUID = UUID()
     var total: Double = 0.0
-    var responses: [Response] = []
+    
+    @Relationship(deleteRule: .cascade, inverse: \Response.footprint)
+    var responses: [Response]?
+    
+    var user: User?
     
     init(id: UUID = UUID(), total: Double = 0.0, responses: [Response] = []) {
         self.id = id

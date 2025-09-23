@@ -14,6 +14,10 @@ import SceneKit
 /// Este protocolo especifica as propriedades e métodos essenciais para a funcionalidade
 /// de medição, permitindo a substituição de implementações e facilitando testes.
 protocol DiameterViewModelProtocol: AnyObject {
+    var cameraService: CameraServiceProtocol { get }
+    var onboardingService: OnboardingServiceProtocol { get }
+    var errorMessage: String? { get }
+
     
     // MARK: - Propriedades Obrigatórias
     

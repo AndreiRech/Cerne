@@ -55,13 +55,20 @@ class DiameterViewModel: NSObject, DiameterViewModelProtocol, ObservableObject, 
     let sceneView = ARSCNView()
     /// Flag para garantir que a sessão de AR seja reiniciada apenas na primeira execução.
     private var hasRunOnce = false
+
+    let onboardingService: OnboardingServiceProtocol
+    var errorMessage: String?
     
     /// Inicializador do ViewModel.
     /// - Parameters:
     ///   - cameraService: O serviço de câmera a ser utilizado.
     ///   - treeImage: A imagem da árvore para ser passada adiante.
-    init(cameraService: CameraServiceProtocol, treeImage: UIImage) {
+    init() {
+
+    
+    init(cameraService: CameraServiceProtocol, treeImage: UIImage, onboardingService: OnboardingServiceProtocol) {
         self.cameraService = cameraService
+        self.onboardingService = onboardingService
         self.treeImage = treeImage
         super.init() // Necessário por herdar de NSObject
         setupSceneView()

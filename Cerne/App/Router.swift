@@ -9,9 +9,12 @@ import SwiftUI
 
 class Router: ObservableObject {
     @Published var path = NavigationPath()
-    @Published var selectedTab: Int = 0
+    @Published var addFlowID = UUID()
+    var selectedTab: Int = 0
 
     func popToRoot() {
         path = NavigationPath()
+        addFlowID = UUID()
+        selectedTab = 0
     }
 }

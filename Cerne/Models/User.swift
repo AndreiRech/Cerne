@@ -10,19 +10,21 @@ import SwiftData
 
 @Model
 final class User: Identifiable {
-    @Attribute(.unique) var id: UUID = UUID()
+    var id: String?
     var name: String = "Username"
     var height: Double = 1.65
     
     @Relationship(deleteRule: .cascade)
-    var pins: [Pin] = []
+    var pins: [Pin]?
     
-    @Relationship(deleteRule: .cascade)
+    @Relationship(deleteRule: .cascade, inverse: \Footprint.user)
     var footprint: Footprint?
     
-    init(id: UUID = UUID(), name: String, height: Double) {
+    init(id: String? = nil, name: String, height: Double, pins: [Pin]? = [], footprint: Footprint? = nil) {
         self.id = id
         self.name = name
         self.height = height
+        self.pins = pins
+        self.footprint = footprint
     }
 }
