@@ -12,7 +12,7 @@ import Combine
 class PhotoViewModel: PhotoViewModelProtocol {
     let cameraService: CameraServiceProtocol
     let treeAPIService: TreeAPIServiceProtocol
-    let onboardingService: OnboardingServiceProtocol
+    let userDefaultService: UserDefaultServiceProtocol
     
     var isLoading: Bool = false
     var capturedImage: UIImage?
@@ -26,13 +26,13 @@ class PhotoViewModel: PhotoViewModelProtocol {
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(cameraService: CameraServiceProtocol, treeAPIService: TreeAPIServiceProtocol, onboardingService: OnboardingServiceProtocol) {
+    init(cameraService: CameraServiceProtocol, treeAPIService: TreeAPIServiceProtocol, userDefaultService: UserDefaultServiceProtocol) {
         self.cameraService = cameraService
         self.treeAPIService = treeAPIService
-        self.onboardingService = onboardingService
+        self.userDefaultService = userDefaultService
         subscribeToPublishers()
         
-        showInfo = onboardingService.isFirstTime()
+        showInfo = userDefaultService.isFirstTime()
     }
     
     private func subscribeToPublishers() {

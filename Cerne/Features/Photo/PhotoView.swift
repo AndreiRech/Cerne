@@ -101,7 +101,7 @@ struct PhotoView: View {
                                     viewModel: DiameterViewModel(
                                         cameraService: CameraService(),
                                         treeImage: capturedImage,
-                                        onboardingService: OnboardingService()
+                                        userDefaultService: UserDefaultService()
                                     )
                                 )
                                 .navigationBarHidden(false)

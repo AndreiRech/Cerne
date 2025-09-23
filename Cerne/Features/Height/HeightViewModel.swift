@@ -15,7 +15,7 @@ class HeightViewModel: HeightViewModelProtocol {
     let motionService: MotionServiceProtocol
     let cameraService: CameraServiceProtocol
     let scannedTreeService: ScannedTreeServiceProtocol
-    let onboardingService: OnboardingServiceProtocol
+    let userDefaultService: UserDefaultServiceProtocol
     private var cancellables = Set<AnyCancellable>()
     
     var estimatedHeight: Double = 0.0
@@ -41,7 +41,7 @@ class HeightViewModel: HeightViewModelProtocol {
     init(cameraService: CameraServiceProtocol,
          motionService: MotionServiceProtocol,
          scannedTreeService: ScannedTreeServiceProtocol,
-         onboardingService: OnboardingServiceProtocol,
+         userDefaultService: UserDefaultServiceProtocol,
          userHeight: Double,
          distanceToTree: Double,
          measuredDiameter: Double,
@@ -51,7 +51,7 @@ class HeightViewModel: HeightViewModelProtocol {
         self.motionService = motionService
         self.cameraService = cameraService
         self.scannedTreeService = scannedTreeService
-        self.onboardingService = onboardingService
+        self.userDefaultService = userDefaultService
         self.userHeight = userHeight
         self.distanceToTree = distanceToTree
         self.measuredDiameter = measuredDiameter
@@ -61,7 +61,7 @@ class HeightViewModel: HeightViewModelProtocol {
         
         subscribeToPublishers()
         
-        showInfo = onboardingService.isFirstTime()
+        showInfo = userDefaultService.isFirstTime()
     }
     
     private func subscribeToPublishers() {
