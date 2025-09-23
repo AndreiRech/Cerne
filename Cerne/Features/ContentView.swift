@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Image(.treeTest)
+//        CommunityDataComponent(infoType: .trees, icon: .treeIcon, title: "12.500 árvores")
+        ContribuitionTreeComponent(treeName: "Ipe-Amarelo", treeCO2: 1002, treeImage: .arvoreamarela)
     }
 }
