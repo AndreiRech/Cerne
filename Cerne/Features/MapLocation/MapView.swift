@@ -12,13 +12,22 @@ struct MapView: View {
     @State var viewModel: MapViewModelProtocol
     
     var body: some View {
-        Map(position: .constant(viewModel.position), selection: .constant(viewModel.selectedPin)) {
+        Map(position: $viewModel.position, selection: .constant(viewModel.selectedPin)) {
             UserAnnotation()
-            ForEach (viewModel.pins) { pin in
-                Annotation("", coordinate: CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)) {
-                    Button {
-                        viewModel.selectedPin = pin
-                    } label: {
+            
+            if viewModel.metaballs.isEmpty {
+                ForEach (viewModel.usablePins) { pin in
+                    Annotation("", coordinate: CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)) {
+                        Button {
+                            viewModel.selectedPin = pin
+                        } label: {
+                            TreePinView()
+                        }
+                    }
+                }
+            } else {
+                ForEach (viewModel.metaballs) { metaball in
+                    Annotation("", coordinate: metaball.coordinate) {
                         TreePinView()
                     }
                 }
@@ -30,6 +39,10 @@ struct MapView: View {
         }
         .onAppear {
             viewModel.onMapAppear()
+        }
+        .onMapCameraChange(frequency: .onEnd) { context in
+            let zoomLevel = context.region.span.latitudeDelta
+            viewModel.updateMapRegion(zoomLevel: zoomLevel, region: context.region)
         }
         .onChange(of: (viewModel.userLocation)) { _, _ in
             viewModel.getPins()

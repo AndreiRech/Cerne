@@ -9,11 +9,14 @@ import SwiftUI
 import MapKit
 
 protocol MapViewModelProtocol {
-    var position: MapCameraPosition { get }
+    var position: MapCameraPosition { get set } 
     var userLocation: UserLocation? { get }
-    var pins: [Pin] { get }
+    var usablePins: [Pin] { get }
+    var metaballs: [Metaball] { get }
     var selectedPin: Pin? { get set }
+    var currentZoomLevel: Double { get }
     
     func getPins()
     func onMapAppear()
+    func updateMapRegion(zoomLevel: Double, region: MKCoordinateRegion)
 }
