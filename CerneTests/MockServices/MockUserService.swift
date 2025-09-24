@@ -43,4 +43,13 @@ class MockUserService: UserServiceProtocol {
             users[index].height = newHeight ?? users[index].height
         }
     }
+    
+    func fetchOrCreateCurrentUser() async throws -> User {
+        if shouldFail {
+            throw GenericError.detailsNotFound
+        }
+        
+        return users.first ?? User(name: "name", height: 1.70)
+    }
+    
 }

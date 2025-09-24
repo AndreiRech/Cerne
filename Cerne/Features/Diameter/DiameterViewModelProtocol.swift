@@ -11,10 +11,10 @@ import SceneKit
 
 protocol DiameterViewModelProtocol: AnyObject {
     var cameraService: CameraServiceProtocol { get }
+    var userDefaultService: UserDefaultServiceProtocol { get }
     var errorMessage: String? { get }
 
-    
-    func handleTap(at location: CGPoint, in sceneView: ARSCNView)
+    func addPointAtCenter(in sceneView: ARSCNView)
     func resetNodes()
     func createSphere(at position: SCNVector3) -> SCNNode
     func distanceBetween(_ start: SCNVector3, _ end: SCNVector3) -> Float

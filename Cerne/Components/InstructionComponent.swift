@@ -52,7 +52,7 @@ struct InstructionComponent: View {
                 .padding(.horizontal, 20)
                 .padding(.vertical, 13)
                 .background(.ultraThinMaterial)
-                .cornerRadius(1000)
+                .clipShape(Capsule())
             }
         }
     }

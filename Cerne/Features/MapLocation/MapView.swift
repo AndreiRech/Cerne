@@ -19,7 +19,7 @@ struct MapView: View {
                     Button {
                         viewModel.selectedPin = pin
                     } label: {
-                        Image(uiImage: UIImage(data: pin.image) ?? UIImage(systemName: "tree.circle.fill")!)
+                        Image("PinImage")
                             .resizable()
                             .scaledToFill()
                             .frame(width: 40, height: 40)
@@ -34,15 +34,16 @@ struct MapView: View {
             MapUserLocationButton()
             MapCompass()
         }
-        .ignoresSafeArea()
         .onAppear {
             viewModel.onMapAppear()
         }
         .onChange(of: (viewModel.userLocation)) { _, _ in
             viewModel.getPins()
         }
-        .sheet(item: $viewModel.selectedPin) { selectedPin in
-            PinDetailsView(viewModel: PinDetailsViewModel(pin: selectedPin, pinService: PinService()))
+        .sheet(item: $viewModel.selectedPin, onDismiss: {
+            viewModel.getPins()
+        }) { selectedPin in
+            PinDetailsView(viewModel: PinDetailsViewModel(pin: selectedPin, pinService: PinService(), userService: UserService(), userDefaultService: UserDefaultService()))
                 .presentationDetents([.height(265), .height(500)])
                 .presentationDragIndicator(.visible)
         }

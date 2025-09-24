@@ -14,8 +14,10 @@ import CoreLocation
 class DistanceViewModel: NSObject, DistanceViewModelProtocol, CLLocationManagerDelegate {
     private var cancellables = Set<AnyCancellable>()
     private let locationManager = CLLocationManager()
+    private var onLocationReceived: (() -> Void)?
     
     var arService: ARServiceProtocol
+    let userDefaultService: UserDefaultServiceProtocol
     var distanceText: String = ""
     
     let userHeight: Double
@@ -28,8 +30,10 @@ class DistanceViewModel: NSObject, DistanceViewModelProtocol, CLLocationManagerD
     var showInfo: Bool = true
     var isMeasuring: Bool = false
     var shouldNavigate: Bool = false
+    var showAddPointHint: Bool = false
     
     init(arService: ARServiceProtocol,
+         userDefaultService: UserDefaultServiceProtocol,
          userHeight: Double,
          measuredDiameter: Double,
          treeImage: UIImage) {
@@ -37,11 +41,14 @@ class DistanceViewModel: NSObject, DistanceViewModelProtocol, CLLocationManagerD
         self.userHeight = userHeight
         self.measuredDiameter = measuredDiameter
         self.treeImage = treeImage
+        self.userDefaultService = userDefaultService
         
         super.init()
         self.locationManager.delegate = self
         
         subscribeToPublishers()
+        
+        showInfo = userDefaultService.isFirstTime()
     }
     
     private func subscribeToPublishers() {
@@ -63,7 +70,8 @@ class DistanceViewModel: NSObject, DistanceViewModelProtocol, CLLocationManagerD
         locationManager.stopUpdatingLocation()
     }
     
-    func getUserLocation() {
+    func getUserLocation(completion: @escaping () -> Void) {
+        self.onLocationReceived = completion
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
@@ -73,6 +81,10 @@ class DistanceViewModel: NSObject, DistanceViewModelProtocol, CLLocationManagerD
         if let location = locations.first {
             self.userLatitude = location.coordinate.latitude
             self.userLongitude = location.coordinate.longitude
+        
+            onLocationReceived?()
+            onLocationReceived = nil
+            locationManager.stopUpdatingLocation()
         }
     }
     

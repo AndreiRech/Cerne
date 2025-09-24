@@ -43,7 +43,6 @@ class TreeDataService: TreeDataServiceProtocol {
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             
             let trees = try decoder.decode([TreeDetails].self, from: data)
-            print("✅ Sucesso! \(trees.count) árvores carregadas do JSON.")
             return trees
             
         } catch {

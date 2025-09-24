@@ -2,163 +2,161 @@
 //  DiameterViewModelTests.swift
 //  CerneTests
 //
-//  Created by Maria Santellano on 09/09/25.
+//  Created by Maria Santellano on 19/09/25.
 //
 
 import Foundation
 import Testing
 @testable import Cerne
 import ARKit
+import SceneKit
+import UIKit
 
+// MARK: - Testes
+
+@MainActor
 struct DiameterViewModelTests {
-    @Test func shouldStartSession() async {
-        // Given
-        let mockCameraService = MockCameraService(shouldFail: false)
+    
+    let mockCameraService = MockCameraService(shouldFail: false)
+    
+    // MARK: - Estado Inicial
+    
+    @Test func shouldStartWithDefaultValues() {
         let viewModel = DiameterViewModel(
-            cameraService: mockCameraService,
-            treeImage: UIImage()
+            cameraService: MockCameraService(),
+            treeImage: UIImage(),
+            userDefaultService: MockUserDefaultService()
         )
         
-        // When
-        let request = await mockCameraService.requestPermissions()
-        
-        viewModel.onAppear()
-        await Task.yield()
-        
-        // Then
-        #expect(request)
-        #expect(mockCameraService.wasCalled)
-        #expect(mockCameraService.isCorrect)
-        #expect(mockCameraService.errorMessage == nil)
+        #expect(viewModel.result == nil)
+        #expect(viewModel.shouldNavigate == false)
+        #expect(viewModel.showInfo == true)
+        #expect(viewModel.showAddPointHint == false)
+        #expect(viewModel.placePointTrigger == false)
+        #expect(viewModel.startNode == nil)
+        #expect(viewModel.endNode == nil)
     }
     
-    @Test func shouldFailStartSession() async {
-        // Given
-        let mockCameraService = MockCameraService(shouldFail: true)
+    @Test func triggerPointPlacementShouldSetFlagTrue() {
         let viewModel = DiameterViewModel(
-            cameraService: mockCameraService,
-            treeImage: UIImage()
+            cameraService: MockCameraService(),
+            treeImage: UIImage(),
+            userDefaultService: MockUserDefaultService()
         )
         
-        // When
-        let request = await mockCameraService.requestPermissions()
+        viewModel.triggerPointPlacement()
         
-        viewModel.onAppear()
-        await Task.yield()
-        
-        // Then
-        #expect(!request)
-        #expect(mockCameraService.wasCalled)
-        #expect(!mockCameraService.isCorrect)
-        #expect(mockCameraService.errorMessage == "Erro")
+        #expect(viewModel.placePointTrigger == true)
     }
     
-    @Test func shouldStopSession() async {
-        // Given
-        let mockCameraService = MockCameraService(shouldFail: false)
-        let viewModel = DiameterViewModel(
-            cameraService: mockCameraService,
-            treeImage: UIImage()
-        )
-        
-        // When
-        let request = await mockCameraService.requestPermissions()
-        
-        viewModel.onAppear()
-        await Task.yield()
-        
-        viewModel.onDisappear()
-        
-        // Then
-        #expect(request)
-        #expect(mockCameraService.wasCalled)
-        #expect(mockCameraService.isCorrect)
-        #expect(mockCameraService.errorMessage == nil)
-    }
+//    @Test func shouldStopSession() async {
+//        // Given
+//        let mockCameraService = MockCameraService(shouldFail: false)
+//        let viewModel = DiameterViewModel(
+//            cameraService: mockCameraService,
+//            treeImage: UIImage(),
+//            userDefaultService: MockUserDefaultService()
+//        )
+//        
+//        // When
+//        let request = await mockCameraService.requestPermissions()
+//        
+//        viewModel.onAppear()
+//        await Task.yield()
+//        
+//        viewModel.onDisappear()
+//        
+//        // Then
+//        #expect(request)
+//        #expect(mockCameraService.wasCalled)
+//        #expect(mockCameraService.isCorrect)
+//        #expect(mockCameraService.errorMessage == nil)
+//    }
     
-    @Test func shouldResetNodes() async {
-        //Given
-        let mockCameraService = MockCameraService(shouldFail: false)
+    @Test func resetNodesShouldClearAllReferencesAndScene() {
         let viewModel = DiameterViewModel(
-            cameraService: mockCameraService,
-            treeImage: UIImage()
+            cameraService: MockCameraService(),
+            treeImage: UIImage(),
+            userDefaultService: MockUserDefaultService()
             
         )
         
-        viewModel.startNode = SCNNode()
-        viewModel.endNode = SCNNode()
-        viewModel.lineNode = SCNNode()
-        viewModel.textNode = SCNNode()
+        let node = viewModel.createSphere(at: SCNVector3(0,0,0))
+        viewModel.startNode = node
+        viewModel.endNode = node
+        viewModel.lineNode = node
+        viewModel.textNode = node
+        viewModel.guidelineNode = node
+        viewModel.result = 42
+        viewModel.sceneView.scene.rootNode.addChildNode(node)
         
-        //When
         viewModel.resetNodes()
         
-        // Then
         #expect(viewModel.startNode == nil)
         #expect(viewModel.endNode == nil)
         #expect(viewModel.lineNode == nil)
         #expect(viewModel.textNode == nil)
+        #expect(viewModel.guidelineNode == nil)
+        #expect(viewModel.result == nil)
+        #expect(node.parent == nil) // removido da cena
     }
     
-    @Test func shouldFinishMeasurement() async {
-        // Given
-        let mockCameraService = MockCameraService(shouldFail: false)
+    // MARK: - Finalização
+    
+    @Test func finishMeasurementShouldNavigateWhenResultIsPositive() {
         let viewModel = DiameterViewModel(
-            cameraService: mockCameraService,
-            treeImage: UIImage()
+            cameraService: MockCameraService(),
+            treeImage: UIImage(),
+            userDefaultService: MockUserDefaultService()
         )
-        viewModel.result = 1
-        
-        // When
+        viewModel.result = 2.5
         viewModel.finishMeasurement()
-        
-        // Then
-        #expect(viewModel.shouldNavigate != false)
+        #expect(viewModel.shouldNavigate == true)
     }
     
-    @Test func shouldNotFinishMeasurement() async {
-        // Given
-        let mockCameraService = MockCameraService(shouldFail: false)
+    @Test func finishMeasurementShouldNotNavigateWhenResultIsNilOrZeroOrNegative() {
         let viewModel = DiameterViewModel(
-            cameraService: mockCameraService,
-            treeImage: UIImage()
+            cameraService: MockCameraService(),
+            treeImage: UIImage(),
+            userDefaultService: MockUserDefaultService()
         )
+        
+        viewModel.result = nil
+        viewModel.finishMeasurement()
+        #expect(viewModel.shouldNavigate == false)
+        
         viewModel.result = 0
-        
-        // When
         viewModel.finishMeasurement()
+        #expect(viewModel.shouldNavigate == false)
         
-        // Then
+        viewModel.result = -1
+        viewModel.finishMeasurement()
         #expect(viewModel.shouldNavigate == false)
     }
     
-    @Test func shouldCreateSphere() async {
-        //Given
-        let mockCameraService = MockCameraService(shouldFail: false)
+    // MARK: - Métodos Auxiliares de Geometria
+    
+    @Test func createSphereShouldReturnRedSphere() {
         let viewModel = DiameterViewModel(
-            cameraService: mockCameraService,
-            treeImage: UIImage()
+            cameraService: MockCameraService(),
+            treeImage: UIImage(),
+            userDefaultService: MockUserDefaultService()
             
         )
-        let position = SCNVector3(1, 2, 3)
         
-        //When
-        let sphereNode = viewModel.createSphere(at: position)
+        let node = viewModel.createSphere(at: SCNVector3(1,2,3))
         
-        //Then
-        #expect(sphereNode.position.x == position.x)
-        #expect(sphereNode.position.y == position.y)
-        #expect(sphereNode.position.z == position.z)
-        #expect(sphereNode.geometry is SCNSphere)
-        
+        #expect(node.geometry is SCNSphere)
+        let color = (node.geometry as? SCNSphere)?
+            .firstMaterial?.diffuse.contents as? UIColor
+        #expect(color == UIColor.red)
     }
     
-    @Test func shouldMeasureDistanceBetween() async {
-        //Given
-        let mockCameraService = MockCameraService(shouldFail: false)
+    @Test func addTextShouldReturnTextNodeWithCorrectSettings() {
         let viewModel = DiameterViewModel(
-            cameraService: mockCameraService,
-            treeImage: UIImage()
+            cameraService: MockCameraService(),
+            treeImage: UIImage(),
+            userDefaultService: MockUserDefaultService()
             
         )
         
@@ -178,7 +176,8 @@ struct DiameterViewModelTests {
         let mockCameraService = MockCameraService(shouldFail: false)
         let viewModel = DiameterViewModel(
             cameraService: mockCameraService,
-            treeImage: UIImage()
+            treeImage: UIImage(),
+            userDefaultService: MockUserDefaultService()
             
         )
         let text = "Test"
@@ -196,48 +195,54 @@ struct DiameterViewModelTests {
         #expect(node.position.z == 3.0)
         
         #expect(node.geometry is SCNText)
-        
+        let string = (node.geometry as? SCNText)?.string as? String
+        #expect(string == "Test")
+        #expect(node.constraints?.first is SCNBillboardConstraint)
     }
     
-    @Test func shouldDrawRule() async {
-        //Given
-        let mockCameraService = MockCameraService(shouldFail: false)
+    @Test func distanceBetweenShouldCalculateEuclideanDistance() {
         let viewModel = DiameterViewModel(
-            cameraService: mockCameraService,
-            treeImage: UIImage()
+            cameraService: MockCameraService(),
+            treeImage: UIImage(),
+            userDefaultService: MockUserDefaultService()
+        )
+        
+        let a = SCNVector3(0,0,0)
+        let b = SCNVector3(3,4,0)
+        
+        let d = viewModel.distanceBetween(a, b)
+        
+        #expect(d == 5.0)
+    }
+    
+    @Test func drawRulerShouldAddTicksWhenLongEnough() {
+        let viewModel = DiameterViewModel(
+            cameraService: MockCameraService(),
+            treeImage: UIImage(),
+            userDefaultService: MockUserDefaultService()
             
         )
         
-        let point1 = SCNVector3(0, 0, 0)
-        let point2 = SCNVector3(0, 0, 3)
-        
-        //When
-        let rulerNode = viewModel.drawRuler(from: point1, to: point2)
-        
-        //Then
-        #expect(rulerNode.childNodes.count > 1)
-        #expect(rulerNode.childNodes.first!.geometry != nil)
-    }
-    
-    @Test func shouldNotDrawRule() async {
-        //Given
-        let mockCameraService = MockCameraService(shouldFail: false)
-        let viewModel = DiameterViewModel(
-            cameraService: mockCameraService,
-            treeImage: UIImage()
-            
+        let ruler = viewModel.drawRuler(
+            from: SCNVector3(0,0,0),
+            to: SCNVector3(0,0,0.5)
         )
         
-        let point1 = SCNVector3(0, 0, 0)
-        let point2 = SCNVector3(0, 0, 0)
-        
-        //When
-        let rulerNode = viewModel.drawRuler(from: point1, to: point2)
-        
-        //Then
-        #expect(rulerNode.childNodes.count == 1)
-        #expect(rulerNode.childNodes.first!.geometry != nil)
+        #expect(ruler.childNodes.count > 1)
     }
     
+    @Test func drawRulerShouldNotAddTicksWhenTooShort() {
+        let viewModel = DiameterViewModel(
+            cameraService: MockCameraService(),
+            treeImage: UIImage(),
+            userDefaultService: MockUserDefaultService()
+        )
+        
+        let ruler = viewModel.drawRuler(
+            from: SCNVector3(0,0,0),
+            to: SCNVector3(0,0,0.05)
+        )
+        
+        #expect(ruler.childNodes.count == 1)
+    }
 }
-

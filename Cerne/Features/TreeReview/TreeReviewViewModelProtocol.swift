@@ -13,9 +13,9 @@ protocol TreeReviewViewModelProtocol {
     var scannedTreeService: ScannedTreeServiceProtocol { get }
     var treeAPIService: TreeAPIServiceProtocol { get }
     var pinService: PinServiceProtocol { get }
+    var userDefaultService: UserDefaultServiceProtocol { get }
     var pinLatitude: Double { get }
     var pinLongitude: Double { get }
-//    var pinUser: User { get }
     var updateSpecies: String { get set }
     var updateHeight: Double  { get set }
     var updateDap: Double  { get set }
@@ -27,7 +27,7 @@ protocol TreeReviewViewModelProtocol {
     func createScannedTree() async
     func calculateCO2(height: Double, dap: Float, density: Double) -> Double
     func calculateBiomass(height: Double, dap: Float, density: Double) -> Double
-    func createPin()
+    func createPin() async
     func updateScannedTree() async
     func cancel()
 }

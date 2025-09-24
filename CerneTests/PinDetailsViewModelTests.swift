@@ -32,7 +32,7 @@ struct PinDetailsViewModelTests {
         
         mockPinService.pins.append(testPin)
         
-        let viewModel = PinDetailsViewModel(pin: testPin, pinService: mockPinService)
+        let viewModel = PinDetailsViewModel(pin: testPin, pinService: mockPinService, userService: MockUserService(), userDefaultService: MockUserDefaultService())
         
         return (viewModel, mockPinService)
     }
@@ -110,14 +110,14 @@ struct PinDetailsViewModelTests {
     }
     
     // MARK: - Testes da Função `isPinFromUser`
-    @Test func shouldCheckIfPinIsFromUser() {
+    @Test func shouldCheckIfPinIsFromUser() async {
         // Given
         let (viewModel, _) = setupTestEnvironment()
         
         // When
-        let isFromUser = viewModel.isPinFromUser()
+        await viewModel.isPinFromUser()
         
         // Then
-        #expect(isFromUser == false)
+        #expect(viewModel.isPinFromUser == false)
     }
 }

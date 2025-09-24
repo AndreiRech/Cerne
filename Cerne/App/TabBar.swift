@@ -22,13 +22,9 @@ struct TabBar: View {
                 MapView(viewModel: MapViewModel(locationService: LocationService(), pinService: PinService(), userService: UserService(), scannedTreeService: ScannedTreeService()))
             }
 
-            Tab("Footprint", systemImage: "leaf.arrow.trianglehead.clockwise", value: 2) {
-                ContentView()
-            }
-
-            Tab("Add", systemImage: "plus", value: 3, role: .search) {
+            Tab("Add", systemImage: "plus", value: 2, role: .search) {
                 NavigationStack(path: $router.path) {
-                    PhotoView(viewModel: PhotoViewModel(cameraService: CameraService(), treeAPIService: TreeAPIService()))
+                    PhotoView(viewModel: PhotoViewModel(cameraService: CameraService(), treeAPIService: TreeAPIService(), userDefaultService: UserDefaultService()))
                         .toolbar(.hidden, for: .tabBar)
                 }
                 .id(router.addFlowID)
@@ -39,7 +35,7 @@ struct TabBar: View {
             guard let action = action else { return }
             switch action {
             case .mapTree:
-                router.selectedTab = 3
+                router.selectedTab = 2
             }
         }
     }
