@@ -10,7 +10,6 @@ import ARKit
 import SceneKit
 
 protocol DiameterViewModelProtocol: AnyObject {
-    var cameraService: CameraServiceProtocol { get }
     var userDefaultService: UserDefaultServiceProtocol { get }
     var errorMessage: String? { get }
 
@@ -18,5 +17,4 @@ protocol DiameterViewModelProtocol: AnyObject {
     func resetNodes()
     func createSphere(at position: SCNVector3) -> SCNNode
     func distanceBetween(_ start: SCNVector3, _ end: SCNVector3) -> Float
-    func addText(_ text: String, at position: SCNVector3) -> SCNNode
 }

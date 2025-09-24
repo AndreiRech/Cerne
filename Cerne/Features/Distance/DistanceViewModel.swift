@@ -62,7 +62,9 @@ class DistanceViewModel: NSObject, DistanceViewModelProtocol, CLLocationManagerD
     }
     
     func onAppear() {
-        arService.start(showOverlay: false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.arService.start(showOverlay: false)
+        }
     }
     
     func onDisappear() {
@@ -81,7 +83,7 @@ class DistanceViewModel: NSObject, DistanceViewModelProtocol, CLLocationManagerD
         if let location = locations.first {
             self.userLatitude = location.coordinate.latitude
             self.userLongitude = location.coordinate.longitude
-        
+            
             onLocationReceived?()
             onLocationReceived = nil
             locationManager.stopUpdatingLocation()

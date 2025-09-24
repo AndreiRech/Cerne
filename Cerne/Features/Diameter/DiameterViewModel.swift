@@ -22,7 +22,6 @@ class DiameterViewModel: NSObject, DiameterViewModelProtocol, ObservableObject, 
     var textNode: SCNNode?
     var guidelineNode: SCNNode?
     
-    var cameraService: CameraServiceProtocol
     var errorMessage: String?
     
     var showInfo: Bool = true
@@ -31,11 +30,10 @@ class DiameterViewModel: NSObject, DiameterViewModelProtocol, ObservableObject, 
     
     let sceneView = ARSCNView()
     private var hasRunOnce = false
-
+    
     let userDefaultService: UserDefaultServiceProtocol
     
-    init(cameraService: CameraServiceProtocol, treeImage: UIImage, userDefaultService: UserDefaultServiceProtocol) {
-        self.cameraService = cameraService
+    init(treeImage: UIImage, userDefaultService: UserDefaultServiceProtocol) {
         self.userDefaultService = userDefaultService
         self.treeImage = treeImage
         super.init()
@@ -49,7 +47,7 @@ class DiameterViewModel: NSObject, DiameterViewModelProtocol, ObservableObject, 
     
     func runSession() {
         let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = [.vertical]
+        configuration.planeDetection = [.horizontal]
         configuration.environmentTexturing = .automatic
         
         if hasRunOnce {
@@ -61,7 +59,9 @@ class DiameterViewModel: NSObject, DiameterViewModelProtocol, ObservableObject, 
     }
     
     func pauseSession() {
-        sceneView.session.pause()
+        DispatchQueue.main.async {
+            self.sceneView.session.pause()
+        }
     }
     
     func addPointAtCenter(in sceneView: ARSCNView) {
@@ -94,16 +94,6 @@ class DiameterViewModel: NSObject, DiameterViewModelProtocol, ObservableObject, 
             sceneView.scene.rootNode.addChildNode(lineNode!)
             
             let distance = distanceBetween(startNode!.position, endNode!.position)
-            
-            let midPoint = SCNVector3(
-                (startNode!.position.x + endNode!.position.x) / 2,
-                (startNode!.position.y + endNode!.position.y) / 2 + 0.01, // Um pouco acima da linha
-                (startNode!.position.z + endNode!.position.z) / 2
-            )
-            
-            let text = String(format: "%.2f m", distance)
-            textNode = addText(text, at: midPoint)
-            sceneView.scene.rootNode.addChildNode(textNode!)
             
             self.result = Double(distance)
         }
@@ -156,15 +146,9 @@ class DiameterViewModel: NSObject, DiameterViewModelProtocol, ObservableObject, 
         result = nil
     }
     
-    func finishMeasurement() {
-        if let distance = result, distance > 0 {
-            shouldNavigate = true
-        }
-    }
-    
     func createSphere(at position: SCNVector3) -> SCNNode {
         let sphere = SCNSphere(radius: 0.005)
-        sphere.firstMaterial?.diffuse.contents = UIColor.red
+        sphere.firstMaterial?.diffuse.contents = UIColor.white
         let node = SCNNode(geometry: sphere)
         node.position = position
         return node
@@ -177,21 +161,6 @@ class DiameterViewModel: NSObject, DiameterViewModelProtocol, ObservableObject, 
         return sqrt(dx*dx + dy*dy + dz*dz)
     }
     
-    func addText(_ text: String, at position: SCNVector3) -> SCNNode {
-        let textGeometry = SCNText(string: text, extrusionDepth: 0.01)
-        textGeometry.firstMaterial?.diffuse.contents = UIColor.systemBlue
-        textGeometry.font = UIFont.systemFont(ofSize: 10, weight: .bold)
-        
-        let node = SCNNode(geometry: textGeometry)
-        node.scale = SCNVector3(0.005, 0.005, 0.005)
-        node.position = position
-        
-        let constraint = SCNBillboardConstraint()
-        node.constraints = [constraint]
-        
-        return node
-    }
-    
     func drawRuler(from start: SCNVector3, to end: SCNVector3, interval: Float = 0.1) -> SCNNode {
         let rulerNode = SCNNode()
         let mainLine = drawLine(from: start, to: end)
@@ -201,7 +170,7 @@ class DiameterViewModel: NSObject, DiameterViewModelProtocol, ObservableObject, 
         let dy = end.y - start.y
         let dz = end.z - start.z
         let length = sqrt(dx*dx + dy*dy + dz*dz)
-        let steps = Int(length / interval) // Calcula quantos "ticks" de 10cm cabem na linha.
+        let steps = Int(length / interval)
         if steps == 0 { return rulerNode }
         
         let stepVector = SCNVector3(dx / Float(steps), dy / Float(steps), dz / Float(steps))
@@ -219,7 +188,7 @@ class DiameterViewModel: NSObject, DiameterViewModelProtocol, ObservableObject, 
         return rulerNode
     }
     
-    private func drawLine(from start: SCNVector3, to end: SCNVector3, color: UIColor = .yellow) -> SCNNode {
+    private func drawLine(from start: SCNVector3, to end: SCNVector3, color: UIColor = .white) -> SCNNode {
         let vertices: [SCNVector3] = [start, end]
         let source = SCNGeometrySource(vertices: vertices)
         let indices: [Int32] = [0, 1]

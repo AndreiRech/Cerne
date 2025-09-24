@@ -97,10 +97,16 @@ class CameraService: NSObject, ObservableObject, CameraServiceProtocol, AVCaptur
         
         let supportedDimensions = videoDevice.activeFormat.supportedMaxPhotoDimensions
         
-        if let largestDimension = supportedDimensions.max(by: { ($0.width * $0.height) < ($1.width * $1.height) }) {
-            photoOutput.maxPhotoDimensions = largestDimension
+        if !supportedDimensions.isEmpty {
+            let sortedDimensions = supportedDimensions.sorted {
+                ($0.width * $0.height) > ($1.width * $1.height)
+            }
+            
+            if let maxDimension = sortedDimensions.first {
+                photoOutput.maxPhotoDimensions = maxDimension
+            }
         } else {
-            errorMessage = "Não foi possível encontrar a dimensão máxima suportada."
+            print("Aviso: Nenhuma dimensão máxima suportada encontrada, usando padrão do sistema")
         }
         
         session.commitConfiguration()
