@@ -53,42 +53,24 @@ struct DiameterView: View {
                             Button {
                                 viewModel.triggerPointPlacement()
                             } label: {
-                                if #available(iOS 26.0, *) {
-                                    Image(systemName: "plus")
-                                        .font(.system(size: 24, weight: .bold))
-                                        .frame(width: 70, height: 70)
-                                        .foregroundColor(.black)
-                                        .glassEffect()
-                                } else {
-                                    Image(systemName: "plus")
-                                        .font(.system(size: 24, weight: .bold))
-                                        .frame(width: 70, height: 70)
-                                        .foregroundColor(.black)
-                                        .background(.ultraThinMaterial)
-                                        .clipShape(Capsule())
-                                }
-                                
+                                Image(systemName: "plus")
+                                    .font(.system(size: 24, weight: .bold))
+                                    .frame(width: 70, height: 70)
+                                    .foregroundColor(.black)
+                                    .glassEffect()
                             }
                         } else {
                             Button {
                                 viewModel.shouldNavigate = true
                             } label: {
-                                if #available(iOS 26.0, *) {
-                                    Text("Continuar")
-                                        .font(.headline)
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.black)
-                                        .padding()
-                                        .glassEffect()
-                                } else {
-                                    Text("Continuar")
-                                        .font(.headline)
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.black)
-                                        .padding()
-                                        .background(.ultraThinMaterial)
-                                        .clipShape(Capsule())
-                                }
+                                Text("Continuar")
+                                    .font(.headline)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.black)
+                                    .padding()
+                                    .glassEffect()
+                                
+                                
                             }
                         }
                     }
@@ -106,7 +88,6 @@ struct DiameterView: View {
         }
         .onAppear { viewModel.runSession() }
         .onDisappear { viewModel.pauseSession() }
-        
         .toolbar {
             ToolbarItem {
                 Button {
@@ -156,6 +137,11 @@ struct ARSceneView: UIViewRepresentable {
                 viewModel.placePointTrigger = false
             }
         }
+    }
+    
+    func dismantleUIView(_ uiView: ARSCNView, coordinator: Coordinator) {
+        print("ARSceneView is being dismantled. Pausing session.")
+        uiView.session.pause()
     }
     
     func makeCoordinator() -> Coordinator { Coordinator(viewModel: viewModel) }

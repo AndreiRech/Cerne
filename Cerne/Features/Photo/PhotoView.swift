@@ -25,81 +25,50 @@ struct PhotoView: View {
                             Spacer()
                             
                             ProgressView()
+                                .scaleEffect(1.5)
+                                .frame(width: 60, height: 60)
+                                .glassEffect()
                             
                             Spacer()
                         } else {
                             Spacer()
                             
-                            if #available(iOS 26.0, *) {
-                                VStack(alignment: .center, spacing: 0) {
-                                    HStack(spacing: 10) {
-                                        Image(systemName: "tree")
-                                            .font(.system(size: 16, weight: .semibold))
-                                            .foregroundStyle(.CTA)
-                                        
-                                        Text(viewModel.identifiedTree?.bestMatch ?? "")
-                                            .font(.body)
-                                            .fontWeight(.semibold)
-                                    }
-                                    .foregroundColor(.white)
+                            VStack(alignment: .center, spacing: 0) {
+                                HStack(spacing: 10) {
+                                    Image(systemName: "tree")
+                                        .font(.system(size: 16, weight: .semibold))
+                                        .foregroundStyle(.CTA)
                                     
-                                    Text("Espécie da árvore identificada")
-                                        .font(.subheadline)
-                                        .foregroundColor(.gray)
+                                    Text(viewModel.identifiedTree?.bestMatch ?? "")
+                                        .font(.body)
+                                        .fontWeight(.semibold)
                                 }
-                                .padding(20)
-                                .glassEffect(in: .rect(cornerRadius: 24))
-                            } else {
-                                VStack(alignment: .center, spacing: 0) {
-                                    HStack(spacing: 10) {
-                                        Image(systemName: "tree")
-                                            .font(.system(size: 16, weight: .semibold))
-                                            .foregroundStyle(.CTA)
-                                        
-                                        Text(viewModel.identifiedTree?.bestMatch ?? "")
-                                            .font(.body)
-                                            .fontWeight(.semibold)
-                                    }
-                                    .foregroundColor(.white)
-                                    
-                                    Text("Espécie da árvore identificada")
-                                        .font(.subheadline)
-                                        .foregroundColor(.gray)
-                                }
-                                .padding(20)
-                                .background(.ultraThinMaterial)
-                                .clipShape(Rectangle())
+                                .foregroundColor(.white)
+                                
+                                Text("Espécie da árvore identificada")
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
                             }
+                            .padding(20)
+                            .glassEffect(in: .rect(cornerRadius: 24))
                             
                             Spacer()
                             
                             Button {
                                 viewModel.shouldNavigate.toggle()
                             } label: {
-                                if #available(iOS 26.0, *) {
-                                    Text("Continuar")
-                                        .font(.body)
-                                        .fontWeight(.semibold)
-                                        .foregroundColor(.black)
-                                        .padding(.horizontal, 20)
-                                        .padding(.vertical, 14)
-                                        .glassEffect()
-                                } else {
-                                    Text("Continuar")
-                                        .font(.body)
-                                        .fontWeight(.semibold)
-                                        .foregroundColor(.black)
-                                        .padding(.horizontal, 20)
-                                        .padding(.vertical, 14)
-                                        .background(.ultraThinMaterial)
-                                        .clipShape(Capsule())
-                                }
+                                Text("Continuar")
+                                    .font(.body)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.black)
+                                    .padding(.horizontal, 20)
+                                    .padding(.vertical, 14)
+                                    .glassEffect()
                             }
                             .padding(.bottom, 100)
                             .navigationDestination(isPresented: $viewModel.shouldNavigate) {
                                 DiameterView(
                                     viewModel: DiameterViewModel(
-                                        cameraService: CameraService(),
                                         treeImage: capturedImage,
                                         userDefaultService: UserDefaultService()
                                     )
@@ -115,24 +84,13 @@ struct PhotoView: View {
                                 await viewModel.identifyTree(image: capturedImage)
                             }
                         } label: {
-                            if #available(iOS 26.0, *) {
-                                Text("Identificar")
-                                    .font(.body)
-                                    .fontWeight(.semibold)
-                                    .foregroundColor(.black)
-                                    .padding(.horizontal, 20)
-                                    .padding(.vertical, 14)
-                                    .glassEffect()
-                            } else {
-                                Text("Identificar")
-                                    .font(.body)
-                                    .fontWeight(.semibold)
-                                    .foregroundColor(.black)
-                                    .padding(.horizontal, 20)
-                                    .padding(.vertical, 14)
-                                    .background(.ultraThinMaterial)
-                                    .clipShape(Capsule())
-                            }
+                            Text("Identificar")
+                                .font(.body)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.black)
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 14)
+                                .glassEffect()
                         }
                         .padding(.bottom, 100)
                     }

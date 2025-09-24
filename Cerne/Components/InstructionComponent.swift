@@ -28,32 +28,17 @@ struct InstructionComponent: View {
             }
             .padding(.horizontal, 40)
             
-            if #available(iOS 26.0, *) {
-                Button {
-                    onTap()
-                } label: {
-                    Text(buttonText)
-                        .font(.body)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.black)
-                }
-                .padding(.horizontal, 20)
-                .padding(.vertical, 13)
-                .glassEffect()
-            } else {
-                Button {
-                    onTap()
-                } label: {
-                    Text(buttonText)
-                        .font(.body)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.black)
-                }
-                .padding(.horizontal, 20)
-                .padding(.vertical, 13)
-                .background(.ultraThinMaterial)
-                .clipShape(Capsule())
+            Button {
+                onTap()
+            } label: {
+                Text(buttonText)
+                    .font(.body)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.black)
             }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 13)
+            .glassEffect()
         }
     }
 }
