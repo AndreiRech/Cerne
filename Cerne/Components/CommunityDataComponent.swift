@@ -25,8 +25,7 @@ struct CommunityDataComponent: View {
                     .font(.title3)
                 
                 Text(title)
-                    .font(.title3)
-                    .fontWeight(.semibold)
+                    .font(.system(.title3, weight: .semibold))
                     .foregroundStyle(.primitive1)
             }
             switch infoType {

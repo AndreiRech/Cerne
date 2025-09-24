@@ -31,23 +31,20 @@ struct ContribuitionTreeComponent: View {
                         .font(.title3)
                     
                     Text(treeName)
-                        .font(.body)
-                        .fontWeight(.semibold)
+                        .font(.system(.body, weight: .semibold))
                         .lineLimit(1)
                 }
                 
                 VStack(alignment: .leading, spacing: 5) {
                     HStack(spacing: 4) {
                         Text(String(format: "%.0f kg", treeCO2))
-                            .font(.title2)
-                            .fontWeight(.bold)
+                            .font(.system(.title2, weight: .bold))
                         
                         Text("de CO²")
                             .font(.body)
                     }
                     Text("sequestrados")
-                        .font(.footnote)
-                        .fontWeight(.regular)
+                        .font(.system(.footnote, weight: .regular))
                 }
                 
                 
@@ -57,7 +54,7 @@ struct ContribuitionTreeComponent: View {
             .padding(.top, 20)
         }
         .frame(width: 174, height: 233)
-        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .clipShape(RoundedRectangle(cornerRadius: 26))
         
     }
 }
