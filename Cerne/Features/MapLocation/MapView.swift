@@ -19,13 +19,7 @@ struct MapView: View {
                     Button {
                         viewModel.selectedPin = pin
                     } label: {
-                        Image("PinImage")
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 40, height: 40)
-                            .clipShape(Circle())
-                            .overlay(Circle().stroke(Color.white, lineWidth: 2))
-                            .shadow(radius: 5)
+                        TreePinView()
                     }
                 }
             }
