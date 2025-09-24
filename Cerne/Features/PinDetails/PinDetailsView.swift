@@ -64,7 +64,7 @@ struct PinDetailsView: View {
                                 .font(.body)
                                 .fontWeight(.semibold)
                             
-                            Text(viewModel.details?.description ?? "")
+                            Text(viewModel.details?.description ?? "Esta espécie foi reconhecida, mas as informações adicionais ainda não estão disponíveis")
                                 .font(.footnote)
                                 .fontWeight(.regular)
                         }
@@ -100,7 +100,7 @@ struct PinDetailsView: View {
                                 .font(.body)
                                 .fontWeight(.semibold)
                             
-                            Text("A captura dessa árvore equivale a emissão de um carro, movido a gasolina, rodando 2.890 km")
+                            Text(viewModel.message())
                                 .font(.footnote)
                                 .fontWeight(.regular)
                         }
@@ -168,7 +168,7 @@ struct PinDetailsView: View {
         }
         .scrollDisabled(true)
         .sheet(isPresented: $isShowingShareSheet) {
-            ShareSheet(items: ["Vem mapear árvores!"])
+            ShareSheet(items: ["Olha que legal o App Cerne: ele calcula quanto de carbono as árvores da sua cidade conseguem reter para ajudar a limpar o ar. Achei que você ia gostar. LINK"])
         }
         .alert("Deletar Registro", isPresented: $isShowingDeleteAlert) {
             Button("Cancelar", role: .cancel) {
