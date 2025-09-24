@@ -65,7 +65,6 @@ class PinDetailsViewModel: PinDetailsViewModelProtocol {
         }
     }
     
-<<<<<<< HEAD
     func message() -> String {
         let co2 = pin.tree?.totalCO2 ?? 0.0
         
@@ -88,9 +87,9 @@ class PinDetailsViewModel: PinDetailsViewModelProtocol {
             
             return "A captura dessa árvore equivale à emissão de um voo comercial de aproximadamente \(formattedHours) horas."
         }
-=======
+    }
+    
     private func isAbleToReport(pin: Pin) -> Bool {
         return userDefaultService.isPinReported(pin: pin) ? false : true
->>>>>>> ead72c6835017bcc624cd016cd261b68568bd208
     }
 }
