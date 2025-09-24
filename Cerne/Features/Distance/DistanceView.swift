@@ -80,15 +80,19 @@ struct DistanceView: View {
                 }
             }
         }
-        .onAppear(perform: viewModel.onAppear)
-        .onDisappear(perform: viewModel.onDisappear)
+        .onAppear {
+            viewModel.onAppear()
+        }
+        .onDisappear {
+            viewModel.onDisappear()
+        }
         .navigationDestination(isPresented: $viewModel.shouldNavigate) {
             HeightView(
                 viewModel: HeightViewModel(
                     cameraService: CameraService(),
                     motionService: MotionService(),
                     scannedTreeService: ScannedTreeService(),
-                    onboardingService: OnboardingService(),
+                    userDefaultService: UserDefaultService(),
                     userHeight: 1.80,
                     distanceToTree: viewModel.distance,
                     measuredDiameter: viewModel.measuredDiameter,

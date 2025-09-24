@@ -16,7 +16,7 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
     var pinService: PinServiceProtocol
     var treeDataService: TreeDataServiceProtocol
     var userService: UserServiceProtocol
-    var onboardingService: OnboardingServiceProtocol
+    var userDefaultService: UserDefaultServiceProtocol
     
     var measuredDiameter: Double
     var treeImage: UIImage?
@@ -35,7 +35,7 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
     var isLoading: Bool = false
     var errorMessage: String?
     
-    init(cameraService: CameraServiceProtocol, scannedTreeService: ScannedTreeServiceProtocol, treeAPIService: TreeAPIServiceProtocol, pinService: PinServiceProtocol, treeDataService: TreeDataServiceProtocol, userService: UserServiceProtocol, measuredDiameter: Double, treeImage: UIImage? = nil, estimatedHeight: Double, pinLatitude: Double, pinLongitude: Double, onboardingService: OnboardingServiceProtocol) {
+    init(cameraService: CameraServiceProtocol, scannedTreeService: ScannedTreeServiceProtocol, treeAPIService: TreeAPIServiceProtocol, pinService: PinServiceProtocol, treeDataService: TreeDataServiceProtocol, userService: UserServiceProtocol, measuredDiameter: Double, treeImage: UIImage? = nil, estimatedHeight: Double, pinLatitude: Double, pinLongitude: Double, userDefaultService: UserDefaultServiceProtocol) {
         self.cameraService = cameraService
         self.scannedTreeService = scannedTreeService
         self.treeAPIService = treeAPIService
@@ -47,7 +47,7 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
         self.estimatedHeight = estimatedHeight
         self.pinLatitude = pinLatitude
         self.pinLongitude = pinLongitude
-        self.onboardingService = onboardingService
+        self.userDefaultService = userDefaultService
     }
     
     func createScannedTree() async {
@@ -119,7 +119,7 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
                 tree: tree
             )
             
-            onboardingService.setFirstTimeDone()
+            userDefaultService.setFirstTimeDone()
             
         } catch {
             errorMessage = "Ocorreu um erro ao criar o pino: \(error.localizedDescription)"

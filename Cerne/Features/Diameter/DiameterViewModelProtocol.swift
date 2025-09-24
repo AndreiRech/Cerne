@@ -11,7 +11,7 @@ import SceneKit
 
 protocol DiameterViewModelProtocol: AnyObject {
     var cameraService: CameraServiceProtocol { get }
-    var onboardingService: OnboardingServiceProtocol { get }
+    var userDefaultService: UserDefaultServiceProtocol { get }
     var errorMessage: String? { get }
 
     func addPointAtCenter(in sceneView: ARSCNView)

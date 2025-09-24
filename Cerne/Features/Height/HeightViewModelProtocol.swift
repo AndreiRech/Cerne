@@ -16,7 +16,7 @@ protocol HeightViewModelProtocol {
     var cameraService: CameraServiceProtocol { get }
     var motionService: MotionServiceProtocol { get }
     var scannedTreeService: ScannedTreeServiceProtocol { get }
-    var onboardingService: OnboardingServiceProtocol { get }
+    var userDefaultService: UserDefaultServiceProtocol { get }
     var errorMessage: String? { get }
     
     var userHeight: Double { get }

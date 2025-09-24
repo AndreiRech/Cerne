@@ -24,7 +24,7 @@ struct TabBar: View {
 
             Tab("Add", systemImage: "plus", value: 2, role: .search) {
                 NavigationStack(path: $router.path) {
-                    PhotoView(viewModel: PhotoViewModel(cameraService: CameraService(), treeAPIService: TreeAPIService(), onboardingService: OnboardingService()))
+                    PhotoView(viewModel: PhotoViewModel(cameraService: CameraService(), treeAPIService: TreeAPIService(), userDefaultService: UserDefaultService()))
                         .toolbar(.hidden, for: .tabBar)
                 }
                 .id(router.addFlowID)

@@ -13,7 +13,7 @@ protocol TreeReviewViewModelProtocol {
     var scannedTreeService: ScannedTreeServiceProtocol { get }
     var treeAPIService: TreeAPIServiceProtocol { get }
     var pinService: PinServiceProtocol { get }
-    var onboardingService: OnboardingServiceProtocol { get }
+    var userDefaultService: UserDefaultServiceProtocol { get }
     var pinLatitude: Double { get }
     var pinLongitude: Double { get }
     var updateSpecies: String { get set }

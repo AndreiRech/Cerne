@@ -18,7 +18,7 @@ struct PhotoViewModelTests {
         let viewModel = PhotoViewModel(
             cameraService: mockCameraService,
             treeAPIService: mockTreeAPIService,
-            onboardingService: MockOnboardingService()
+            userDefaultService: MockUserDefaultService()
         )
         
         // When
@@ -41,7 +41,7 @@ struct PhotoViewModelTests {
         let viewModel = PhotoViewModel(
             cameraService: mockCameraService,
             treeAPIService: mockTreeAPIService,
-            onboardingService: MockOnboardingService()
+            userDefaultService: MockUserDefaultService()
         )
         
         // When
@@ -64,7 +64,7 @@ struct PhotoViewModelTests {
         let viewModel = PhotoViewModel(
             cameraService: mockCameraService,
             treeAPIService: mockTreeAPIService,
-            onboardingService: MockOnboardingService()
+            userDefaultService: MockUserDefaultService()
         )
         
         // When
@@ -89,7 +89,7 @@ struct PhotoViewModelTests {
         let viewModel = PhotoViewModel(
             cameraService: mockCameraService,
             treeAPIService: mockTreeAPIService,
-            onboardingService: MockOnboardingService()
+            userDefaultService: MockUserDefaultService()
         )
         
         // When
@@ -112,7 +112,7 @@ struct PhotoViewModelTests {
         let viewModel = PhotoViewModel(
             cameraService: mockCameraService,
             treeAPIService: mockTreeAPIService,
-            onboardingService: MockOnboardingService()
+            userDefaultService: MockUserDefaultService()
         )
         
         // When
@@ -132,7 +132,7 @@ struct PhotoViewModelTests {
         let viewModel = PhotoViewModel(
             cameraService: mockCameraService,
             treeAPIService: mockTreeAPIService,
-            onboardingService: MockOnboardingService()
+            userDefaultService: MockUserDefaultService()
         )
         
         // When
@@ -149,7 +149,7 @@ struct PhotoViewModelTests {
         let viewModel = PhotoViewModel(
             cameraService: mockCameraService,
             treeAPIService: mockTreeAPIService,
-            onboardingService: MockOnboardingService()
+            userDefaultService: MockUserDefaultService()
         )
         
         // When
@@ -166,7 +166,7 @@ struct PhotoViewModelTests {
         let viewModel = PhotoViewModel(
             cameraService: mockCameraService,
             treeAPIService: mockTreeAPIService,
-            onboardingService: MockOnboardingService()
+            userDefaultService: MockUserDefaultService()
         )
         
         // When
