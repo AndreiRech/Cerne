@@ -14,11 +14,11 @@ struct TabBar: View {
 
     var body: some View {
         TabView(selection: $router.selectedTab) {
-            Tab("Home", systemImage: "arrow.trianglehead.2.clockwise.rotate.90.icloud", value: 0) {
-                ContentView()
+            Tab("Hoje", systemImage: "arrow.trianglehead.2.clockwise.rotate.90.icloud", value: 0) {
+                TodayView(viewModel: TodayViewModel(pinService: PinService(), userService: UserService()))
             }
             
-            Tab("Map", systemImage: "map", value: 1) {
+            Tab("Mapa", systemImage: "map", value: 1) {
                 MapView(viewModel: MapViewModel(locationService: LocationService(), pinService: PinService(), userService: UserService(), scannedTreeService: ScannedTreeService()))
             }
 
@@ -35,8 +35,9 @@ struct TabBar: View {
             guard let action = action else { return }
             switch action {
             case .mapTree:
-                router.selectedTab = 2
+                router.selectedTab = 1
             }
         }
     }
 }
+

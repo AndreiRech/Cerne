@@ -18,9 +18,27 @@ class PinService: PinServiceProtocol {
         self.details = []
     }
     
+    
     func fetchPins() throws -> [Pin] {
         let descriptor = FetchDescriptor<Pin>()
-
+        
+        do {
+            let pins = try modelContext.fetch(descriptor)
+            return pins
+        } catch {
+            throw GenericError.serviceError
+        }
+    }
+    
+    func fetchPins(by user: User) throws -> [Pin] {
+        let userID = user.id
+        
+        let descriptor = FetchDescriptor<Pin>(
+            predicate: #Predicate { pin in
+                pin.user?.id == userID
+            },
+        )
+        
         do {
             let pins = try modelContext.fetch(descriptor)
             return pins

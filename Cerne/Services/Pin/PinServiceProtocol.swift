@@ -12,6 +12,7 @@ protocol PinServiceProtocol {
     var details: [TreeDetails] { get }
     
     func fetchPins() throws -> [Pin]
+    func fetchPins(by user: User) throws -> [Pin]
     func createPin(image: Data, latitude: Double, longitude: Double, user: User, tree: ScannedTree) throws
     func addReport(to pin: Pin) throws
     func deletePin(pin: Pin) throws

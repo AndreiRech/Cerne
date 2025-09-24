@@ -33,6 +33,7 @@ struct ContribuitionTreeComponent: View {
                     Text(treeName)
                         .font(.body)
                         .fontWeight(.semibold)
+                        .lineLimit(1)
                 }
                 
                 VStack(alignment: .leading, spacing: 5) {
