@@ -15,6 +15,7 @@ protocol MapViewModelProtocol {
     var metaballs: [Metaball] { get }
     var selectedPin: Pin? { get set }
     var currentZoomLevel: Double { get }
+    var normalizedZoomLevel: Double { get }
     
     func getPins()
     func onMapAppear()

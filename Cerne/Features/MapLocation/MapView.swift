@@ -15,20 +15,26 @@ struct MapView: View {
         Map(position: $viewModel.position, selection: .constant(viewModel.selectedPin)) {
             UserAnnotation()
             
-            if viewModel.metaballs.isEmpty {
-                ForEach (viewModel.usablePins) { pin in
-                    Annotation("", coordinate: CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)) {
-                        Button {
-                            viewModel.selectedPin = pin
-                        } label: {
-                            TreePinView()
-                        }
+            ForEach(viewModel.usablePins) { pin in
+                Annotation("", coordinate: CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)) {
+                    Button {
+                        viewModel.selectedPin = pin
+                    } label: {
+                        TreePinView()
+                            .transition(.scale.combined(with: .opacity))
                     }
                 }
-            } else {
-                ForEach (viewModel.metaballs) { metaball in
-                    Annotation("", coordinate: metaball.coordinate) {
-                        TreePinView()
+            }
+            
+            ForEach(viewModel.metaballs) { metaball in
+                Annotation("", coordinate: metaball.coordinate) {
+                    Button {
+                        if let firstPin = metaball.pins.first {
+                            viewModel.selectedPin = firstPin
+                        }
+                    } label: {
+                        MetaballView(metaball: metaball, zoomLevel: viewModel.normalizedZoomLevel)
+                            .transition(.scale.combined(with: .opacity))
                     }
                 }
             }
@@ -54,5 +60,7 @@ struct MapView: View {
                 .presentationDetents([.height(265), .height(500)])
                 .presentationDragIndicator(.visible)
         }
+        .animation(.easeInOut(duration: 0.3), value: viewModel.metaballs.count)
+        .animation(.easeInOut(duration: 0.3), value: viewModel.usablePins.count)
     }
 }
