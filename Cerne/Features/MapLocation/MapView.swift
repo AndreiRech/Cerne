@@ -12,20 +12,29 @@ struct MapView: View {
     @State var viewModel: MapViewModelProtocol
     
     var body: some View {
-        Map(position: .constant(viewModel.position), selection: .constant(viewModel.selectedPin)) {
+        Map(position: $viewModel.position, selection: .constant(viewModel.selectedPin)) {
             UserAnnotation()
-            ForEach (viewModel.pins) { pin in
+            
+            ForEach(viewModel.usablePins) { pin in
                 Annotation("", coordinate: CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)) {
                     Button {
                         viewModel.selectedPin = pin
                     } label: {
-                        Image("PinImage")
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 40, height: 40)
-                            .clipShape(Circle())
-                            .overlay(Circle().stroke(Color.white, lineWidth: 2))
-                            .shadow(radius: 5)
+                        TreePinView()
+                            .transition(.scale.combined(with: .opacity))
+                    }
+                }
+            }
+            
+            ForEach(viewModel.metaballs) { metaball in
+                Annotation("", coordinate: metaball.coordinate) {
+                    Button {
+                        if let firstPin = metaball.pins.first {
+                            viewModel.selectedPin = firstPin
+                        }
+                    } label: {
+                        MetaballView(metaball: metaball, zoomLevel: viewModel.normalizedZoomLevel)
+                            .transition(.scale.combined(with: .opacity))
                     }
                 }
             }
@@ -37,6 +46,10 @@ struct MapView: View {
         .onAppear {
             viewModel.onMapAppear()
         }
+        .onMapCameraChange(frequency: .onEnd) { context in
+            let zoomLevel = context.region.span.latitudeDelta
+            viewModel.updateMapRegion(zoomLevel: zoomLevel, region: context.region)
+        }
         .onChange(of: (viewModel.userLocation)) { _, _ in
             viewModel.getPins()
         }
@@ -47,5 +60,7 @@ struct MapView: View {
                 .presentationDetents([.height(265), .height(500)])
                 .presentationDragIndicator(.visible)
         }
+        .animation(.easeInOut(duration: 0.3), value: viewModel.metaballs.count)
+        .animation(.easeInOut(duration: 0.3), value: viewModel.usablePins.count)
     }
 }

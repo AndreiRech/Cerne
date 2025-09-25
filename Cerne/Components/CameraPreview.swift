@@ -12,9 +12,9 @@ struct CameraPreview: UIViewRepresentable {
     let service: CameraServiceProtocol
     
     func makeUIView(context: Context) -> UIView {
-        let view = UIView(frame: UIScreen.main.bounds)
+        let view = UIView(frame: .zero)
         
-        service.previewLayer.frame = view.frame
+        service.previewLayer.frame = view.bounds
         view.layer.addSublayer(service.previewLayer)
         
         return view
