@@ -57,7 +57,7 @@ class PinDetailsViewModel: PinDetailsViewModelProtocol {
     
     func isPinFromUser() async {
         do {
-            let currentUser = try await userService.fetchOrCreateCurrentUser()
+            let currentUser = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
             
             isPinFromUser = currentUser == pin.user ? true : false
         } catch {

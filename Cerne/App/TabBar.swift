@@ -11,23 +11,45 @@ struct TabBar: View {
     @Environment(\.modelContext) var modelContext
     @EnvironmentObject var quickActionService: QuickActionService
     @StateObject private var router = Router()
-
+    
     var body: some View {
         TabView(selection: $router.selectedTab) {
-            Tab("Home", systemImage: "arrow.trianglehead.2.clockwise.rotate.90.icloud", value: 0) {
+            Tab(value: 0) {
                 ContentView()
+            } label: {
+                Label("Home", systemImage: "arrow.trianglehead.2.clockwise.rotate.90.icloud")
+                    .foregroundStyle(router.selectedTab == 0 ? .tabBarAtivada : .tabBarDesativada)
             }
             
-            Tab("Map", systemImage: "map", value: 1) {
-                MapView(viewModel: MapViewModel(locationService: LocationService(), pinService: PinService(), userService: UserService(), scannedTreeService: ScannedTreeService()))
+            Tab(value: 1) {
+                MapView(
+                    viewModel: MapViewModel(
+                        locationService: LocationService(),
+                        pinService: PinService(),
+                        userService: UserService(),
+                        scannedTreeService: ScannedTreeService()
+                    )
+                )
+            } label: {
+                Label("Map", systemImage: "map")
+                    .foregroundStyle(router.selectedTab == 1 ? .tabBarAtivada : .tabBarDesativada)
             }
-
-            Tab("Add", systemImage: "plus", value: 2, role: .search) {
+            
+            Tab(value: 2, role: .search) {
                 NavigationStack(path: $router.path) {
-                    PhotoView(viewModel: PhotoViewModel(cameraService: CameraService(), treeAPIService: TreeAPIService(), userDefaultService: UserDefaultService()))
-                        .toolbar(.hidden, for: .tabBar)
+                    PhotoView(
+                        viewModel: PhotoViewModel(
+                            cameraService: CameraService(),
+                            treeAPIService: TreeAPIService(),
+                            userDefaultService: UserDefaultService()
+                        )
+                    )
+                    .toolbar(.hidden, for: .tabBar)
                 }
                 .id(router.addFlowID)
+            } label: {
+                Label("Add", systemImage: "plus")
+                    .foregroundStyle(router.selectedTab == 2 ? .tabBarAtivada : .tabBarDesativada)
             }
         }
         .environmentObject(router)
