@@ -9,21 +9,10 @@ import SwiftUI
 
 struct CarbonSheet: View {
     let page: Int
-    @State private var selections: [CarbonEmittersEnum: String] = [:]
-
-    private var emittersForCurrentPage: [CarbonEmittersEnum] {
-        let allEmitters = CarbonEmittersEnum.allCases
-        let itemsPerPage = 5
-        
-        let startIndex = (page - 1) * itemsPerPage
-        let endIndex = min(startIndex + itemsPerPage, allEmitters.count)
-        
-        if startIndex >= allEmitters.count {
-            return []
-        }
-        
-        return Array(allEmitters[startIndex..<endIndex])
-    }
+    let isEnabled: Bool
+    let selections: [CarbonEmittersEnum: String]
+    let emitters: [CarbonEmittersEnum]
+    let onUpdate: (CarbonEmittersEnum, String) -> Void
     
     var body: some View {
         VStack(alignment: .center, spacing: 16) {
@@ -32,40 +21,26 @@ struct CarbonSheet: View {
                 .fontWeight(.semibold)
                 .foregroundStyle(.labelPrimary)
             
-            Text("Para **calcular sua pegada de carbono**, precisamos entender alguns **hábitos do seu cotidiano.**")
+            Text(isEnabled ? "Para **calcular sua pegada de carbono**, precisamos entender alguns **hábitos do seu cotidiano**" : "Verifique suas informações antes de concluir o cálculo da sua pegada de carbono")
                 .padding(.bottom)
                 .font(.footnote)
                 .foregroundStyle(.labelPrimary)
                 .frame(maxWidth: .infinity, alignment: .center)
             
-            ForEach(emittersForCurrentPage, id: \.self) { emitter in
+            ForEach(emitters, id: \.self) { emitter in
                 CarbonEmmiters(
                     iconName: emitter.iconName,
                     title: emitter.title,
                     description: emitter.description,
                     options: emitter.getPickerOptions(),
+                    isEnabled: isEnabled,
                     selection: Binding(
-                        get: { selections[emitter] ?? emitter.getPickerOptions().first! },
-                        set: { selections[emitter] = $0 }
+                        get: { selections[emitter] ?? "Selecionar" },
+                        set: { newValue in onUpdate(emitter, newValue) }
                     )
                 )
             }
         }
         .padding()
-        .glassEffect()
-        .onAppear {
-            for emitter in emittersForCurrentPage {
-                if selections[emitter] == nil {
-                    selections[emitter] = emitter.getPickerOptions().first!
-                }
-            }
-        }
     }
 }
-
-struct CarbonSheet_Previews: PreviewProvider {
-    static var previews: some View {
-        CarbonSheet(page: 1)
-    }
-}
-

@@ -13,14 +13,30 @@ struct PickerComponent: View {
     let isEnabled: Bool
     @Binding var selection: String
     
-    var body: some View {
-        Picker(title, selection: $selection) {
-            Text("Selecionar").tag("Selecionar")
-            ForEach(options, id: \.self) { option in
-                Text(option).tag(option)
-            }
+    private var displayText: String {
+        let maxLength = 10
+        if selection.count > maxLength {
+            return selection.prefix(maxLength) + "..."
         }
-        .pickerStyle(.menu)
-        .tint(isEnabled ? .green : .gray)
+        return selection
+    }
+    
+    var body: some View {
+        Menu {
+            ForEach(options, id: \.self) { option in
+                Button(option) {
+                    selection = option
+                }
+            }
+        } label: {
+            HStack(spacing: 3) {
+                Text(displayText)
+                
+                Image(systemName: "chevron.up.chevron.down")
+            }
+            .fontWeight(.semibold)
+            .foregroundStyle(isEnabled ? .green : .gray)
+        }
+        .disabled(!isEnabled)
     }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum CarbonEmittersEnum: CaseIterable {
-    case car
+    case car 
     case km
     case bus
     case shortHaulFlight

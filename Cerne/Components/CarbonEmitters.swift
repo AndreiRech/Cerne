@@ -13,34 +13,45 @@ struct CarbonEmmiters: View {
     let title: String
     let description: String
     let options: [String]
+    let isEnabled: Bool
     @Binding var selection: String
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        if isEnabled {
+            VStack(alignment: .leading, spacing: 8) {
+                HStack(alignment: .center,spacing: 10) {
+                    Image(systemName: iconName)
+                        .frame(width: 36, height: 26)
+                    
+                    Text(title)
+                        .foregroundStyle(.labelPrimary)
+                        .fontWeight(.semibold)
+                }
+                
+                HStack (alignment: .center, spacing: 8) {
+                    Text(description)
+                        .foregroundStyle(.labelPrimary)
+                        .font(.callout)
+                        .foregroundStyle(.labelSecondary)
+                    
+                    Spacer()
+                    
+                    PickerComponent(title: "Selecionar", options: options, isEnabled: isEnabled, selection: $selection)
+                }
+            }
+        } else {
             HStack(alignment: .center,spacing: 10) {
                 Image(systemName: iconName)
-                    .resizable()
                     .frame(width: 36, height: 26)
                 
                 Text(title)
-                    .foregroundStyle(.black)
+                    .foregroundStyle(.labelPrimary)
                     .fontWeight(.semibold)
-            }
-            
-            HStack (alignment: .center, spacing: 8) {
-                Text(description)
-                    .font(.callout)
-                    .foregroundStyle(.labelSecondary)
                 
                 Spacer()
                 
-                PickerComponent(title: "Selecionar", options: options, isEnabled: true, selection: $selection)
+                PickerComponent(title: "Selecionar", options: options, isEnabled: isEnabled, selection: $selection)
             }
         }
     }
-}
-
-
-#Preview {
-    CarbonEmmiters(iconName: "car", title: "1dsahjdgdsahjdjsadsajh23", description: "12dhsaj dghjsadsa djsadjas dhsadhds hagdasdyg dgsajgd jas jadjas gda3", options: ["123"], selection: .constant(""))
 }
