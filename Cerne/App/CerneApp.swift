@@ -11,11 +11,16 @@ import SwiftData
 @main
 struct CerneApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @AppStorage("onboarding") var isOnboardingDone: Bool = false
 
     var body: some Scene {
         WindowGroup {
-            TabBar()
-                .environmentObject(appDelegate.quickActionService)
+            if isOnboardingDone == false {
+                OnboardingView(viewModel: OnboardingViewModel(userDefaultService: UserDefaultService(), userService: UserService()))
+            } else {
+                TabBar()
+                    .environmentObject(appDelegate.quickActionService)
+            }
         }
         .modelContainer(Persistence.shared.modelContainer)
     }
