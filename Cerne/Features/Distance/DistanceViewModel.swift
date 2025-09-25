@@ -32,16 +32,15 @@ class DistanceViewModel: NSObject, DistanceViewModelProtocol, CLLocationManagerD
     var shouldNavigate: Bool = false
     var showAddPointHint: Bool = false
     
-    init(arService: ARServiceProtocol,
-         userDefaultService: UserDefaultServiceProtocol,
+    init(userDefaultService: UserDefaultServiceProtocol,
          userHeight: Double,
          measuredDiameter: Double,
          treeImage: UIImage) {
-        self.arService = arService
         self.userHeight = userHeight
         self.measuredDiameter = measuredDiameter
         self.treeImage = treeImage
         self.userDefaultService = userDefaultService
+        self.arService = ARService.shared 
         
         super.init()
         self.locationManager.delegate = self
@@ -49,19 +48,23 @@ class DistanceViewModel: NSObject, DistanceViewModelProtocol, CLLocationManagerD
         subscribeToPublishers()
         
         showInfo = userDefaultService.isFirstTime()
+        if !showInfo {
+            isMeasuring = true
+        }
     }
     
     private func subscribeToPublishers() {
         arService.distancePublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] distance in
-                self?.distanceText = String(format: "%.2f longe da arvore", distance)
-                self?.distance = Double(distance)
+                self?.distanceText = String(format: "%.2f longe da arvore", distance ?? 0)
+                self?.distance = Double(distance ?? 0)
             }
             .store(in: &cancellables)
     }
     
     func onAppear() {
+        arService.interactionMode = .placingObjects
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.arService.start(showOverlay: false)
         }
@@ -92,5 +95,9 @@ class DistanceViewModel: NSObject, DistanceViewModelProtocol, CLLocationManagerD
     
     internal func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Erro ao obter a localização: \(error.localizedDescription)")
+    }
+    
+    deinit {
+        cancellables.removeAll()
     }
 }
