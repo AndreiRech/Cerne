@@ -8,8 +8,17 @@
 import Foundation
 
 class UserDefaultService: UserDefaultServiceProtocol {
+    private let onboardingKey = "onboarding"
     private let firstTimeKey = "firstTime"
     private let reportsKey = "reports"
+    
+    func isOnboardingDone() -> Bool {
+        return UserDefaults.standard.bool(forKey: self.onboardingKey) == false
+    }
+    
+    func setOnboardingDone() {
+        UserDefaults.standard.set(true, forKey: self.onboardingKey)
+    }
     
     func isFirstTime() -> Bool {
         return UserDefaults.standard.bool(forKey: self.firstTimeKey) == false

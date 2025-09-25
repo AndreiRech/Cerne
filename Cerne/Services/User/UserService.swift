@@ -19,7 +19,7 @@ class UserService: UserServiceProtocol {
     
     func fetchUsers() throws -> [User] {
         let descriptor = FetchDescriptor<User>()
-
+        
         do {
             let pins = try modelContext.fetch(descriptor)
             return pins
@@ -28,7 +28,7 @@ class UserService: UserServiceProtocol {
         }
     }
     
-    func fetchOrCreateCurrentUser() async throws -> User {
+    func fetchOrCreateCurrentUser(name: String? = nil, height: Double? = nil) async throws -> User {
         let container = CKContainer.default()
         
         let userRecordID = try await container.userRecordID()
@@ -42,11 +42,24 @@ class UserService: UserServiceProtocol {
         if let existingUser = try modelContext.fetch(descriptor).first {
             return existingUser
         } else {
-            let newUser = User(id: userID, name: "Novo Usuário", height: 1.65)
-            modelContext.insert(newUser)
-            try save()
-            
-            return newUser
+            if let name, let height {
+                guard (1.0...3.0).contains(height) else {
+                    throw UserValidationError.invalidHeight
+                }
+                
+                guard name.count >= 4 else {
+                    throw UserValidationError.nameTooShort
+                }
+                
+                
+                let newUser = User(id: userID, name: name, height: height)
+                modelContext.insert(newUser)
+                try save()
+                
+                return newUser
+            } else {
+                throw GenericError.serviceError
+            }
         }
     }
     
