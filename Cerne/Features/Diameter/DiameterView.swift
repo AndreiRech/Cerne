@@ -6,15 +6,14 @@
 //
 
 import SwiftUI
-import ARKit
+import RealityKit
 
 struct DiameterView: View {
-    @State var viewModel: DiameterViewModel
+    @State var viewModel: any DiameterViewModelProtocol
     
     var body: some View {
         ZStack {
-            
-            ARSceneView(viewModel: viewModel)
+            ARPreview(service: viewModel.arService)
                 .edgesIgnoringSafeArea(.all)
             
             if viewModel.showInfo {
@@ -51,7 +50,7 @@ struct DiameterView: View {
                         
                         if viewModel.result == nil || viewModel.result == 0 {
                             Button {
-                                viewModel.triggerPointPlacement()
+                                viewModel.placePointButtonTapped()
                             } label: {
                                 Image(systemName: "plus")
                                     .font(.system(size: 24, weight: .bold))
@@ -69,8 +68,6 @@ struct DiameterView: View {
                                     .foregroundColor(.black)
                                     .padding()
                                     .glassEffect()
-                                
-                                
                             }
                         }
                     }
@@ -86,8 +83,8 @@ struct DiameterView: View {
                 }
             }
         }
-        .onAppear { viewModel.runSession() }
-        .onDisappear { viewModel.pauseSession() }
+        .onAppear { viewModel.onAppear() }
+        .onDisappear { viewModel.onDisappear() }
         .toolbar {
             ToolbarItem {
                 Button {
@@ -111,7 +108,6 @@ struct DiameterView: View {
         .navigationDestination(isPresented: $viewModel.shouldNavigate) {
             DistanceView(
                 viewModel: DistanceViewModel(
-                    arService: ARService(),
                     userDefaultService: UserDefaultService(),
                     userHeight: 1.85,
                     measuredDiameter: Double(viewModel.result ?? 0.0),
@@ -119,38 +115,6 @@ struct DiameterView: View {
                 )
             )
             .navigationBarHidden(false)
-        }
-    }
-}
-
-struct ARSceneView: UIViewRepresentable {
-    @ObservedObject var viewModel: DiameterViewModel
-    
-    func makeUIView(context: Context) -> ARSCNView {
-        return viewModel.sceneView
-    }
-    
-    func updateUIView(_ uiView: ARSCNView, context: Context) {
-        if viewModel.placePointTrigger {
-            viewModel.addPointAtCenter(in: uiView)
-            DispatchQueue.main.async {
-                viewModel.placePointTrigger = false
-            }
-        }
-    }
-    
-    func dismantleUIView(_ uiView: ARSCNView, coordinator: Coordinator) {
-        print("ARSceneView is being dismantled. Pausing session.")
-        uiView.session.pause()
-    }
-    
-    func makeCoordinator() -> Coordinator { Coordinator(viewModel: viewModel) }
-    
-    class Coordinator: NSObject {
-        let viewModel: DiameterViewModelProtocol
-        
-        init(viewModel: DiameterViewModelProtocol) {
-            self.viewModel = viewModel
         }
     }
 }

@@ -6,15 +6,21 @@
 //
 
 import SwiftUI
-import ARKit
-import SceneKit
 
-protocol DiameterViewModelProtocol: AnyObject {
+protocol DiameterViewModelProtocol: ObservableObject {
+    var arService: ARServiceProtocol { get }
     var userDefaultService: UserDefaultServiceProtocol { get }
-    var errorMessage: String? { get }
-
-    func addPointAtCenter(in sceneView: ARSCNView)
+    
+    var treeImage: UIImage { get }
+    var result: Double? { get set }
+    var showInfo: Bool { get set }
+    var showAddPointHint: Bool { get set }
+    var placePointTrigger: Bool { get set }
+    var shouldNavigate: Bool { get set }
+    var errorMessage: String? { get set }
+    
+    func placePointButtonTapped()
+    func onAppear()
+    func onDisappear()
     func resetNodes()
-    func createSphere(at position: SCNVector3) -> SCNNode
-    func distanceBetween(_ start: SCNVector3, _ end: SCNVector3) -> Float
 }
