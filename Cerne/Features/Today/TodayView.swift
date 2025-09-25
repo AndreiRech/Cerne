@@ -10,7 +10,6 @@ import SwiftUI
 struct TodayView: View {
     @State var viewModel: TodayViewModelProtocol
     @State private var isShowingShareSheet = false
-
     
     var body: some View {
         ScrollView {
@@ -19,7 +18,8 @@ struct TodayView: View {
                 VStack(alignment: .leading, spacing: 10) {
                     Text("Meu impacto no planeta")
                         .font(.system(.title3, weight: .semibold))
-                    NeutralizedCarbonComponent()
+                    // TO DO: Arrumar a meta e o nome do mes
+                    NeutralizedCarbonComponent(neutralizedPercentage: 45, month: viewModel.month, monthlyObjective: Double(viewModel.monthlyObjective))
                     
                 }
                 VStack(alignment: .leading, spacing: 10) {
@@ -30,7 +30,7 @@ struct TodayView: View {
                         HStack {
                             ContribuitionTreeComponent(treeName: "Ipe-Amarelo", treeCO2: 1002, treeImage: .treeTest)
                             //TO DO: Tirar essa linha de cima
-                            ForEach(viewModel.userPins) { pin in
+                            ForEach(viewModel.userPins.reversed()) { pin in
                                 ContribuitionTreeComponent(
                                     treeName: pin.tree?.species ?? "", //TO DO: Pegar o common name
                                     treeCO2: pin.tree?.totalCO2 ?? 0,
@@ -52,11 +52,28 @@ struct TodayView: View {
                         }
                         .font(.caption2)
                         
-                        //TO DO: Arrumar isso aq pra nao ficar mockado
-                        CommunityDataComponent(icon: .treeIcon, title: "12.500 árvores", infoType: .trees)
-                        CommunityDataComponent(icon: .treeIcon, title: "180 espécies diferentes", infoType: .species)
-                        CommunityDataComponent(icon: .treeIcon, title: "25 t de CO² sequestrados", infoType: .co2, co2Number: 2.7)
-                        CommunityDataComponent(icon: .treeIcon, title: "18 t de O² para o planeta", infoType: .oxygen, oxygenNumber: 63)
+                        CommunityDataComponent(
+                            icon: .treeIcon,
+                            title: "\(viewModel.totalTrees) árvores",
+                            infoType: .trees
+                        )
+                        CommunityDataComponent(
+                            icon: .treeIcon,
+                            title: "\(viewModel.totalSpecies) espécies diferentes",
+                            infoType: .species
+                        )
+                        CommunityDataComponent(
+                            icon: .treeIcon,
+                            title: String(format: "%.1f t de CO² sequestrados", viewModel.totalCO2Sequestration()),
+                            infoType: .co2,
+                            co2Number: viewModel.lapsEarth(totalCO2: viewModel.totalCO2Sequestration())
+                        )
+                        CommunityDataComponent(
+                            icon: .treeIcon,
+                            title: String(format: "%.1f t de O² para o planeta", viewModel.totalO2()),
+                            infoType: .oxygen,
+                            oxygenNumber: viewModel.oxygenPerPerson(totalOxygen: viewModel.totalO2())
+                        )
                         
                     }
                     .padding(20)
@@ -68,7 +85,6 @@ struct TodayView: View {
                     Text("Juntos pela causa")
                         .font(.system(.title3, weight: .semibold))
                     InviteFriendsComponent(shareAction: {
-                        print("Botão no componente foi tocado. Mudando o estado na View principal.")
                         self.isShowingShareSheet = true
                     })
                 }
@@ -91,11 +107,13 @@ struct TodayView: View {
         .onAppear {
             Task {
                 await viewModel.fetchUserPins()
+                await viewModel.fetchAllPins()
+
             }
         }
         .foregroundStyle(.primitive1)
         .sheet(isPresented: $isShowingShareSheet) {
-            ShareSheet(items: ["Vem mapear árvores!"])
+            ShareSheet(items: ["Olha que legal o App Cerne: ele calcula quanto de carbono as árvores da sua cidade conseguem reter para ajudar a limpar o ar. Achei que você ia gostar. LINK"])
         }
         
     }

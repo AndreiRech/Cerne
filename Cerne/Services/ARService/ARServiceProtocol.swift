@@ -12,8 +12,11 @@ import Combine
 
 protocol ARServiceProtocol {
     var arView: ARView { get }
-    var distancePublisher: PassthroughSubject<Float, Never> { get }
+    var distancePublisher: PassthroughSubject<Float?, Never> { get }
+    var interactionMode: ARInteractionMode { get set }
     
     func start(showOverlay: Bool)
     func stop()
+    func addMeasurementPoint()
+    func removeMeasurementPoints()
 }

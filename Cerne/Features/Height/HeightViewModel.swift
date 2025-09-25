@@ -62,6 +62,9 @@ class HeightViewModel: HeightViewModelProtocol {
         subscribeToPublishers()
         
         showInfo = userDefaultService.isFirstTime()
+        if !showInfo {
+            isMeasuring = true
+        }
     }
     
     private func subscribeToPublishers() {

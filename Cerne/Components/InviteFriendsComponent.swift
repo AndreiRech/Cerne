@@ -19,10 +19,7 @@ struct InviteFriendsComponent: View {
             }
             .font(.caption2)
             (
-                Text("Compartilhe o App e ") +
-                Text("ajude a aumentar o mapeamento")
-                    .fontWeight(.semibold) +
-                Text(" de zonas com maior potencial de sequestro de CO²")
+                Text("Compartilhe o App e \(Text("ajude a aumentar o mapeamento").fontWeight(.semibold)) de zonas com maior potencial de sequestro de CO²")
             )
             .font(.body)
             
