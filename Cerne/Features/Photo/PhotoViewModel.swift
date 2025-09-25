@@ -33,6 +33,9 @@ class PhotoViewModel: PhotoViewModelProtocol {
         subscribeToPublishers()
         
         showInfo = userDefaultService.isFirstTime()
+        if !showInfo {
+            isMeasuring = true
+        }
     }
     
     private func subscribeToPublishers() {

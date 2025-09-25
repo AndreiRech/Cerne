@@ -31,42 +31,24 @@ struct CommunityDataComponent: View {
             }
             switch infoType {
             case .trees:
-                (
-                    Text("Cada novo registro conta para um ") +
-                    Text("futuro mais sustentável")
-                        .fontWeight(.semibold) +
-                    Text(" para todos")
-                )
-                .font(.subheadline)
-                .foregroundStyle(.labelSecondary)
+                Text("Cada novo registro conta para um \(Text("futuro mais sustentável").fontWeight(.semibold)) para todos")
+                    .font(.subheadline)
+                    .foregroundStyle(.labelSecondary)
                 
             case .species:
-                (
-                    Text("A biodiversidade é imensa e cada registro ajuda a ") +
-                    Text("revelar toda essa riqueza")
-                        .fontWeight(.semibold)
-                )
-                .font(.subheadline)
-                .foregroundStyle(.labelSecondary)
+                Text("A biodiversidade é imensa e cada registro ajuda a \(Text("revelar toda essa riqueza").fontWeight(.semibold))")
+                    .font(.subheadline)
+                    .foregroundStyle(.labelSecondary)
 
             case .co2:
-                (
-                    Text("Correspondem a cerca de ") +
-                    Text(String(format: "%.1f voltas ao redor da Terra", co2Number ?? 0))
-                        .fontWeight(.semibold) +
-                    Text(" de carro, movido a gasolina")
-                )
-                .font(.subheadline)
-                .foregroundStyle(.labelSecondary)
+                Text("Correspondem a cerca de \(Text(String(format: "%.1f voltas ao redor da Terra", co2Number ?? 0)).fontWeight(.semibold)) de carro, movido a gasolina")
+                    .font(.subheadline)
+                    .foregroundStyle(.labelSecondary)
     
             case .oxygen:
-                (
-                    Text("Oxigênio capaz de suprir o consumo anual de cerca de ") +
-                    Text(String(format: "%d pessoas", oxygenNumber ?? 0))
-                        .fontWeight(.semibold)
-                )
-                .font(.subheadline)
-                .foregroundStyle(.labelSecondary)
+                Text("Oxigênio capaz de suprir o consumo anual de cerca de \(Text(String(format: "%d pessoas", oxygenNumber ?? 0)).fontWeight(.semibold))")
+                    .font(.subheadline)
+                    .foregroundStyle(.labelSecondary)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
