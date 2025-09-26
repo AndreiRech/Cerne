@@ -35,13 +35,14 @@ struct PhotoView: View {
                             
                             VStack(alignment: .center, spacing: 0) {
                                 HStack(spacing: 10) {
-                                    Image(systemName: "tree")
+                                    Image(.treeIcon)
                                         .font(.system(size: 16, weight: .semibold))
                                         .foregroundStyle(.CTA)
                                     
                                     Text(viewModel.identifiedTree?.bestMatch ?? "")
                                         .font(.body)
                                         .fontWeight(.semibold)
+                                        .foregroundStyle(.primitive1)
                                 }
                                 .foregroundColor(.white)
                                 

@@ -14,14 +14,14 @@ struct UserCreateView: View {
     
     var body: some View {
         VStack {
-            Image(systemName: "v.circle.fill")
+            Image(systemName: "person.circle")
                 .resizable()
-                .font(.system(size: 60))
-                .foregroundColor(Color.blue)
-                .padding(.bottom, 40)
-            
-            Spacer()
-            
+                .font(.system(size: 200))
+                .frame(width: 220, height: 220)
+                .fontWeight(.thin)
+                .padding(.bottom, 16)
+                .foregroundStyle(.labelSecondary)
+                    
             VStack(alignment: .leading, spacing: 10) {
                 Text("Defina seu nome de usuário")
                     .fontWeight(.semibold)
