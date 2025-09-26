@@ -12,15 +12,15 @@ class OnboardingViewModel: OnboardingViewModelProtocol {
     private var userDefaultService: UserDefaultServiceProtocol
     private var userService: UserServiceProtocol
     
-    var isCreatingUser: Bool = true
+    var isCreatingUser: Bool = false
     var username: String = ""
     var height: String = ""
     var errorMessage: String?
-    var currentPageIndex: Int = 0
+    var currentPageIndex: Int? = 0
     
     let onboardingPages: [OnboardingPage] = [
         OnboardingPage(image: .onboarding1, title: "Descubra quanto carbono cada árvore pode capturar", description: "Use realidade aumentada para identificar a espécies das árvores e calcular o capacidade de sequestro de CO₂"),
-        OnboardingPage(image: .onboarding2, title: "Acompanhe a floresta crescendo pertinho de você", description: "CSeus registros fortalecem um banco de dados vivo que revela a biodiversidade e o carbono capturado em todo o mundo"),
+        OnboardingPage(image: .onboarding2, title: "Acompanhe a floresta crescendo bem pertinho de você", description: "CSeus registros fortalecem um banco de dados vivo que revela a biodiversidade e o carbono capturado em todo o mundo"),
         OnboardingPage(image: .onboarding3, title: "Faça parte da comunidade", description: "VSome seu impacto ao de milhares de pessoas que ajudam a neutralizar CO₂")
     ]
     
@@ -30,18 +30,15 @@ class OnboardingViewModel: OnboardingViewModelProtocol {
     }
     
     func finishOnboarding() {
-        userDefaultService.setOnboardingDone()
+        isCreatingUser = true
     }
     
     func saveUser() async {
         let doubleHeight = Double(height) ?? 1.65
         
         do {
-            print(height)
-            print(username)
-            
             let _ = try await userService.fetchOrCreateCurrentUser(name: username, height: doubleHeight)
-            isCreatingUser = false
+            userDefaultService.setOnboardingDone()
         } catch let error as UserValidationError {
             errorMessage = error.errorDescription ?? "Ocorreu um erro de validação."
         } catch {

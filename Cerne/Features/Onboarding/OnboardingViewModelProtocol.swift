@@ -10,7 +10,7 @@ protocol OnboardingViewModelProtocol {
     var username: String { get set }
     var height: String { get set }
     var errorMessage: String? { get set }
-    var currentPageIndex: Int { get set }
+    var currentPageIndex: Int? { get set }
     
     func saveUser() async 
     func finishOnboarding()

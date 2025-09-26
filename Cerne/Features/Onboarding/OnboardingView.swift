@@ -1,10 +1,3 @@
-//
-//  OnboardingView.swift
-//  Cerne
-//
-//  Created by Andrei Rech on 25/09/25.
-//
-
 import SwiftUI
 
 struct OnboardingView: View {
@@ -30,34 +23,44 @@ struct OnboardingView: View {
                     .glassEffect(in: .rect(cornerRadius: 24))
                     .padding(.horizontal, 14)
             } else {
-                TabView(selection: $viewModel.currentPageIndex) {
-                    ForEach(viewModel.onboardingPages.indices, id: \.self) { index in
-                        let page = viewModel.onboardingPages[index]
-                        OnboardingComponent(
-                            image: page.image,
-                            title: page.title,
-                            description: page.description,
-                            isLastPage: index == viewModel.onboardingPages.count - 1,
-                            onTap: {
-                                viewModel.finishOnboarding()
+                VStack {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 20) {
+                            ForEach(viewModel.onboardingPages.indices, id: \.self) { index in
+                                let page = viewModel.onboardingPages[index]
+                                OnboardingComponent(
+                                    image: page.image,
+                                    title: page.title,
+                                    description: page.description,
+                                    isLastPage: index == viewModel.onboardingPages.count - 1,
+                                    onTap: {
+                                        viewModel.finishOnboarding()
+                                    }
+                                )
+                                .containerRelativeFrame(.horizontal)
+                                .id(index)
                             }
-                        )
-                        .tag(index)
-                        .padding(.bottom, 100)
+                        }
+                        .scrollTargetLayout()
                     }
+                    .scrollTargetBehavior(.viewAligned)
+                    .scrollPosition(id: $viewModel.currentPageIndex)
+                    
+                    HStack(spacing: 8) {
+                        ForEach(viewModel.onboardingPages.indices, id: \.self) { index in
+                            Capsule()
+                                .fill(index == viewModel.currentPageIndex ? .primitive1 : Color.gray.opacity(0.5))
+                                .frame(width: index == viewModel.currentPageIndex ? 24 : 8, height: 8)
+                        }
+                    }
+                    .animation(.easeInOut, value: viewModel.currentPageIndex)
+                    .padding(.bottom, 40)
                 }
-                .tabViewStyle(.page(indexDisplayMode: .always))
                 .frame(height: 612)
                 .clipShape(RoundedRectangle(cornerRadius: 34))
                 .padding(.horizontal, 20)
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button("Pular") {
-                            viewModel.finishOnboarding()
-                        }
-                    }
-                }
             }
         }
+        .animation(.easeInOut, value: viewModel.isCreatingUser)
     }
 }
