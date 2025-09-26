@@ -18,7 +18,6 @@ struct TabBar: View {
                 ContentView()
             } label: {
                 Label("Home", systemImage: "arrow.trianglehead.2.clockwise.rotate.90.icloud")
-                    .foregroundStyle(router.selectedTab == 0 ? .tabBarAtivada : .tabBarDesativada)
             }
             
             Tab(value: 1) {
@@ -32,7 +31,6 @@ struct TabBar: View {
                 )
             } label: {
                 Label("Map", systemImage: "map")
-                    .foregroundStyle(router.selectedTab == 1 ? .tabBarAtivada : .tabBarDesativada)
             }
             
             Tab(value: 2, role: .search) {
@@ -49,10 +47,10 @@ struct TabBar: View {
                 .id(router.addFlowID)
             } label: {
                 Label("Add", systemImage: "plus")
-                    .foregroundStyle(router.selectedTab == 2 ? .tabBarAtivada : .tabBarDesativada)
             }
         }
         .environmentObject(router)
+        .tint(.tabBarAtivada)
         .onReceive(quickActionService.$selectedAction) { action in
             guard let action = action else { return }
             switch action {
