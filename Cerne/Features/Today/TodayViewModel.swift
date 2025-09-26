@@ -17,6 +17,7 @@ class TodayViewModel: TodayViewModelProtocol {
     var isLoading: Bool = false
     var allPins: [Pin] = []
     var userName: String = ""
+    var isShowingShareSheet: Bool = false
     
     var month: String = Date().formatted(.dateTime.month(.wide).locale(Locale(identifier: "pt_BR"))).capitalized
     var monthlyObjective: Int = 0
@@ -90,13 +91,10 @@ class TodayViewModel: TodayViewModelProtocol {
         if objective == 0 {
             return 0
         }
-        
         var total = Int((totalCO2User / objective) * 100.0)
-        
         if total > 100 {
             total = 100
         }
-
         return total
     }
     
@@ -138,5 +136,9 @@ class TodayViewModel: TodayViewModelProtocol {
         let totalInKg = pinsThisMonth.compactMap(\.tree?.totalCO2).reduce(0, +)
         return totalInKg
     }
+    
+    func showShareSheet() {
+           self.isShowingShareSheet = true
+       }
 }
 

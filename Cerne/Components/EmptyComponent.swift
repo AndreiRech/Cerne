@@ -15,6 +15,7 @@ struct EmptyComponent: View {
     var subtitle: String
     var description: String
     var buttonTitle: String?
+    var buttonAction: (() -> Void)? = nil
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -46,7 +47,7 @@ struct EmptyComponent: View {
             
             if buttonTitle != nil {
                 Button {
-                    
+                    self.buttonAction?()
                 } label: {
                     Text(buttonTitle ?? "")
                         .font(.body)
