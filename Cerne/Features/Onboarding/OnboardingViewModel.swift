@@ -38,7 +38,7 @@ class OnboardingViewModel: OnboardingViewModelProtocol {
         
         do {
             let _ = try await userService.fetchOrCreateCurrentUser(name: username, height: doubleHeight)
-            userDefaultService.setOnboardingDone()
+            userDefaultService.setOnboarding(value: true)
         } catch let error as UserValidationError {
             errorMessage = error.errorDescription ?? "Ocorreu um erro de validação."
         } catch {

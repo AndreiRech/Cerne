@@ -119,7 +119,7 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
                 tree: tree
             )
             
-            userDefaultService.setFirstTimeDone()
+            userDefaultService.setFirstTime(value: true)
             
         } catch {
             errorMessage = "Ocorreu um erro ao criar o pino: \(error.localizedDescription)"

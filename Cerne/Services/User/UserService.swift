@@ -75,6 +75,11 @@ class UserService: UserServiceProtocol {
         try save()
     }
     
+    func deleteUser(_ user: User) throws {
+        modelContext.delete(user)
+        try save()
+    }
+    
     private func save() throws{
         try modelContext.save()
     }
