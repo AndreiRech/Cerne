@@ -11,6 +11,8 @@ import SwiftData
 protocol FootprintServiceProtocol {
     func fetchFootprints() throws -> [Footprint]
     
+    func fetchFootprint(for user: User) throws -> Footprint?
+    
     func createOrUpdateFootprint(for user: User, with newResponses: [Response]) throws
     
     func getQuestions(fileName: String) throws -> [Question]

@@ -27,18 +27,18 @@ struct InviteFriendsComponent: View {
                 self.shareAction()
             } label: {
                 Text("Convidar amigos")
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 14)
+                    .foregroundStyle(.white)
+                    .background(
+                        RoundedRectangle(cornerRadius: 100)
+                            .foregroundStyle(.primitive1)
+                    )
             }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 14)
-            .foregroundStyle(.white)
-            .background(
-                RoundedRectangle(cornerRadius: 100)
-                    .foregroundStyle(.primitive1)
-            )
-            
         }
         .padding(20)
         .background(.CTA)
         .clipShape(RoundedRectangle(cornerRadius: 26))
     }
 }
+

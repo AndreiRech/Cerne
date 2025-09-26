@@ -12,12 +12,14 @@ import Foundation
 class TodayViewModel: TodayViewModelProtocol {
     var pinService: PinServiceProtocol
     var userService: UserServiceProtocol
+    var footprintService: FootprintServiceProtocol
     var userPins: [Pin] = []
     var isLoading: Bool = false
     var allPins: [Pin] = []
+    var userName: String = ""
     
-    var month: String = Date().formatted(.dateTime.month(.wide).locale(Locale(identifier: "pt_BR")))
-    var monthlyObjective: Int = 1
+    var month: String = Date().formatted(.dateTime.month(.wide).locale(Locale(identifier: "pt_BR"))).capitalized
+    var monthlyObjective: Int = 100
     
     var totalTrees: Int {
         allPins.count
@@ -27,9 +29,10 @@ class TodayViewModel: TodayViewModelProtocol {
         Set(allPins.compactMap { $0.tree?.species }).count
     }
     
-    init(pinService: PinServiceProtocol, userService: UserServiceProtocol) {
+    init(pinService: PinServiceProtocol, userService: UserServiceProtocol, footprintService: FootprintServiceProtocol) {
         self.pinService = pinService
         self.userService = userService
+        self.footprintService = footprintService
     }
     
     func fetchUserPins() async {
@@ -74,8 +77,67 @@ class TodayViewModel: TodayViewModelProtocol {
         return Int(oxygenPerPerson.rounded())
         
     }
-
     
-}
+    func totalCO2User() -> Double {
+        let totalInKg = userPins.compactMap(\.tree?.totalCO2).reduce(0, +)
+        return totalInKg
+    }
+    
+    func percentageCO2User() -> Int {
+        let totalCO2User = neutralizedAmountThisMonth()
+        let objective = Double(monthlyObjective)
+        
+        if objective == 0 {
+            return 0
+        }
+        
+        var total = Int((totalCO2User / objective) * 100.0)
+        
+        if total > 100 {
+            total = 100
+        }
 
+        return total
+    }
+    
+    func fetchCurrentUser() async {
+        do {
+            let user = try await userService.fetchOrCreateCurrentUser()
+            self.userName = user.name
+        } catch {
+            print("Erro ao buscar o usuário: \(error.localizedDescription)")
+            self.userName = "Usuário"
+        }
+    }
+    
+    //TO DO: Colocar como zero quando adicionar os empty States
+    func calculateMonthlyObjective() async {
+        do {
+            let currentUser = try await userService.fetchOrCreateCurrentUser()
+            if let userFootprint = try footprintService.fetchFootprint(for: currentUser) {
+                self.monthlyObjective = Int(userFootprint.total / 12)
+            } else {
+                self.monthlyObjective = 100
+           }
+        } catch {
+            print("Erro ao calcular o objetivo do mês: \(error.localizedDescription)")
+            self.monthlyObjective = 100
+        }
+    }
+    
+    func neutralizedAmountThisMonth() -> Double {
+        let calendar = Calendar.current
+        let currentMonth = calendar.component(.month, from: Date())
+        let currentYear = calendar.component(.year, from: Date())
+
+        let pinsThisMonth = userPins.filter { pin in
+            let pinMonth = calendar.component(.month, from: pin.date)
+            let pinYear = calendar.component(.year, from: pin.date)
+            return pinMonth == currentMonth && pinYear == currentYear
+        }
+
+        let totalInKg = pinsThisMonth.compactMap(\.tree?.totalCO2).reduce(0, +)
+        return totalInKg
+    }
+}
 
