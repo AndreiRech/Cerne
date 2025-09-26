@@ -47,24 +47,13 @@ struct DistanceView: View {
                             viewModel.shouldNavigate = true
                         }
                     } label: {
-                        if #available(iOS 26.0, *) {
-                            Text("Continuar")
-                                .font(.body)
-                                .fontWeight(.semibold)
-                                .foregroundColor(.black)
-                                .padding(.horizontal, 20)
-                                .padding(.vertical, 14)
-                                .glassEffect()
-                        } else {
-                            Text("Continuar")
-                                .font(.body)
-                                .fontWeight(.semibold)
-                                .foregroundColor(.black)
-                                .padding(.horizontal, 20)
-                                .padding(.vertical, 14)
-                                .background(.ultraThinMaterial)
-                                .clipShape(Capsule())
-                        }
+                        Text("Continuar")
+                            .font(.body)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.black)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 14)
+                            .glassEffect()
                     }
                     .disabled(viewModel.distance <= 0)
                     .padding(.bottom, 100)
@@ -86,6 +75,7 @@ struct DistanceView: View {
         .onDisappear {
             viewModel.onDisappear()
         }
+        .navigationBarBackButtonHidden(true)
         .navigationDestination(isPresented: $viewModel.shouldNavigate) {
             HeightView(
                 viewModel: HeightViewModel(

@@ -40,61 +40,32 @@ struct HeightView: View {
                     
                     VStack {
                         Spacer()
-                        
-                        if #available(iOS 26.0, *) {
-                            HStack(spacing: 10) {
-                                Image(systemName: "tree")
-                                    .font(.system(size: 16, weight: .semibold))
-                                    .foregroundStyle(.CTA)
-                                
-                                Text(String(format: "%.2f m de altura", viewModel.isMeasuring ? viewModel.estimatedHeight : viewModel.finalHeight))
-                                    .font(.body)
-                                    .fontWeight(.semibold)
-                            }
-                            .foregroundColor(.white)
-                            .padding(20)
-                            .glassEffect(in: .rect(cornerRadius: 24))
-                            .offset(y: 120)
-                        } else {
-                            HStack(spacing: 10) {
-                                Image(systemName: "tree")
-                                    .font(.system(size: 16, weight: .semibold))
-                                    .foregroundStyle(.CTA)
-                                
-                                Text(String(format: "%.2f m de altura", viewModel.isMeasuring ? viewModel.estimatedHeight : viewModel.finalHeight))
-                                    .font(.body)
-                                    .fontWeight(.semibold)
-                            }
-                            .foregroundColor(.white)
-                            .padding(20)
-                            .background(.ultraThinMaterial)
-                            .clipShape(Capsule())
-                            .offset(y: 120)
+                        HStack(spacing: 10) {
+                            Image(systemName: "tree")
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundStyle(.CTA)
+                            
+                            Text(String(format: "%.2f m de altura", viewModel.isMeasuring ? viewModel.estimatedHeight : viewModel.finalHeight))
+                                .font(.body)
+                                .fontWeight(.semibold)
                         }
+                        .foregroundColor(.white)
+                        .padding(20)
+                        .glassEffect(in: .rect(cornerRadius: 24))
+                        .offset(y: 120)
                         
                         Spacer()
                         
                         Button {
                             viewModel.isMeasuring ? viewModel.saveHeight() : viewModel.shouldNavigate.toggle()
                         } label: {
-                            if #available(iOS 26.0, *) {
-                                Text(viewModel.isMeasuring ? "Posicionar" : "Finalizar")
-                                    .font(.body)
-                                    .fontWeight(.semibold)
-                                    .foregroundColor(.black)
-                                    .padding(.horizontal, 20)
-                                    .padding(.vertical, 14)
-                                    .glassEffect()
-                            } else {
-                                Text(viewModel.isMeasuring ? "Posicionar" : "Finalizar")
-                                    .font(.body)
-                                    .fontWeight(.semibold)
-                                    .foregroundColor(.black)
-                                    .padding(.horizontal, 20)
-                                    .padding(.vertical, 14)
-                                    .background(.ultraThinMaterial)
-                                    .clipShape(Capsule())
-                            }
+                            Text(viewModel.isMeasuring ? "Posicionar" : "Finalizar")
+                                .font(.body)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.black)
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 14)
+                                .glassEffect()
                         }
                         .padding(.bottom, 100)
                     }
@@ -127,6 +98,7 @@ struct HeightView: View {
         .onAppear(perform: viewModel.onAppear)
         .onDisappear(perform: viewModel.onDisappear)
         .navigationBarHidden(false)
+        .navigationBarBackButtonHidden(true)
         .toolbar {
             if !viewModel.shouldNavigate {
                 ToolbarItem {

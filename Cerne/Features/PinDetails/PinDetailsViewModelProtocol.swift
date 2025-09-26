@@ -17,4 +17,5 @@ protocol PinDetailsViewModelProtocol {
     func deletePin(pin: Pin)
     func reportPin(to pin: Pin)
     func isPinFromUser() async
+    func message() -> String
 }

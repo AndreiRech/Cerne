@@ -6,8 +6,10 @@
 //
 
 protocol UserDefaultServiceProtocol {
+    func setOnboarding(value: Bool)
+    func isOnboardingDone() -> Bool
     func isFirstTime() -> Bool
-    func setFirstTimeDone()
+    func setFirstTime(value: Bool)
     func setPinReported(pin: Pin)
     func isPinReported(pin: Pin) -> Bool
 }

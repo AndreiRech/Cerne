@@ -27,6 +27,22 @@ class FootprintService: FootprintServiceProtocol {
         }
     }
     
+    func fetchFootprint(for user: User) throws -> Footprint? {
+        let userID = user.id
+                let predicate = #Predicate<Footprint> { footprint in
+                    footprint.user?.id == userID
+                }
+                var descriptor = FetchDescriptor<Footprint>(predicate: predicate)
+                descriptor.fetchLimit = 1
+
+                do {
+                    let footprints = try modelContext.fetch(descriptor)
+                    return footprints.first
+                } catch {
+                    throw GenericError.serviceError
+                }
+    }
+    
     func createOrUpdateFootprint(for user: User, with newResponses: [Response]) throws {
         let newTotal = newResponses.reduce(0) { $0 + $1.value }
         
