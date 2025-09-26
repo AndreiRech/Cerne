@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+enum Route: Hashable {
+    case footprint
+    case registerTree
+}
+
 class Router: ObservableObject {
     @Published var path = NavigationPath()
     @Published var addFlowID = UUID()

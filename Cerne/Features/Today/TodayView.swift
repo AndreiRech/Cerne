@@ -9,10 +9,10 @@ import SwiftUI
 
 struct TodayView: View {
     @State var viewModel: TodayViewModelProtocol
-    @State private var isShowingShareSheet = false
+    @EnvironmentObject var router: Router
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $router.path) {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
                     
@@ -28,7 +28,10 @@ struct TodayView: View {
                                 title: "Sem registros por enquanto",
                                 subtitle: "Cálculo ainda não realizado",
                                 description: "Complete o questionário para calcular sua pegada de carbono e descobrir seu impacto no planeta",
-                                buttonTitle: "Calcular pegada de carbono"
+                                buttonTitle: "Calcular pegada de carbono",
+                                buttonAction: {
+                                    router.path.append(Route.footprint)
+                                }
                             )
                         } else {
                             NeutralizedCarbonComponent(
@@ -48,7 +51,13 @@ struct TodayView: View {
                             EmptyComponent(
                                 bgColor: .white,
                                 cornerColor: .primitive1,
-                                subtitle: "Nenhuma árvore registrada", description: "Comece a mapear árvores para acompanhar o CO₂ já capturado pelas suas contribuições.", buttonTitle: "Registrar primeira árvore")
+                                subtitle: "Nenhuma árvore registrada",
+                                description: "Comece a mapear árvores para acompanhar o CO₂ já capturado pelas suas contribuições.",
+                                buttonTitle: "Registrar primeira árvore",
+                                buttonAction: {
+                                    router.path.append(Route.registerTree)
+                                }
+                            )
                         } else {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack {
@@ -68,47 +77,60 @@ struct TodayView: View {
                         Text("Força da comunidade")
                             .font(.system(.title3, weight: .semibold))
                         
-                        VStack(alignment: .leading, spacing: 16) {
-                            HStack(spacing: 8) {
-                                Image(systemName: "person.3")
-                                Text("Juntos ampliamos o impacto positivo")
-                            }
-                            .font(.caption2)
-                            
-                            CommunityDataComponent(
-                                icon: .treeIcon,
-                                title: "\(viewModel.totalTrees) árvores",
-                                infoType: .trees
+                        if viewModel.totalTrees == 0 {
+                            EmptyComponent(
+                                bgColor: .blueBackground,
+                                cornerColor: .black,
+                                icon: "person.3",
+                                title: "Juntos ampliamos o impacto positivo",
+                                subtitle: "Somando esforços pelo futuro",
+                                description: "Aqui apareceram os dados mapeados de toda a comunidade, unidos para futuro mais sustentável para todos"
                             )
-                            CommunityDataComponent(
-                                icon: .treeIcon,
-                                title: "\(viewModel.totalSpecies) espécies diferentes",
-                                infoType: .species
-                            )
-                            CommunityDataComponent(
-                                icon: .treeIcon,
-                                title: String(format: "%.1f t de CO² sequestrados", viewModel.totalCO2Sequestration()),
-                                infoType: .co2,
-                                co2Number: viewModel.lapsEarth(totalCO2: viewModel.totalCO2Sequestration())
-                            )
-                            CommunityDataComponent(
-                                icon: .treeIcon,
-                                title: String(format: "%.1f t de O² para o planeta", viewModel.totalO2()),
-                                infoType: .oxygen,
-                                oxygenNumber: viewModel.oxygenPerPerson(totalOxygen: viewModel.totalO2())
-                            )
-                            
                         }
-                        .padding(20)
-                        .background(.black.opacity(0.10))
-                        .clipShape(RoundedRectangle(cornerRadius: 26))
+                        else {
+                            VStack(alignment: .leading, spacing: 16) {
+                                HStack(spacing: 8) {
+                                    Image(systemName: "person.3")
+                                    Text("Juntos ampliamos o impacto positivo")
+                                }
+                                .font(.caption2)
+                                
+                                
+                                CommunityDataComponent(
+                                    icon: .treeIcon,
+                                    title: "\(viewModel.totalTrees) árvores",
+                                    infoType: .trees
+                                )
+                                CommunityDataComponent(
+                                    icon: .honeycomb,
+                                    title: "\(viewModel.totalSpecies) espécies diferentes",
+                                    infoType: .species
+                                )
+                                CommunityDataComponent(
+                                    icon: .co2Cloud,
+                                    title: String(format: "%.1f t de CO² sequestrados", viewModel.totalCO2Sequestration()),
+                                    infoType: .co2,
+                                    co2Number: viewModel.lapsEarth(totalCO2: viewModel.totalCO2Sequestration())
+                                )
+                                CommunityDataComponent(
+                                    icon: .smallPlant,
+                                    title: String(format: "%.1f t de O² para o planeta", viewModel.totalO2()),
+                                    infoType: .oxygen,
+                                    oxygenNumber: viewModel.oxygenPerPerson(totalOxygen: viewModel.totalO2())
+                                )
+                                
+                            }
+                            .padding(20)
+                            .background(.black.opacity(0.10))
+                            .clipShape(RoundedRectangle(cornerRadius: 26))
+                        }
                         
                     }
                     VStack(alignment: .leading, spacing: 10) {
                         Text("Juntos pela causa")
                             .font(.system(.title3, weight: .semibold))
                         InviteFriendsComponent(shareAction: {
-                            self.isShowingShareSheet = true
+                            viewModel.isShowingShareSheet = true
                         })
                     }
                     Spacer()
@@ -116,6 +138,30 @@ struct TodayView: View {
                 .padding(.horizontal, 16)
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
+            
+            .navigationDestination(for: Route.self) { route in
+                switch route {
+                case .footprint:
+                    FootprintView(viewModel: FootprintViewModel(
+                        footprintService: FootprintService(),
+                        userService: UserService()
+                    )
+                    )
+                    .toolbar(.hidden, for: .tabBar)
+                    
+                case .registerTree:
+                    PhotoView(
+                        viewModel: PhotoViewModel(
+                            cameraService: CameraService(),
+                            treeAPIService: TreeAPIService(),
+                            userDefaultService: UserDefaultService()
+                        )
+                    )
+                    .toolbar(.hidden, for: .tabBar)
+                    .navigationBarBackButtonHidden(true)
+                }
+            }
+            
             .navigationTitle("Olá, \(viewModel.userName)")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -146,7 +192,7 @@ struct TodayView: View {
                 }
             }
             .foregroundStyle(.primitive1)
-            .sheet(isPresented: $isShowingShareSheet) {
+            .sheet(isPresented: $viewModel.isShowingShareSheet) {
                 ShareSheet(items: ["Olha que legal o App Cerne: ele calcula quanto de carbono as árvores da sua cidade conseguem reter para ajudar a limpar o ar. Achei que você ia gostar. LINK"])
             }
         }

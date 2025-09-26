@@ -20,6 +20,7 @@ protocol TodayViewModelProtocol {
     var totalSpecies: Int { get }
     var month: String { get }
     var monthlyObjective: Int { get }
+    var isShowingShareSheet: Bool { get set }
 
     func fetchUserPins() async
     func fetchAllPins() async
@@ -32,4 +33,5 @@ protocol TodayViewModelProtocol {
     func fetchCurrentUser() async
     func calculateMonthlyObjective() async
     func neutralizedAmountThisMonth() -> Double
+    func showShareSheet()
 }
