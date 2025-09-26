@@ -105,6 +105,7 @@ struct DiameterView: View {
                 .tint(.primary)
             }
         }
+        .navigationBarBackButtonHidden(true)
         .navigationDestination(isPresented: $viewModel.shouldNavigate) {
             DistanceView(
                 viewModel: DistanceViewModel(

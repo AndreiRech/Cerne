@@ -11,32 +11,53 @@ struct TabBar: View {
     @Environment(\.modelContext) var modelContext
     @EnvironmentObject var quickActionService: QuickActionService
     @StateObject private var router = Router()
-
+    
     var body: some View {
         TabView(selection: $router.selectedTab) {
-            Tab("Home", systemImage: "arrow.trianglehead.2.clockwise.rotate.90.icloud", value: 0) {
-                ContentView()
+            Tab(value: 0) {
+                TodayView(viewModel: TodayViewModel(pinService: PinService(), userService: UserService(), footprintService: FootprintService()))
+            } label: {
+                Label("Hoje", systemImage: "arrow.trianglehead.2.clockwise.rotate.90.icloud")
             }
             
-            Tab("Map", systemImage: "map", value: 1) {
-                MapView(viewModel: MapViewModel(locationService: LocationService(), pinService: PinService(), userService: UserService(), scannedTreeService: ScannedTreeService()))
+            Tab(value: 1) {
+                MapView(
+                    viewModel: MapViewModel(
+                        locationService: LocationService(),
+                        pinService: PinService(),
+                        userService: UserService(),
+                        scannedTreeService: ScannedTreeService()
+                    )
+                )
+            } label: {
+                Label("Mapa", systemImage: "map")
             }
-
-            Tab("Add", systemImage: "plus", value: 2, role: .search) {
+            
+            Tab(value: 2, role: .search) {
                 NavigationStack(path: $router.path) {
-                    PhotoView(viewModel: PhotoViewModel(cameraService: CameraService(), treeAPIService: TreeAPIService(), userDefaultService: UserDefaultService()))
-                        .toolbar(.hidden, for: .tabBar)
+                    PhotoView(
+                        viewModel: PhotoViewModel(
+                            cameraService: CameraService(),
+                            treeAPIService: TreeAPIService(),
+                            userDefaultService: UserDefaultService()
+                        )
+                    )
+                    .toolbar(.hidden, for: .tabBar)
                 }
                 .id(router.addFlowID)
+            } label: {
+                Label("Add", systemImage: "plus")
             }
         }
         .environmentObject(router)
+        .tint(.tabBarAtivada)
         .onReceive(quickActionService.$selectedAction) { action in
             guard let action = action else { return }
             switch action {
             case .mapTree:
-                router.selectedTab = 2
+                router.selectedTab = 1
             }
         }
     }
 }
+
