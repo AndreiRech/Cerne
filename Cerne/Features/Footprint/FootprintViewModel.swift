@@ -74,7 +74,7 @@ class FootprintViewModel: FootprintViewModelProtocol {
             print("Pegada de carbono total: \(totalCarbonFootprint) kg de CO² por ano.")
             
             do {
-                let currentUser = try await userService.fetchOrCreateCurrentUser()
+                let currentUser = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
                 try footprintService.createOrUpdateFootprint(for: currentUser, with: userResponses)
                 
                 print("Pegada de carbono salva com sucesso!")
