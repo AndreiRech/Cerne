@@ -167,8 +167,8 @@ struct PhotoView: View {
                 }
             }
             
-            ToolbarItem {
-                Button("", systemImage: "door.right.hand.open") {
+            ToolbarItem(placement: .topBarLeading) {
+                Button("", systemImage: "chevron.backward") {
                     router.popToRoot()
                 }
             }
