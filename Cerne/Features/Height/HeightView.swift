@@ -98,6 +98,7 @@ struct HeightView: View {
         .onAppear(perform: viewModel.onAppear)
         .onDisappear(perform: viewModel.onDisappear)
         .navigationBarHidden(false)
+        .navigationBarBackButtonHidden(true)
         .toolbar {
             if !viewModel.shouldNavigate {
                 ToolbarItem {

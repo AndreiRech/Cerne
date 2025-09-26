@@ -75,6 +75,7 @@ struct DistanceView: View {
         .onDisappear {
             viewModel.onDisappear()
         }
+        .navigationBarBackButtonHidden(true)
         .navigationDestination(isPresented: $viewModel.shouldNavigate) {
             HeightView(
                 viewModel: HeightViewModel(

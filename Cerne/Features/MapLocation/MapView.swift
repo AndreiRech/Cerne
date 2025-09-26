@@ -39,9 +39,12 @@ struct MapView: View {
                 }
             }
         }
+        .tint(.primitive1)
         .mapControls {
             MapUserLocationButton()
+                .tint(.primitive1)
             MapCompass()
+                .tint(.primitive1)
         }
         .onAppear {
             viewModel.onMapAppear()
