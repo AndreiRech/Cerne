@@ -12,14 +12,27 @@ import SwiftData
 struct CerneApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @AppStorage("onboarding") var isOnboardingDone: Bool = false
+    @State private var isSplashScreenActive = true
 
     var body: some Scene {
         WindowGroup {
-            if isOnboardingDone == false {
-                OnboardingView(viewModel: OnboardingViewModel(userDefaultService: UserDefaultService(), userService: UserService()))
+            if isSplashScreenActive {
+                SplashScreenView()
+                    .transition(.opacity)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                            withAnimation(.easeInOut(duration: 0.5)) {
+                                self.isSplashScreenActive = false
+                            }
+                        }
+                    }
             } else {
-                TabBar()
-                    .environmentObject(appDelegate.quickActionService)
+                if isOnboardingDone == false {
+                    OnboardingView(viewModel: OnboardingViewModel(userDefaultService: UserDefaultService(), userService: UserService()))
+                } else {
+                    TabBar()
+                        .environmentObject(appDelegate.quickActionService)
+                }
             }
         }
         .modelContainer(Persistence.shared.modelContainer)

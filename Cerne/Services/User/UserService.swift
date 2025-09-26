@@ -38,7 +38,7 @@ class UserService: UserServiceProtocol {
             predicate: #Predicate { $0.id == userID }
         )
         descriptor.fetchLimit = 1
-        
+                
         if let existingUser = try modelContext.fetch(descriptor).first {
             return existingUser
         } else {
