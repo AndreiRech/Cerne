@@ -38,7 +38,7 @@ class TodayViewModel: TodayViewModelProtocol {
     func fetchUserPins() async {
         self.isLoading = true
         do {
-            let currentUser = try await userService.fetchOrCreateCurrentUser()
+            let currentUser = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
             self.userPins = currentUser.pins ?? []
             
         } catch {
@@ -102,7 +102,7 @@ class TodayViewModel: TodayViewModelProtocol {
     
     func fetchCurrentUser() async {
         do {
-            let user = try await userService.fetchOrCreateCurrentUser()
+            let user = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
             self.userName = user.name
         } catch {
             print("Erro ao buscar o usuário: \(error.localizedDescription)")
@@ -113,7 +113,7 @@ class TodayViewModel: TodayViewModelProtocol {
     //TO DO: Colocar como zero quando adicionar os empty States
     func calculateMonthlyObjective() async {
         do {
-            let currentUser = try await userService.fetchOrCreateCurrentUser()
+            let currentUser = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
             if let userFootprint = try footprintService.fetchFootprint(for: currentUser) {
                 self.monthlyObjective = Int(userFootprint.total / 12)
             } else {
