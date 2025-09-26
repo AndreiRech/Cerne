@@ -19,21 +19,46 @@ struct TodayView: View {
                     VStack(alignment: .leading, spacing: 10) {
                         Text("Meu impacto no planeta")
                             .font(.system(.title3, weight: .semibold))
-                        NeutralizedCarbonComponent(neutralizedPercentage: viewModel.percentageCO2User(), month: viewModel.month, monthlyObjective: Double(viewModel.monthlyObjective), neutralizedAmount: viewModel.neutralizedAmountThisMonth())
+                        
+                        if viewModel.monthlyObjective == 0 {
+                            EmptyComponent(
+                                bgColor: .CTA,
+                                cornerColor: .CTA,
+                                icon: "leaf.arrow.trianglehead.clockwise",
+                                title: "Sem registros por enquanto",
+                                subtitle: "Cálculo ainda não realizado",
+                                description: "Complete o questionário para calcular sua pegada de carbono e descobrir seu impacto no planeta",
+                                buttonTitle: "Calcular pegada de carbono"
+                            )
+                        } else {
+                            NeutralizedCarbonComponent(
+                                neutralizedPercentage: viewModel.percentageCO2User(),
+                                month: viewModel.month,
+                                monthlyObjective: Double(viewModel.monthlyObjective),
+                                neutralizedAmount: viewModel.neutralizedAmountThisMonth()
+                            )
+                        }
                         
                     }
                     VStack(alignment: .leading, spacing: 10) {
                         Text("Minhas contribuições")
                             .font(.system(.title3, weight: .semibold))
                         
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack {
-                                ForEach(viewModel.userPins.reversed()) { pin in
-                                    ContribuitionTreeComponent(
-                                        treeName: pin.tree?.species ?? "",
-                                        treeCO2: pin.tree?.totalCO2 ?? 0,
-                                        treeImage: UIImage(data: pin.image ?? Data()) ?? UIImage(named: "TreeTest")!
-                                    )
+                        if viewModel.userPins.count == 0 {
+                            EmptyComponent(
+                                bgColor: .white,
+                                cornerColor: .primitive1,
+                                subtitle: "Nenhuma árvore registrada", description: "Comece a mapear árvores para acompanhar o CO₂ já capturado pelas suas contribuições.", buttonTitle: "Registrar primeira árvore")
+                        } else {
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack {
+                                    ForEach(viewModel.userPins.reversed()) { pin in
+                                        ContribuitionTreeComponent(
+                                            treeName: pin.tree?.species ?? "",
+                                            treeCO2: pin.tree?.totalCO2 ?? 0,
+                                            treeImage: UIImage(data: pin.image ?? Data()) ?? UIImage(named: "TreeTest")!
+                                        )
+                                    }
                                 }
                             }
                         }

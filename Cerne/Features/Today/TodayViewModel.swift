@@ -19,7 +19,7 @@ class TodayViewModel: TodayViewModelProtocol {
     var userName: String = ""
     
     var month: String = Date().formatted(.dateTime.month(.wide).locale(Locale(identifier: "pt_BR"))).capitalized
-    var monthlyObjective: Int = 100
+    var monthlyObjective: Int = 0
     
     var totalTrees: Int {
         allPins.count
@@ -38,7 +38,7 @@ class TodayViewModel: TodayViewModelProtocol {
     func fetchUserPins() async {
         self.isLoading = true
         do {
-            let currentUser = try await userService.fetchOrCreateCurrentUser()
+            let currentUser = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
             self.userPins = currentUser.pins ?? []
             
         } catch {
@@ -102,7 +102,7 @@ class TodayViewModel: TodayViewModelProtocol {
     
     func fetchCurrentUser() async {
         do {
-            let user = try await userService.fetchOrCreateCurrentUser()
+            let user = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
             self.userName = user.name
         } catch {
             print("Erro ao buscar o usuário: \(error.localizedDescription)")
@@ -110,18 +110,17 @@ class TodayViewModel: TodayViewModelProtocol {
         }
     }
     
-    //TO DO: Colocar como zero quando adicionar os empty States
     func calculateMonthlyObjective() async {
         do {
-            let currentUser = try await userService.fetchOrCreateCurrentUser()
+            let currentUser = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
             if let userFootprint = try footprintService.fetchFootprint(for: currentUser) {
                 self.monthlyObjective = Int(userFootprint.total / 12)
             } else {
-                self.monthlyObjective = 100
+                self.monthlyObjective = 0
            }
         } catch {
             print("Erro ao calcular o objetivo do mês: \(error.localizedDescription)")
-            self.monthlyObjective = 100
+            self.monthlyObjective = 0
         }
     }
     
