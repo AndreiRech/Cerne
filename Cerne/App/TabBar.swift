@@ -15,9 +15,9 @@ struct TabBar: View {
     var body: some View {
         TabView(selection: $router.selectedTab) {
             Tab(value: 0) {
-                ContentView()
+                TodayView(viewModel: TodayViewModel(pinService: PinService(), userService: UserService(), footprintService: FootprintService()))
             } label: {
-                Label("Home", systemImage: "arrow.trianglehead.2.clockwise.rotate.90.icloud")
+                Label("Hoje", systemImage: "arrow.trianglehead.2.clockwise.rotate.90.icloud")
                     .foregroundStyle(router.selectedTab == 0 ? .tabBarAtivada : .tabBarDesativada)
             }
             
@@ -31,7 +31,7 @@ struct TabBar: View {
                     )
                 )
             } label: {
-                Label("Map", systemImage: "map")
+                Label("Mapa", systemImage: "map")
                     .foregroundStyle(router.selectedTab == 1 ? .tabBarAtivada : .tabBarDesativada)
             }
             
@@ -57,8 +57,9 @@ struct TabBar: View {
             guard let action = action else { return }
             switch action {
             case .mapTree:
-                router.selectedTab = 2
+                router.selectedTab = 1
             }
         }
     }
 }
+
