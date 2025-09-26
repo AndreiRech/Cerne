@@ -11,8 +11,10 @@ import Combine
 @Observable
 class FootprintViewModel: FootprintViewModelProtocol {
     private let footprintService: FootprintServiceProtocol
+    private let userService: UserServiceProtocol
     var currentPage: Int = 1
     var selections: [CarbonEmittersEnum: String] = [:]
+    var showDiscardAlert: Bool = false
     
     var totalQuestionPages: Int {
         let totalItems = CarbonEmittersEnum.allCases.count
@@ -31,8 +33,9 @@ class FootprintViewModel: FootprintViewModelProtocol {
         return allQuestionsAnswered && noPlaceholderAnswers
     }
     
-    init(footprintService: FootprintServiceProtocol) {
+    init(footprintService: FootprintServiceProtocol, userService: UserServiceProtocol) {
         self.footprintService = footprintService
+        self.userService = userService
         
         for emitter in CarbonEmittersEnum.allCases {
             selections[emitter] = "Selecionar"
@@ -57,12 +60,56 @@ class FootprintViewModel: FootprintViewModelProtocol {
         selections[emitter] = newValue
     }
     
-    func saveFootprint() {
+    func resetSelections() {
+        for emitter in CarbonEmittersEnum.allCases {
+            selections[emitter] = "Selecionar"
+        }
+        currentPage = 1
+    }
+    
+    func saveFootprint() async {
         if isAbleToSave {
-            print("Salvando dados...")
-            print(selections)
+            let (totalCarbonFootprint, userResponses) = calculateCarbonEmissions()
+            
+            print("Pegada de carbono total: \(totalCarbonFootprint) kg de CO² por ano.")
+            
+            do {
+                let currentUser = try await userService.fetchOrCreateCurrentUser()
+                try footprintService.createOrUpdateFootprint(for: currentUser, with: userResponses)
+                
+                print("Pegada de carbono salva com sucesso!")
+
+            } catch {
+                print("Erro ao salvar a pegada de carbono: \(error.localizedDescription)")
+            }
+            
         } else {
             print("Não é possível salvar. Faltam respostas.")
         }
+    }
+    
+    func calculateCarbonEmissions() -> (total: Double, responses: [Response]) {
+        
+        var totalEmittedCarbon: Double = 0.0
+        var userResponses: [Response] = []
+
+        do {
+            let questions = try footprintService.getQuestions(fileName: "Questions")
+
+            for (emitter, selectedOptionText) in selections {
+                if let question = questions.first(where: { $0.text == emitter.description }) {
+                    if let option = question.options.first(where: { $0.text == selectedOptionText }) {
+                        totalEmittedCarbon += option.value
+                        
+                        let newResponse = Response(questionId: question.id, optionId: option.id, value: option.value)
+                        userResponses.append(newResponse)
+                    }
+                }
+            }
+        } catch {
+            print("Erro ao calcular as emissões: \(error)")
+        }
+        
+        return (totalEmittedCarbon, userResponses)
     }
 }

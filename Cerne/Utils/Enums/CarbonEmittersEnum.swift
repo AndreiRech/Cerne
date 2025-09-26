@@ -69,23 +69,23 @@ enum CarbonEmittersEnum: CaseIterable {
         case .car:
             return ["Selecionar", "Não tenho carro", "Gasolina / Álcool", "Diesel", "Híbrido / Elétrico"]
         case .km:
-            return ["Selecionar", "0 km", "1 - 100 km", "101 - 300 km", "Mais de 300 km"]
+            return ["Selecionar", "0 km", "Menos de 50 km", "50-150 km", "Mais de 150 km"]
         case .bus:
-            return ["Selecionar", "0 km", "1 - 50 km", "51 - 150 km", "Mais de 150 km"]
+            return ["Selecionar", "0 km", "Menos de 50 km", "50-150 km", "Mais de 150 km"]
         case .shortHaulFlight:
-            return ["Selecionar", "Nenhum", "1 - 2 voos", "3 - 5 voos", "Mais de 5 voos"]
+            return ["Selecionar", "0 voos", "1-2 voos", "3-5 voos", "6 ou mais voos"]
         case .longHaulFlight:
-            return ["Selecionar", "Nenhum", "1 - 2 voos", "3 - 5 voos", "Mais de 5 voos"]
+            return ["Selecionar", "0", "1 voo", "2 voos", "3 ou mais voos"]
         case .diet:
-            return ["Selecionar", "0 km", "1 - 100 km", "101 - 300 km", "Mais de 300 km"]
+            return ["Selecionar", "Vegana", "Vegetariana", "Consumo pouca carne", "Consumo carne diariamente"]
         case .airConditioner:
-            return ["Selecionar", "0 km", "1 - 50 km", "51 - 150 km", "Mais de 150 km"]
+            return ["Selecionar", "Não uso", "Uso ocasionalmente", "Uso frequentemente"]
         case .purchase:
-            return ["Selecionar", "Nenhum", "1 - 2 voos", "3 - 5 voos", "Mais de 5 voos"]
+            return ["Selecionar", "Raramente", "Poucas vezes ao ano", "Algumas vezes ao ano", "Frequentemente"]
         case .houseHold:
-            return ["Selecionar", "Nenhum", "1 - 2 voos", "3 - 5 voos", "Mais de 5 voos"]
+            return ["Selecionar", "Quase nunca", "1 ou 2 ocasionalmente", "Alguns frequentemente", "Vários frequentemente"]
         case .recicle:
-            return ["Selecionar", "Nenhum", "1 - 2 voos", "3 - 5 voos", "Mais de 5 voos"]
+            return ["Selecionar", "Reciclo quase tudo", "Reciclo algumas coisas", "Reciclo pouco", "Não reciclo"]
         }
     }
 }
