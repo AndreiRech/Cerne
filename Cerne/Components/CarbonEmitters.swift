@@ -1,0 +1,57 @@
+//
+//  CarbonEmmiters.swift
+//  Cerne
+//
+//  Created by Richard Fagundes Rodrigues on 24/09/25.
+//
+
+import SwiftUI
+import UIKit
+
+struct CarbonEmmiters: View {
+    let iconName: String
+    let title: String
+    let description: String
+    let options: [String]
+    let isEnabled: Bool
+    @Binding var selection: String
+    
+    var body: some View {
+        if isEnabled {
+            VStack(alignment: .leading, spacing: 8) {
+                HStack(alignment: .center,spacing: 10) {
+                    Image(systemName: iconName)
+                        .frame(width: 36, height: 26)
+                    
+                    Text(title)
+                        .foregroundStyle(.labelPrimary)
+                        .fontWeight(.semibold)
+                }
+                
+                HStack (alignment: .center, spacing: 8) {
+                    Text(description)
+                        .foregroundStyle(.labelPrimary)
+                        .font(.callout)
+                        .foregroundStyle(.labelSecondary)
+                    
+                    Spacer()
+                    
+                    PickerComponent(title: "Selecionar", options: options, isEnabled: isEnabled, selection: $selection)
+                }
+            }
+        } else {
+            HStack(alignment: .center,spacing: 10) {
+                Image(systemName: iconName)
+                    .frame(width: 36, height: 26)
+                
+                Text(title)
+                    .foregroundStyle(.labelPrimary)
+                    .fontWeight(.semibold)
+                
+                Spacer()
+                
+                PickerComponent(title: "Selecionar", options: options, isEnabled: isEnabled, selection: $selection)
+            }
+        }
+    }
+}
