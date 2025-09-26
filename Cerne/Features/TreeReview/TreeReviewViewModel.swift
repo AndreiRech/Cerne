@@ -109,7 +109,7 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
                 return
             }
             
-            let user = try await userService.fetchOrCreateCurrentUser()
+            let user = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
             
             let _ = try pinService.createPin (
                 image: imageData,

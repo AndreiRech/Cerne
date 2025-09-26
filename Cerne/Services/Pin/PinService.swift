@@ -20,7 +20,7 @@ class PinService: PinServiceProtocol {
     
     func fetchPins() throws -> [Pin] {
         let descriptor = FetchDescriptor<Pin>()
-
+        
         do {
             let pins = try modelContext.fetch(descriptor)
             return pins
