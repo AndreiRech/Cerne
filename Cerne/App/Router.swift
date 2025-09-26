@@ -10,6 +10,7 @@ import SwiftUI
 enum Route: Hashable {
     case footprint
     case registerTree
+    case onBoarding
 }
 
 class Router: ObservableObject {

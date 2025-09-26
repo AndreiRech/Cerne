@@ -13,4 +13,5 @@ protocol UserServiceProtocol {
     func createUser(name: String, height: Double) throws
     func updateUser(user: User, newName: String?, newHeight: Double?) throws
     func fetchOrCreateCurrentUser(name: String?, height: Double?) async throws -> User
+    func deleteUser(_ user: User) throws 
 }
