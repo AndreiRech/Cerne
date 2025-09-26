@@ -159,6 +159,8 @@ struct TodayView: View {
                     )
                     .toolbar(.hidden, for: .tabBar)
                     .navigationBarBackButtonHidden(true)
+                case .onBoarding:
+                    OnboardingView(viewModel: OnboardingViewModel(userDefaultService: UserDefaultService(), userService: UserService()))
                 }
             }
             
@@ -166,8 +168,7 @@ struct TodayView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink {
-                        //TO DO: Navegar para a tela de Profile
-                        MapView(viewModel: MapViewModel(locationService: LocationService(), pinService: PinService(), userService: UserService(), scannedTreeService: ScannedTreeService()))
+                        ProfileView(viewModel: ProfileViewModel(pinService: PinService(), userService: UserService(), footprintService: FootprintService(), userDefaultService: UserDefaultService()))
                     } label: {
                         Image(systemName: "person")
                     }

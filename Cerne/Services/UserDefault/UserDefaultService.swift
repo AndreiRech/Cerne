@@ -16,16 +16,16 @@ class UserDefaultService: UserDefaultServiceProtocol {
         return UserDefaults.standard.bool(forKey: self.onboardingKey) == false
     }
     
-    func setOnboardingDone() {
-        UserDefaults.standard.set(true, forKey: self.onboardingKey)
+    func setOnboarding(value: Bool = true) {
+        UserDefaults.standard.set(value, forKey: self.onboardingKey)
     }
     
     func isFirstTime() -> Bool {
         return UserDefaults.standard.bool(forKey: self.firstTimeKey) == false
     }
     
-    func setFirstTimeDone() {
-        UserDefaults.standard.set(true, forKey: self.firstTimeKey)
+    func setFirstTime(value: Bool = true) {
+        UserDefaults.standard.set(value, forKey: self.firstTimeKey)
     }
     
     func setPinReported(pin: Pin) {

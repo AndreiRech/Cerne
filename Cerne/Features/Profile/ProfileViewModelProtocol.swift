@@ -17,5 +17,6 @@ protocol ProfileViewModelProtocol {
     
     func fetchUserPins() async
     func fetchFootprint() async
+    func deleteAccount() async
     func totalCO2User() -> String
 }
