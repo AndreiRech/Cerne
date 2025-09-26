@@ -16,5 +16,6 @@ protocol ProfileViewModelProtocol {
     var isLoading: Bool { get  set }
     
     func fetchUserPins() async
+    func fetchFootprint() async
     func totalCO2User() -> String
 }

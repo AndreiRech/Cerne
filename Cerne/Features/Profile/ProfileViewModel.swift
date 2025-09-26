@@ -41,8 +41,10 @@ class ProfileViewModel: ProfileViewModelProtocol {
             let currentUser = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
             let userFootprint = try footprintService.fetchFootprint(for: currentUser)
             
-            footprint = String(userFootprint?.total)
-            
+            if let userFootprint = try footprintService.fetchFootprint(for: currentUser) {
+                let totalInKg = userFootprint.total
+                footprint = String(format: "%.0f Kg", totalInKg)
+            }
         } catch {
             print("Erro ao carregar o footprint: \(error.localizedDescription)")
         }

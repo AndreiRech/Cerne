@@ -109,7 +109,7 @@ struct ProfileView: View {
                                         .fontWeight(.semibold)
                                     
                                     HStack(alignment: .bottom, spacing: 8) {
-                                        Text(/*vm.getFootprint()*/ "2.496 Kg")
+                                        Text(viewModel.footprint ?? "")
                                             .foregroundStyle(.labelPrimary)
                                             .font(.largeTitle)
                                             .fontWeight(.bold)
@@ -178,6 +178,12 @@ struct ProfileView: View {
                     endPoint: .bottomLeading
                 )
             )
+            .onAppear {
+                Task {
+                    await viewModel.fetchUserPins()
+                    await viewModel.fetchFootprint()
+                }
+            }
         }
     }
 }
