@@ -11,6 +11,10 @@ struct FootprintView: View {
     @State var viewModel: FootprintViewModel
     @Environment(\.dismiss) var dismiss
     
+    private var isOverlayVisible: Bool {
+        viewModel.showDiscardAlert || viewModel.showConludedAlert
+    }
+    
     var body: some View {
         ZStack {
             TabView(selection: $viewModel.currentPage) {
@@ -65,22 +69,45 @@ struct FootprintView: View {
             }
             .tabViewStyle(.page(indexDisplayMode: .always))
             .padding(.horizontal, 16)
+            .blur(radius: isOverlayVisible ? 1 : 0)
             
-//            if viewModel.showDiscardAlert {
-//                AlertView(
-//                    title: "Descartar os dados?",
-//                    message: "Se fechar agora, as respostas inseridas serão perdidas.",
-////                    onConfirm: {
-////                        viewModel.resetSelections()
-////                        dismiss()
-////                        viewModel.showDiscardAlert = false
-////                    },
-////                    onCancel: {
-////                        viewModel.showDiscardAlert = false
-////                    }
-//                )
-//                .padding(.horizontal, 46)
-//            }
+            if isOverlayVisible {
+                Color.black.opacity(0.4)
+                    .ignoresSafeArea()
+            }
+            
+            if viewModel.showDiscardAlert {
+                AlertView(
+                    title: "Descartar os dados?",
+                    message: "Se fechar agora, as respostas inseridas serão perdidas.",
+                    onConfirm: {
+                        withAnimation {
+                            viewModel.showDiscardAlert = false
+                        }
+                        viewModel.resetSelections()
+                        dismiss()
+                    },
+                    onCancel: {
+                        withAnimation {
+                            viewModel.showDiscardAlert = false
+                        }
+                    }
+                )
+                .padding(.horizontal, 46)
+            }
+            
+            if viewModel.showConludedAlert {
+                RegisterConcluded(
+                    title: "Salvo com Sucesso!",
+                    message: "Sua pegada de carbono foi atualizada."
+                )
+                .zIndex(2)
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                        dismiss()
+                    }
+                }
+            }
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -101,12 +128,6 @@ struct FootprintView: View {
             )
             .ignoresSafeArea()
         )
-    }
-}
-
-#Preview {
-    ZStack {
-        FootprintView(viewModel: FootprintViewModel(footprintService: FootprintService(), userService: UserService()));
-//        AlertView(title: "teste", message: "teste").padding(46)
+        .animation(.easeInOut(duration: 0.2), value: isOverlayVisible)
     }
 }

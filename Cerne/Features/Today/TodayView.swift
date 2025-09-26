@@ -142,12 +142,14 @@ struct TodayView: View {
             .navigationDestination(for: Route.self) { route in
                 switch route {
                 case .footprint:
-                    FootprintView(viewModel: FootprintViewModel(
+                    FootprintView(
+                        viewModel: FootprintViewModel(
                         footprintService: FootprintService(),
                         userService: UserService()
-                    )
+                        )
                     )
                     .toolbar(.hidden, for: .tabBar)
+                    .navigationBarBackButtonHidden(true)
                     
                 case .registerTree:
                     PhotoView(

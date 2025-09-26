@@ -15,6 +15,7 @@ class FootprintViewModel: FootprintViewModelProtocol {
     var currentPage: Int = 1
     var selections: [CarbonEmittersEnum: String] = [:]
     var showDiscardAlert: Bool = false
+    var showConludedAlert: Bool = false
     
     var totalQuestionPages: Int {
         let totalItems = CarbonEmittersEnum.allCases.count
@@ -69,16 +70,14 @@ class FootprintViewModel: FootprintViewModelProtocol {
     
     func saveFootprint() async {
         if isAbleToSave {
-            let (totalCarbonFootprint, userResponses) = calculateCarbonEmissions()
-            
-            print("Pegada de carbono total: \(totalCarbonFootprint) kg de CO² por ano.")
+            let (_, userResponses) = calculateCarbonEmissions()
             
             do {
                 let currentUser = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
                 try footprintService.createOrUpdateFootprint(for: currentUser, with: userResponses)
-                
-                print("Pegada de carbono salva com sucesso!")
 
+                showConludedAlert = true
+                
             } catch {
                 print("Erro ao salvar a pegada de carbono: \(error.localizedDescription)")
             }
