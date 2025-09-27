@@ -14,20 +14,18 @@ struct RegisterConcluded: View {
     var body: some View {
         VStack(alignment: .center, spacing: 10) {
             Text(title)
+                .foregroundStyle(.primary)
                 .font(.headline)
                 .fontWeight(.semibold)
             
             Text(message)
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
-                .padding(.bottom, 24)
+                .padding(.bottom, 16)
+                .multilineTextAlignment(.center)
         }
-        .padding(14)
+        .padding(22)
         .frame(maxWidth: .infinity)
         .glassEffect(in: .rect(cornerRadius: 26))
     }
-}
-
-#Preview {
-    RegisterConcluded(title: "Registro", message: "Pegada de carbono")
 }
