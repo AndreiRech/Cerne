@@ -29,7 +29,8 @@ struct FootprintView: View {
                             viewModel.updateSelection(for: emitter, to: newValue)
                         }
                     )
-                    .glassEffect(in: .rect(cornerRadius: 16))
+                    .glassEffect(in: .rect(cornerRadius: 26))
+                    .padding(.horizontal, 16)
                     .tag(page)
                 }
                 
@@ -60,20 +61,23 @@ struct FootprintView: View {
                             .foregroundStyle(.white)
                     }
                     .disabled(!viewModel.isAbleToSave)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 10)
-                    .glassEffect()
+                    .padding()
                 }
-                .glassEffect(in: .rect(cornerRadius: 16))
+                .glassEffect(in: .rect(cornerRadius: 26))
+                .padding(.horizontal, 16)
                 .tag(viewModel.totalPages)
             }
             .tabViewStyle(.page(indexDisplayMode: .always))
-            .padding(.horizontal, 16)
-            .blur(radius: isOverlayVisible ? 1 : 0)
+            .blur(radius: isOverlayVisible ? 1.3 : 0)
             
             if isOverlayVisible {
                 Color.black.opacity(0.4)
                     .ignoresSafeArea()
+                    .onTapGesture {
+                        if viewModel.showConludedAlert {
+                            dismiss()
+                        }
+                    }
             }
             
             if viewModel.showDiscardAlert {
@@ -98,14 +102,17 @@ struct FootprintView: View {
             
             if viewModel.showConludedAlert {
                 RegisterConcluded(
-                    title: "Salvo com Sucesso!",
-                    message: "Sua pegada de carbono foi atualizada."
+                    title: "Registro concluído!",
+                    message: "Pegada de carbono calculada com sucesso!"
                 )
-                .zIndex(2)
+                .padding(.horizontal, 46)
                 .onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
                         dismiss()
                     }
+                }
+                .onTapGesture {
+                    dismiss()
                 }
             }
         }
@@ -117,12 +124,13 @@ struct FootprintView: View {
                     Image(systemName: "xmark")
                         .font(.headline)
                 }
+                .disabled(viewModel.showConludedAlert)
             }
         }
         .ignoresSafeArea()
         .background(
             LinearGradient(
-                gradient: Gradient(colors: [.white, .blue.opacity(0.3)]),
+                gradient: Gradient(colors: [.white, .blueBackground]),
                 startPoint: .top,
                 endPoint: .bottom
             )

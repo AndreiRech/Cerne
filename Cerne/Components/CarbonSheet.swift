@@ -39,6 +39,7 @@ struct CarbonSheet: View {
                         set: { newValue in onUpdate(emitter, newValue) }
                     )
                 )
+                .lineLimit(page < 3 ? 3 : 1)    
             }
         }
         .padding()
