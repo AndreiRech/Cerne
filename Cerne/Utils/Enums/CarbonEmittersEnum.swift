@@ -75,7 +75,7 @@ enum CarbonEmittersEnum: CaseIterable {
         case .shortHaulFlight:
             return ["Selecionar", "0 voos", "1-2 voos", "3-5 voos", "6 ou mais voos"]
         case .longHaulFlight:
-            return ["Selecionar", "0", "1 voo", "2 voos", "3 ou mais voos"]
+            return ["Selecionar", "0 voos", "1 voo", "2 voos", "3 ou mais voos"]
         case .diet:
             return ["Selecionar", "Vegana", "Vegetariana", "Consumo pouca carne", "Consumo carne diariamente"]
         case .airConditioner:
