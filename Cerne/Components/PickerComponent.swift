@@ -38,5 +38,8 @@ struct PickerComponent: View {
             .foregroundStyle(isEnabled ? .green : .gray)
         }
         .disabled(!isEnabled)
+        .frame(width: 105, alignment: .trailing)
+        .lineLimit(1)
+        .animation(nil, value: selection)
     }
 }

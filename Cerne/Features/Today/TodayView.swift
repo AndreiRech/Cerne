@@ -38,7 +38,10 @@ struct TodayView: View {
                                 neutralizedPercentage: viewModel.percentageCO2User(),
                                 month: viewModel.month,
                                 monthlyObjective: Double(viewModel.monthlyObjective),
-                                neutralizedAmount: viewModel.neutralizedAmountThisMonth()
+                                neutralizedAmount: viewModel.neutralizedAmountThisMonth(),
+                                editAction: {
+                                    router.path.append(Route.footprint)
+                                }
                             )
                         }
                         
@@ -69,7 +72,9 @@ struct TodayView: View {
                                         )
                                     }
                                 }
+                                .padding(.horizontal, 16)
                             }
+                            .padding(.horizontal, -16)
                         }
                         
                     }
@@ -144,8 +149,8 @@ struct TodayView: View {
                 case .footprint:
                     FootprintView(
                         viewModel: FootprintViewModel(
-                        footprintService: FootprintService(),
-                        userService: UserService()
+                            footprintService: FootprintService(),
+                            userService: UserService()
                         )
                     )
                     .toolbar(.hidden, for: .tabBar)
@@ -169,7 +174,14 @@ struct TodayView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink {
-                        ProfileView(viewModel: ProfileViewModel(pinService: PinService(), userService: UserService(), footprintService: FootprintService(), userDefaultService: UserDefaultService()))
+                        ProfileView(
+                            viewModel: ProfileViewModel(
+                                pinService: PinService(),
+                                userService: UserService(),
+                                footprintService: FootprintService(),
+                                userDefaultService: UserDefaultService()
+                            )
+                        )
                     } label: {
                         Image(systemName: "person")
                     }

@@ -17,4 +17,5 @@ protocol FootprintViewModelProtocol {
     func updateSelection(for emitter: CarbonEmittersEnum, to newValue: String)
     func saveFootprint() async
     func calculateCarbonEmissions() -> (total: Double, responses: [Response])
+    func loadUserSelections() async
 }

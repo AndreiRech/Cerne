@@ -138,7 +138,7 @@ struct PhotoView: View {
         }
         .onAppear(perform: viewModel.onAppear)
         .onDisappear(perform: viewModel.onDisappear)
-        .alert("Erro", isPresented: Binding<Bool>(
+    .alert("Ainda não conseguimos reconhecer", isPresented: Binding<Bool>(
             get: { viewModel.errorMessage != nil },
             set: { _ in viewModel.errorMessage = nil }
         )) {
@@ -148,7 +148,7 @@ struct PhotoView: View {
                 viewModel.retakePhoto()
             }
         } message: {
-            Text(viewModel.errorMessage ?? "Ocorreu um erro desconhecido.")
+            Text("Pode ser um detalhe da foto ou da iluminação. Refaça o registro para que possamos analisar de novo.")
         }
         .navigationBarHidden(false)
         .toolbar {
