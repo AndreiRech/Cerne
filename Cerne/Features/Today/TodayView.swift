@@ -170,7 +170,14 @@ struct TodayView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink {
-                        ProfileView(viewModel: ProfileViewModel(pinService: PinService(), userService: UserService(), footprintService: FootprintService(), userDefaultService: UserDefaultService()))
+                        ProfileView(
+                            viewModel: ProfileViewModel(
+                                pinService: PinService(),
+                                userService: UserService(),
+                                footprintService: FootprintService(),
+                                userDefaultService: UserDefaultService()
+                            )
+                        )
                     } label: {
                         Image(systemName: "person")
                     }

@@ -217,7 +217,12 @@ struct ProfileView: View {
                         .navigationBarBackButtonHidden(true)
                         
                     case .onBoarding:
-                        OnboardingView(viewModel: OnboardingViewModel(userDefaultService: UserDefaultService(), userService: UserService()))
+                        OnboardingView(
+                            viewModel: OnboardingViewModel(
+                                userDefaultService: UserDefaultService(),
+                                userService: UserService()
+                            )
+                        )
                             .toolbar(.hidden, for: .tabBar)
                             .navigationBarBackButtonHidden(true)
                     }
