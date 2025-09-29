@@ -69,7 +69,9 @@ struct TodayView: View {
                                         )
                                     }
                                 }
+                                .padding(.horizontal, 16)
                             }
+                            .padding(.horizontal, -16)
                         }
                         
                     }
@@ -144,8 +146,8 @@ struct TodayView: View {
                 case .footprint:
                     FootprintView(
                         viewModel: FootprintViewModel(
-                        footprintService: FootprintService(),
-                        userService: UserService()
+                            footprintService: FootprintService(),
+                            userService: UserService()
                         )
                     )
                     .toolbar(.hidden, for: .tabBar)
