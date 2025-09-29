@@ -12,14 +12,25 @@ struct NeutralizedCarbonComponent: View {
     var month: String
     var monthlyObjective: Double
     var neutralizedAmount: Double
+    var editAction: () -> Void
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            HStack(spacing: 8) {
-                Image(systemName: "leaf.arrow.trianglehead.clockwise")
-                Text("Mantenha o ritmo para atingir a meta anual")
+            HStack {
+                HStack(spacing: 8) {
+                    Image(systemName: "leaf.arrow.trianglehead.clockwise")
+                    Text("Mantenha o ritmo para atingir a meta anual")
+                }
+                .font(.caption2)
+                
+                Spacer()
+                
+                Button(action: editAction) {
+                    Image(systemName: "info.circle")
+                        .font(.title3)
+                        .foregroundStyle(.black)
+                }
             }
-            .font(.caption2)
             
             VStack(alignment: .leading, spacing: 4) {
                 Text("\(neutralizedPercentage)% de CO² neutralizado")

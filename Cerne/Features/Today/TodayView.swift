@@ -38,7 +38,10 @@ struct TodayView: View {
                                 neutralizedPercentage: viewModel.percentageCO2User(),
                                 month: viewModel.month,
                                 monthlyObjective: Double(viewModel.monthlyObjective),
-                                neutralizedAmount: viewModel.neutralizedAmountThisMonth()
+                                neutralizedAmount: viewModel.neutralizedAmountThisMonth(),
+                                editAction: {
+                                    router.path.append(Route.footprint)
+                                }
                             )
                         }
                         

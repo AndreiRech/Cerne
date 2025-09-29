@@ -29,7 +29,9 @@ struct FootprintView: View {
                             viewModel.updateSelection(for: emitter, to: newValue)
                         }
                     )
-                    .glassEffect(in: .rect(cornerRadius: 26))
+                    .background(.white.opacity(0.6))
+                    .border(.white.opacity(0.2))
+                    .cornerRadius(34)
                     .padding(.horizontal, 16)
                     .tag(page)
                 }
@@ -63,7 +65,9 @@ struct FootprintView: View {
                     .disabled(!viewModel.isAbleToSave)
                     .padding()
                 }
-                .glassEffect(in: .rect(cornerRadius: 26))
+                .background(.white.opacity(0.6))
+                .border(.white.opacity(0.2))
+                .cornerRadius(34)
                 .padding(.horizontal, 16)
                 .tag(viewModel.totalPages)
             }
@@ -107,13 +111,18 @@ struct FootprintView: View {
                 )
                 .padding(.horizontal, 46)
                 .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.8) {
                         dismiss()
                     }
                 }
                 .onTapGesture {
                     dismiss()
                 }
+            }
+        }
+        .onAppear {
+            Task {
+                await viewModel.loadUserSelections()
             }
         }
         .toolbar {
@@ -130,7 +139,10 @@ struct FootprintView: View {
         .ignoresSafeArea()
         .background(
             LinearGradient(
-                gradient: Gradient(colors: [.white, .blueBackground]),
+                stops: [
+                    .init(color: .white.opacity(0.8), location: 0.0),
+                    .init(color: .blueBackground, location: 0.25)
+                ],
                 startPoint: .top,
                 endPoint: .bottom
             )
