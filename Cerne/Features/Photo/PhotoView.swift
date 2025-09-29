@@ -42,7 +42,7 @@ struct PhotoView: View {
                                     Text(viewModel.identifiedTree?.bestMatch ?? "")
                                         .font(.body)
                                         .fontWeight(.semibold)
-                                        .foregroundStyle(.primitive1)
+                                        .foregroundStyle(.primitivePrimary)
                                 }
                                 .foregroundColor(.white)
                                 

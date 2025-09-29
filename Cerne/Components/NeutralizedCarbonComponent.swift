@@ -17,23 +17,24 @@ struct NeutralizedCarbonComponent: View {
         VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 8) {
                 Image(systemName: "leaf.arrow.trianglehead.clockwise")
+                
                 Text("Mantenha o ritmo para atingir a meta anual")
             }
-            .font(.caption2)
+            .font(.footnote)
             
             VStack(alignment: .leading, spacing: 4) {
                 Text("\(neutralizedPercentage)% de CO² neutralizado")
                     .font(.system(.title3, weight: .semibold))
                 Text("Objetivo de \(month): \(Int(monthlyObjective)) kg de CO²")
                     .font(.footnote)
-                    .foregroundStyle(.labelSecondary)
+                    .foregroundStyle(.primitivePrimary)
                 
                 ProgressView(value: min(neutralizedAmount, monthlyObjective), total: monthlyObjective)
                     .progressViewStyle(CustomProgressViewStyle())
             }
         }
         .padding(20)
-        .background(.CTA)
+        .background(.backgroundSecondary)
         .clipShape(RoundedRectangle(cornerRadius: 26))
     }
 }

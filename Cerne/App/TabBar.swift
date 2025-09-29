@@ -50,7 +50,7 @@ struct TabBar: View {
             }
         }
         .environmentObject(router)
-        .tint(.tabBarAtivada)
+        .tint(.primitivePrimary)
         .onReceive(quickActionService.$selectedAction) { action in
             guard let action = action else { return }
             switch action {
@@ -60,4 +60,3 @@ struct TabBar: View {
         }
     }
 }
-

@@ -14,13 +14,13 @@ struct RegisterConcluded: View {
     var body: some View {
         VStack(alignment: .center, spacing: 10) {
             Text(title)
-                .foregroundStyle(.primary)
+                .foregroundStyle(.primitivePrimary)
                 .font(.headline)
                 .fontWeight(.semibold)
             
             Text(message)
                 .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(.primitivePrimary)
                 .padding(.bottom, 16)
                 .multilineTextAlignment(.center)
         }

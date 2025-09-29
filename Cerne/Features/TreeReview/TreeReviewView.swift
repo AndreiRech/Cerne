@@ -18,11 +18,12 @@ struct TreeReviewView: View {
             Text("Revise os dados coletados")
                 .font(.title3)
                 .fontWeight(.semibold)
-                .foregroundStyle(.primitive1)
+                .foregroundStyle(.primitivePrimary)
+            
             Text("Verifique se as informações estão corretas e faça ajustes se necessário. Depois salve para concluir.")
                 .font(.footnote)
                 .multilineTextAlignment(.center)
-                .foregroundStyle(.primitive1)
+                .foregroundStyle(.primitivePrimary)
                 .padding(.horizontal)
             
             VStack(spacing: 10) {
@@ -45,9 +46,7 @@ struct TreeReviewView: View {
                     isHeight: true,
                     value: $viewModel.updateHeight,
                     isEditing: $viewModel.isEditing
-                    
                 )
-                
             }
             .padding()
             
@@ -87,7 +86,7 @@ struct TreeReviewView: View {
             .foregroundStyle(.white)
             .background(
                 RoundedRectangle(cornerRadius: 16)
-                    .foregroundStyle(viewModel.isEditing ? .primitive1Disabled : .primitive1 )
+                    .foregroundStyle(viewModel.isEditing ? .primitiveDisabled : .primitivePrimary )
             )
             
         }

@@ -28,7 +28,7 @@ struct SplashScreenView: View {
             
             Image(systemName: symbols[currentSymbolIndex])
                 .font(.largeTitle)
-                .foregroundColor(.primitive1)
+                .foregroundColor(.white)
                 .transition(.scale.combined(with: .opacity))
                 .id(currentSymbolIndex)
             

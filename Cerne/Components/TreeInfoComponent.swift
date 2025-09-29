@@ -23,12 +23,12 @@ struct TreeInfoComponent: View {
                 VStack(alignment: .leading, spacing: 0) {
                     TextField("", text: $value)
                         .fontWeight(.semibold)
-                        .foregroundStyle(.primitive1)
+                        .foregroundStyle(.primitivePrimary)
 
                     
                     Text(subtitle)
                         .font(.footnote)
-                        .foregroundStyle(.primitive1)
+                        .foregroundStyle(.primitivePrimary)
                 }
                 
                 Spacer()
@@ -45,10 +45,10 @@ struct TreeInfoComponent: View {
                     Text(title)
                         .font(.body)
                         .fontWeight(.semibold)
-                        .foregroundStyle(.primitive1)
+                        .foregroundStyle(.primitivePrimary)
                     Text(subtitle)
                         .font(.footnote)
-                        .foregroundStyle(.primitive1)
+                        .foregroundStyle(.primitivePrimary)
                 }
             }
             

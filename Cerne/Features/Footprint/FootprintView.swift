@@ -56,7 +56,7 @@ struct FootprintView: View {
                             .padding(.vertical, 13)
                             .background(
                                 RoundedRectangle(cornerRadius: 1000)
-                                    .foregroundStyle(viewModel.isAbleToSave ? .primitive1 : .primitive1Disabled)
+                                    .foregroundStyle(viewModel.isAbleToSave ? .primitivePrimary : .primitiveDisabled)
                             )
                             .foregroundStyle(.white)
                     }
@@ -83,7 +83,7 @@ struct FootprintView: View {
             if viewModel.showDiscardAlert {
                 AlertView(
                     title: "Descartar os dados?",
-                    message: "Se fechar agora, as respostas inseridas serão perdidas.",
+                    message: "Se fechar agora, as respostas inseridas serão perdidas",
                     onConfirm: {
                         withAnimation {
                             viewModel.showDiscardAlert = false
@@ -128,14 +128,7 @@ struct FootprintView: View {
             }
         }
         .ignoresSafeArea()
-        .background(
-            LinearGradient(
-                gradient: Gradient(colors: [.white, .blueBackground]),
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .ignoresSafeArea()
-        )
+        .background(.backgroundPrimary)
         .animation(.easeInOut(duration: 0.2), value: isOverlayVisible)
     }
 }
