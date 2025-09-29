@@ -61,10 +61,13 @@ struct TreeReviewView: View {
                     viewModel.isEditing = true
                 }
             } label: {
-                Image(systemName: viewModel.isEditing ? "text.badge.checkmark" : "pencil")
-                Text(viewModel.isEditing ? "Concluir edição" : "Ajustar")
+                HStack {
+                     Image(systemName: viewModel.isEditing ? "text.badge.checkmark" : "pencil")
+                     Text(viewModel.isEditing ? "Concluir edição" : "Ajustar")
+                 }
+                 .frame(maxWidth: .infinity)
+                 .contentShape(.rect)
             }
-            .frame(maxWidth: .infinity)
             .padding(.vertical, 14)
             .foregroundStyle(.black)
             .background(
@@ -78,11 +81,14 @@ struct TreeReviewView: View {
                 router.selectedTab = 1
                 
             } label: {
-                Image(systemName: "checkmark")
-                Text("Salvar")
+                HStack{
+                    Image(systemName: "checkmark")
+                    Text("Salvar")
+                }
+                .frame(maxWidth: .infinity)
+                .contentShape(.rect)
             }
             .disabled(viewModel.isEditing)
-            .frame(maxWidth: .infinity)
             .padding(.vertical, 14)
             .foregroundStyle(.white)
             .background(
@@ -122,3 +128,4 @@ struct TreeReviewView: View {
     }
     
 }
+
