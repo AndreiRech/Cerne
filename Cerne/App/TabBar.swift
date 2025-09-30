@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct TabBar: View {
-    @Environment(\.modelContext) var modelContext
     @EnvironmentObject var quickActionService: QuickActionService
     @StateObject private var router = Router()
     
     var body: some View {
         TabView(selection: $router.selectedTab) {
             Tab(value: 0) {
-                TodayView(viewModel: TodayViewModel(pinService: PinService(), userService: UserService(), footprintService: FootprintService()))
+                TodayView(viewModel: TodayViewModel(pinService: PinService(), userService: UserService(), footprintService: FootprintService(), treeService: ScannedTreeService()))
             } label: {
                 Label("Hoje", systemImage: "arrow.trianglehead.2.clockwise.rotate.90.icloud")
             }
