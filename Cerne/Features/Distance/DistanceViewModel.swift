@@ -32,15 +32,19 @@ class DistanceViewModel: NSObject, DistanceViewModelProtocol, CLLocationManagerD
     var shouldNavigate: Bool = false
     var showAddPointHint: Bool = false
     
+    var treeSpecies: String
+    
     init(userDefaultService: UserDefaultServiceProtocol,
          userHeight: Double,
          measuredDiameter: Double,
-         treeImage: UIImage) {
+         treeImage: UIImage,
+         treeSpecies: String) {
         self.userHeight = userHeight
         self.measuredDiameter = measuredDiameter
         self.treeImage = treeImage
         self.userDefaultService = userDefaultService
-        self.arService = ARService.shared 
+        self.arService = ARService.shared
+        self.treeSpecies = treeSpecies
         
         super.init()
         self.locationManager.delegate = self

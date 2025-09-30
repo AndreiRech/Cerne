@@ -88,7 +88,8 @@ struct DistanceView: View {
                     measuredDiameter: viewModel.measuredDiameter,
                     treeImage: viewModel.treeImage,
                     userLatitude: viewModel.userLatitude,
-                    userLongitude: viewModel.userLongitude
+                    userLongitude: viewModel.userLongitude,
+                    treeSpecies: viewModel.treeSpecies
                 )
             )
             .navigationBarHidden(false)
