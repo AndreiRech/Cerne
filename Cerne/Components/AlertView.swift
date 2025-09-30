@@ -17,14 +17,15 @@ struct AlertView: View {
         VStack(alignment: .leading, spacing: 10) {
             VStack(alignment: .leading, spacing: 10){
                 Text(title)
+                    .foregroundStyle(.primitivePrimary)
                     .font(.headline)
                     .fontWeight(.semibold)
                     .padding(.horizontal, 22)
                     .padding(.top, 22)
                 
                 Text(message)
+                    .foregroundStyle(.primitivePrimary)
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
                     .padding(.horizontal, 22)
             }
             
@@ -35,7 +36,7 @@ struct AlertView: View {
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 13)
                 .background(.thinMaterial)
-                .foregroundStyle(.primitive2)
+                .foregroundStyle(.CTA)
                 .font(.callout)
                 .clipShape(RoundedRectangle(cornerRadius: 100))
 
@@ -44,7 +45,7 @@ struct AlertView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 13)
-                .background(.primitive2)
+                .background(.CTA)
                 .foregroundStyle(.white)
                 .fontWeight(.medium)
                 .font(.body)

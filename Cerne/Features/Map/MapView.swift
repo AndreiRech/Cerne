@@ -15,7 +15,7 @@ struct MapView: View {
         Map(position: $viewModel.position) {
             mapContent
         }
-        .tint(.primitive1)
+        .tint(.primitivePrimary)
         .mapControls {
             MapUserLocationButton()
             MapCompass()

@@ -49,7 +49,7 @@ struct OnboardingView: View {
                     HStack(spacing: 8) {
                         ForEach(viewModel.onboardingPages.indices, id: \.self) { index in
                             Capsule()
-                                .fill(index == viewModel.currentPageIndex ? .primitive1 : Color.gray.opacity(0.5))
+                                .fill(index == viewModel.currentPageIndex ? .primitivePrimary : Color.gray.opacity(0.5))
                                 .frame(width: index == viewModel.currentPageIndex ? 24 : 8, height: 8)
                         }
                     }

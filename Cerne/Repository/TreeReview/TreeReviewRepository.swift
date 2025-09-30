@@ -35,10 +35,7 @@ class TreeReviewRepository: TreeReviewRepositoryProtocol {
         self.cacheService = cacheService
     }
     
-    func createTreeAndPin(image: UIImage, height: Double, dap: Double, latitude: Double, longitude: Double) async throws -> TreeReviewDTO {
-        let response = try await treeAPIService.identifyTree(image: image)
-        let species = response.bestMatch
-        
+    func createTreeAndPin(image: UIImage, species: String, height: Double, dap: Double, latitude: Double, longitude: Double) async throws -> TreeReviewDTO {
         let density = treeDataService.findTree(byScientificName: species)?.density ?? 1.2
         
         let newTree = try await scannedTreeService.createScannedTree(

@@ -143,14 +143,14 @@ class ARService: NSObject, ARServiceProtocol, ARSessionDelegate {
     func addMeasurementPoint() {
         let screenCenter = arView.center
         
-        guard let result = arView.raycast(from: screenCenter, allowing: .estimatedPlane, alignment: .any).first else {
+        guard let result = performRaycast(from: screenCenter, alignment: .any) else {
             return
         }
         
         let worldPosition = result.worldTransform.columns.3.xyz
         
-        let sphereMesh = MeshResource.generateSphere(radius: 0.003)
-        let material = SimpleMaterial(color: .white, isMetallic: false)
+        let sphereMesh = MeshResource.generateSphere(radius: 0.015)
+        let material = UnlitMaterial(color: .red)
         let sphereEntity = ModelEntity(mesh: sphereMesh, materials: [material])
         
         let anchor = AnchorEntity(world: worldPosition)
@@ -195,7 +195,7 @@ class ARService: NSObject, ARServiceProtocol, ARSessionDelegate {
             return
         }
         
-        configuration.planeDetection = [.horizontal, .vertical]
+        configuration.planeDetection = [.horizontal]
         configuration.environmentTexturing = .automatic
         
         DispatchQueue.main.async {
@@ -213,6 +213,19 @@ class ARService: NSObject, ARServiceProtocol, ARSessionDelegate {
         arView.addSubview(coachingOverlay)
     }
 
+    private func performRaycast(from point: CGPoint, alignment: ARRaycastQuery.TargetAlignment) -> ARRaycastResult? {
+        if let result = arView.raycast(from: point, allowing: .existingPlaneGeometry, alignment: alignment).first {
+            return result
+        }
+        if let result = arView.raycast(from: point, allowing: .existingPlaneInfinite, alignment: alignment).first {
+            return result
+        }
+        if let result = arView.raycast(from: point, allowing: .estimatedPlane, alignment: alignment).first {
+            return result
+        }
+        return nil
+    }
+
     @objc private func handleTap(_ recognizer: UITapGestureRecognizer) {
         guard interactionMode == .placingObjects else {
             return
@@ -220,14 +233,14 @@ class ARService: NSObject, ARServiceProtocol, ARSessionDelegate {
         
         let location = recognizer.location(in: arView)
         
-        if let result = arView.raycast(from: location, allowing: .estimatedPlane, alignment: .horizontal).first {
+        if let result = performRaycast(from: location, alignment: .horizontal) {
             let nonMeasurementAnchors = arView.scene.anchors.filter { $0.name != "measurementPointAnchor" }
             for anchor in nonMeasurementAnchors {
                 arView.scene.removeAnchor(anchor)
             }
             
             let newAnchor = AnchorEntity(world: result.worldTransform)
-            let box = ModelEntity(mesh: .generateCylinder(height: 0.2, radius: 0.10), materials: [SimpleMaterial(color: .white.withAlphaComponent(0.6), isMetallic: false)])
+            let box = ModelEntity(mesh: .generateCylinder(height: 0.5, radius: 0.05), materials: [SimpleMaterial(color: .red.withAlphaComponent(1.0), isMetallic: false)])
             newAnchor.addChild(box)
             arView.scene.addAnchor(newAnchor)
         }

@@ -19,7 +19,6 @@ struct NumericInfoComponent: View {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.maximumFractionDigits = 2
-        formatter.decimalSeparator = "."
         return formatter
     }()
     
@@ -41,18 +40,18 @@ struct NumericInfoComponent: View {
                     TextField("", value: $value, formatter: numberFormatter)
                         .keyboardType(.decimalPad)
                         .fontWeight(.semibold)
-                        .foregroundStyle(.primitive1)
+                        .foregroundStyle(.primitivePrimary)
                     
                     Text(subtitle)
                         .font(.footnote)
-                        .foregroundStyle(.primitive1)
+                        .foregroundStyle(.primitivePrimary)
                 }
                 Spacer()
                 
                 if value != 0  {
                     Button(action: { value = 0.0 }) {
                         Image(systemName: "xmark.circle.fill")
-                            .foregroundStyle(.gray)
+                            .foregroundStyle(.CTA)
                     }
                 }
                 
@@ -61,10 +60,10 @@ struct NumericInfoComponent: View {
                     Text(title)
                         .font(.body)
                         .fontWeight(.semibold)
-                        .foregroundStyle(.primitive1)
+                        .foregroundStyle(.primitivePrimary)
                     Text(subtitle)
                         .font(.footnote)
-                        .foregroundStyle(.primitive1)
+                        .foregroundStyle(.primitivePrimary)
                 }
             }
             

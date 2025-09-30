@@ -13,6 +13,7 @@ protocol TreeReviewViewModelProtocol {
     var updateHeight: Double  { get set }
     var updateDap: Double  { get set }
     var errorMessage: String? { get set }
+    var showValidation: Bool { get set }
     
     func createScannedTree() async
     func updateScannedTree() async

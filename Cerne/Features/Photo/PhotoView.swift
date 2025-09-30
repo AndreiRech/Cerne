@@ -42,7 +42,7 @@ struct PhotoView: View {
                                     Text(viewModel.identifiedTree?.bestMatch ?? "")
                                         .font(.body)
                                         .fontWeight(.semibold)
-                                        .foregroundStyle(.primitive1)
+                                        .foregroundStyle(.primitivePrimary)
                                 }
                                 .foregroundColor(.white)
                                 
@@ -71,7 +71,8 @@ struct PhotoView: View {
                                 DiameterView(
                                     viewModel: DiameterViewModel(
                                         treeImage: capturedImage,
-                                        userDefaultService: UserDefaultService()
+                                        userDefaultService: UserDefaultService(),
+                                        treeSpecies: viewModel.identifiedTree?.bestMatch ?? ""
                                     )
                                 )
                                 .navigationBarHidden(false)

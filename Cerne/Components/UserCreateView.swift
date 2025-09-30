@@ -20,51 +20,53 @@ struct UserCreateView: View {
                 .frame(width: 220, height: 220)
                 .fontWeight(.thin)
                 .padding(.bottom, 16)
-                .foregroundStyle(.labelSecondary)
+                .foregroundStyle(.primitivePrimary)
                     
             VStack(alignment: .leading, spacing: 10) {
                 Text("Defina seu nome de usuário")
+                    .foregroundStyle(.primitivePrimary)
+                    .font(.title3)
                     .fontWeight(.semibold)
-                    .foregroundStyle(.primitive2)
                 
-                TextField("", text: $username, prompt: Text("@mariacarvalho").foregroundStyle(.labelSecondary))
+                TextField("", text: $username, prompt: Text("@marinacarvalho").foregroundStyle(.primitivePrimary))
                     .padding(20)
                     .frame(height: 62)
                     .background(
                         RoundedRectangle(cornerRadius: 26)
-                            .foregroundStyle(.white)
+                            .foregroundStyle(.backgroundPrimary)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 26)
-                                    .stroke(.labelPrimary, lineWidth: 1)
+                                    .stroke(.primitivePrimary, lineWidth: 1)
                             )
                     )
-                    .foregroundStyle(.labelPrimary)
+                    .foregroundStyle(.primitivePrimary)
             }
             
             VStack(alignment: .center, spacing: 4) {
                 VStack(alignment: .leading, spacing: 10) {
                     Text("Qual tua altura?")
+                        .foregroundStyle(.primitivePrimary)
+                        .font(.title3)
                         .fontWeight(.semibold)
-                        .foregroundStyle(.primitive2)
                     
-                    TextField("", text: $height, prompt: Text("1,71 metros").foregroundStyle(.labelSecondary))
+                    TextField("", text: $height, prompt: Text("1,71 metros").foregroundStyle(.primitivePrimary))
                         .padding(20)
                         .frame(height: 62)
                         .background(
                             RoundedRectangle(cornerRadius: 26)
-                                .foregroundStyle(.white)
+                                .foregroundStyle(.backgroundPrimary)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 26)
-                                        .stroke(.labelPrimary, lineWidth: 1)
+                                        .stroke(.primitivePrimary, lineWidth: 1)
                                 )
                         )
-                        .foregroundStyle(.labelPrimary)
+                        .foregroundStyle(.primitivePrimary)
                         .keyboardType(.decimalPad)
                 }
                 
-                Text("Sua altura é usada para que a câmera calcule, na hora do mapeamento, com mais precisão a altura das árvores.")
+                Text("Sua altura é usada para que a câmera calcule, na hora do mapeamento, com mais precisão a altura das árvores")
                     .font(.caption2)
-                    .foregroundStyle(.labelPrimary)
+                    .foregroundStyle(.primitivePrimary)
             }
             
             Button {
@@ -76,7 +78,7 @@ struct UserCreateView: View {
                     .padding(.vertical, 13)
                     .background(
                         RoundedRectangle(cornerRadius: 10000)
-                            .foregroundStyle(.primitive1)
+                            .foregroundStyle(.CTA)
                     )
                     .glassEffect()
                     .foregroundStyle(.white)

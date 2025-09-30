@@ -26,28 +26,28 @@ struct CommunityDataComponent: View {
                 
                 Text(title)
                     .font(.system(.title3, weight: .semibold))
-                    .foregroundStyle(.primitive1)
+                    .foregroundStyle(.primitivePrimary)
             }
             switch infoType {
             case .trees:
                 Text("Cada novo registro conta para um \(Text("futuro mais sustentável").fontWeight(.semibold)) para todos")
                     .font(.subheadline)
-                    .foregroundStyle(.labelSecondary)
+                    .foregroundStyle(.primitiveSecondary)
                 
             case .species:
                 Text("A biodiversidade é imensa e cada registro ajuda a \(Text("revelar toda essa riqueza").fontWeight(.semibold))")
                     .font(.subheadline)
-                    .foregroundStyle(.labelSecondary)
+                    .foregroundStyle(.primitiveSecondary)
 
             case .co2:
                 Text("Correspondem a cerca de \(Text(String(format: "%.1f voltas ao redor da Terra", co2Number ?? 0)).fontWeight(.semibold)) de carro, movido a gasolina")
                     .font(.subheadline)
-                    .foregroundStyle(.labelSecondary)
+                    .foregroundStyle(.primitiveSecondary)
     
             case .oxygen:
                 Text("Oxigênio capaz de suprir o consumo anual de cerca de \(Text(String(format: "%d pessoas", oxygenNumber ?? 0)).fontWeight(.semibold))")
                     .font(.subheadline)
-                    .foregroundStyle(.labelSecondary)
+                    .foregroundStyle(.primitiveSecondary)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)

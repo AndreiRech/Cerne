@@ -22,12 +22,12 @@ struct EmptyComponent: View {
             if title != nil {
                 HStack(alignment: .center, spacing: 8) {
                     Image(systemName: icon ?? "")
-                        .foregroundStyle(.primitive1)
+                        .foregroundStyle(.primitivePrimary)
                         .font(.footnote)
                         .fontWeight(.regular)
                     
                     Text(title ?? "")
-                        .foregroundStyle(.labelPrimary)
+                        .foregroundStyle(.primitivePrimary)
                         .font(.caption2)
                         .fontWeight(.regular)
                 }
@@ -35,12 +35,12 @@ struct EmptyComponent: View {
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(subtitle)
-                    .foregroundStyle(.primitive1)
+                    .foregroundStyle(.primitivePrimary)
                     .font(.title3)
                     .fontWeight(.semibold)
                 
                 Text(description)
-                    .foregroundStyle(.labelPrimary)
+                    .foregroundStyle(.primitivePrimary)
                     .font(.footnote)
                     .fontWeight(.regular)
             }
@@ -57,11 +57,12 @@ struct EmptyComponent: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                         .background(
                             RoundedRectangle(cornerRadius: 1000)
-                                .foregroundStyle(.primitive1)
+                                .foregroundStyle(.CTA)
                         )
                 }
             }
         }
+        .frame(maxWidth: .infinity, alignment: .center)
         .padding(20)
         .background(
             RoundedRectangle(cornerRadius: 26)

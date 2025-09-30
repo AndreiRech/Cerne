@@ -12,20 +12,19 @@ import Combine
 class TreeReviewViewModel: TreeReviewViewModelProtocol {    
     private var repository: TreeReviewRepositoryProtocol
     
-    // Dados de entrada
     private var measuredDiameter: Double
     private var treeImage: UIImage?
     private var estimatedHeight: Double
     private var pinLatitude: Double
     private var pinLongitude: Double
+    private var treeSpecies: String
     
-    // Estado da View
     var tree: ScannedTree?
     var isLoading: Bool = false
     var errorMessage: String?
     var isEditing: Bool = false
+    var showValidation: Bool = false
     
-    // Propriedades para edição
     var updateSpecies: String = ""
     var updateHeight: Double = 0.0
     var updateDap: Double = 0.0
@@ -36,7 +35,8 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
         treeImage: UIImage?,
         estimatedHeight: Double,
         pinLatitude: Double,
-        pinLongitude: Double
+        pinLongitude: Double,
+        treeSpecies: String
     ) {
         self.repository = repository
         self.measuredDiameter = measuredDiameter
@@ -44,6 +44,7 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
         self.estimatedHeight = estimatedHeight
         self.pinLatitude = pinLatitude
         self.pinLongitude = pinLongitude
+        self.treeSpecies = treeSpecies
     }
     
     func createScannedTree() async {
@@ -58,6 +59,7 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
         do {
             let resultDTO = try await repository.createTreeAndPin(
                 image: image,
+                species: treeSpecies,
                 height: estimatedHeight,
                 dap: measuredDiameter,
                 latitude: pinLatitude,
@@ -65,6 +67,14 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
             )
             
             self.tree = resultDTO.createdTree
+
+            // var density: Double
+            
+            // if let foundTree = treeDataService.findTree(byScientificName: treeSpecies) {
+            //     density = foundTree.density
+            // } else {
+            //     density = 1.2
+            // }
             
             NotificationCenter.default.post(name: .didUpdateUserData, object: nil)            
         } catch let error as NetworkError {

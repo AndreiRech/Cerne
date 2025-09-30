@@ -19,12 +19,12 @@ struct CarbonSheet: View {
             Text("Pegada de Carbono")
                 .font(.title3)
                 .fontWeight(.semibold)
-                .foregroundStyle(.labelPrimary)
+                .foregroundStyle(.primitivePrimary)
             
             Text(isEnabled ? "Para **calcular sua pegada de carbono**, precisamos entender alguns **hábitos do seu cotidiano**" : "Verifique suas informações antes de concluir o cálculo da sua pegada de carbono")
                 .padding(.bottom)
                 .font(.footnote)
-                .foregroundStyle(.labelPrimary)
+                .foregroundStyle(.primitivePrimary)
                 .frame(maxWidth: .infinity, alignment: .center)
             
             ForEach(emitters, id: \.self) { emitter in

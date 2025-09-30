@@ -13,7 +13,11 @@ protocol ProfileViewModelProtocol {
     var isLoading: Bool { get  set }
     var totalCO2: String { get }
     var isShowingDeleteAlert: Bool { get set }
+    var annualData: [MonthlyData] { get set }
+    var monthlyObjective: Int { get set }
     
     func fetchData() async
     func deleteAccount() async
+    func CO2AnualPercent() -> Int
+    func calculateAnnualProgress()
 }

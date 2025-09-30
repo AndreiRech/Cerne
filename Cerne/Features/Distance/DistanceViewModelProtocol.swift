@@ -1,5 +1,5 @@
 //
-//  DIstanceViewModelProtocol.swift
+//  DistanceViewModelProtocol.swift
 //  Cerne
 //
 //  Created by Andrei Rech on 12/09/25.
@@ -24,6 +24,8 @@ protocol DistanceViewModelProtocol: ObservableObject {
     var isMeasuring: Bool { get set }
     var shouldNavigate: Bool { get set }
     var showAddPointHint: Bool { get set }
+    
+    var treeSpecies: String { get set }
     
     func onAppear()
     func onDisappear()

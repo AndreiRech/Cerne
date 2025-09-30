@@ -49,11 +49,12 @@ final class MapViewModel: MapViewModelProtocol {
         self.userService = userService
         self.scannedTreeService = scannedTreeService
         
+        locationService.start()
+        
         setupLocationSubscription()
     }
     
     func onMapAppear() async {
-        locationService.start()
         await getPins()
     }
     
