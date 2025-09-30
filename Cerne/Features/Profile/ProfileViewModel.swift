@@ -13,15 +13,19 @@ class ProfileViewModel: ProfileViewModelProtocol {
     var userService: UserServiceProtocol
     var footprintService: FootprintServiceProtocol
     var userDefaultService: UserDefaultServiceProtocol
+    var treeService: ScannedTreeServiceProtocol
+    
     var userPins: [Pin] = []
     var footprint: String?
     var isLoading: Bool = true
+    var totalCO2: String = "0"
     
-    init(pinService: PinServiceProtocol, userService: UserServiceProtocol, footprintService: FootprintServiceProtocol, userDefaultService: UserDefaultServiceProtocol) {
+    init(pinService: PinServiceProtocol, userService: UserServiceProtocol, footprintService: FootprintServiceProtocol, userDefaultService: UserDefaultServiceProtocol, treeService: ScannedTreeServiceProtocol) {
         self.pinService = pinService
         self.userService = userService
         self.footprintService = footprintService
         self.userDefaultService = userDefaultService
+        self.treeService = treeService
     }
     
     func fetchUserPins() async {
@@ -29,7 +33,23 @@ class ProfileViewModel: ProfileViewModelProtocol {
         
         do {
             let currentUser = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
-            self.userPins = currentUser.pins ?? []
+            let pins = try await pinService.fetchPins()
+            let tree = try await treeService.fetchScannedTrees()
+            
+            var total: Double = 0.0
+            for pin in pins {
+                if pin.userRecordID == currentUser.recordID {
+                    self.userPins.append(pin)
+                }
+                
+                for scannedTree in tree {
+                    if pin.treeRecordID == scannedTree.recordID {
+                        total += scannedTree.totalCO2
+                    }
+                }
+            }
+            totalCO2 = String(format: "%.0f", total)
+            
             await fetchFootprint()
         } catch {
             print("Erro ao buscar os pins do usuário: \(error.localizedDescription)")
@@ -41,7 +61,7 @@ class ProfileViewModel: ProfileViewModelProtocol {
         do {
             let currentUser = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
             
-            if let userFootprint = try footprintService.fetchFootprint(for: currentUser) {
+            if let userFootprint = try await footprintService.fetchFootprint(for: currentUser) {
                 let totalInKg = userFootprint.total
                 footprint = String(format: "%.0f Kg", totalInKg)
             }
@@ -55,16 +75,11 @@ class ProfileViewModel: ProfileViewModelProtocol {
     func deleteAccount() async {
         do {
             let currentUser = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
-            try userService.deleteUser(currentUser)
+            try await userService.deleteUser(currentUser)
             userDefaultService.setOnboarding(value: false)
             userDefaultService.setFirstTime(value: false)
         } catch {
             print("Erro ao deletar o usuário: \(error.localizedDescription)")
         }
-    }
-        
-    func totalCO2User() -> String {
-        let totalInKg = userPins.compactMap(\.tree?.totalCO2).reduce(0, +)
-        return String(format: "%.0f", totalInKg)
     }
 }

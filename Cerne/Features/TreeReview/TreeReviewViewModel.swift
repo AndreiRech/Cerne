@@ -71,7 +71,7 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
                 density = 1.2
             }
             
-            let newTree = try scannedTreeService.createScannedTree(
+            let newTree = try await scannedTreeService.createScannedTree(
                 species: species,
                 height: estimatedHeight,
                 dap: Double(measuredDiameter),
@@ -102,22 +102,21 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
     
     func createPin() async {
         do {
-            guard let treeImage,
-                  let imageData = treeImage.pngData(),
-                  let tree = self.tree else {
-                errorMessage = "Não foi possível criar o pin. Faltam dados da árvore ou da imagem."
-                return
-            }
-            
             let user = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
             
-            let _ = try pinService.createPin (
-                image: imageData,
+            guard let treeImage = treeImage, let tree = tree else {
+                throw GenericError.serviceError
+            }
+            
+            let pin = try await pinService.createPin (
+                image: treeImage,
                 latitude: pinLatitude,
                 longitude: pinLongitude,
                 user: user,
                 tree: tree
             )
+            
+            print(pin)
             
             userDefaultService.setFirstTime(value: true)
             
@@ -131,7 +130,7 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
         isLoading = true
         defer { isLoading = false }
         
-        guard let tree = self.tree else {
+        guard var tree = self.tree else {
             errorMessage = "No tree to update."
             return
         }
@@ -144,15 +143,7 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
         tree.totalCO2 = calculateCO2(height: updateHeight, dap: Float(updateDap), density: density)
         
         do {
-            try scannedTreeService.updateScannedTree(
-                tree: tree,
-                newSpecies: updateSpecies,
-                newHeight: updateHeight,
-                newDap: updateDap
-            )
-            
-            tree.totalCO2 = calculateCO2(height: updateHeight, dap: Float(updateDap), density: density)
-            
+            tree = try await scannedTreeService.updateScannedTree(tree: tree)
         } catch {
             errorMessage = "An error occurred while updating the tree: \(error.localizedDescription)"
         }

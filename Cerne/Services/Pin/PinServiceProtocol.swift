@@ -6,15 +6,16 @@
 //
 
 import Foundation
-import SwiftData
+import UIKit
 
 protocol PinServiceProtocol {
     var details: [TreeDetails] { get }
     
-    func fetchPins() throws -> [Pin]
-    func createPin(image: Data, latitude: Double, longitude: Double, user: User, tree: ScannedTree) throws
-    func addReport(to pin: Pin) throws
-    func deletePin(pin: Pin) throws
+    func fetchPins() async throws -> [Pin]
+    func createPin(image: UIImage, latitude: Double, longitude: Double, user: User, tree: ScannedTree) async throws -> Pin
+    func addReport(to pin: Pin) async throws -> Pin?
+    func deletePin(_ pin: Pin) async throws
+    
     func getDetails(fileName: String) throws -> [TreeDetails]
     func getDetails(for tree: ScannedTree) throws -> TreeDetails
 }

@@ -6,67 +6,122 @@
 //
 
 import Foundation
-import SwiftData
+import CloudKit
 
 class FootprintService: FootprintServiceProtocol {
-    private var modelContext: ModelContext
+    private let publicDB = CKContainer.default().publicCloudDatabase
     
-    @MainActor
-    init() {
-        self.modelContext = Persistence.shared.modelContext
-    }
+    init() {}
     
-    func fetchFootprints() throws -> [Footprint] {
-        let descriptor = FetchDescriptor<Footprint>()
-
+    func fetchFootprints() async throws -> [Footprint] {
+        let predicate = NSPredicate(value: true)
+        let query = CKQuery(recordType: "CD_Footprint", predicate: predicate)
+        
         do {
-            let pins = try modelContext.fetch(descriptor)
-            return pins
+            let (matchResults, _) = try await publicDB.records(matching: query)
+            let records = try matchResults.map { try $0.1.get() }
+            return records.compactMap { Footprint(record: $0) }
         } catch {
             throw GenericError.serviceError
         }
     }
     
-    func fetchFootprint(for user: User) throws -> Footprint? {
-        let userID = user.id
-                let predicate = #Predicate<Footprint> { footprint in
-                    footprint.user?.id == userID
-                }
-                var descriptor = FetchDescriptor<Footprint>(predicate: predicate)
-                descriptor.fetchLimit = 1
-
-                do {
-                    let footprints = try modelContext.fetch(descriptor)
-                    return footprints.first
-                } catch {
-                    throw GenericError.serviceError
-                }
+    func fetchFootprint(for user: User) async throws -> Footprint? {
+        guard let userRecordID = user.recordID else {
+            throw GenericError.serviceError
+        }
+        
+        let userReference = CKRecord.Reference(recordID: userRecordID, action: .none)
+        let predicate = NSPredicate(format: "CD_user == %@", userReference)
+        let query = CKQuery(recordType: "CD_Footprint", predicate: predicate)
+        
+        do {
+            let (matchResults, _) = try await publicDB.records(matching: query)
+            let records = try matchResults.map { try $0.1.get() }
+            return records.compactMap { Footprint(record: $0) }.first
+        } catch {
+            print("Erro detalhado do CloudKit em fetchFootprint: \(error)")
+            print("Erro ao buscar footprints: \(error.localizedDescription)")
+            throw GenericError.serviceError
+        }
     }
     
-    func createOrUpdateFootprint(for user: User, with newResponses: [Response]) throws {
-        let newTotal = newResponses.reduce(0) { $0 + $1.value }
+    func fetchResponses(for footprint: Footprint) async throws -> [Response] {
+        guard let footprintRecordID = footprint.recordID else {
+            return []
+        }
         
-        if let existingFootprint = user.footprint, let responses = existingFootprint.responses {
-            responses.forEach { oldResponse in
-                modelContext.delete(oldResponse)
+        let footprintReference = CKRecord.Reference(recordID: footprintRecordID, action: .none)
+        let predicate = NSPredicate(format: "CD_footprint == %@", footprintReference)
+        let query = CKQuery(recordType: "CD_Response", predicate: predicate)
+        
+        do {
+            let (matchResults, _) = try await publicDB.records(matching: query)
+            let records = try matchResults.map { try $0.1.get() }
+            return records.compactMap { Response(record: $0) }
+        } catch {
+            print("Erro detalhado do CloudKit em fetchResponses: \(error)")
+            print("Erro ao buscar responses: \(error.localizedDescription)")
+            throw GenericError.serviceError
+        }
+    }
+    
+    func createOrUpdateFootprint(for user: User, with responsesData: [ResponseData]) async throws -> Footprint {
+        guard let userRecordID = user.recordID else {
+            throw GenericError.serviceError
+        }
+        
+        let newTotal = responsesData.reduce(0) { $0 + $1.value }
+        
+        var existingFootprint: Footprint?
+        do {
+            existingFootprint = try await fetchFootprint(for: user)
+        } catch  {
+            existingFootprint = nil
+        }
+        
+        var footprintRecord: CKRecord
+        
+        if let existingFootprint, let existingRecordID = existingFootprint.recordID {
+            let oldResponses = try await fetchResponses(for: existingFootprint)
+            let oldResponseIDs = oldResponses.compactMap { $0.recordID }
+            if !oldResponseIDs.isEmpty {
+                _ = try await publicDB.modifyRecords(saving: [], deleting: oldResponseIDs)
             }
             
-            newResponses.forEach { newResponse in
-                modelContext.insert(newResponse)
-            }
-            
-            existingFootprint.responses = newResponses
-            existingFootprint.total = newTotal
+            footprintRecord = try await publicDB.record(for: existingRecordID)
+            footprintRecord["CD_total"] = newTotal
+            footprintRecord = try await publicDB.save(footprintRecord)
             
         } else {
-            newResponses.forEach { newResponse in
-                modelContext.insert(newResponse)
-            }
-            
-            let newFootprint = Footprint(total: newTotal, responses: newResponses)
-            
-            user.footprint = newFootprint
+            let newFootprintRecord = CKRecord(recordType: "CD_Footprint")
+            newFootprintRecord["CD_id"] = UUID().uuidString
+            newFootprintRecord["CD_total"] = newTotal
+            newFootprintRecord["CD_user"] = CKRecord.Reference(recordID: userRecordID, action: .none)
+            footprintRecord = try await publicDB.save(newFootprintRecord)
         }
+        
+        let footprintReference = CKRecord.Reference(recordID: footprintRecord.recordID, action: .deleteSelf)
+        var newResponseRecords: [CKRecord] = []
+        
+        for responseData in responsesData {
+            let responseRecord = CKRecord(recordType: "CD_Response")
+            responseRecord["CD_id"] = UUID().uuidString
+            responseRecord["CD_questionId"] = responseData.questionId
+            responseRecord["CD_optionId"] = responseData.optionId
+            responseRecord["CD_value"] = responseData.value
+            responseRecord["CD_footprint"] = footprintReference
+            newResponseRecords.append(responseRecord)
+        }
+        
+        if !newResponseRecords.isEmpty {
+            _ = try await publicDB.modifyRecords(saving: newResponseRecords, deleting: [])
+        }
+        
+        guard let finalFootprint = Footprint(record: footprintRecord) else {
+            throw GenericError.serviceError
+        }
+        return finalFootprint
     }
     
     func getQuestions(fileName: String) throws -> [Question] {

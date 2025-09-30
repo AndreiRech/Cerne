@@ -17,7 +17,7 @@ protocol MapViewModelProtocol {
     var currentZoomLevel: Double { get }
     var normalizedZoomLevel: Double { get }
     
-    func getPins()
-    func onMapAppear()
+    func getPins() async
+    func onMapAppear() async
     func updateMapRegion(zoomLevel: Double, region: MKCoordinateRegion)
 }

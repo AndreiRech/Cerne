@@ -12,6 +12,9 @@ import Combine
 class FootprintViewModel: FootprintViewModelProtocol {
     private let footprintService: FootprintServiceProtocol
     private let userService: UserServiceProtocol
+    private var user: User?
+    private var footprint: Footprint?
+    
     var currentPage: Int = 1
     var selections: [CarbonEmittersEnum: String] = [:]
     var showDiscardAlert: Bool = false
@@ -70,11 +73,13 @@ class FootprintViewModel: FootprintViewModelProtocol {
     
     func saveFootprint() async {
         if isAbleToSave {
-            let (_, userResponses) = calculateCarbonEmissions()
+            let (_, userResponses) = await calculateCarbonEmissions()
             
             do {
-                let currentUser = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
-                try footprintService.createOrUpdateFootprint(for: currentUser, with: userResponses)
+                self.user = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
+                guard let user = self.user else { return }
+                
+                self.footprint = try await footprintService.createOrUpdateFootprint(for: user, with: userResponses)
 
                 showConludedAlert = true
                 
@@ -87,10 +92,10 @@ class FootprintViewModel: FootprintViewModelProtocol {
         }
     }
     
-    func calculateCarbonEmissions() -> (total: Double, responses: [Response]) {
+    func calculateCarbonEmissions() async -> (total: Double, responses: [ResponseData]) {
         
         var totalEmittedCarbon: Double = 0.0
-        var userResponses: [Response] = []
+        var userResponses: [ResponseData] = []
 
         do {
             let questions = try footprintService.getQuestions(fileName: "Questions")
@@ -100,7 +105,7 @@ class FootprintViewModel: FootprintViewModelProtocol {
                     if let option = question.options.first(where: { $0.text == selectedOptionText }) {
                         totalEmittedCarbon += option.value
                         
-                        let newResponse = Response(questionId: question.id, optionId: option.id, value: option.value)
+                        let newResponse = ResponseData(questionId: question.id, optionId: option.id, value: option.value)
                         userResponses.append(newResponse)
                     }
                 }

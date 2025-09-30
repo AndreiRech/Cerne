@@ -9,63 +9,77 @@ import Foundation
 
 @Observable
 @MainActor
-class TodayViewModel: TodayViewModelProtocol {
+class TodayViewModel: TodayViewModelProtocol {    
     var pinService: PinServiceProtocol
     var userService: UserServiceProtocol
     var footprintService: FootprintServiceProtocol
+    var treeService: ScannedTreeServiceProtocol
+    
+    private var user: User?
+    private var allTrees: [ScannedTree] = []
+    
     var userPins: [Pin] = []
-    var isLoading: Bool = false
     var allPins: [Pin] = []
     var userName: String = ""
+    
+    private var totalCO2Double: Double = 0.0
+    var totalCO2: String {
+        String(format: "%.0f", totalCO2Double)
+    }
+    
     var isShowingShareSheet: Bool = false
+    var isLoading: Bool = false
     
     var month: String = Date().formatted(.dateTime.month(.wide).locale(Locale(identifier: "pt_BR"))).capitalized
     var monthlyObjective: Int = 0
     
-    var totalTrees: Int {
-        allPins.count
-    }
-    
-    var totalSpecies: Int {
-        Set(allPins.compactMap { $0.tree?.species }).count
-    }
-    
-    init(pinService: PinServiceProtocol, userService: UserServiceProtocol, footprintService: FootprintServiceProtocol) {
+    init(pinService: PinServiceProtocol, userService: UserServiceProtocol, footprintService: FootprintServiceProtocol, treeService: ScannedTreeServiceProtocol) {
         self.pinService = pinService
         self.userService = userService
         self.footprintService = footprintService
+        self.treeService = treeService
     }
     
-    func fetchUserPins() async {
+    func fetchInformation() async {
         self.isLoading = true
+        defer { self.isLoading = false }
+        
+        self.userPins = []
+        self.allPins = []
+        self.allTrees = []
+
         do {
-            let currentUser = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
-            self.userPins = currentUser.pins ?? []
-            
+            self.user = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
+            self.allPins = try await pinService.fetchPins()
+            self.allTrees = try await treeService.fetchScannedTrees()
+
+            userName = user?.name ?? "Usuario"
+
+            for pin in allPins {
+                if pin.userRecordID == user?.recordID {
+                    self.userPins.append(pin)
+                }
+
+                for scannedTree in allTrees {
+                    if pin.treeRecordID == scannedTree.recordID {
+                        totalCO2Double += scannedTree.totalCO2
+                    }
+                }
+            }
         } catch {
             print("Erro ao buscar os pins do usuário: \(error.localizedDescription)")
             self.userPins = []
-        }
-        self.isLoading = false
-    }
-    
-    func fetchAllPins() async {
-        do {
-            self.allPins = try pinService.fetchPins()
-        } catch {
-            print("Falha ao carregar os pins da comunidade: \(error.localizedDescription)")
             self.allPins = []
+            self.allTrees = []
         }
     }
     
     func totalCO2Sequestration() -> Double {
-        let totalInKg = allPins.compactMap { $0.tree?.totalCO2 }.reduce(0, +)
-        return totalInKg / 1000.0
+        return totalCO2Double / 1000.0
     }
     
     func totalO2() -> Double {
-        let totalCO2InKg = allPins.compactMap { $0.tree?.totalCO2 }.reduce(0, +)
-        return (totalCO2InKg / 44.0) * 32.0 / 1000.0
+        return (totalCO2Double / 44.0) * 32.0 / 1000.0
     }
     
     func lapsEarth(totalCO2: Double) -> Double {
@@ -76,12 +90,6 @@ class TodayViewModel: TodayViewModelProtocol {
     func oxygenPerPerson(totalOxygen: Double) -> Int {
         let oxygenPerPerson = totalOxygen * 3.5
         return Int(oxygenPerPerson.rounded())
-        
-    }
-    
-    func totalCO2User() -> Double {
-        let totalInKg = userPins.compactMap(\.tree?.totalCO2).reduce(0, +)
-        return totalInKg
     }
     
     func percentageCO2User() -> Int {
@@ -98,24 +106,13 @@ class TodayViewModel: TodayViewModelProtocol {
         return total
     }
     
-    func fetchCurrentUser() async {
-        do {
-            let user = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
-            self.userName = user.name
-        } catch {
-            print("Erro ao buscar o usuário: \(error.localizedDescription)")
-            self.userName = "Usuário"
-        }
-    }
-    
     func calculateMonthlyObjective() async {
         do {
-            let currentUser = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
-            if let userFootprint = try footprintService.fetchFootprint(for: currentUser) {
+            guard let user else { return }
+            
+            if let userFootprint = try await footprintService.fetchFootprint(for: user) {
                 self.monthlyObjective = Int(userFootprint.total / 12)
-            } else {
-                self.monthlyObjective = 0
-           }
+            }
         } catch {
             print("Erro ao calcular o objetivo do mês: \(error.localizedDescription)")
             self.monthlyObjective = 0
@@ -126,19 +123,47 @@ class TodayViewModel: TodayViewModelProtocol {
         let calendar = Calendar.current
         let currentMonth = calendar.component(.month, from: Date())
         let currentYear = calendar.component(.year, from: Date())
-
+        
         let pinsThisMonth = userPins.filter { pin in
             let pinMonth = calendar.component(.month, from: pin.date)
             let pinYear = calendar.component(.year, from: pin.date)
             return pinMonth == currentMonth && pinYear == currentYear
         }
-
-        let totalInKg = pinsThisMonth.compactMap(\.tree?.totalCO2).reduce(0, +)
-        return totalInKg
+        
+        var total: Double = 0.0
+        for pin in pinsThisMonth {
+            for scannedTree in allTrees {
+                if pin.treeRecordID == scannedTree.recordID {
+                    total += scannedTree.totalCO2
+                }
+            }
+        }
+        return total
     }
     
     func showShareSheet() {
-           self.isShowingShareSheet = true
-       }
+        self.isShowingShareSheet = true
+    }
+    
+    var totalTrees: Int {
+        allPins.count
+    }
+    
+    var totalSpecies: Int {
+        var species: Set<String> = []
+        
+        for pin in allPins {
+            for scannedTree in allTrees {
+                if pin.treeRecordID == scannedTree.recordID {
+                    species.insert(scannedTree.species)
+                }
+            }
+        }
+        return species.count
+    }
+    
+    func getTree(for pin: Pin) -> ScannedTree? {
+        return allTrees.first { tree in tree.recordID == pin.treeRecordID }
+    }
 }
 

@@ -53,7 +53,7 @@ struct ProfileView: View {
                                     )
                                     
                                     VStack(alignment: .leading, spacing: 8) {
-                                        Text(viewModel.totalCO2User())
+                                        Text(viewModel.totalCO2)
                                             .foregroundStyle(.labelPrimary)
                                             .font(.largeTitle)
                                             .fontWeight(.bold)

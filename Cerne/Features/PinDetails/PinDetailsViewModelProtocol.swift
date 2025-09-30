@@ -9,13 +9,18 @@ import Foundation
 
 protocol PinDetailsViewModelProtocol {
     var pin: Pin { get }
+    var tree: ScannedTree? { get }
+    var pinUser: User? { get }
+    
     var details: TreeDetails? { get set }
     var isPinFromUser: Bool { get }
     var errorMessage: String? { get set }
     var reportEnabled: Bool { get }
+    var formattedTotalCO2: String { get }
     
-    func deletePin(pin: Pin)
-    func reportPin(to pin: Pin)
+    func deletePin() async
+    func reportPin() async
     func isPinFromUser() async
     func message() -> String
+    func fetchData() async
 }
