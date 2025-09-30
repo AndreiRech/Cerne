@@ -25,6 +25,7 @@ struct TreeReviewView: View {
                     .font(.title3)
                     .fontWeight(.semibold)
                     .foregroundStyle(.primitivePrimary)
+                
                 Text("Verifique se as informações estão corretas e faça ajustes se necessário. Depois salve para concluir.")
                     .font(.footnote)
                     .multilineTextAlignment(.center)
@@ -99,7 +100,7 @@ struct TreeReviewView: View {
                 .foregroundStyle(.white)
                 .background(
                     RoundedRectangle(cornerRadius: 16)
-                        .foregroundStyle(viewModel.isEditing ? .primitiveDisabled : .primitivePrimary )
+                        .foregroundStyle(viewModel.isEditing ? .disabled : .CTA)
                 )
             }
         }

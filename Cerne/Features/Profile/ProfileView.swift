@@ -67,7 +67,7 @@ struct ProfileView: View {
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .background(
                                         RoundedRectangle(cornerRadius: 26)
-                                            .foregroundStyle(.white)
+                                            .foregroundStyle(.backgroundPrimary)
                                             .overlay(
                                                 RoundedRectangle(cornerRadius: 26)
                                                     .stroke(.primitivePrimary, lineWidth: 1)
@@ -96,7 +96,7 @@ struct ProfileView: View {
                                         router.path.append(Route.footprint)
                                     } label: {
                                         Image(systemName: "square.and.pencil")
-                                            .foregroundStyle(.primitivePrimary)
+                                            .foregroundStyle(.CTA)
                                             .font(.body)
                                             .fontWeight(.regular)
                                     }
@@ -104,7 +104,7 @@ struct ProfileView: View {
                             }
                             
                             if viewModel.footprint == nil {
-                                EmptyComponent(bgColor: .white, cornerColor: .backgroundSecondary, subtitle: "Cálculo ainda não realizado", description: "Complete o questionário para calcular sua pegada de carbono e descobrir seu impacto no planeta", buttonTitle: "Calcular pegada de carbono", buttonAction: { router.path.append(Route.footprint) })
+                                EmptyComponent(bgColor: .backgroundPrimary, cornerColor: .primitivePrimary, subtitle: "Cálculo ainda não realizado", description: "Complete o questionário para calcular sua pegada de carbono e descobrir seu impacto no planeta", buttonTitle: "Calcular pegada de carbono", buttonAction: { router.path.append(Route.footprint) })
                             } else {
                                 VStack(alignment: .leading, spacing: 8) {
                                     HStack(alignment: .center, spacing: 8) {

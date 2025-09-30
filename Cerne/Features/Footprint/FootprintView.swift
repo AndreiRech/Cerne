@@ -58,7 +58,7 @@ struct FootprintView: View {
                             .padding(.vertical, 13)
                             .background(
                                 RoundedRectangle(cornerRadius: 1000)
-                                    .foregroundStyle(viewModel.isAbleToSave ? .primitivePrimary : .primitiveDisabled)
+                                    .foregroundStyle(viewModel.isAbleToSave ? .primitivePrimary : .disabled)
                             )
                             .foregroundStyle(.white)
                     }

@@ -12,7 +12,7 @@ import SwiftUI
 struct CustomProgressViewStyle: ProgressViewStyle {
     var height: CGFloat = 12
     var cornerRadius: CGFloat = 8
-    var progressColor: Color = .primitivePrimary
+    var progressColor: Color = .CTA
     var trackColor: Color = .backgroundSecondary
 
     func makeBody(configuration: Configuration) -> some View {
