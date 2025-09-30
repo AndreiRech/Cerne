@@ -12,9 +12,8 @@ import SwiftUI
 struct CustomProgressViewStyle: ProgressViewStyle {
     var height: CGFloat = 12
     var cornerRadius: CGFloat = 8
-    var trackColor: Color = .CTA
-    var progressColor: Color = .primitive1
-    var borderColor: Color = .primitive1
+    var progressColor: Color = .CTA
+    var trackColor: Color = .backgroundSecondary
 
     func makeBody(configuration: Configuration) -> some View {
         let progress = configuration.fractionCompleted ?? 0
@@ -29,10 +28,6 @@ struct CustomProgressViewStyle: ProgressViewStyle {
                     .foregroundColor(progressColor)
             }
             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-            .overlay(
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .stroke(borderColor, lineWidth: 1)
-            )
         }
         .frame(height: height) 
     }

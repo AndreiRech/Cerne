@@ -22,17 +22,21 @@ struct CarbonEmmiters: View {
                 HStack(alignment: .center,spacing: 10) {
                     Image(systemName: iconName)
                         .frame(width: 36, height: 26)
+                        .foregroundStyle(.primitivePrimary)
+                        .font(.title3)
+                        .fontWeight(.semibold)
                     
                     Text(title)
-                        .foregroundStyle(.labelPrimary)
+                        .foregroundStyle(.primitivePrimary)
+                        .font(.body)
                         .fontWeight(.semibold)
                 }
                 
                 HStack (alignment: .center, spacing: 8) {
                     Text(description)
-                        .foregroundStyle(.labelPrimary)
-                        .font(.callout)
-                        .foregroundStyle(.labelSecondary)
+                        .foregroundStyle(.primitiveSecondary)
+                        .font(.body)
+                        .fontWeight(.regular)
                     
                     Spacer()
                     
@@ -43,9 +47,13 @@ struct CarbonEmmiters: View {
             HStack(alignment: .center,spacing: 10) {
                 Image(systemName: iconName)
                     .frame(width: 36, height: 26)
+                    .foregroundStyle(.primitivePrimary)
+                    .font(.title3)
+                    .fontWeight(.semibold)
                 
                 Text(title)
-                    .foregroundStyle(.labelPrimary)
+                    .foregroundStyle(.primitivePrimary)
+                    .font(.body)
                     .fontWeight(.semibold)
                 
                 Spacer()

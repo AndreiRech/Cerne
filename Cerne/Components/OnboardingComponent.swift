@@ -43,7 +43,7 @@ struct OnboardingComponent: View {
                             .padding(.vertical, 13)
                             .background(
                                 RoundedRectangle(cornerRadius: 10000)
-                                    .foregroundStyle(.primitive1)
+                                    .foregroundStyle(.CTA)
                             )
                             .glassEffect()
                             .foregroundStyle(.white)

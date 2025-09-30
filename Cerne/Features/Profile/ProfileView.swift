@@ -22,22 +22,22 @@ struct ProfileView: View {
                     VStack(alignment: .leading, spacing: 16) {
                         VStack(alignment: .leading, spacing: 10) {
                             Text("Sua trajetória nos inspira!")
-                                .foregroundStyle(.primitive1)
+                                .foregroundStyle(.primitivePrimary)
                                 .font(.title3)
                                 .fontWeight(.semibold)
                             
                             if viewModel.userPins.count == 0 {
-                                EmptyComponent(bgColor: .CTA, cornerColor: .primitive1, subtitle: "Nenhuma árvore registrada", description: "Comece a mapear árvores para acompanhar o CO₂ já capturado pelas suas contribuições", buttonTitle: "Registrar primeira árvore", buttonAction: { router.path.append(Route.registerTree) })
+                                EmptyComponent(bgColor: .backgroundSecondary, cornerColor: .primitivePrimary, subtitle: "Nenhuma árvore registrada", description: "Comece a mapear árvores para acompanhar o CO₂ já capturado pelas suas contribuições", buttonTitle: "Registrar primeira árvore", buttonAction: { router.path.append(Route.registerTree) })
                             } else {
                                 HStack(alignment: .center, spacing: 16) {
                                     VStack(alignment: .leading, spacing: 8) {
                                         Text(String(viewModel.userPins.count))
-                                            .foregroundStyle(.labelPrimary)
+                                            .foregroundStyle(.primitivePrimary)
                                             .font(.largeTitle)
                                             .fontWeight(.bold)
                                         
                                         Text("árvores\nregistradas")
-                                            .foregroundStyle(.labelPrimary)
+                                            .foregroundStyle(.primitivePrimary)
                                             .font(.body)
                                             .fontWeight(.regular)
                                         
@@ -48,18 +48,18 @@ struct ProfileView: View {
                                             .foregroundStyle(.CTA)
                                             .overlay(
                                                 RoundedRectangle(cornerRadius: 26)
-                                                    .stroke(.primitive1, lineWidth: 1)
+                                                    .stroke(.primitivePrimary, lineWidth: 1)
                                             )
                                     )
                                     
                                     VStack(alignment: .leading, spacing: 8) {
                                         Text(viewModel.totalCO2User())
-                                            .foregroundStyle(.labelPrimary)
+                                            .foregroundStyle(.primitivePrimary)
                                             .font(.largeTitle)
                                             .fontWeight(.bold)
                                         
                                         Text("quilos de CO²\nsequestrados ")
-                                            .foregroundStyle(.labelPrimary)
+                                            .foregroundStyle(.primitivePrimary)
                                             .font(.body)
                                             .fontWeight(.regular)
                                     }
@@ -67,16 +67,16 @@ struct ProfileView: View {
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .background(
                                         RoundedRectangle(cornerRadius: 26)
-                                            .foregroundStyle(.white)
+                                            .foregroundStyle(.backgroundPrimary)
                                             .overlay(
                                                 RoundedRectangle(cornerRadius: 26)
-                                                    .stroke(.primitive1, lineWidth: 1)
+                                                    .stroke(.primitivePrimary, lineWidth: 1)
                                             )
                                     )
                                 }
                                 
                                 Text("Reunimos aqui várias informações sobre sua trajetória dentro do Cerne. Fique a vontade para explorar")
-                                    .foregroundStyle(.primitive1)
+                                    .foregroundStyle(.primitivePrimary)
                                     .font(.footnote)
                                     .fontWeight(.regular)
                             }
@@ -85,7 +85,7 @@ struct ProfileView: View {
                         VStack(alignment: .leading, spacing: 10) {
                             HStack(alignment: .center, spacing: 0) {
                                 Text("Minha pegada de carbono")
-                                    .foregroundStyle(.primitive1)
+                                    .foregroundStyle(.primitivePrimary)
                                     .font(.title3)
                                     .fontWeight(.semibold)
                                 
@@ -96,7 +96,7 @@ struct ProfileView: View {
                                         router.path.append(Route.footprint)
                                     } label: {
                                         Image(systemName: "square.and.pencil")
-                                            .foregroundStyle(.primitive1)
+                                            .foregroundStyle(.CTA)
                                             .font(.body)
                                             .fontWeight(.regular)
                                     }
@@ -104,40 +104,40 @@ struct ProfileView: View {
                             }
                             
                             if viewModel.footprint == nil {
-                                EmptyComponent(bgColor: .white, cornerColor: .primitive1, subtitle: "Cálculo ainda não realizado", description: "Complete o questionário para calcular sua pegada de carbono e descobrir seu impacto no planeta", buttonTitle: "Calcular pegada de carbono", buttonAction: { router.path.append(Route.footprint) })
+                                EmptyComponent(bgColor: .backgroundPrimary, cornerColor: .primitivePrimary, subtitle: "Cálculo ainda não realizado", description: "Complete o questionário para calcular sua pegada de carbono e descobrir seu impacto no planeta", buttonTitle: "Calcular pegada de carbono", buttonAction: { router.path.append(Route.footprint) })
                             } else {
                                 VStack(alignment: .leading, spacing: 8) {
                                     HStack(alignment: .center, spacing: 8) {
                                         Image(systemName: "arrow.trianglehead.2.clockwise.rotate.90.icloud")
-                                            .foregroundStyle(.labelPrimary)
+                                            .foregroundStyle(.primitivePrimary)
                                             .font(.body)
                                             .fontWeight(.semibold)
                                         
                                         HStack(alignment: .bottom, spacing: 8) {
                                             Text(viewModel.footprint ?? "")
-                                                .foregroundStyle(.labelPrimary)
+                                                .foregroundStyle(.primitivePrimary)
                                                 .font(.largeTitle)
                                                 .fontWeight(.bold)
                                             
                                             Text("de CO² por ano")
-                                                .foregroundStyle(.labelPrimary)
+                                                .foregroundStyle(.primitivePrimary)
                                                 .font(.title3)
                                                 .fontWeight(.regular)
                                         }
                                     }
                                     
                                     Text("As decisões e hábitos do seu cotidiano estão diretamente associados ao seu impacto no planeta")
-                                        .foregroundStyle(.labelPrimary)
+                                        .foregroundStyle(.primitivePrimary)
                                         .font(.footnote)
                                         .fontWeight(.regular)
                                 }
                                 .padding(20)
                                 .background(
                                     RoundedRectangle(cornerRadius: 26)
-                                        .foregroundStyle(.white)
+                                        .foregroundStyle(.backgroundPrimary)
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 26)
-                                                .stroke(.primitive1, lineWidth: 1)
+                                                .stroke(.primitivePrimary, lineWidth: 1)
                                         )
                                 )
                             }
@@ -145,7 +145,7 @@ struct ProfileView: View {
                         
                         VStack(alignment: .leading, spacing: 10) {
                             Text("Meu progresso anual")
-                                .foregroundStyle(.primitive1)
+                                .foregroundStyle(.primitivePrimary)
                                 .font(.title3)
                                 .fontWeight(.semibold)
                             
@@ -162,7 +162,7 @@ struct ProfileView: View {
                             }
                             .font(.body)
                             .fontWeight(.regular)
-                            .foregroundStyle(.primitive1)
+                            .foregroundStyle(.CTA)
                             .padding(.vertical, 14)
                             .frame(maxWidth: .infinity, alignment: .center)
                             .background(
@@ -173,16 +173,7 @@ struct ProfileView: View {
                     }
                     .padding(16)
                 }
-                .background(
-                    LinearGradient(
-                        stops: [
-                            .init(color: .white, location: 0.0),
-                            .init(color: .blueBackground, location: 0.4)
-                        ],
-                        startPoint: .topTrailing,
-                        endPoint: .bottomLeading
-                    )
-                )
+                .background(.backgroundPrimary)
                 .alert("Deletar conta definitivamente", isPresented: $isShowingDeleteAlert) {
                     Button("Cancelar", role: .cancel) { }
                     Button("Deletar", role: .destructive) {

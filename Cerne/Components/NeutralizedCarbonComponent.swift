@@ -19,16 +19,17 @@ struct NeutralizedCarbonComponent: View {
             HStack {
                 HStack(spacing: 8) {
                     Image(systemName: "leaf.arrow.trianglehead.clockwise")
+                    
                     Text("Mantenha o ritmo para atingir a meta anual")
                 }
-                .font(.caption2)
+                .font(.footnote)
                 
                 Spacer()
                 
                 Button(action: editAction) {
                     Image(systemName: "info.circle")
                         .font(.title3)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.primitivePrimary)
                 }
             }
             
@@ -37,14 +38,14 @@ struct NeutralizedCarbonComponent: View {
                     .font(.system(.title3, weight: .semibold))
                 Text("Objetivo de \(month): \(Int(monthlyObjective)) kg de CO²")
                     .font(.footnote)
-                    .foregroundStyle(.labelSecondary)
+                    .foregroundStyle(.primitivePrimary)
                 
                 ProgressView(value: min(neutralizedAmount, monthlyObjective), total: monthlyObjective)
                     .progressViewStyle(CustomProgressViewStyle())
             }
         }
         .padding(20)
-        .background(.CTA)
+        .background(.backgroundSecondary)
         .clipShape(RoundedRectangle(cornerRadius: 26))
     }
 }

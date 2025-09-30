@@ -15,6 +15,10 @@ struct InviteFriendsComponent: View {
         VStack(alignment: .leading, spacing: 16) {
             HStack(spacing: 8) {
                 Image(systemName: "person.badge.plus")
+                    .foregroundStyle(.primitivePrimary)
+                    .font(.footnote)
+                    .fontWeight(.regular)
+                
                 Text("Mais pessoas, mais impacto")
             }
             .font(.caption2)
@@ -32,12 +36,12 @@ struct InviteFriendsComponent: View {
                     .foregroundStyle(.white)
                     .background(
                         RoundedRectangle(cornerRadius: 100)
-                            .foregroundStyle(.primitive1)
+                            .foregroundStyle(.CTA)
                     )
             }
         }
         .padding(20)
-        .background(.CTA)
+        .background(.backgroundSecondary)
         .clipShape(RoundedRectangle(cornerRadius: 26))
     }
 }

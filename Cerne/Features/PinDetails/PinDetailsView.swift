@@ -34,6 +34,7 @@ struct PinDetailsView: View {
                         Spacer()
                         
                         Text(viewModel.pin.tree?.species ?? "")
+                            .foregroundStyle(.primitivePrimary)
                             .font(.headline)
                             .fontWeight(.semibold)
                         
@@ -61,10 +62,12 @@ struct PinDetailsView: View {
                         
                         VStack(alignment: .leading, spacing: 4) {
                             Text("Sobre a árvore")
+                                .foregroundStyle(.primitivePrimary)
                                 .font(.body)
                                 .fontWeight(.semibold)
                             
                             Text(viewModel.details?.description ?? "Esta espécie foi reconhecida, mas as informações adicionais ainda não estão disponíveis")
+                                .foregroundStyle(.primitivePrimary)
                                 .font(.footnote)
                                 .fontWeight(.regular)
                         }
@@ -74,16 +77,18 @@ struct PinDetailsView: View {
                 VStack(alignment: .leading, spacing: 10) {
                     HStack(alignment: .top, spacing: 10){
                         Image(systemName: "arrow.trianglehead.2.clockwise.rotate.90.icloud")
-                            .foregroundStyle(.primary)
+                            .foregroundStyle(.primitivePrimary)
                             .font(.system(size: 17, weight: .semibold, design: .default))
                             .frame(width: 26, height: 26, alignment: .center)
                         
                         VStack(alignment: .leading, spacing: 4) {
                             Text("\(viewModel.pin.formattedTotalCO2) kg de CO² capturado")
+                                .foregroundStyle(.primitivePrimary)
                                 .font(.body)
                                 .fontWeight(.semibold)
                             
                             Text("Aproximadamente")
+                                .foregroundStyle(.primitivePrimary)
                                 .font(.footnote)
                                 .fontWeight(.regular)
                         }
@@ -91,16 +96,18 @@ struct PinDetailsView: View {
                     
                     HStack(alignment: .top, spacing: 10){
                         Image(systemName: "leaf.arrow.trianglehead.clockwise")
-                            .foregroundStyle(.primary)
+                            .foregroundStyle(.primitivePrimary)
                             .font(.system(size: 17, weight: .semibold, design: .default))
                             .frame(width: 26, height: 26, alignment: .center)
                         
                         VStack(alignment: .leading, spacing: 4) {
                             Text("Comparativo")
+                                .foregroundStyle(.primitivePrimary)
                                 .font(.body)
                                 .fontWeight(.semibold)
                             
                             Text(viewModel.message())
+                                .foregroundStyle(.primitivePrimary)
                                 .font(.footnote)
                                 .fontWeight(.regular)
                         }
@@ -108,16 +115,18 @@ struct PinDetailsView: View {
                     
                     HStack(alignment: .top, spacing: 10){
                         Image(systemName: "calendar.badge.checkmark")
-                            .foregroundStyle(.primary)
+                            .foregroundStyle(.primitivePrimary)
                             .font(.system(size: 17, weight: .semibold, design: .default))
                             .frame(width: 26, height: 26, alignment: .center)
                         
                         VStack(alignment: .leading, spacing: 4) {
                             Text("\(viewModel.pin.formattedDate)")
+                                .foregroundStyle(.primitivePrimary)
                                 .font(.body)
                                 .fontWeight(.semibold)
                             
                             Text("Data de registro no Cerne")
+                                .foregroundStyle(.primitivePrimary)
                                 .font(.footnote)
                                 .fontWeight(.regular)
                         }
@@ -125,16 +134,18 @@ struct PinDetailsView: View {
                     
                     HStack(alignment: .top, spacing: 10){
                         Image(systemName: "person.icloud.fill")
-                            .foregroundStyle(.primary)
+                            .foregroundStyle(.primitivePrimary)
                             .font(.system(size: 17, weight: .semibold, design: .default))
                             .frame(width: 26, height: 26, alignment: .center)
                         
                         VStack(alignment: .leading, spacing: 4) {
                             Text("\(viewModel.pin.user?.name ?? "Nome do usuário não disponível")")
+                                .foregroundStyle(.primitivePrimary)
                                 .font(.body)
                                 .fontWeight(.semibold)
                             
                             Text("Usuário responsável pelo mapeamento")
+                                .foregroundStyle(.primitivePrimary)
                                 .font(.footnote)
                                 .fontWeight(.regular)
                         }
@@ -154,10 +165,10 @@ struct PinDetailsView: View {
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 14)
-                    .foregroundStyle(viewModel.isPinFromUser ? .red : .primary)
+                    .foregroundStyle(viewModel.isPinFromUser ? .red : .primitivePrimary)
                     .background(
                         RoundedRectangle(cornerRadius: 1000)
-                            .foregroundStyle(viewModel.isPinFromUser ? Color.red.opacity(0.2) : .secondary.opacity(0.2))
+                            .foregroundStyle(viewModel.isPinFromUser ? Color.red.opacity(0.2) : .backgroundSecondary)
                     )
                 }
             }

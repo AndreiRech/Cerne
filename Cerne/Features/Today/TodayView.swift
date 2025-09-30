@@ -22,8 +22,8 @@ struct TodayView: View {
                         
                         if viewModel.monthlyObjective == 0 {
                             EmptyComponent(
-                                bgColor: .CTA,
-                                cornerColor: .CTA,
+                                bgColor: .backgroundSecondary,
+                                cornerColor: .backgroundSecondary,
                                 icon: "leaf.arrow.trianglehead.clockwise",
                                 title: "Sem registros por enquanto",
                                 subtitle: "Cálculo ainda não realizado",
@@ -52,10 +52,10 @@ struct TodayView: View {
                         
                         if viewModel.userPins.count == 0 {
                             EmptyComponent(
-                                bgColor: .white,
-                                cornerColor: .primitive1,
+                                bgColor: .backgroundPrimary,
+                                cornerColor: .primitivePrimary,
                                 subtitle: "Nenhuma árvore registrada",
-                                description: "Comece a mapear árvores para acompanhar o CO₂ já capturado pelas suas contribuições.",
+                                description: "Comece a mapear árvores para acompanhar o CO₂ já capturado pelas suas contribuições",
                                 buttonTitle: "Registrar primeira árvore",
                                 buttonAction: {
                                     router.path.append(Route.registerTree)
@@ -84,8 +84,8 @@ struct TodayView: View {
                         
                         if viewModel.totalTrees == 0 {
                             EmptyComponent(
-                                bgColor: .blueBackground,
-                                cornerColor: .black,
+                                bgColor: .backgroundPrimary,
+                                cornerColor: .primitivePrimary,
                                 icon: "person.3",
                                 title: "Juntos ampliamos o impacto positivo",
                                 subtitle: "Somando esforços pelo futuro",
@@ -126,7 +126,7 @@ struct TodayView: View {
                                 
                             }
                             .padding(20)
-                            .background(.black.opacity(0.10))
+                            .background(.backgroundSecondary)
                             .clipShape(RoundedRectangle(cornerRadius: 26))
                         }
                         
@@ -170,8 +170,7 @@ struct TodayView: View {
                     OnboardingView(viewModel: OnboardingViewModel(userDefaultService: UserDefaultService(), userService: UserService()))
                 }
             }
-            
-            .navigationTitle("Olá, \(viewModel.userName)")
+            .navigationTitle("Olá, \(viewModel.userName)!")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink {
@@ -188,16 +187,8 @@ struct TodayView: View {
                     }
                 }
             }
-            .background(
-                LinearGradient(
-                    stops: [
-                        .init(color: .white, location: 0.0),
-                        .init(color: .blueBackground, location: 0.4)
-                    ],
-                    startPoint: .topTrailing,
-                    endPoint: .bottomLeading
-                )
-            )
+            .background(.backgroundPrimary)
+            .foregroundStyle(.primitivePrimary)
             .onAppear {
                 Task {
                     await viewModel.fetchUserPins()
@@ -206,11 +197,9 @@ struct TodayView: View {
                     await viewModel.calculateMonthlyObjective()
                 }
             }
-            .foregroundStyle(.primitive1)
             .sheet(isPresented: $viewModel.isShowingShareSheet) {
                 ShareSheet(items: ["Olha que legal o App Cerne: ele calcula quanto de carbono as árvores da sua cidade conseguem reter para ajudar a limpar o ar. Achei que você ia gostar. LINK"])
             }
         }
-        
     }
 }
