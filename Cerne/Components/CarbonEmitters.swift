@@ -55,3 +55,8 @@ struct CarbonEmmiters: View {
         }
     }
 }
+
+#Preview {
+    @Previewable @State var selection: String = "Selecionar"
+    CarbonEmmiters(iconName: "car.fill", title: "Carro", description: "qual tipo?", options: CarbonEmittersEnum.car.getPickerOptions(), isEnabled: true, selection: $selection)
+}

@@ -1,11 +1,11 @@
 [
   {
     "id": 1,
-    "text": "Com qual frequência você usa aquecimento/ar-condicionado?",
+    "text": "Com que frequência você usa ar-condicionado?",
     "options": [
-      { "id": 1, "text": "Não uso (ou quase nunca)", "value": 0 },
-      { "id": 2, "text": "Uso ocasional (algumas semanas por ano)", "value": 300 },
-      { "id": 3, "text": "Uso frequente (várias horas/dia em temporadas)", "value": 800 }
+      { "id": 1, "text": "Não uso", "value": 0 },
+      { "id": 2, "text": "Uso ocasionalmente", "value": 150 },
+      { "id": 3, "text": "Uso frequentemente", "value": 400 }
     ]
   },
   {
@@ -13,9 +13,9 @@
     "text": "Qual tipo de combustível o seu carro usa?",
     "options": [
       { "id": 1, "text": "Não tenho carro", "value": 0 },
-      { "id": 2, "text": "Gasolina/Álcool", "value": 5200 },
-      { "id": 3, "text": "Diesel", "value": 6000 },
-      { "id": 4, "text": "Híbrido/Elétrico", "value": 3000 }
+      { "id": 2, "text": "Gasolina / Álcool", "value": 0 },
+      { "id": 3, "text": "Diesel", "value": 0 },
+      { "id": 4, "text": "Híbrido / Elétrico", "value": 0 }
     ]
   },
   {
@@ -24,9 +24,9 @@
     "dependsOn": { "questionId": 2, "optionIdNotAllowed": 1 },
     "options": [
       { "id": 1, "text": "0 km", "value": 0 },
-      { "id": 2, "text": "< 50 km (uso baixo)", "value": 1300 },
-      { "id": 3, "text": "50–150 km (uso médio)", "value": 5200 },
-      { "id": 4, "text": "> 150 km (uso alto)", "value": 11700 }
+      { "id": 2, "text": "Menos de 50 km", "value": 650 },
+      { "id": 3, "text": "50-150 km", "value": 1000 },
+      { "id": 4, "text": "Mais de 150 km", "value": 2000 }
     ]
   },
   {
@@ -34,49 +34,49 @@
     "text": "Quantos quilômetros você percorre de transporte público por semana?",
     "options": [
       { "id": 1, "text": "0 km", "value": 0 },
-      { "id": 2, "text": "< 50 km (pouco uso)", "value": 78 },
-      { "id": 3, "text": "50–150 km (uso médio)", "value": 312 },
-      { "id": 4, "text": "> 150 km (uso alto)", "value": 702 }
+      { "id": 2, "text": "Menos de 50 km", "value": 50 },
+      { "id": 3, "text": "50-150 km", "value": 150 },
+      { "id": 4, "text": "Mais de 150 km", "value": 350 }
     ]
   },
   {
     "id": 5,
-    "text": "Quantos voos de curta distância (domésticos) você faz por ano?",
+    "text": "Quantos voos domésticos você faz por ano?",
     "options": [
-      { "id": 1, "text": "0", "value": 0 },
-      { "id": 2, "text": "1–2 voos", "value": 400 },
-      { "id": 3, "text": "3–5 voos", "value": 800 },
-      { "id": 4, "text": "6 ou mais", "value": 1200 }
+      { "id": 1, "text": "0 voos", "value": 0 },
+      { "id": 2, "text": "1-2 voos", "value": 400 },
+      { "id": 3, "text": "3-5 voos", "value": 800 },
+      { "id": 4, "text": "6 ou mais voos", "value": 1200 }
     ]
   },
   {
     "id": 6,
-    "text": "Quantos voos de longa distância (internacionais) você faz por ano?",
+    "text": "Quantos voos internacionais você faz por ano?",
     "options": [
-      { "id": 1, "text": "0", "value": 0 },
+      { "id": 1, "text": "0 voos", "value": 0 },
       { "id": 2, "text": "1 voo", "value": 1000 },
       { "id": 3, "text": "2 voos", "value": 2000 },
-      { "id": 4, "text": "3 ou mais", "value": 3000 }
+      { "id": 4, "text": "3 ou mais voos", "value": 3000 }
     ]
   },
   {
     "id": 7,
-    "text": "Qual é a sua dieta?",
+    "text": "Adota alguma dieta ou restrição alimentar?",
     "options": [
-      { "id": 1, "text": "Vegano", "value": 1200 },
-      { "id": 2, "text": "Vegetariano", "value": 1500 },
-      { "id": 3, "text": "Pouca carne", "value": 2000 },
-      { "id": 4, "text": "Consumo médio/alto de carne", "value": 3200 }
+      { "id": 1, "text": "Vegana", "value": 600 },
+      { "id": 2, "text": "Vegetariana", "value": 750 },
+      { "id": 3, "text": "Consumo pouca carne", "value": 1000 },
+      { "id": 4, "text": "Consumo carne diariamente", "value": 1500 }
     ]
   },
   {
     "id": 8,
     "text": "Com que frequência você compra roupas, eletrônicos ou móveis novos?",
     "options": [
-      { "id": 1, "text": "Muito raramente (só quando necessário)", "value": 200 },
-      { "id": 2, "text": "Poucas vezes por ano (baixo consumo)", "value": 400 },
-      { "id": 3, "text": "Algumas vezes por ano (uso médio)", "value": 800 },
-      { "id": 4, "text": "Frequentemente (uso alto)", "value": 1200 }
+      { "id": 1, "text": "Raramente", "value": 100 },
+      { "id": 2, "text": "Poucas vezes ao ano", "value": 200 },
+      { "id": 3, "text": "Algumas vezes ao ano", "value": 400 },
+      { "id": 4, "text": "Frequentemente", "value": 600 }
     ]
   },
   {
@@ -91,12 +91,12 @@
   },
   {
     "id": 10,
-    "text": "Você usa eletrodomésticos de alto consumo (secadora, aquecedor elétrico, sauna etc.)?",
+    "text": "Você usa eletrodomésticos de alto consumo (secadora, aquecedor)?",
     "options": [
-      { "id": 1, "text": "Quase nenhum", "value": 0 },
-      { "id": 2, "text": "1 ou 2 aparelhos ocasionalmente", "value": 300 },
-      { "id": 3, "text": "Alguns frequentemente", "value": 500 },
-      { "id": 4, "text": "Vários frequentemente", "value": 800 }
+      { "id": 1, "text": "Quase nunca", "value": 0 },
+      { "id": 2, "text": "1 ou 2 ocasionalmente", "value": 150 },
+      { "id": 3, "text": "Alguns frequentemente", "value": 250 },
+      { "id": 4, "text": "Vários frequentemente", "value": 400 }
     ]
   }
 ]

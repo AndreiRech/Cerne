@@ -66,20 +66,20 @@ enum CarbonEmittersEnum: CaseIterable {
     
     func getPickerOptions() -> [String] {
         switch self {
+        case .car:
+            return ["Selecionar", "Não tenho carro", "Gasolina / Álcool", "Diesel", "Híbrido / Elétrico"]
+        case .km:
+            return ["Selecionar", "0 km", "Menos de 50 km", "50-150 km", "Mais de 150 km"]
+        case .bus:
+            return ["Selecionar", "0 km", "Menos de 50 km", "50-150 km", "Mais de 150 km"]
+        case .shortHaulFlight:
+            return ["Selecionar", "0 voos", "1-2 voos", "3-5 voos", "6 ou mais voos"]
+        case .longHaulFlight:
+            return ["Selecionar", "0 voos", "1 voo", "2 voos", "3 ou mais voos"]
+        case .diet:
+            return ["Selecionar", "Vegana", "Vegetariana", "Consumo pouca carne", "Consumo carne diariamente"]
         case .airConditioner:
             return ["Selecionar", "Não uso (ou quase nunca)", "Uso ocasional (algumas semanas por ano)", "Uso frequente (várias horas/dia em temporadas)"]
-        case .car:
-            return ["Selecionar", "Não tenho carro", "Gasolina/Álcool", "Diesel", "Híbrido/Elétrico"]
-        case .km:
-            return ["Selecionar", "0 km", "< 50 km (uso baixo)", "50–150 km (uso médio)", "> 150 km (uso alto)"]
-        case .bus:
-            return ["Selecionar", "0 km", "< 50 km (pouco uso)", "50–150 km (uso médio)", "> 150 km (uso alto)"]
-        case .shortHaulFlight:
-            return ["Selecionar", "0", "1–2 voos", "3–5 voos", "6 ou mais"]
-        case .longHaulFlight:
-            return ["Selecionar", "0", "1 voo", "2 voos", "3 ou mais"]
-        case .diet:
-            return ["Selecionar", "Vegano", "Vegetariano", "Pouca carne", "Consumo médio/alto de carne"]
         case .purchase:
             return ["Selecionar", "Muito raramente (só quando necessário)", "Poucas vezes por ano (baixo consumo)", "Algumas vezes por ano (uso médio)", "Frequentemente (uso alto)"]
         case .recicle:

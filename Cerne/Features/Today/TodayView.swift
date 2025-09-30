@@ -129,6 +129,71 @@ struct TodayView: View {
                                     .padding(20)
                                     .background(.black.opacity(0.10))
                                     .clipShape(RoundedRectangle(cornerRadius: 26))
+                    //         )
+                    //     } else {
+                    //         NeutralizedCarbonComponent(
+                    //             neutralizedPercentage: viewModel.percentageCO2User(),
+                    //             month: viewModel.month,
+                    //             monthlyObjective: Double(viewModel.monthlyObjective),
+                    //             neutralizedAmount: viewModel.neutralizedAmountThisMonth(),
+                    //             editAction: {
+                    //                 router.path.append(Route.footprint)
+                    //             }
+                    //         )
+                    //     }
+                        
+                    // }
+                    // VStack(alignment: .leading, spacing: 10) {
+                    //     Text("Minhas contribuições")
+                    //         .font(.system(.title3, weight: .semibold))
+                        
+                    //     if viewModel.userPins.count == 0 {
+                    //         EmptyComponent(
+                    //             bgColor: .white,
+                    //             cornerColor: .primitive1,
+                    //             subtitle: "Nenhuma árvore registrada",
+                    //             description: "Comece a mapear árvores para acompanhar o CO₂ já capturado pelas suas contribuições.",
+                    //             buttonTitle: "Registrar primeira árvore",
+                    //             buttonAction: {
+                    //                 router.path.append(Route.registerTree)
+                    //             }
+                    //         )
+                    //     } else {
+                    //         ScrollView(.horizontal, showsIndicators: false) {
+                    //             HStack {
+                    //                 ForEach(viewModel.userPins.reversed()) { pin in
+                    //                     ContribuitionTreeComponent(
+                    //                         treeName: pin.tree?.species ?? "",
+                    //                         treeCO2: pin.tree?.totalCO2 ?? 0,
+                    //                         treeImage: UIImage(data: pin.image ?? Data()) ?? UIImage(named: "TreeTest")!
+                    //                     )
+                    //                 }
+                    //             }
+                    //             .padding(.horizontal, 16)
+                    //         }
+                    //         .padding(.horizontal, -16)
+                    //     }
+                        
+                    // }
+                    // VStack(alignment: .leading, spacing: 10) {
+                    //     Text("Força da comunidade")
+                    //         .font(.system(.title3, weight: .semibold))
+                        
+                    //     if viewModel.totalTrees == 0 {
+                    //         EmptyComponent(
+                    //             bgColor: .blueBackground,
+                    //             cornerColor: .black,
+                    //             icon: "person.3",
+                    //             title: "Juntos ampliamos o impacto positivo",
+                    //             subtitle: "Somando esforços pelo futuro",
+                    //             description: "Aqui apareceram os dados mapeados de toda a comunidade, unidos para futuro mais sustentável para todos"
+                    //         )
+                    //     }
+                    //     else {
+                    //         VStack(alignment: .leading, spacing: 16) {
+                    //             HStack(spacing: 8) {
+                    //                 Image(systemName: "person.3")
+                    //                 Text("Juntos ampliamos o impacto positivo")
                                 }
                                 
                             }
@@ -192,6 +257,53 @@ struct TodayView: View {
                     .foregroundStyle(.primitive1)
                     .sheet(isPresented: $viewModel.isShowingShareSheet) {
                         ShareSheet(items: ["Olha que legal o App Cerne: ele calcula quanto de carbono as árvores da sua cidade conseguem reter para ajudar a limpar o ar. Achei que você ia gostar. LINK"])
+            //         Spacer()
+            //     }
+            //     .padding(.horizontal, 16)
+            //     .frame(maxWidth: .infinity, alignment: .leading)
+            // }
+            
+            // .navigationDestination(for: Route.self) { route in
+            //     switch route {
+            //     case .footprint:
+            //         FootprintView(
+            //             viewModel: FootprintViewModel(
+            //                 footprintService: FootprintService(),
+            //                 userService: UserService()
+            //             )
+            //         )
+            //         .toolbar(.hidden, for: .tabBar)
+            //         .navigationBarBackButtonHidden(true)
+                    
+            //     case .registerTree:
+            //         PhotoView(
+            //             viewModel: PhotoViewModel(
+            //                 cameraService: CameraService(),
+            //                 treeAPIService: TreeAPIService(),
+            //                 userDefaultService: UserDefaultService()
+            //             )
+            //         )
+            //         .toolbar(.hidden, for: .tabBar)
+            //         .navigationBarBackButtonHidden(true)
+            //     case .onBoarding:
+            //         OnboardingView(viewModel: OnboardingViewModel(userDefaultService: UserDefaultService(), userService: UserService()))
+            //     }
+            // }
+            
+            // .navigationTitle("Olá, \(viewModel.userName)")
+            // .toolbar {
+            //     ToolbarItem(placement: .topBarTrailing) {
+            //         NavigationLink {
+            //             ProfileView(
+            //                 viewModel: ProfileViewModel(
+            //                     pinService: PinService(),
+            //                     userService: UserService(),
+            //                     footprintService: FootprintService(),
+            //                     userDefaultService: UserDefaultService()
+            //                 )
+            //             )
+            //         } label: {
+            //             Image(systemName: "person")
                     }
                     .navigationTitle("Olá, \(viewModel.userName)")
                 }

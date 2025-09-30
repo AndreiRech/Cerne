@@ -99,7 +99,7 @@ class FootprintViewModel: FootprintViewModelProtocol {
 
         do {
             let questions = try footprintService.getQuestions(fileName: "Questions")
-
+            
             for (emitter, selectedOptionText) in selections {
                 if let question = questions.first(where: { $0.text == emitter.description }) {
                     if let option = question.options.first(where: { $0.text == selectedOptionText }) {
@@ -115,5 +115,24 @@ class FootprintViewModel: FootprintViewModelProtocol {
         }
         
         return (totalEmittedCarbon, userResponses)
+    }
+    
+    func loadUserSelections() async {
+        do {
+            let currentUser = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
+            if let userFootprint = try footprintService.fetchFootprint(for: currentUser),
+               let responses = userFootprint.responses {
+                let questions = try footprintService.getQuestions(fileName: "Questions")
+                for response in responses {
+                    if let question = questions.first(where: { $0.id == response.questionId }),
+                       let option = question.options.first(where: { $0.id == response.optionId }),
+                       let emitter = CarbonEmittersEnum.allCases.first(where: { $0.description == question.text }) {
+                        selections[emitter] = option.text
+                    }
+                }
+            }
+        } catch {
+            print("Erro ao carregar seleções do usuário: \(error.localizedDescription)")
+        }
     }
 }
