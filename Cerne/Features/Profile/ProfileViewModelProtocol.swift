@@ -8,15 +8,12 @@
 import Foundation
 
 protocol ProfileViewModelProtocol {
-    var pinService: PinServiceProtocol { get }
-    var userService: UserServiceProtocol { get }
-    var footprintService: FootprintServiceProtocol { get }
     var userPins: [Pin] { get }
     var footprint: String? { get }
     var isLoading: Bool { get  set }
     var totalCO2: String { get }
+    var isShowingDeleteAlert: Bool { get set }
     
-    func fetchUserPins() async
-    func fetchFootprint() async
+    func fetchData() async
     func deleteAccount() async
 }

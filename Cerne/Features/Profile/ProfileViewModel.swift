@@ -9,77 +9,83 @@ import Foundation
 
 @Observable
 class ProfileViewModel: ProfileViewModelProtocol {
-    var pinService: PinServiceProtocol
-    var userService: UserServiceProtocol
-    var footprintService: FootprintServiceProtocol
-    var userDefaultService: UserDefaultServiceProtocol
-    var treeService: ScannedTreeServiceProtocol
+    private var repository: ProfileRepositoryProtocol
+    
+    private var user: User?
+    private var userFootprint: Footprint?
+    private var allPins: [Pin] = []
+    private var allTrees: [ScannedTree] = []
     
     var userPins: [Pin] = []
     var footprint: String?
     var isLoading: Bool = true
     var totalCO2: String = "0"
+    var isShowingDeleteAlert = false
     
-    init(pinService: PinServiceProtocol, userService: UserServiceProtocol, footprintService: FootprintServiceProtocol, userDefaultService: UserDefaultServiceProtocol, treeService: ScannedTreeServiceProtocol) {
-        self.pinService = pinService
-        self.userService = userService
-        self.footprintService = footprintService
-        self.userDefaultService = userDefaultService
-        self.treeService = treeService
+    init(repository: ProfileRepositoryProtocol) {
+        self.repository = repository
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(userDataDidUpdate),
+            name: .didUpdateUserData,
+            object: nil
+        )
     }
     
-    func fetchUserPins() async {
+    func fetchData() async {
         self.isLoading = true
+        defer { self.isLoading = false }
         
         do {
-            let currentUser = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
-            let pins = try await pinService.fetchPins()
-            let tree = try await treeService.fetchScannedTrees()
+            let data = try await repository.fetchProfileData()
+            
+            self.user = data.currentUser
+            self.allPins = data.allPins
+            self.allTrees = data.allTrees
+            
+            if let userFootprint = data.userFootprint {
+                let totalInKg = userFootprint.total
+                self.footprint = String(format: "%.0f Kg", totalInKg)
+            } else {
+                self.userFootprint = nil
+            }
+            
+            self.userPins = []
+            self.userPins = data.allPins.filter { $0.userRecordID == data.currentUser.recordID }
             
             var total: Double = 0.0
-            for pin in pins {
-                if pin.userRecordID == currentUser.recordID {
-                    self.userPins.append(pin)
-                }
-                
-                for scannedTree in tree {
-                    if pin.treeRecordID == scannedTree.recordID {
-                        total += scannedTree.totalCO2
-                    }
+            for pin in data.allPins {
+                if let tree = getTree(for: pin) {
+                    total += tree.totalCO2
                 }
             }
             totalCO2 = String(format: "%.0f", total)
-            
-            await fetchFootprint()
         } catch {
-            print("Erro ao buscar os pins do usuário: \(error.localizedDescription)")
-            self.userPins = []
+            print("Erro ao buscar dados do repositório: \(error.localizedDescription)")
         }
-    }
-    
-    func fetchFootprint() async {
-        do {
-            let currentUser = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
-            
-            if let userFootprint = try await footprintService.fetchFootprint(for: currentUser) {
-                let totalInKg = userFootprint.total
-                footprint = String(format: "%.0f Kg", totalInKg)
-            }
-        } catch {
-            print("Erro ao carregar o footprint: \(error.localizedDescription)")
-        }
-        
-        self.isLoading = false
     }
     
     func deleteAccount() async {
+        self.isLoading = true
+        defer { self.isLoading = false }
+        
         do {
-            let currentUser = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
-            try await userService.deleteUser(currentUser)
-            userDefaultService.setOnboarding(value: false)
-            userDefaultService.setFirstTime(value: false)
+            guard let user = self.user else { return }
+            
+            try await repository.deleteAccount(for: user)
         } catch {
             print("Erro ao deletar o usuário: \(error.localizedDescription)")
+        }
+    }
+    
+    private func getTree(for pin: Pin) -> ScannedTree? {
+        return allTrees.first { tree in tree.recordID == pin.treeRecordID }
+    }
+    
+    @objc private func userDataDidUpdate() {
+        Task { @MainActor in
+            await fetchData()
         }
     }
 }
