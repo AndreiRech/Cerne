@@ -1,5 +1,5 @@
 //
-//  TodayDTO.swift
+//  ProfileDTO.swift
 //  Cerne
 //
 //  Created by Andrei Rech on 30/09/25.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TodayDTO {
+class ProfileDTO {
     let currentUser: User
     let allPins: [Pin]
     let allTrees: [ScannedTree]
