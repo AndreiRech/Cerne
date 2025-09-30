@@ -54,7 +54,7 @@ struct UserCreateView: View {
                         .frame(height: 62)
                         .background(
                             RoundedRectangle(cornerRadius: 26)
-                                .foregroundStyle(.white)
+                                .foregroundStyle(.backgroundPrimary)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 26)
                                         .stroke(.primitivePrimary, lineWidth: 1)

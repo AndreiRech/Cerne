@@ -99,6 +99,7 @@ struct ProfileView: View {
                                             .foregroundStyle(.CTA)
                                             .font(.body)
                                             .fontWeight(.regular)
+                                            .frame(width: 44, height: 44, alignment: .center)
                                     }
                                 }
                             }
@@ -131,6 +132,7 @@ struct ProfileView: View {
                                         .font(.footnote)
                                         .fontWeight(.regular)
                                 }
+                                .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(20)
                                 .background(
                                     RoundedRectangle(cornerRadius: 26)
@@ -149,7 +151,17 @@ struct ProfileView: View {
                                 .font(.title3)
                                 .fontWeight(.semibold)
                             
-                            
+                            if viewModel.annualData.isEmpty {
+                                Text("Nenhum registro encontrado para este ano.")
+                                    .font(.subheadline)
+                                    .foregroundStyle(.primitiveSecondary)
+                            } else {
+                                AnnualProgressGraph(
+                                    data: viewModel.annualData,
+                                    CO2AnualPercent: viewModel.CO2AnualPercent(),
+                                    monthlyObjective: viewModel.monthlyObjective
+                                )
+                            }
                         }
                         
                         Button {
