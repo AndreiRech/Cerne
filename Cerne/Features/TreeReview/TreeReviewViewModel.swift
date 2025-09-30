@@ -108,16 +108,14 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
                 throw GenericError.serviceError
             }
             
-            let pin = try await pinService.createPin (
+            let _ = try await pinService.createPin (
                 image: treeImage,
                 latitude: pinLatitude,
                 longitude: pinLongitude,
                 user: user,
                 tree: tree
             )
-            
-            print(pin)
-            
+                        
             userDefaultService.setFirstTime(value: true)
             
         } catch {

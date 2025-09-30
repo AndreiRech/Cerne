@@ -60,7 +60,6 @@ final class MapViewModel: MapViewModelProtocol {
     func getPins() async {
         do {
             try await pins = pinService.fetchPins()
-            print(pins)
             updateVisualization()
         } catch {
             print("Was not possible to fetch pins: \(error)")
