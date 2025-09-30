@@ -29,7 +29,7 @@ struct NeutralizedCarbonComponent: View {
                 Button(action: editAction) {
                     Image(systemName: "info.circle")
                         .font(.title3)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.primitivePrimary)
                 }
             }
             
