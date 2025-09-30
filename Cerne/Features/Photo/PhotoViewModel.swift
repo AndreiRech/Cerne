@@ -51,6 +51,7 @@ class PhotoViewModel: PhotoViewModelProtocol {
     func onAppear() {
         Task {
             if await cameraService.requestPermissions() {
+                (cameraService as? CameraService)?.setup()
                 cameraService.startSession()
             } else {
                 errorMessage = cameraService.errorMessage
