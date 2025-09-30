@@ -8,24 +8,17 @@
 import Foundation
 
 @Observable
-@MainActor
-class TodayViewModel: TodayViewModelProtocol {    
-    var pinService: PinServiceProtocol
-    var userService: UserServiceProtocol
-    var footprintService: FootprintServiceProtocol
-    var treeService: ScannedTreeServiceProtocol
-    
-    private var user: User?
-    private var allTrees: [ScannedTree] = []
+class TodayViewModel: TodayViewModelProtocol {
+    private var repository: TodayRepositoryProtocol
     
     var userPins: [Pin] = []
     var allPins: [Pin] = []
     var userName: String = ""
+    var userFootprint: Footprint?
+    private var allTrees: [ScannedTree] = []
     
     private var totalCO2Double: Double = 0.0
-    var totalCO2: String {
-        String(format: "%.0f", totalCO2Double)
-    }
+    var totalCO2: String { String(format: "%.0f", totalCO2Double) }
     
     var isShowingShareSheet: Bool = false
     var isLoading: Bool = false
@@ -33,44 +26,48 @@ class TodayViewModel: TodayViewModelProtocol {
     var month: String = Date().formatted(.dateTime.month(.wide).locale(Locale(identifier: "pt_BR"))).capitalized
     var monthlyObjective: Int = 0
     
-    init(pinService: PinServiceProtocol, userService: UserServiceProtocol, footprintService: FootprintServiceProtocol, treeService: ScannedTreeServiceProtocol) {
-        self.pinService = pinService
-        self.userService = userService
-        self.footprintService = footprintService
-        self.treeService = treeService
+    init(repository: TodayRepositoryProtocol) {
+        self.repository = repository
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(userDataDidUpdate),
+            name: .didUpdateUserData,
+            object: nil
+        )
     }
     
-    func fetchInformation() async {
+    func fetchData() async {
         self.isLoading = true
         defer { self.isLoading = false }
         
-        self.userPins = []
-        self.allPins = []
-        self.allTrees = []
-
         do {
-            self.user = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
-            self.allPins = try await pinService.fetchPins()
-            self.allTrees = try await treeService.fetchScannedTrees()
-
-            userName = user?.name ?? "Usuario"
-
-            for pin in allPins {
-                if pin.userRecordID == user?.recordID {
-                    self.userPins.append(pin)
-                }
-
-                for scannedTree in allTrees {
-                    if pin.treeRecordID == scannedTree.recordID {
-                        totalCO2Double += scannedTree.totalCO2
-                    }
+            let data = try await repository.fetchTodayData()
+            
+            self.userName = data.currentUser.name
+            self.allPins = data.allPins
+            self.allTrees = data.allTrees
+            
+            if let userFootprint = data.userFootprint {
+                self.monthlyObjective = Int(userFootprint.total / 12)
+            } else {
+                self.userFootprint = nil
+                self.monthlyObjective = 0
+            }
+            
+            self.userPins = []
+            self.totalCO2Double = 0.0
+            
+            self.userPins = data.allPins.filter { $0.userRecordID == data.currentUser.recordID }
+            
+            for pin in data.allPins {
+                if let tree = getTree(for: pin) {
+                    totalCO2Double += tree.totalCO2
                 }
             }
+            
         } catch {
-            print("Erro ao buscar os pins do usuário: \(error.localizedDescription)")
-            self.userPins = []
-            self.allPins = []
-            self.allTrees = []
+            print("Erro ao buscar dados do repositório: \(error.localizedDescription)")
         }
     }
     
@@ -104,19 +101,6 @@ class TodayViewModel: TodayViewModelProtocol {
             total = 100
         }
         return total
-    }
-    
-    func calculateMonthlyObjective() async {
-        do {
-            guard let user else { return }
-            
-            if let userFootprint = try await footprintService.fetchFootprint(for: user) {
-                self.monthlyObjective = Int(userFootprint.total / 12)
-            }
-        } catch {
-            print("Erro ao calcular o objetivo do mês: \(error.localizedDescription)")
-            self.monthlyObjective = 0
-        }
     }
     
     func neutralizedAmountThisMonth() -> Double {
@@ -164,6 +148,12 @@ class TodayViewModel: TodayViewModelProtocol {
     
     func getTree(for pin: Pin) -> ScannedTree? {
         return allTrees.first { tree in tree.recordID == pin.treeRecordID }
+    }
+    
+    @objc private func userDataDidUpdate() {
+        Task { @MainActor in
+            await fetchData()
+        }
     }
 }
 
