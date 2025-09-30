@@ -36,16 +36,16 @@ enum CarbonEmittersEnum: CaseIterable {
     
     var description: String {
         switch self {
-        case .airConditioner: return "Com qual frequência você usa aquecimento/ar-condicionado?"
         case .car: return "Qual tipo de combustível o seu carro usa?"
         case .km: return "Quantos quilômetros você dirige por semana?"
         case .bus: return "Quantos quilômetros você percorre de transporte público por semana?"
-        case .shortHaulFlight: return "Quantos voos de curta distância (domésticos) você faz por ano?"
-        case .longHaulFlight: return "Quantos voos de longa distância (internacionais) você faz por ano?"
-        case .diet: return "Qual é a sua dieta?"
+        case .shortHaulFlight: return "Quantos voos domésticos você faz por ano?"
+        case .longHaulFlight: return "Quantos voos internacionais você faz por ano?"
+        case .diet: return "Adota alguma dieta ou restrição alimentar?"
+        case .airConditioner: return "Com que frequência você usa ar-condicionado?"
         case .purchase: return "Com que frequência você compra roupas, eletrônicos ou móveis novos?"
+        case .houseHold: return "Você usa eletrodomésticos de alto consumo (secadora, aquecedor)?"
         case .recicle: return "Como você lida com resíduos/reciclagem?"
-        case .houseHold: return "Você usa eletrodomésticos de alto consumo (secadora, aquecedor elétrico, sauna etc.)?"
         }
     }
     
@@ -79,13 +79,13 @@ enum CarbonEmittersEnum: CaseIterable {
         case .diet:
             return ["Selecionar", "Vegana", "Vegetariana", "Consumo pouca carne", "Consumo carne diariamente"]
         case .airConditioner:
-            return ["Selecionar", "Não uso (ou quase nunca)", "Uso ocasional (algumas semanas por ano)", "Uso frequente (várias horas/dia em temporadas)"]
+            return ["Selecionar", "Não uso", "Uso ocasionalmente", "Uso frequentemente"]
         case .purchase:
-            return ["Selecionar", "Muito raramente (só quando necessário)", "Poucas vezes por ano (baixo consumo)", "Algumas vezes por ano (uso médio)", "Frequentemente (uso alto)"]
+            return ["Selecionar", "Raramente", "Poucas vezes ao ano", "Algumas vezes ao ano", "Frequentemente"]
+        case .houseHold:
+            return ["Selecionar", "Quase nunca", "1 ou 2 ocasionalmente", "Alguns frequentemente", "Vários frequentemente"]
         case .recicle:
             return ["Selecionar", "Reciclo quase tudo", "Reciclo algumas coisas", "Reciclo pouco", "Não reciclo"]
-        case .houseHold:
-            return ["Selecionar", "Quase nenhum", "1 ou 2 aparelhos ocasionalmente", "Alguns frequentemente", "Vários frequentemente"]
         }
     }
 }
