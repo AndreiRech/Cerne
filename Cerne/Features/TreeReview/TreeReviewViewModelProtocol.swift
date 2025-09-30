@@ -23,6 +23,7 @@ protocol TreeReviewViewModelProtocol {
     var treeImage: UIImage? { get }
     var estimatedHeight: Double { get }
     var errorMessage: String? { get set }
+    var treeSpecies: String { get set }
     
     func createScannedTree() async
     func calculateCO2(height: Double, dap: Float, density: Double) -> Double

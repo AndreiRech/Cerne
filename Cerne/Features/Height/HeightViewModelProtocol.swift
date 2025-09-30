@@ -32,6 +32,8 @@ protocol HeightViewModelProtocol {
     var showInfo: Bool { get set }
     var isMeasuring: Bool { get set }
     
+    var treeSpecies: String { get set }
+    
     func onAppear()
     func onDisappear()
     func calculateHeight(angleInDegrees: Double)

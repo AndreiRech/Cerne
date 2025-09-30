@@ -71,7 +71,8 @@ struct PhotoView: View {
                                 DiameterView(
                                     viewModel: DiameterViewModel(
                                         treeImage: capturedImage,
-                                        userDefaultService: UserDefaultService()
+                                        userDefaultService: UserDefaultService(),
+                                        treeSpecies: viewModel.identifiedTree?.bestMatch ?? ""
                                     )
                                 )
                                 .navigationBarHidden(false)
