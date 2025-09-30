@@ -1,5 +1,5 @@
 //
-//  DIstanceViewModelProtocol.swift
+//  DistanceViewModelProtocol.swift
 //  Cerne
 //
 //  Created by Andrei Rech on 12/09/25.
