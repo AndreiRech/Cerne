@@ -10,7 +10,7 @@
   },
   {
     "id": 2,
-    "text": "Você possui carro? Se sim, qual o tipo?",
+    "text": "Qual tipo de combustível o seu carro usa?",
     "options": [
       { "id": 1, "text": "Não tenho carro", "value": 0 },
       { "id": 2, "text": "Gasolina/Álcool", "value": 5200 },
