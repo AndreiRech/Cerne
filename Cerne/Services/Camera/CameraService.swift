@@ -27,6 +27,9 @@ class CameraService: NSObject, ObservableObject, CameraServiceProtocol, AVCaptur
     
     override init() {
         super.init()
+    }
+    
+    func setup() {
         setupSession()
     }
     

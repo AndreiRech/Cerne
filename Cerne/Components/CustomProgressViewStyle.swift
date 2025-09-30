@@ -14,21 +14,26 @@ struct CustomProgressViewStyle: ProgressViewStyle {
     var cornerRadius: CGFloat = 8
     var progressColor: Color = .CTA
     var trackColor: Color = .backgroundSecondary
-
+    var borderColor: Color = .primitivePrimary
+    
     func makeBody(configuration: Configuration) -> some View {
         let progress = configuration.fractionCompleted ?? 0
-
+        
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
                 RoundedRectangle(cornerRadius: cornerRadius)
                     .foregroundColor(trackColor)
-
+                
                 RoundedRectangle(cornerRadius: cornerRadius)
                     .frame(width: geometry.size.width * progress)
                     .foregroundColor(progressColor)
             }
+            .overlay(
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .stroke(borderColor, lineWidth: 2)
+            )
             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
         }
-        .frame(height: height) 
+        .frame(height: height)
     }
 }
