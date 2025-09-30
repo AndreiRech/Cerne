@@ -18,6 +18,7 @@ protocol DiameterViewModelProtocol: ObservableObject {
     var placePointTrigger: Bool { get set }
     var shouldNavigate: Bool { get set }
     var errorMessage: String? { get set }
+    var treeSpecies: String { get set }
     
     func placePointButtonTapped()
     func onAppear()

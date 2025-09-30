@@ -34,8 +34,11 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
     
     var isLoading: Bool = false
     var errorMessage: String?
+    var showValidation: Bool = false
     
-    init(cameraService: CameraServiceProtocol, scannedTreeService: ScannedTreeServiceProtocol, treeAPIService: TreeAPIServiceProtocol, pinService: PinServiceProtocol, treeDataService: TreeDataServiceProtocol, userService: UserServiceProtocol, measuredDiameter: Double, treeImage: UIImage? = nil, estimatedHeight: Double, pinLatitude: Double, pinLongitude: Double, userDefaultService: UserDefaultServiceProtocol) {
+    var treeSpecies: String
+    
+    init(cameraService: CameraServiceProtocol, scannedTreeService: ScannedTreeServiceProtocol, treeAPIService: TreeAPIServiceProtocol, pinService: PinServiceProtocol, treeDataService: TreeDataServiceProtocol, userService: UserServiceProtocol, measuredDiameter: Double, treeImage: UIImage? = nil, estimatedHeight: Double, pinLatitude: Double, pinLongitude: Double, userDefaultService: UserDefaultServiceProtocol, treeSpecies: String) {
         self.cameraService = cameraService
         self.scannedTreeService = scannedTreeService
         self.treeAPIService = treeAPIService
@@ -48,6 +51,7 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
         self.pinLatitude = pinLatitude
         self.pinLongitude = pinLongitude
         self.userDefaultService = userDefaultService
+        self.treeSpecies = treeSpecies
     }
     
     func createScannedTree() async {
@@ -55,24 +59,16 @@ class TreeReviewViewModel: TreeReviewViewModelProtocol {
         defer { isLoading = false }
         
         do {
-            guard let treeImage else {
-                errorMessage = "Nenhuma imagem disponível para identificar."
-                return
-            }
-            
-            let response = try await treeAPIService.identifyTree(image: treeImage)
-            let species = response.bestMatch
-            
             var density: Double
             
-            if let foundTree = treeDataService.findTree(byScientificName: species) {
+            if let foundTree = treeDataService.findTree(byScientificName: treeSpecies) {
                 density = foundTree.density
             } else {
                 density = 1.2
             }
             
             let newTree = try scannedTreeService.createScannedTree(
-                species: species,
+                species: treeSpecies,
                 height: estimatedHeight,
                 dap: Double(measuredDiameter),
                 totalCO2: calculateCO2(height: estimatedHeight, dap: Float(measuredDiameter), density: density)

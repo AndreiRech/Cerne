@@ -25,6 +25,8 @@ protocol DistanceViewModelProtocol: ObservableObject {
     var shouldNavigate: Bool { get set }
     var showAddPointHint: Bool { get set }
     
+    var treeSpecies: String { get set }
+    
     func onAppear()
     func onDisappear()
     func getUserLocation(completion: @escaping () -> Void)

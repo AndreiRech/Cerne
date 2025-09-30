@@ -15,6 +15,7 @@ class DiameterViewModel: DiameterViewModelProtocol {
     
     var treeImage: UIImage
     var result: Double? = nil
+    var treeSpecies: String
     
     var showInfo: Bool = true
     var showAddPointHint: Bool = false
@@ -25,10 +26,11 @@ class DiameterViewModel: DiameterViewModelProtocol {
     private var cancellables = Set<AnyCancellable>()
     private var pointCount = 0
     
-    init(treeImage: UIImage, userDefaultService: UserDefaultServiceProtocol) {
+    init(treeImage: UIImage, userDefaultService: UserDefaultServiceProtocol, treeSpecies: String) {
         self.userDefaultService = userDefaultService
         self.treeImage = treeImage
         self.arService = ARService.shared
+        self.treeSpecies = treeSpecies
         
         subscribeToPublishers()
         

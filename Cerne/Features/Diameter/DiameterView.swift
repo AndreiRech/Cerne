@@ -139,7 +139,8 @@ struct DiameterView: View {
                     userDefaultService: UserDefaultService(),
                     userHeight: 1.85,
                     measuredDiameter: Double(viewModel.result ?? 0.0),
-                    treeImage: viewModel.treeImage
+                    treeImage: viewModel.treeImage,
+                    treeSpecies: viewModel.treeSpecies
                 )
             )
             .navigationBarHidden(false)

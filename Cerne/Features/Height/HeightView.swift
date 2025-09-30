@@ -87,7 +87,8 @@ struct HeightView: View {
                         estimatedHeight: viewModel.finalHeight,
                         pinLatitude: viewModel.userLatitude,
                         pinLongitude: viewModel.userLongitude,
-                        userDefaultService: UserDefaultService()
+                        userDefaultService: UserDefaultService(),
+                        treeSpecies: viewModel.treeSpecies
                     )
                 )
                 .presentationDetents([.height(500)])
