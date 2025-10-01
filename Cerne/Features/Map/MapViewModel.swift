@@ -54,13 +54,13 @@ final class MapViewModel: MapViewModelProtocol {
         setupLocationSubscription()
     }
     
-    func onMapAppear() {
-        getPins()
+    func onMapAppear() async {
+        await getPins()
     }
     
-    func getPins() {
+    func getPins() async {
         do {
-            try pins = pinService.fetchPins()
+            try await pins = pinService.fetchPins()
             updateVisualization()
         } catch {
             print("Was not possible to fetch pins: \(error)")

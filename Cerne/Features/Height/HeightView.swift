@@ -76,18 +76,19 @@ struct HeightView: View {
             if viewModel.shouldNavigate {
                 TreeReviewView(
                     viewModel: TreeReviewViewModel(
-                        cameraService: CameraService(),
-                        scannedTreeService: ScannedTreeService(),
-                        treeAPIService: TreeAPIService(),
-                        pinService: PinService(),
-                        treeDataService: TreeDataService(),
-                        userService: UserService(),
+                        repository: TreeReviewRepository(
+                            scannedTreeService: ScannedTreeService(),
+                            treeAPIService: TreeAPIService(),
+                            pinService: PinService(),
+                            treeDataService: TreeDataService(),
+                            userService: UserService(),
+                            userDefaultService: UserDefaultService()
+                        ),
                         measuredDiameter: viewModel.measuredDiameter,
                         treeImage: viewModel.treeImage,
                         estimatedHeight: viewModel.finalHeight,
                         pinLatitude: viewModel.userLatitude,
                         pinLongitude: viewModel.userLongitude,
-                        userDefaultService: UserDefaultService(),
                         treeSpecies: viewModel.treeSpecies
                     )
                 )

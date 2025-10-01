@@ -11,10 +11,6 @@ struct FootprintView: View {
     @State var viewModel: FootprintViewModel
     @Environment(\.dismiss) var dismiss
     
-    private var isOverlayVisible: Bool {
-        viewModel.showDiscardAlert || viewModel.showConludedAlert
-    }
-    
     var body: some View {
         ZStack {
             TabView(selection: $viewModel.currentPage) {
@@ -72,9 +68,9 @@ struct FootprintView: View {
                 .tag(viewModel.totalPages)
             }
             .tabViewStyle(.page(indexDisplayMode: .always))
-            .blur(radius: isOverlayVisible ? 1.3 : 0)
+            .blur(radius: viewModel.isOverlayVisible ? 1.3 : 0)
             
-            if isOverlayVisible {
+            if viewModel.isOverlayVisible {
                 Color.black.opacity(0.4)
                     .ignoresSafeArea()
                     .onTapGesture {
@@ -120,10 +116,8 @@ struct FootprintView: View {
                 }
             }
         }
-        .onAppear {
-            Task {
-                await viewModel.loadUserSelections()
-            }
+        .task {
+            await viewModel.fetchData()
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -138,6 +132,6 @@ struct FootprintView: View {
         }
         .ignoresSafeArea()
         .background(.backgroundPrimary)
-        .animation(.easeInOut(duration: 0.2), value: isOverlayVisible)
+        .animation(.easeInOut(duration: 0.2), value: viewModel.isOverlayVisible)
     }
 }

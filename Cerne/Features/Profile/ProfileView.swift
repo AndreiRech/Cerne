@@ -9,9 +9,7 @@ import SwiftUI
 
 struct ProfileView: View {
     @EnvironmentObject var router: Router
-    
     @State var viewModel: ProfileViewModelProtocol
-    @State private var isShowingDeleteAlert = false
     
     var body: some View {
         NavigationStack(path: $router.path) {
@@ -53,7 +51,7 @@ struct ProfileView: View {
                                     )
                                     
                                     VStack(alignment: .leading, spacing: 8) {
-                                        Text(viewModel.totalCO2User())
+                                        Text(viewModel.totalCO2)
                                             .foregroundStyle(.primitivePrimary)
                                             .font(.largeTitle)
                                             .fontWeight(.bold)
@@ -165,7 +163,7 @@ struct ProfileView: View {
                         }
                         
                         Button {
-                            isShowingDeleteAlert = true
+                            viewModel.isShowingDeleteAlert = true
                         } label: {
                             HStack(alignment: .center, spacing: 8) {
                                 Image(systemName: "trash")
@@ -185,8 +183,11 @@ struct ProfileView: View {
                     }
                     .padding(16)
                 }
+                .refreshable {
+                    await viewModel.fetchData()
+                }
                 .background(.backgroundPrimary)
-                .alert("Deletar conta definitivamente", isPresented: $isShowingDeleteAlert) {
+                .alert("Deletar conta definitivamente", isPresented: $viewModel.isShowingDeleteAlert) {
                     Button("Cancelar", role: .cancel) { }
                     Button("Deletar", role: .destructive) {
                         Task {
@@ -202,8 +203,7 @@ struct ProfileView: View {
                     case .footprint:
                         FootprintView(
                             viewModel: FootprintViewModel(
-                                footprintService: FootprintService(),
-                                userService: UserService()
+                                repository: FootprintRepository(userService: UserService(), footprintService: FootprintService())
                             )
                         )
                         .toolbar(.hidden, for: .tabBar)
@@ -226,14 +226,14 @@ struct ProfileView: View {
                                 userService: UserService()
                             )
                         )
-                            .toolbar(.hidden, for: .tabBar)
-                            .navigationBarBackButtonHidden(true)
+                        .toolbar(.hidden, for: .tabBar)
+                        .navigationBarBackButtonHidden(true)
                     }
                 }
             }
         }
         .task {
-            await viewModel.fetchUserPins()
+            await viewModel.fetchData()
         }
     }
 }

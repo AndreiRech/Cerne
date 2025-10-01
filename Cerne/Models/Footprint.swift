@@ -6,21 +6,32 @@
 //
 
 import Foundation
-import SwiftData
+import CloudKit
 
-@Model
-final class Footprint: Identifiable {
+struct Footprint: Identifiable {
+    var recordID: CKRecord.ID?
     var id: UUID = UUID()
-    var total: Double = 0.0
+    var total: Double
     
-    @Relationship(deleteRule: .cascade, inverse: \Response.footprint)
-    var responses: [Response]?
-    
-    var user: User?
-    
-    init(id: UUID = UUID(), total: Double = 0.0, responses: [Response] = []) {
+    var userRecordID: CKRecord.ID?
+
+    init(id: UUID = UUID(), total: Double, userRecordID: CKRecord.ID) {
         self.id = id
         self.total = total
-        self.responses = responses
+        self.userRecordID = userRecordID
+    }
+    
+    init?(record: CKRecord) {
+        guard let idString = record["CD_id"] as? String,
+              let id = UUID(uuidString: idString),
+              let total = record["CD_total"] as? Double,
+              let userRef = record["CD_user"] as? CKRecord.Reference else {
+            return nil
+        }
+        
+        self.recordID = record.recordID
+        self.id = id
+        self.total = total
+        self.userRecordID = userRef.recordID
     }
 }

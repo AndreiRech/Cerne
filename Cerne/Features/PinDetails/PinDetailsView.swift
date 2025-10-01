@@ -33,7 +33,7 @@ struct PinDetailsView: View {
                         
                         Spacer()
                         
-                        Text(viewModel.pin.tree?.species ?? "")
+                        Text(viewModel.tree?.species ?? "")
                             .foregroundStyle(.primitivePrimary)
                             .font(.headline)
                             .fontWeight(.semibold)
@@ -55,7 +55,7 @@ struct PinDetailsView: View {
                     .padding(.top)
                     
                     HStack(alignment: .top, spacing: 10) {
-                        Image(uiImage: UIImage(data: viewModel.pin.image!) ?? UIImage(named: "placeholder")!)
+                        Image(uiImage: viewModel.pin.image ?? UIImage(named: "placeholder")!)
                             .resizable()
                             .frame(width: 102, height: 137, alignment: .center)
                             .clipShape(RoundedRectangle(cornerRadius: 18))
@@ -82,7 +82,7 @@ struct PinDetailsView: View {
                             .frame(width: 26, height: 26, alignment: .center)
                         
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("\(viewModel.pin.formattedTotalCO2) kg de CO² capturado")
+                            Text("\(viewModel.formattedTotalCO2) kg de CO² capturado")
                                 .foregroundStyle(.primitivePrimary)
                                 .font(.body)
                                 .fontWeight(.semibold)
@@ -139,7 +139,7 @@ struct PinDetailsView: View {
                             .frame(width: 26, height: 26, alignment: .center)
                         
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("\(viewModel.pin.user?.name ?? "Nome do usuário não disponível")")
+                            Text("\(viewModel.pinUser?.name ?? "Nome do usuário não disponível")")
                                 .foregroundStyle(.primitivePrimary)
                                 .font(.body)
                                 .fontWeight(.semibold)
@@ -175,7 +175,7 @@ struct PinDetailsView: View {
             .padding(.horizontal, 23)
         }
         .task {
-            await viewModel.isPinFromUser()
+            await viewModel.fetchData()
         }
         .scrollDisabled(true)
         .sheet(isPresented: $isShowingShareSheet) {
@@ -186,9 +186,10 @@ struct PinDetailsView: View {
                 dismiss()
             }
             Button("Deletar", role: .destructive) {
-                viewModel.deletePin(pin: viewModel.pin)
-                dismiss()
-                
+                Task {
+                    await viewModel.deletePin()
+                    await MainActor.run { dismiss() }
+                }
             }
         } message: {
             Text("Este registro será removido e não poderá ser recuperado.")
@@ -198,8 +199,10 @@ struct PinDetailsView: View {
                 dismiss()
             }
             Button("Denunciar", role: .destructive) {
-                viewModel.reportPin(to: viewModel.pin)
-                dismiss()
+                Task {
+                    await viewModel.reportPin()
+                    await MainActor.run { dismiss() }
+                }
             }
         } message: {
             Text("Registro duplicado, incorreto ou não deveria estar no Aplicativo.")

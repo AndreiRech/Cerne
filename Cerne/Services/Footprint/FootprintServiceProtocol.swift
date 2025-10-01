@@ -8,12 +8,11 @@
 import Foundation
 import SwiftData
 
-protocol FootprintServiceProtocol {
-    func fetchFootprints() throws -> [Footprint]
-    
-    func fetchFootprint(for user: User) throws -> Footprint?
-    
-    func createOrUpdateFootprint(for user: User, with newResponses: [Response]) throws
-    
+protocol FootprintServiceProtocol {    
+    func fetchFootprints() async throws -> [Footprint]
+    func fetchFootprint(for user: User) async throws -> Footprint?
+    func fetchResponses(for footprint: Footprint) async throws -> [Response]
+    func createOrUpdateFootprint(for user: User, with responsesData: [ResponseData]) async throws -> Footprint
     func getQuestions(fileName: String) throws -> [Question]
+    func deleteFootprint(_ footprint: Footprint) async throws
 }

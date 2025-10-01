@@ -6,25 +6,30 @@
 //
 
 import Foundation
-import SwiftData
+import CloudKit
 
-@Model
-final class User: Identifiable {
-    var id: String?
-    var name: String = "Username"
-    var height: Double = 1.65
+struct User: Identifiable {
+    var recordID: CKRecord.ID?
+    var id: String
+    var name: String
+    var height: Double
     
-    @Relationship(deleteRule: .cascade)
-    var pins: [Pin]?
-    
-    @Relationship(deleteRule: .cascade, inverse: \Footprint.user)
-    var footprint: Footprint?
-    
-    init(id: String? = nil, name: String, height: Double, pins: [Pin]? = [], footprint: Footprint? = nil) {
+    init(id: String, name: String, height: Double) {
         self.id = id
         self.name = name
         self.height = height
-        self.pins = pins
-        self.footprint = footprint
+    }
+    
+    init?(record: CKRecord) {
+        guard let id = record["CD_id"] as? String,
+              let name = record["CD_name"] as? String,
+              let height = record["CD_height"] as? Double else {
+            return nil
+        }
+        
+        self.recordID = record.recordID
+        self.id = id
+        self.name = name
+        self.height = height
     }
 }

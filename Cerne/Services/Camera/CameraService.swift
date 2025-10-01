@@ -29,10 +29,6 @@ class CameraService: NSObject, ObservableObject, CameraServiceProtocol, AVCaptur
         super.init()
     }
     
-    func setup() {
-        setupSession()
-    }
-    
     func requestPermissions() async -> Bool {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
@@ -79,7 +75,7 @@ class CameraService: NSObject, ObservableObject, CameraServiceProtocol, AVCaptur
         }
     }
     
-    private func setupSession() {
+    func setupSession() {
         session.beginConfiguration()
         
         guard let videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back),
