@@ -10,7 +10,7 @@ import SwiftUI
 struct AnnualProgressGraph: View {
     let data: [MonthlyData]
     let CO2AnualPercent: Int
-    let monthlyObjective: Int
+    let annualObjective: Int
 
     var body: some View {
         VStack(alignment: .leading, spacing: 50) {
@@ -68,7 +68,7 @@ struct AnnualProgressGraph: View {
                     }
                 }
 
-                Text("Objetivo mensal: \(monthlyObjective) kg de CO²")
+                Text("Objetivo anual: \(annualObjective) kg de CO²")
                     .font(.footnote)
                     .fontWeight(.regular)
                     .foregroundStyle(.primitiveSecondary)

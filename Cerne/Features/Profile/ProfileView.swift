@@ -15,6 +15,9 @@ struct ProfileView: View {
         NavigationStack(path: $router.path) {
             if viewModel.isLoading {
                 ProgressView()
+                    .scaleEffect(1.5)
+                    .frame(width: 60, height: 60)
+                    .glassEffect()
             } else {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 16) {
@@ -157,7 +160,7 @@ struct ProfileView: View {
                                 AnnualProgressGraph(
                                     data: viewModel.annualData,
                                     CO2AnualPercent: viewModel.CO2AnualPercent(),
-                                    monthlyObjective: viewModel.monthlyObjective
+                                    annualObjective: Int(viewModel.annualObjective)
                                 )
                             }
                         }
