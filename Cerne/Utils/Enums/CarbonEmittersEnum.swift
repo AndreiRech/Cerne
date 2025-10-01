@@ -43,8 +43,8 @@ enum CarbonEmittersEnum: CaseIterable {
         case .longHaulFlight: return "Quantos voos internacionais você faz por ano?"
         case .diet: return "Adota alguma dieta ou restrição alimentar?"
         case .airConditioner: return "Com que frequência você usa ar-condicionado?"
-        case .purchase: return "Com que frequência você compra roupas, eletrônicos ou móveis novos?"
-        case .houseHold: return "Você usa eletrodomésticos de alto consumo (secadora, aquecedor)?"
+        case .purchase: return "Com que frequência você compra roupas e eletrônicos?"
+        case .houseHold: return "Usa secadora, aquecedor ou similares?"
         case .recicle: return "Como você lida com resíduos/reciclagem?"
         }
     }

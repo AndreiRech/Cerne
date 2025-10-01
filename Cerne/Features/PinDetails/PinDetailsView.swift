@@ -179,7 +179,7 @@ struct PinDetailsView: View {
         }
         .scrollDisabled(true)
         .sheet(isPresented: $isShowingShareSheet) {
-            ShareSheet(items: ["Olha que legal o App Cerne: ele calcula quanto de carbono as árvores da sua cidade conseguem reter para ajudar a limpar o ar. Achei que você ia gostar. LINK"])
+            ShareSheet(items: ["Olha que legal o App Cerne: ele calcula quanto de carbono as árvores da sua cidade conseguem reter para ajudar a limpar o ar. Achei que você ia gostar. https://apps.apple.com/br/app/cerne-captura-de-co/id6751984534"])
         }
         .alert("Deletar Registro", isPresented: $isShowingDeleteAlert) {
             Button("Cancelar", role: .cancel) {

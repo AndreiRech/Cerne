@@ -8,6 +8,7 @@
 import Foundation
 
 protocol ProfileViewModelProtocol {
+    var userName: String { get }
     var userPins: [Pin] { get }
     var footprint: String? { get }
     var isLoading: Bool { get  set }
