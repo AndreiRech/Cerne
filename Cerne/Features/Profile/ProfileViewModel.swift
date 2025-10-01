@@ -24,8 +24,7 @@ class ProfileViewModel: ProfileViewModelProtocol {
     var isShowingDeleteAlert = false
     var annualData: [MonthlyData] = []
     var monthlyObjective: Int = 0
-    
-    private var annualObjective: Double = 0.0
+    var annualObjective: Double = 0.0
     
     init(repository: ProfileRepositoryProtocol) {
         self.repository = repository
@@ -65,7 +64,7 @@ class ProfileViewModel: ProfileViewModelProtocol {
             self.userPins = data.allPins.filter { $0.userRecordID == data.currentUser.recordID }
             
             var total: Double = 0.0
-            for pin in data.allPins {
+            for pin in userPins {
                 if let tree = getTree(for: pin) {
                     total += tree.totalCO2
                 }

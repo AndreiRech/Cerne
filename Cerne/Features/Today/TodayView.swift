@@ -15,6 +15,9 @@ struct TodayView: View {
         ZStack {
             if viewModel.isLoading {
                 ProgressView()
+                    .scaleEffect(1.5)
+                    .frame(width: 60, height: 60)
+                    .glassEffect()
             } else {
                 NavigationStack(path: $router.path) {
                     ScrollView {
@@ -29,10 +32,10 @@ struct TodayView: View {
                                         bgColor: .backgroundSecondary,
                                         cornerColor: .backgroundSecondary,
                                         icon: "leaf.arrow.trianglehead.clockwise",
-                                        title: "Sem registros por enquanto",
-                                        subtitle: "Cálculo ainda não realizado",
-                                        description: "Complete o questionário para calcular sua pegada de carbono e descobrir seu impacto no planeta",
-                                        buttonTitle: "Calcular pegada de carbono",
+                                        title: String(localized: "Sem registros por enquanto"),
+                                        subtitle: String(localized: "Cálculo ainda não realizado"),
+                                        description: String(localized: "Complete o questionário para calcular sua pegada de carbono e descobrir seu impacto no planeta"),
+                                        buttonTitle: String(localized: "Calcular pegada de carbono"),
                                         buttonAction: {
                                             router.path.append(Route.footprint)
                                         }
@@ -58,9 +61,10 @@ struct TodayView: View {
                                     EmptyComponent(
                                         bgColor: .backgroundPrimary,
                                         cornerColor: .primitivePrimary,
-                                        subtitle: "Nenhuma árvore registrada",
-                                        description: "Comece a mapear árvores para acompanhar o CO₂ já capturado pelas suas contribuições.",
-                                        buttonTitle: "Registrar primeira árvore",
+                                        subtitle: String(localized: "Nenhuma árvore registrada"),
+                                        description: String(localized: "Comece a mapear árvores para acompanhar o CO₂ já capturado pelas suas contribuições"),
+                                        buttonTitle: String(localized: "Registrar primeira árvore"),
+                                        
                                         buttonAction: {
                                             router.path.append(Route.registerTree)
                                         }
@@ -92,9 +96,9 @@ struct TodayView: View {
                                         bgColor: .backgroundPrimary,
                                         cornerColor: .primitivePrimary,
                                         icon: "person.3",
-                                        title: "Juntos ampliamos o impacto positivo",
-                                        subtitle: "Somando esforços pelo futuro",
-                                        description: "Aqui apareceram os dados mapeados de toda a comunidade, unidos para futuro mais sustentável para todos"
+                                        title: String(localized: "Juntos ampliamos o impacto positivo"),
+                                        subtitle: String(localized: "Somando esforços pelo futuro"),
+                                        description:  String(localized: "Aqui apareceram os dados mapeados de toda a comunidade, unidos para futuro mais sustentável para todos")
                                     )
                                 }
                                 else {
@@ -107,23 +111,23 @@ struct TodayView: View {
                                         
                                         CommunityDataComponent(
                                             icon: .treeIcon,
-                                            title: "\(viewModel.totalTrees) árvores",
+                                            title: String(localized: "\(viewModel.totalTrees) árvores"),
                                             infoType: .trees
                                         )
                                         CommunityDataComponent(
                                             icon: .honeycomb,
-                                            title: "\(viewModel.totalSpecies) espécies diferentes",
+                                            title: String(localized: "\(viewModel.totalSpecies) espécies diferentes"),
                                             infoType: .species
                                         )
                                         CommunityDataComponent(
                                             icon: .co2Cloud,
-                                            title: String(format: "%.1f t de CO² sequestrados", viewModel.totalCO2Sequestration()),
+                                            title: String(format: String(localized: "%.1f t de CO² sequestrados"), viewModel.totalCO2Sequestration()),
                                             infoType: .co2,
                                             co2Number: viewModel.lapsEarth(totalCO2: viewModel.totalCO2Sequestration())
                                         )
                                         CommunityDataComponent(
                                             icon: .smallPlant,
-                                            title: String(format: "%.1f t de O² para o planeta", viewModel.totalO2()),
+                                            title: String(format: String(localized: "%.1f t de O² para o planeta"), viewModel.totalO2()),
                                             infoType: .oxygen,
                                             oxygenNumber: viewModel.oxygenPerPerson(totalOxygen: viewModel.totalO2())
                                         )
@@ -187,7 +191,7 @@ struct TodayView: View {
                     .background(.backgroundPrimary)
                     .foregroundStyle(.primitivePrimary)
                     .sheet(isPresented: $viewModel.isShowingShareSheet) {
-                        ShareSheet(items: ["Olha que legal o App Cerne: ele calcula quanto de carbono as árvores da sua cidade conseguem reter para ajudar a limpar o ar. Achei que você ia gostar. https://apps.apple.com/br/app/cerne-captura-de-co/id6751984534"])
+                        ShareSheet(items: [String(localized: "Olha que legal o App Cerne: ele calcula quanto de carbono as árvores da sua cidade conseguem reter para ajudar a limpar o ar. Achei que você ia gostar. https://apps.apple.com/br/app/cerne-captura-de-co/id6751984534")])
                     }
                     .navigationTitle("Olá, \(viewModel.userName)!")
                 }

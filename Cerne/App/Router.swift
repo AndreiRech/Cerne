@@ -16,7 +16,7 @@ enum Route: Hashable {
 class Router: ObservableObject {
     @Published var path = NavigationPath()
     @Published var addFlowID = UUID()
-    var selectedTab: Int = 0
+    @Published var selectedTab: Int = 0
 
     func popToRoot() {
         path = NavigationPath()

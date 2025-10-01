@@ -41,13 +41,14 @@ struct ValidationView: View {
                 HStack(spacing: 7) {
                     Image(systemName: "arrow.trianglehead.2.clockwise.rotate.90.icloud")
                         .resizable()
+                        .foregroundStyle(.CTA)
                         .scaledToFit()
                         .frame(width: 17, height: 17)
                     Text("Sequestrado da atmosfera")
                         .font(.footnote)
                 }
             }
-            Text("Capacidade de sequestro de CO₂ verificada e árvore adicionada ao mapa.")
+            Text("Capacidade de sequestro de CO₂ verificada e árvore adicionada ao mapa")
                 .font(.footnote)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)

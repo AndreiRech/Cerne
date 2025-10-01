@@ -21,8 +21,8 @@ struct DistanceView: View {
                 
                 InstructionComponent(
                     imageName: "graph.3d",
-                    title: "Aponte a câmera para a base do tronco e posicione o objeto 3D",
-                    buttonText: "Fixar 3D na base",
+                    title: String(localized: "Aponte a câmera para a base do tronco e posicione o objeto 3D"),
+                    buttonText: String(localized: "Fixar 3D na base"),
                     onTap: {
                         viewModel.showInfo.toggle()
                         viewModel.isMeasuring.toggle()

@@ -45,16 +45,18 @@ struct TabBar: View {
                 }
                 .id(router.addFlowID)
             } label: {
-                Label("Add", systemImage: "plus")
+                Label("Adicionar", systemImage: "plus")
             }
         }
         .environmentObject(router)
         .tint(.primitivePrimary)
         .onReceive(quickActionService.$selectedAction) { action in
             guard let action = action else { return }
-            switch action {
-            case .mapTree:
-                router.selectedTab = 1
+            DispatchQueue.main.async {
+                switch action {
+                case .mapTree:
+                    router.selectedTab = 2
+                }
             }
         }
     }
