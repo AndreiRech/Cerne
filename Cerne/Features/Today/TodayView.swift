@@ -15,6 +15,9 @@ struct TodayView: View {
         ZStack {
             if viewModel.isLoading {
                 ProgressView()
+                    .scaleEffect(1.5)
+                    .frame(width: 60, height: 60)
+                    .glassEffect()
             } else {
                 NavigationStack(path: $router.path) {
                     ScrollView {

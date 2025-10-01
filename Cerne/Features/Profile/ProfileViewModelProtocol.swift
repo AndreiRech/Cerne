@@ -16,6 +16,7 @@ protocol ProfileViewModelProtocol {
     var isShowingDeleteAlert: Bool { get set }
     var annualData: [MonthlyData] { get set }
     var monthlyObjective: Int { get set }
+    var annualObjective: Double { get set }
     
     func fetchData() async
     func deleteAccount() async

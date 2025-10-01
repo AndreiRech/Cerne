@@ -41,6 +41,7 @@ struct ValidationView: View {
                 HStack(spacing: 7) {
                     Image(systemName: "arrow.trianglehead.2.clockwise.rotate.90.icloud")
                         .resizable()
+                        .foregroundStyle(.CTA)
                         .scaledToFit()
                         .frame(width: 17, height: 17)
                     Text("Sequestrado da atmosfera")

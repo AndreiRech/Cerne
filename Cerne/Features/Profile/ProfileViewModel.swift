@@ -24,8 +24,7 @@ class ProfileViewModel: ProfileViewModelProtocol {
     var isShowingDeleteAlert = false
     var annualData: [MonthlyData] = []
     var monthlyObjective: Int = 0
-    
-    private var annualObjective: Double = 0.0
+    var annualObjective: Double = 0.0
     
     init(repository: ProfileRepositoryProtocol) {
         self.repository = repository
