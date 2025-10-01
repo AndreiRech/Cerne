@@ -6,41 +6,71 @@
 //
 
 import Foundation
-import SwiftData
+import CloudKit
+import UIKit
 
-@Model
-final class Pin: Identifiable {
+struct Pin: Identifiable {
+    var recordID: CKRecord.ID?
     var id: UUID = UUID()
-    @Attribute(.externalStorage) var image: Data?
-    var latitude: Double = 0.0
-    var longitude: Double = 0.0
-    var date: Date = Date()
-    var reports: Int = 0
+    var imageAsset: CKAsset?
+    var latitude: Double
+    var longitude: Double
+    var date: Date
+    var reports: Int
     
-    @Relationship(deleteRule: .nullify, inverse: \User.pins)
-    var user: User?
+    var userRecordID: CKRecord.ID?
+    var treeRecordID: CKRecord.ID?
     
-    @Relationship(deleteRule: .cascade, inverse: \ScannedTree.pin)
-    var tree: ScannedTree?
-    
-    init(id: UUID = UUID(), image: Data, latitude: Double, longitude: Double, date: Date, reports: Int = 0, user: User, tree: ScannedTree) {
-        self.id = id
-        self.image = image
-        self.latitude = latitude
-        self.longitude = longitude
-        self.date = date
-        self.reports = reports
-        self.user = user
-        self.tree = tree
+    var image: UIImage? {
+        guard let imageAsset, let fileURL = imageAsset.fileURL, let data = try? Data(contentsOf: fileURL) else {
+            return nil
+        }
+        return UIImage(data: data)
     }
     
-    var formattedTotalCO2: String {
-        return String(format: "%.0f", tree?.totalCO2 ?? 0.0)
-    }
-        
     var formattedDate: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy"
         return formatter.string(from: date)
+    }
+    
+    init(id: UUID = UUID(), image: UIImage, latitude: Double, longitude: Double, date: Date, userRecordID: CKRecord.ID, treeRecordID: CKRecord.ID) {
+        self.id = id
+        self.latitude = latitude
+        self.longitude = longitude
+        self.date = date
+        self.reports = 0
+        self.userRecordID = userRecordID
+        self.treeRecordID = treeRecordID
+        
+        let tempURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString).appendingPathExtension("jpg")
+        if let jpegData = image.jpegData(compressionQuality: 0.7) {
+            try? jpegData.write(to: tempURL)
+            self.imageAsset = CKAsset(fileURL: tempURL)
+        }
+    }
+    
+    init?(record: CKRecord) {
+        guard let idString = record["CD_id"] as? String,
+              let id = UUID(uuidString: idString),
+              let imageAsset = record["CD_image"] as? CKAsset,
+              let latitude = record["CD_latitude"] as? Double,
+              let longitude = record["CD_longitude"] as? Double,
+              let date = record["CD_date"] as? Date,
+              let reports = record["CD_reports"] as? Int,
+              let userRef = record["CD_user"] as? CKRecord.Reference,
+              let treeRef = record["CD_tree"] as? CKRecord.Reference else {
+            return nil
+        }
+        
+        self.recordID = record.recordID
+        self.id = id
+        self.imageAsset = imageAsset
+        self.latitude = latitude
+        self.longitude = longitude
+        self.date = date
+        self.reports = reports
+        self.userRecordID = userRef.recordID
+        self.treeRecordID = treeRef.recordID
     }
 }

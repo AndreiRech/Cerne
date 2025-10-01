@@ -42,7 +42,7 @@ struct PhotoView: View {
                                     Text(viewModel.identifiedTree?.bestMatch ?? "")
                                         .font(.body)
                                         .fontWeight(.semibold)
-                                        .foregroundStyle(.primitive1)
+                                        .foregroundStyle(.primitivePrimary)
                                 }
                                 .foregroundColor(.white)
                                 
@@ -71,7 +71,8 @@ struct PhotoView: View {
                                 DiameterView(
                                     viewModel: DiameterViewModel(
                                         treeImage: capturedImage,
-                                        userDefaultService: UserDefaultService()
+                                        userDefaultService: UserDefaultService(),
+                                        treeSpecies: viewModel.identifiedTree?.bestMatch ?? ""
                                     )
                                 )
                                 .navigationBarHidden(false)
@@ -107,8 +108,8 @@ struct PhotoView: View {
                     
                     InstructionComponent(
                         imageName: "camera",
-                        title: "Tire uma foto capturando o máximo da árvore para identificarmos a espécie",
-                        buttonText: "Registrar agora",
+                        title: String(localized: "Tire uma foto capturando o máximo da árvore para identificarmos a espécie"),
+                        buttonText: String(localized: "Registrar agora"),
                         onTap: {
                             viewModel.showInfo.toggle()
                             viewModel.isMeasuring.toggle()
@@ -138,7 +139,7 @@ struct PhotoView: View {
         }
         .onAppear(perform: viewModel.onAppear)
         .onDisappear(perform: viewModel.onDisappear)
-        .alert("Erro", isPresented: Binding<Bool>(
+    .alert("Ainda não conseguimos reconhecer", isPresented: Binding<Bool>(
             get: { viewModel.errorMessage != nil },
             set: { _ in viewModel.errorMessage = nil }
         )) {
@@ -148,7 +149,7 @@ struct PhotoView: View {
                 viewModel.retakePhoto()
             }
         } message: {
-            Text(viewModel.errorMessage ?? "Ocorreu um erro desconhecido.")
+            Text("Pode ser um detalhe da foto ou da iluminação. Refaça o registro para que possamos analisar de novo.")
         }
         .navigationBarHidden(false)
         .toolbar {

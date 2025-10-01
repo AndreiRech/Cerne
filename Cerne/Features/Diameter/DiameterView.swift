@@ -22,8 +22,9 @@ struct DiameterView: View {
                 
                 InstructionComponent(
                     imageName: "ruler",
-                    title: "Na altura do peito, use os pontos para registrar o diâmetro do tronco",
-                    buttonText: "Medir diâmetro") {
+                    title: String(localized: "Na altura do peito, use os pontos para registrar o diâmetro do tronco"),
+                    buttonText: String(localized:"Medir diâmetro")
+                ) {
                         viewModel.showInfo = false
                     }
             } else {
@@ -31,6 +32,22 @@ struct DiameterView: View {
                     Circle()
                         .fill(Color.white)
                         .frame(width: 8, height: 8)
+                    
+                    if let result = viewModel.result, result > 0 {
+                    } else {
+                        GeometryReader { geometry in
+                            let center = CGPoint(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                            let measurementAnchors = viewModel.arService.arView.scene.anchors.filter { $0.name == "measurementPointAnchor" }
+                            if measurementAnchors.count == 1, let firstPointAnchor = measurementAnchors.first,
+                               let firstPoint = viewModel.arService.arView.project(firstPointAnchor.position) {
+                                Path { path in
+                                    path.move(to: firstPoint)
+                                    path.addLine(to: center)
+                                }
+                                .stroke(Color.white, lineWidth: 2)
+                            }
+                        }
+                    }
                     
                     VStack (spacing: 15) {
                         Spacer()
@@ -46,6 +63,17 @@ struct DiameterView: View {
                                 .clipShape(Capsule())
                                 .transition(.opacity.animation(.easeInOut))
                             
+                        }
+                        
+                        if let result = viewModel.result, result > 0 {
+                            Text(String(format: "%.2f m", result))
+                                .font(.body)
+                                .fontWeight(.medium)
+                                .padding(.vertical, 12)
+                                .padding(.horizontal, 16)
+                                .background(.ultraThinMaterial)
+                                .clipShape(Capsule())
+                                .transition(.opacity.animation(.easeInOut))
                         }
                         
                         if viewModel.result == nil || viewModel.result == 0 {
@@ -106,16 +134,18 @@ struct DiameterView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-        .navigationDestination(isPresented: $viewModel.shouldNavigate) {
+        .navigationDestination(isPresented: Binding(get: { viewModel.shouldNavigate }, set: { viewModel.shouldNavigate = $0 })) {
             DistanceView(
                 viewModel: DistanceViewModel(
                     userDefaultService: UserDefaultService(),
                     userHeight: 1.85,
                     measuredDiameter: Double(viewModel.result ?? 0.0),
-                    treeImage: viewModel.treeImage
+                    treeImage: viewModel.treeImage,
+                    treeSpecies: viewModel.treeSpecies
                 )
             )
             .navigationBarHidden(false)
         }
     }
 }
+

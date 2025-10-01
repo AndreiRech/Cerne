@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct TabBar: View {
-    @Environment(\.modelContext) var modelContext
     @EnvironmentObject var quickActionService: QuickActionService
     @StateObject private var router = Router()
     
     var body: some View {
         TabView(selection: $router.selectedTab) {
             Tab(value: 0) {
-                TodayView(viewModel: TodayViewModel(pinService: PinService(), userService: UserService(), footprintService: FootprintService()))
+                TodayView(viewModel: TodayViewModel(repository: TodayRepository(pinService: PinService(), userService: UserService(), treeService: ScannedTreeService(), footprintService: FootprintService())))
             } label: {
                 Label("Hoje", systemImage: "arrow.trianglehead.2.clockwise.rotate.90.icloud")
             }
@@ -46,18 +45,19 @@ struct TabBar: View {
                 }
                 .id(router.addFlowID)
             } label: {
-                Label("Add", systemImage: "plus")
+                Label("Adicionar", systemImage: "plus")
             }
         }
         .environmentObject(router)
-        .tint(.tabBarAtivada)
+        .tint(.primitivePrimary)
         .onReceive(quickActionService.$selectedAction) { action in
             guard let action = action else { return }
-            switch action {
-            case .mapTree:
-                router.selectedTab = 1
+            DispatchQueue.main.async {
+                switch action {
+                case .mapTree:
+                    router.selectedTab = 2
+                }
             }
         }
     }
 }
-

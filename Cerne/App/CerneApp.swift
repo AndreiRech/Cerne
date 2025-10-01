@@ -35,6 +35,5 @@ struct CerneApp: App {
                 }
             }
         }
-        .modelContainer(Persistence.shared.modelContainer)
     }
 }

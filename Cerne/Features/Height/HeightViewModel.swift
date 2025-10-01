@@ -34,6 +34,8 @@ class HeightViewModel: HeightViewModelProtocol {
     var isMeasuring: Bool = false
     var shouldNavigate: Bool = false
     
+    var treeSpecies: String
+    
     var previewLayer: AVCaptureVideoPreviewLayer {
         return cameraService.previewLayer
     }
@@ -47,7 +49,8 @@ class HeightViewModel: HeightViewModelProtocol {
          measuredDiameter: Double,
          treeImage: UIImage,
          userLatitude: Double,
-         userLongitude: Double) {
+         userLongitude: Double,
+         treeSpecies: String) {
         self.motionService = motionService
         self.cameraService = cameraService
         self.scannedTreeService = scannedTreeService
@@ -58,6 +61,7 @@ class HeightViewModel: HeightViewModelProtocol {
         self.treeImage = treeImage
         self.userLatitude = userLatitude
         self.userLongitude = userLongitude
+        self.treeSpecies = treeSpecies
         
         subscribeToPublishers()
         
@@ -79,12 +83,13 @@ class HeightViewModel: HeightViewModelProtocol {
     func onAppear() {
         Task {
             if await cameraService.requestPermissions() {
+                cameraService.setupSession()
                 cameraService.startSession()
             } else {
                 errorMessage = cameraService.errorMessage
             }
+            motionService.startUpdates()
         }
-        motionService.startUpdates()
     }
     
     func onDisappear() {

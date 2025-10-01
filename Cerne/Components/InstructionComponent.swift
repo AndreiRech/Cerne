@@ -21,9 +21,9 @@ struct InstructionComponent: View {
                     .foregroundColor(.CTA)
                 
                 Text(title)
-                    .font(.title3)
-                    .fontWeight(.bold)
                     .foregroundStyle(.white)
+                    .font(.body)
+                    .fontWeight(.bold)
                     .multilineTextAlignment(.center)
             }
             .padding(.horizontal, 40)

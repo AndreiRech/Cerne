@@ -6,15 +6,19 @@
 //
 
 protocol FootprintViewModelProtocol {
-    var currentPage: Int { get }
+    var currentPage: Int { get set }
     var selections: [CarbonEmittersEnum: String] { get set }
     
     var totalQuestionPages: Int { get }
     var totalPages: Int { get }
     var isAbleToSave: Bool { get }
+    var isLoading: Bool { get set }
+    var isOverlayVisible: Bool { get }
     
+    func fetchData() async
     func emittersForPage(_ page: Int) -> [CarbonEmittersEnum]
     func updateSelection(for emitter: CarbonEmittersEnum, to newValue: String)
     func saveFootprint() async
-    func calculateCarbonEmissions() -> (total: Double, responses: [Response])
+    func calculateCarbonEmissions() -> (total: Double, responses: [ResponseData])
+    func loadUserSelections()
 }

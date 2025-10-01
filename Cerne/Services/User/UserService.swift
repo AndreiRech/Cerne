@@ -6,81 +6,127 @@
 //
 
 import Foundation
-import SwiftData
 import CloudKit
 
 class UserService: UserServiceProtocol {
-    private var modelContext: ModelContext
+    private let publicDB = CKContainer.default().publicCloudDatabase
     
-    @MainActor
-    init() {
-        self.modelContext = Persistence.shared.modelContext
-    }
+    init() {}
     
-    func fetchUsers() throws -> [User] {
-        let descriptor = FetchDescriptor<User>()
+    func fetchUsers() async throws -> [User] {
+        let predicate = NSPredicate(value: true)
+        let query = CKQuery(recordType: "CD_User", predicate: predicate)
         
         do {
-            let pins = try modelContext.fetch(descriptor)
-            return pins
+            let (matchResults, _) = try await publicDB.records(matching: query)
+            let records = try matchResults.map { try $0.1.get() }
+            
+            return records.compactMap { User(record: $0) }
         } catch {
             throw GenericError.serviceError
         }
     }
     
-    func fetchOrCreateCurrentUser(name: String? = nil, height: Double? = nil) async throws -> User {
+    func fetchUser(by recordID: CKRecord.ID) async throws -> User? {
+        do {
+            let record = try await publicDB.record(for: recordID)
+            return User(record: record)
+        } catch let error as CKError where error.code == .unknownItem {
+            print("Utilizador com recordID \(recordID.recordName) não encontrado.")
+            return nil
+        } catch {
+            print("Erro ao buscar utilizador por recordID: \(error.localizedDescription)")
+            throw GenericError.serviceError
+        }
+    }
+    
+    func fetchOrCreateCurrentUser(name: String?, height: Double?) async throws -> User {
         let container = CKContainer.default()
         
-        let userRecordID = try await container.userRecordID()
-        let userID = userRecordID.recordName
-        
-        var descriptor = FetchDescriptor<User>(
-            predicate: #Predicate { $0.id == userID }
-        )
-        descriptor.fetchLimit = 1
+        do {
+            let userRecordID = try await container.userRecordID()
+            let userIDString = userRecordID.recordName
+            
+            let predicate = NSPredicate(format: "CD_id == %@", userIDString)
+            let query = CKQuery(recordType: "CD_User", predicate: predicate)
+            
+            let (matchResults, _) = try await publicDB.records(matching: query)
+            let records = matchResults.compactMap { try? $0.1.get() }
+
+            if let existingRecord = records.first, let user = User(record: existingRecord) {
+                return user
+            } else {
+                guard let name, let height = height else {
+                    throw GenericError.serviceError
+                }
                 
-        if let existingUser = try modelContext.fetch(descriptor).first {
-            return existingUser
-        } else {
-            if let name, let height {
                 guard (1.0...3.0).contains(height) else {
                     throw UserValidationError.invalidHeight
                 }
                 
-                guard name.count >= 4 else {
+                guard name.count >= 3 else {
                     throw UserValidationError.nameTooShort
                 }
                 
+                let newUserRecord = CKRecord(recordType: "CD_User")
+                newUserRecord["CD_id"] = userIDString
+                newUserRecord["CD_name"] = name
+                newUserRecord["CD_height"] = height
                 
-                let newUser = User(id: userID, name: name, height: height)
-                modelContext.insert(newUser)
-                try save()
+                let savedRecord = try await publicDB.save(newUserRecord)
                 
+                guard let newUser = User(record: savedRecord) else {
+                    throw GenericError.serviceError
+                }
                 return newUser
-            } else {
-                throw GenericError.serviceError
             }
+        } catch {
+            print("Erro detalhado do CloudKit em fetchOrCreateCurrentUser: \(error)")
+            print("Descrição Localizada em fetchOrCreateCurrentUser: \(error.localizedDescription)")
+            throw GenericError.serviceError
         }
     }
     
-    func createUser(name: String, height: Double) throws {
-        let newUser = User(name: name, height: height)
-        modelContext.insert(newUser)
-        try save()
+    func updateUser(user: User) async throws -> User {
+        guard let recordID = user.recordID else {
+            throw GenericError.serviceError
+        }
+        
+        do {
+            let recordToUpdate = try await publicDB.record(for: recordID)
+            
+            guard (1.0...3.0).contains(user.height) else {
+                throw UserValidationError.invalidHeight
+            }
+            
+            guard user.name.count >= 3 else {
+                throw UserValidationError.nameTooShort
+            }
+            
+            recordToUpdate["CD_name"] = user.name
+            recordToUpdate["CD_height"] = user.height
+            
+            let updatedRecord = try await publicDB.save(recordToUpdate)
+            
+            guard let updatedUser = User(record: updatedRecord) else {
+                throw GenericError.serviceError
+            }
+            return updatedUser
+            
+        } catch {
+            throw GenericError.serviceError
+        }
     }
     
-    func updateUser(user: User, newName: String?, newHeight: Double?) throws {
-        user.name = newName ?? user.name
-        user.height = newHeight ?? user.height
-        try save()
-    }
-    
-    func deleteUser(_ user: User) throws {
-        modelContext.delete(user)
-        try save()
-    }
-    
-    private func save() throws{
-        try modelContext.save()
+    func deleteUser(_ user: User) async throws {
+        guard let recordID = user.recordID else {
+            throw GenericError.serviceError
+        }
+        
+        do {
+            try await publicDB.deleteRecord(withID: recordID)
+        } catch {
+            throw GenericError.serviceError
+        }
     }
 }

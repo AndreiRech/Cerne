@@ -10,12 +10,18 @@ import Combine
 
 @Observable
 class FootprintViewModel: FootprintViewModelProtocol {
-    private let footprintService: FootprintServiceProtocol
-    private let userService: UserServiceProtocol
+    private let repository: FootprintRepositoryProtocol
+    
+    private var user: User?
+    private var footprint: Footprint?
+    private var responses: [Response] = []
+    private var questions: [Question] = []
+    
     var currentPage: Int = 1
     var selections: [CarbonEmittersEnum: String] = [:]
     var showDiscardAlert: Bool = false
     var showConludedAlert: Bool = false
+    var isLoading: Bool = false
     
     var totalQuestionPages: Int {
         let totalItems = CarbonEmittersEnum.allCases.count
@@ -34,12 +40,34 @@ class FootprintViewModel: FootprintViewModelProtocol {
         return allQuestionsAnswered && noPlaceholderAnswers
     }
     
-    init(footprintService: FootprintServiceProtocol, userService: UserServiceProtocol) {
-        self.footprintService = footprintService
-        self.userService = userService
+    var isOverlayVisible: Bool {
+        showDiscardAlert || showConludedAlert
+    }
+    
+    init(repository: FootprintRepositoryProtocol) {
+        self.repository = repository
         
         for emitter in CarbonEmittersEnum.allCases {
             selections[emitter] = "Selecionar"
+        }
+    }
+    
+    func fetchData() async {
+        self.isLoading = true
+        defer { self.isLoading = false }
+        
+        do {
+            let data = try await repository.fetchFootprintData()
+            
+            self.user = data.currentUser
+            self.footprint = data.userFootprint
+            self.responses = data.responses
+            
+            self.questions = try repository.getQuestions()
+            
+            loadUserSelections()
+        } catch {
+            print("Erro ao buscar dados do repositório: \(error.localizedDescription)")
         }
     }
     
@@ -70,45 +98,51 @@ class FootprintViewModel: FootprintViewModelProtocol {
     
     func saveFootprint() async {
         if isAbleToSave {
-            let (_, userResponses) = calculateCarbonEmissions()
-            
+            self.isLoading = true
+            defer { self.isLoading = false }
             do {
-                let currentUser = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
-                try footprintService.createOrUpdateFootprint(for: currentUser, with: userResponses)
-
-                showConludedAlert = true
+                self.questions = try repository.getQuestions()
                 
+                let (_, userResponses) = calculateCarbonEmissions()
+                
+                guard let user = self.user else { return }
+                
+                self.footprint = try await repository.saveFootprint(for: user, with: userResponses)
+                
+                showConludedAlert = true
             } catch {
                 print("Erro ao salvar a pegada de carbono: \(error.localizedDescription)")
             }
-            
         } else {
             print("Não é possível salvar. Faltam respostas.")
         }
     }
     
-    func calculateCarbonEmissions() -> (total: Double, responses: [Response]) {
-        
+    func calculateCarbonEmissions() -> (total: Double, responses: [ResponseData]) {
         var totalEmittedCarbon: Double = 0.0
-        var userResponses: [Response] = []
-
-        do {
-            let questions = try footprintService.getQuestions(fileName: "Questions")
-
-            for (emitter, selectedOptionText) in selections {
-                if let question = questions.first(where: { $0.text == emitter.description }) {
-                    if let option = question.options.first(where: { $0.text == selectedOptionText }) {
-                        totalEmittedCarbon += option.value
-                        
-                        let newResponse = Response(questionId: question.id, optionId: option.id, value: option.value)
-                        userResponses.append(newResponse)
-                    }
+        var userResponses: [ResponseData] = []
+        
+        for (emitter, selectedOptionText) in selections {
+            if let question = questions.first(where: { $0.text == emitter.description }) {
+                if let option = question.options.first(where: { $0.text == selectedOptionText }) {
+                    totalEmittedCarbon += option.value
+                    
+                    let newResponse = ResponseData(questionId: question.id, optionId: option.id, value: option.value)
+                    userResponses.append(newResponse)
                 }
             }
-        } catch {
-            print("Erro ao calcular as emissões: \(error)")
         }
         
         return (totalEmittedCarbon, userResponses)
+    }
+    
+    func loadUserSelections() {
+        for response in responses {
+            if let question = questions.first(where: { $0.id == response.questionId }),
+               let option = question.options.first(where: { $0.id == response.optionId }),
+               let emitter = CarbonEmittersEnum.allCases.first(where: { $0.description == question.text }) {
+                selections[emitter] = option.text
+            }
+        }
     }
 }

@@ -9,62 +9,149 @@ import Foundation
 
 @Observable
 class ProfileViewModel: ProfileViewModelProtocol {
-    var pinService: PinServiceProtocol
-    var userService: UserServiceProtocol
-    var footprintService: FootprintServiceProtocol
-    var userDefaultService: UserDefaultServiceProtocol
+    private var repository: ProfileRepositoryProtocol
+    
+    private var user: User?
+    private var userFootprint: Footprint?
+    private var allPins: [Pin] = []
+    private var allTrees: [ScannedTree] = []
+    
+    var userName: String = " "
     var userPins: [Pin] = []
     var footprint: String?
     var isLoading: Bool = true
+    var totalCO2: String = "0"
+    var isShowingDeleteAlert = false
+    var annualData: [MonthlyData] = []
+    var monthlyObjective: Int = 0
+    var annualObjective: Double = 0.0
     
-    init(pinService: PinServiceProtocol, userService: UserServiceProtocol, footprintService: FootprintServiceProtocol, userDefaultService: UserDefaultServiceProtocol) {
-        self.pinService = pinService
-        self.userService = userService
-        self.footprintService = footprintService
-        self.userDefaultService = userDefaultService
+    init(repository: ProfileRepositoryProtocol) {
+        self.repository = repository
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(userDataDidUpdate),
+            name: .didUpdateUserData,
+            object: nil
+        )
     }
     
-    func fetchUserPins() async {
+    func fetchData() async {
         self.isLoading = true
+        defer { self.isLoading = false }
         
         do {
-            let currentUser = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
-            self.userPins = currentUser.pins ?? []
-            await fetchFootprint()
-        } catch {
-            print("Erro ao buscar os pins do usuário: \(error.localizedDescription)")
-            self.userPins = []
-        }
-    }
-    
-    func fetchFootprint() async {
-        do {
-            let currentUser = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
+            let data = try await repository.fetchProfileData()
             
-            if let userFootprint = try footprintService.fetchFootprint(for: currentUser) {
+            self.user = data.currentUser
+            self.allPins = data.allPins
+            self.allTrees = data.allTrees
+            self.userName = user?.name ?? " "
+            
+            if let userFootprint = data.userFootprint {
                 let totalInKg = userFootprint.total
-                footprint = String(format: "%.0f Kg", totalInKg)
+                self.footprint = String(format: "%.0f Kg", totalInKg)
+                self.annualObjective = totalInKg
+                self.monthlyObjective = Int(totalInKg / 12)
+            } else {
+                self.userFootprint = nil
+                self.annualObjective = 0
+                self.monthlyObjective = 0
             }
+            
+            self.userPins = []
+            self.userPins = data.allPins.filter { $0.userRecordID == data.currentUser.recordID }
+            
+            var total: Double = 0.0
+            for pin in userPins {
+                if let tree = getTree(for: pin) {
+                    total += tree.totalCO2
+                }
+            }
+            self.totalCO2 = String(format: "%.0f", total)
+
+            calculateAnnualProgress()
         } catch {
-            print("Erro ao carregar o footprint: \(error.localizedDescription)")
+            print("Erro ao buscar dados do repositório: \(error.localizedDescription)")
         }
-        
-        self.isLoading = false
     }
     
     func deleteAccount() async {
+        self.isLoading = true
+        defer { self.isLoading = false }
+        
         do {
-            let currentUser = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
-            try userService.deleteUser(currentUser)
-            userDefaultService.setOnboarding(value: false)
-            userDefaultService.setFirstTime(value: false)
+            guard let user = self.user else { return }
+            
+            try await repository.deleteAccount(for: user)
         } catch {
             print("Erro ao deletar o usuário: \(error.localizedDescription)")
         }
     }
-        
-    func totalCO2User() -> String {
-        let totalInKg = userPins.compactMap(\.tree?.totalCO2).reduce(0, +)
-        return String(format: "%.0f", totalInKg)
+    
+    private func getTree(for pin: Pin) -> ScannedTree? {
+        return allTrees.first { tree in tree.recordID == pin.treeRecordID }
+    }
+    
+    @objc private func userDataDidUpdate() {
+        Task { @MainActor in
+            await fetchData()
+        }
+    }
+    
+    func CO2AnualPercent() -> Int {
+        if annualObjective == 0 {
+            return 0
+        }
+            
+        let calendar = Calendar.current
+        let currentYear = calendar.component(.year, from: Date())
+
+        let currentYearPins = userPins.filter {
+            calendar.component(.year, from: $0.date) == currentYear
+        }
+        let totalNeutralized = currentYearPins.compactMap { pin in
+            getTree(for: pin)?.totalCO2
+        }.reduce(0, +)
+
+        let percentage = (totalNeutralized / annualObjective) * 100.0
+            
+        let finalPercentage = Int(round(max(0, min(percentage, 100.0))))
+            
+        return finalPercentage
+    }
+    
+    func calculateAnnualProgress() {
+        let calendar = Calendar.current
+        let currentYear = calendar.component(.year, from: Date())
+        var monthlyTotals = Array(repeating: 0.0, count: 12)
+
+        let currentYearPins = userPins.filter {
+            calendar.component(.year, from: $0.date) == currentYear
+        }
+
+        for pin in currentYearPins {
+            let month = calendar.component(.month, from: pin.date) - 1
+            if month >= 0 && month < 12 {
+                if let tree = getTree(for: pin) {
+                    monthlyTotals[month] += tree.totalCO2
+                }
+            }
+        }
+
+        let monthSymbols = calendar.shortMonthSymbols.map { String($0.prefix(1)) }
+        let objective = Double(monthlyObjective)
+            
+        self.annualData = monthlyTotals.enumerated().map { (index, total) -> MonthlyData in
+            var normalizedHeight = 0.0
+            
+            if objective > 0 {
+                let percentage = total / objective
+                normalizedHeight = min(percentage, 1.0)
+            }
+                    
+            return MonthlyData(month: monthSymbols[index], normalizedHeight: normalizedHeight)
+        }
     }
 }

@@ -19,9 +19,9 @@ class OnboardingViewModel: OnboardingViewModelProtocol {
     var currentPageIndex: Int? = 0
     
     let onboardingPages: [OnboardingPage] = [
-        OnboardingPage(image: .onboarding1, title: "Descubra quanto carbono cada árvore pode capturar", description: "Use realidade aumentada para identificar a espécies das árvores e calcular o capacidade de sequestro de CO₂"),
-        OnboardingPage(image: .onboarding2, title: "Acompanhe a floresta crescendo bem pertinho de você", description: "Seus registros fortalecem um banco de dados vivo que revela a biodiversidade e o carbono capturado em todo o mundo"),
-        OnboardingPage(image: .onboarding3, title: "Faça parte da comunidade", description: "Some seu impacto ao de milhares de pessoas que ajudam a neutralizar CO₂")
+        OnboardingPage(image: .onboarding1, title: String(localized: "Descubra o quanto de carbono cada árvore pode capturar"), description: String(localized: "Use realidade aumentada para identificar a espécies das árvores e calcular a capacidade de sequestro de CO₂")),
+        OnboardingPage(image: .onboarding2, title: String(localized: "Acompanhe a floresta crescendo bem pertinho de você"), description: String(localized: "Seus registros fortalecem um banco de dados vivo que revela a biodiversidade e o carbono capturado em todo o mundo")),
+        OnboardingPage(image: .onboarding3, title: String(localized: "Faça parte da comunidade"), description: String(localized: "Some seu impacto ao de milhares de pessoas que ajudam a neutralizar CO₂"))
     ]
     
     init(userDefaultService: UserDefaultServiceProtocol, userService: UserServiceProtocol) {

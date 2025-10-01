@@ -27,7 +27,6 @@ class CameraService: NSObject, ObservableObject, CameraServiceProtocol, AVCaptur
     
     override init() {
         super.init()
-        setupSession()
     }
     
     func requestPermissions() async -> Bool {
@@ -76,7 +75,7 @@ class CameraService: NSObject, ObservableObject, CameraServiceProtocol, AVCaptur
         }
     }
     
-    private func setupSession() {
+    func setupSession() {
         session.beginConfiguration()
         
         guard let videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back),

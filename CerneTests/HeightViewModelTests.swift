@@ -29,7 +29,8 @@ struct HeightViewModelTests {
             measuredDiameter: measureDiameter,
             treeImage: UIImage(),
             userLatitude: 0.0,
-            userLongitude: 0.0
+            userLongitude: 0.0,
+            treeSpecies: ""
         )
         
         // When
@@ -63,7 +64,8 @@ struct HeightViewModelTests {
             measuredDiameter: measureDiameter,
             treeImage: UIImage(),
             userLatitude: 0.0,
-            userLongitude: 0.0
+            userLongitude: 0.0,
+            treeSpecies: ""
         )
         
         // When
@@ -97,7 +99,8 @@ struct HeightViewModelTests {
             measuredDiameter: measureDiameter,
             treeImage: UIImage(),
             userLatitude: 0.0,
-            userLongitude: 0.0
+            userLongitude: 0.0,
+            treeSpecies: ""
         )
         
         // When
@@ -133,7 +136,8 @@ struct HeightViewModelTests {
             measuredDiameter: measureDiameter,
             treeImage: UIImage(),
             userLatitude: 0.0,
-            userLongitude: 0.0
+            userLongitude: 0.0,
+            treeSpecies: ""
         )
         
         // When
@@ -163,7 +167,8 @@ struct HeightViewModelTests {
             measuredDiameter: measureDiameter,
             treeImage: UIImage(),
             userLatitude: 0.0,
-            userLongitude: 0.0
+            userLongitude: 0.0,
+            treeSpecies: ""
         )
         
         // When
@@ -192,7 +197,8 @@ struct HeightViewModelTests {
             measuredDiameter: measureDiameter,
             treeImage: UIImage(),
             userLatitude: 0.0,
-            userLongitude: 0.0
+            userLongitude: 0.0,
+            treeSpecies: ""
         )
         
         // When
@@ -221,7 +227,8 @@ struct HeightViewModelTests {
             measuredDiameter: measureDiameter,
             treeImage: UIImage(),
             userLatitude: 0.0,
-            userLongitude: 0.0
+            userLongitude: 0.0,
+            treeSpecies: ""
         )
         
         // When

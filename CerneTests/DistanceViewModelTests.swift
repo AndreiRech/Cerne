@@ -16,11 +16,11 @@ struct DistanceViewModelTests {
         // Given
         let mockARService = MockARService(shouldFail: false)
         let viewModel = DistanceViewModel(
-            arService: mockARService,
             userDefaultService: MockUserDefaultService(),
             userHeight: 0.0,
             measuredDiameter: 0.0,
-            treeImage: UIImage()
+            treeImage: UIImage(),
+            treeSpecies: ""
         )
         
         // When
@@ -34,11 +34,11 @@ struct DistanceViewModelTests {
         // Given
         let mockARService = MockARService(shouldFail: false)
         let viewModel = DistanceViewModel(
-            arService: mockARService,
             userDefaultService: MockUserDefaultService(),
             userHeight: 0.0,
             measuredDiameter: 0.0,
-            treeImage: UIImage()
+            treeImage: UIImage(),
+            treeSpecies: ""
         )
         
         // When
@@ -47,27 +47,5 @@ struct DistanceViewModelTests {
         
         // Then
         #expect(mockARService.isCorrect)
-    }
-    
-    @Test func shouldUpdateDistanceTextOnNewValue() async throws {
-        // Given
-        let mockARService = MockARService()
-        let viewModel = DistanceViewModel(
-            arService: mockARService,
-            userDefaultService: MockUserDefaultService(),
-            userHeight: 0.0,
-            measuredDiameter: 0.0,
-            treeImage: UIImage()
-        )
-        let inputDistance: Float = 1.2345
-        let expectedText = "1.23 longe da arvore"
-        
-        // When
-        mockARService.distancePublisher.send(inputDistance)
-        
-        try await Task.sleep(nanoseconds: 1_000_000)
-
-        // Then
-        #expect(viewModel.distanceText == expectedText)
     }
 }

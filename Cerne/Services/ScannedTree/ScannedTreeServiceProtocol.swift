@@ -6,12 +6,12 @@
 //
 
 import Foundation
-import SwiftData
+import CloudKit
 
 protocol ScannedTreeServiceProtocol {
-    func fetchScannedTrees() throws -> [ScannedTree]
-    
-    func createScannedTree(species: String, height: Double, dap: Double, totalCO2: Double) throws -> ScannedTree
-
-    func updateScannedTree(tree: ScannedTree, newSpecies: String?, newHeight: Double?, newDap: Double?) throws
+    func fetchScannedTrees() async throws -> [ScannedTree]
+    func fetchScannedTree(treeID: CKRecord.ID) async throws -> ScannedTree
+    func createScannedTree(species: String, height: Double, dap: Double, totalCO2: Double) async throws -> ScannedTree
+    func updateScannedTree(tree: ScannedTree) async throws -> ScannedTree
+    func deleteScannedTree(_ tree: ScannedTree) async throws
 }

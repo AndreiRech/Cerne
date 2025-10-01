@@ -22,30 +22,38 @@ struct CarbonEmmiters: View {
                 HStack(alignment: .center,spacing: 10) {
                     Image(systemName: iconName)
                         .frame(width: 36, height: 26)
+                        .foregroundStyle(.primitivePrimary)
+                        .font(.title3)
+                        .fontWeight(.semibold)
                     
                     Text(title)
-                        .foregroundStyle(.labelPrimary)
+                        .foregroundStyle(.primitivePrimary)
+                        .font(.body)
                         .fontWeight(.semibold)
                 }
                 
                 HStack (alignment: .center, spacing: 8) {
                     Text(description)
-                        .foregroundStyle(.labelPrimary)
-                        .font(.callout)
-                        .foregroundStyle(.labelSecondary)
+                        .foregroundStyle(.primitiveSecondary)
+                        .font(.body)
+                        .fontWeight(.regular)
                     
                     Spacer()
                     
-                    PickerComponent(title: "Selecionar", options: options, isEnabled: isEnabled, selection: $selection)
+                    PickerComponent(title: String(localized: "Selecionar"), options: options, isEnabled: isEnabled, selection: $selection)
                 }
             }
         } else {
             HStack(alignment: .center,spacing: 10) {
                 Image(systemName: iconName)
                     .frame(width: 36, height: 26)
+                    .foregroundStyle(.primitivePrimary)
+                    .font(.title3)
+                    .fontWeight(.semibold)
                 
                 Text(title)
-                    .foregroundStyle(.labelPrimary)
+                    .foregroundStyle(.primitivePrimary)
+                    .font(.body)
                     .fontWeight(.semibold)
                 
                 Spacer()
@@ -54,4 +62,9 @@ struct CarbonEmmiters: View {
             }
         }
     }
+}
+
+#Preview {
+    @Previewable @State var selection: String = "Selecionar"
+    CarbonEmmiters(iconName: "car.fill", title: "Carro", description: "qual tipo?", options: CarbonEmittersEnum.car.getPickerOptions(), isEnabled: true, selection: $selection)
 }
