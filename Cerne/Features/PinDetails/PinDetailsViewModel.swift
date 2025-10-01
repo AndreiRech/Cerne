@@ -12,6 +12,7 @@ class PinDetailsViewModel: PinDetailsViewModelProtocol {
     var pin: Pin
     var tree: ScannedTree?
     var pinUser: User?
+    var user: User?
     
     private let pinService: PinServiceProtocol
     private let userService: UserServiceProtocol
@@ -24,6 +25,7 @@ class PinDetailsViewModel: PinDetailsViewModelProtocol {
     var isPinFromUser: Bool = false
     var errorMessage: String?
     var reportEnabled: Bool = true
+    var isLoading: Bool = true
     
     var formattedTotalCO2: String {
         return String(format: "%.0f", tree?.totalCO2 ?? 0.0)
@@ -40,9 +42,11 @@ class PinDetailsViewModel: PinDetailsViewModelProtocol {
     }
     
     func fetchData() async {
+        isLoading = true
+        defer { self.isLoading = false }
+        
         await fetchTreeAndUser()
         setupDetails()
-        await isPinFromUser()
         updateReportStatus()
     }
     
@@ -58,21 +62,17 @@ class PinDetailsViewModel: PinDetailsViewModelProtocol {
         guard reportEnabled else { return }
         
         do {
-            _ = try await pinService.addReport(to: pin)
-            userDefaultService.setPinReported(pin: pin)
-            reportEnabled = false
+            let updatedPin = try await pinService.addReport(to: pin)
+            
+            if let newPin = updatedPin {
+                self.pin = newPin
+                userDefaultService.setPinReported(pin: newPin)
+                reportEnabled = false
+            } else {
+                print("erro ao denunciar o pin")
+            }
         } catch {
             errorMessage = "Failed to report pin"
-        }
-    }
-    
-    func isPinFromUser() async {
-        do {
-            let currentUser = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
-            
-            isPinFromUser = currentUser.recordID == pinUser?.recordID
-        } catch {
-            errorMessage = "Failed to get user for pin"
         }
     }
     
@@ -105,20 +105,23 @@ class PinDetailsViewModel: PinDetailsViewModelProtocol {
     }
     
     private func fetchTreeAndUser() async {
-        guard let treeRef = pin.treeRecordID, let _ = pin.userRecordID else {
-            errorMessage = "Pin does not contain tree or user reference."
+        guard let treeRef = pin.treeRecordID, let userRef = pin.userRecordID else {
+            errorMessage = "O pino não contém referência à árvore ou ao utilizador."
             return
         }
         
         do {
             async let fetchedTree = treeService.fetchScannedTree(treeID: treeRef)
-            async let fetchedUser = userService.fetchOrCreateCurrentUser(name: nil, height: nil)
+            async let fetchedPinUser = userService.fetchUser(by: userRef)
             
             self.tree = try await fetchedTree
-            self.pinUser = try await fetchedUser
+            self.pinUser = try await fetchedPinUser
             
+            self.user = try await userService.fetchOrCreateCurrentUser(name: nil, height: nil)
+            
+            isPinFromUser = user?.recordID == pinUser?.recordID
         } catch {
-            errorMessage = "Failed to fetch Tree or User for the Pin."
+            errorMessage = "Falha ao buscar a Árvore ou o Utilizador para o Pino."
         }
     }
     
