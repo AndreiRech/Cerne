@@ -53,10 +53,17 @@ class PinService: PinServiceProtocol {
         
         do {
             let savedRecord = try await publicDB.save(pinRecord)
+            let treeRecordToUpdate = try await publicDB.record(for: treeRecordID)
+            
+            treeRecordToUpdate["CD_pin"] = CKRecord.Reference(record: savedRecord, action: .deleteSelf)
+            
+            _ = try await publicDB.save(treeRecordToUpdate)
+            
             guard let savedPin = Pin(record: savedRecord) else {
                 throw GenericError.serviceError
             }
             return savedPin
+            
         } catch {
             print("Erro detalhado do CloudKit em createPin: \(error)")
             print("Erro ao criar Pins: \(error.localizedDescription)")
@@ -74,7 +81,6 @@ class PinService: PinServiceProtocol {
             
             var currentReports = recordToUpdate["CD_reports"] as? Int ?? 0
             currentReports += 1
-            
             if currentReports >= 5 {
                 try await deletePin(pin)
                 return nil

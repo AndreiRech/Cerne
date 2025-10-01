@@ -27,6 +27,19 @@ class UserService: UserServiceProtocol {
         }
     }
     
+    func fetchUser(by recordID: CKRecord.ID) async throws -> User? {
+        do {
+            let record = try await publicDB.record(for: recordID)
+            return User(record: record)
+        } catch let error as CKError where error.code == .unknownItem {
+            print("Utilizador com recordID \(recordID.recordName) não encontrado.")
+            return nil
+        } catch {
+            print("Erro ao buscar utilizador por recordID: \(error.localizedDescription)")
+            throw GenericError.serviceError
+        }
+    }
+    
     func fetchOrCreateCurrentUser(name: String?, height: Double?) async throws -> User {
         let container = CKContainer.default()
         
