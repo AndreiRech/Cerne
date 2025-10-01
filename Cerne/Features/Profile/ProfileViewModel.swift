@@ -16,6 +16,7 @@ class ProfileViewModel: ProfileViewModelProtocol {
     private var allPins: [Pin] = []
     private var allTrees: [ScannedTree] = []
     
+    var userName: String = " "
     var userPins: [Pin] = []
     var footprint: String?
     var isLoading: Bool = true
@@ -47,6 +48,7 @@ class ProfileViewModel: ProfileViewModelProtocol {
             self.user = data.currentUser
             self.allPins = data.allPins
             self.allTrees = data.allTrees
+            self.userName = user?.name ?? " "
             
             if let userFootprint = data.userFootprint {
                 let totalInKg = userFootprint.total
