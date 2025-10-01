@@ -64,7 +64,7 @@ class ProfileViewModel: ProfileViewModelProtocol {
             self.userPins = data.allPins.filter { $0.userRecordID == data.currentUser.recordID }
             
             var total: Double = 0.0
-            for pin in data.allPins {
+            for pin in userPins {
                 if let tree = getTree(for: pin) {
                     total += tree.totalCO2
                 }
