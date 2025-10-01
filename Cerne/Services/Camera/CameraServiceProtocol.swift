@@ -20,4 +20,5 @@ protocol CameraServiceProtocol {
     func stopSession()
     func capturePhoto()
     func clearImage()
+    func setupSession()
 }

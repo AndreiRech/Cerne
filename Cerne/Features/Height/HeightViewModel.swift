@@ -83,12 +83,13 @@ class HeightViewModel: HeightViewModelProtocol {
     func onAppear() {
         Task {
             if await cameraService.requestPermissions() {
+                cameraService.setupSession()
                 cameraService.startSession()
             } else {
                 errorMessage = cameraService.errorMessage
             }
+            motionService.startUpdates()
         }
-        motionService.startUpdates()
     }
     
     func onDisappear() {
