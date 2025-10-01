@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FootprintView: View {
     @State var viewModel: FootprintViewModel
+    @EnvironmentObject var router: Router
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -92,6 +93,17 @@ struct FootprintView: View {
                     }
             }
             
+            if viewModel.isOverlayVisible || viewModel.isLoading {
+                 Color.black.opacity(0.4)
+                     .ignoresSafeArea()
+                     .blur(radius: 1.3)
+             }
+             
+             if viewModel.isLoading {
+                 ProgressView()
+                     .scaleEffect(1.5)
+             }
+            
             if viewModel.showDiscardAlert {
                 AlertView(
                     title: "Descartar os dados?",
@@ -120,11 +132,13 @@ struct FootprintView: View {
                 .padding(.horizontal, 46)
                 .onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.8) {
-                        dismiss()
+                        router.popToRoot()
+                        router.selectedTab = 0
                     }
                 }
                 .onTapGesture {
-                    dismiss()
+                    router.popToRoot()
+                    router.selectedTab = 0
                 }
             }
         }

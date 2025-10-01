@@ -13,9 +13,9 @@
     "text": "Qual tipo de combustível o seu carro usa?",
     "options": [
       { "id": 1, "text": "Não tenho carro", "value": 0 },
-      { "id": 2, "text": "Gasolina / Álcool", "value": 0 },
-      { "id": 3, "text": "Diesel", "value": 0 },
-      { "id": 4, "text": "Híbrido / Elétrico", "value": 0 }
+      { "id": 2, "text": "Gasolina / Álcool", "value": 1200 },
+      { "id": 3, "text": "Diesel", "value": 1500 },
+      { "id": 4, "text": "Híbrido / Elétrico", "value": 500 }
     ]
   },
   {

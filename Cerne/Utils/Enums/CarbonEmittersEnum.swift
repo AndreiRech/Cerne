@@ -18,22 +18,22 @@ enum CarbonEmittersEnum: CaseIterable {
     case purchase
     case houseHold
     case recicle
-    
+
     var title: String {
         switch self {
         case .car: return "Carro"
         case .km: return "Quilometragem de carro"
         case .bus: return "Transporte público"
-        case .shortHaulFlight: return "Voos de curta distância"
-        case .longHaulFlight: return "Voos de longa distância"
+        case .shortHaulFlight: return "Voos domésticos" // Ajustado
+        case .longHaulFlight: return "Voos internacionais" // Ajustado
         case .diet: return "Dieta"
         case .airConditioner: return "Ar condicionado"
-        case .purchase: return "Consumos de bens"
+        case .purchase: return "Compras" // Ajustado
         case .houseHold: return "Eletrodomésticos de alto consumo"
         case .recicle: return "Resíduos e reciclagem"
         }
     }
-    
+
     var description: String {
         switch self {
         case .car: return "Qual tipo de combustível o seu carro usa?"
@@ -43,28 +43,30 @@ enum CarbonEmittersEnum: CaseIterable {
         case .longHaulFlight: return "Quantos voos internacionais você faz por ano?"
         case .diet: return "Adota alguma dieta ou restrição alimentar?"
         case .airConditioner: return "Com que frequência você usa ar-condicionado?"
-        case .purchase: return "Com que frequência você compra roupas e eletrônicos?"
-        case .houseHold: return "Usa secadora, aquecedor ou similares?"
+        case .purchase: return "Com que frequência você compra roupas, eletrônicos ou móveis novos?" // Ajustado
+        case .houseHold: return "Você usa eletrodomésticos de alto consumo (secadora, aquecedor)?" // Ajustado
         case .recicle: return "Como você lida com resíduos/reciclagem?"
         }
     }
-    
+
     var iconName: String {
         switch self {
         case .car: return "car"
         case .km: return "road.lanes"
         case .bus: return "bus"
         case .shortHaulFlight: return "airplane"
-        case .longHaulFlight: return "airplane.path.dotted"
+        case .longHaulFlight: return "airplane" // Ícone unificado para voos, pode ser ajustado se necessário
         case .diet: return "fork.knife.circle"
-        case .airConditioner: return "air.purifier"
-        case .purchase: return "chair.lounge"
+        case .airConditioner: return "air.conditioner.horizontal" // Ícone mais específico para ar-condicionado
+        case .purchase: return "cart" // Ícone mais genérico para compras
         case .houseHold: return "dryer"
-        case .recicle: return "arrow.trianglehead.2.clockwise.rotate.90"
+        case .recicle: return "arrow.triangle.2.circlepath" // Ícone atualizado do sistema para reciclagem
         }
     }
-    
+
     func getPickerOptions() -> [String] {
+        // As opções já estavam corretas e alinhadas com o JSON.
+        // Nenhuma alteração foi necessária aqui.
         switch self {
         case .car:
             return ["Selecionar", "Não tenho carro", "Gasolina / Álcool", "Diesel", "Híbrido / Elétrico"]

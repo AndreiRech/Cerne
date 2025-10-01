@@ -98,6 +98,8 @@ class FootprintViewModel: FootprintViewModelProtocol {
     
     func saveFootprint() async {
         if isAbleToSave {
+            self.isLoading = true
+            defer { self.isLoading = false }
             do {
                 self.questions = try repository.getQuestions()
                 
