@@ -11,8 +11,11 @@ import Combine
 @testable import Cerne
 
 class MockARService: ARServiceProtocol {
+    let distancePublisher = PassthroughSubject<Float?, Never>()
+    var interactionMode: ARInteractionMode = .placingObjects
+
     var arView: ARView = ARView()
-    var distancePublisher: PassthroughSubject<Float, Never> = .init()
+    var points: [Int] = []
     
     var shouldFail: Bool = true
     var isCorrect: Bool = true
@@ -29,5 +32,11 @@ class MockARService: ARServiceProtocol {
         isCorrect = !shouldFail
     }
     
+    func addMeasurementPoint() {
+        points.append(1)
+    }
     
+    func removeMeasurementPoints() {
+        points.removeAll()
+    }
 }

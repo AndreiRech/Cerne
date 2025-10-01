@@ -9,6 +9,7 @@ import SwiftUI
 import Testing
 import MapKit
 @testable import Cerne
+import CloudKit
 
 struct MapViewModelTests {
     
@@ -19,8 +20,8 @@ struct MapViewModelTests {
         let treeService = MockScannedTreeService()
         
         pinService.pins = [
-            Pin(image: Data(), latitude: 1.0, longitude: 1.0, date: Date(), user: User(name: "User1", height: 1.70), tree: ScannedTree(species: "A", height: 10.0, dap: 1, totalCO2: 1)),
-            Pin(image: Data(), latitude: 10.0, longitude: 10.0, date: Date(), user: User(name: "User2", height: 1.64), tree: ScannedTree(species: "b", height: 8.32, dap: 2, totalCO2: 2))
+            Pin(image: UIImage(), latitude: 1.0, longitude: 1.0, date: Date(), userRecordID: CKRecord.ID(), treeRecordID: CKRecord.ID()),
+            Pin(image: UIImage(), latitude: 10.0, longitude: 10.0, date: Date(), userRecordID: CKRecord.ID(), treeRecordID: CKRecord.ID())
         ]
         
         let viewModel = MapViewModel(locationService: locationService,
@@ -28,11 +29,10 @@ struct MapViewModelTests {
                                userService: userService,
                                scannedTreeService: treeService)
 
-        viewModel.onMapAppear()
+        await viewModel.onMapAppear()
 
         #expect(locationService.startCalled == true)
-        
-        #expect(viewModel.pins.isEmpty == false)
+        #expect(viewModel.usablePins.isEmpty == false)
     }
     
     @Test func testGetPins() async throws {
@@ -42,8 +42,8 @@ struct MapViewModelTests {
         let treeService = MockScannedTreeService()
         
         pinService.pins = [
-            Pin(image: Data(), latitude: 1.0, longitude: 1.0, date: Date(), user: User(name: "User1", height: 1.70), tree: ScannedTree(species: "A", height: 10.0, dap: 1, totalCO2: 1)),
-            Pin(image: Data(), latitude: 10.0, longitude: 10.0, date: Date(), user: User(name: "User2", height: 1.64), tree: ScannedTree(species: "b", height: 8.32, dap: 2, totalCO2: 2))
+            Pin(image: UIImage(), latitude: 1.0, longitude: 1.0, date: Date(), userRecordID: CKRecord.ID(), treeRecordID: CKRecord.ID()),
+            Pin(image: UIImage(), latitude: 10.0, longitude: 10.0, date: Date(), userRecordID: CKRecord.ID(), treeRecordID: CKRecord.ID())
         ]
 
         let viewModel = MapViewModel(locationService: locationService,
@@ -51,10 +51,9 @@ struct MapViewModelTests {
                                userService: userService,
                                scannedTreeService: treeService)
         
-        viewModel.getPins()
+        await viewModel.getPins()
         
-        #expect(viewModel.pins.count > 0)
-        #expect(viewModel.pins.first?.tree?.species ?? "" == "A")
+        #expect(viewModel.usablePins.count > 0)
     }
     
     @Test func testGetPinsFailure() async throws {
@@ -68,9 +67,9 @@ struct MapViewModelTests {
                                userService: userService,
                                scannedTreeService: treeService)
         
-        viewModel.getPins()
+        await viewModel.getPins()
         
-        #expect(viewModel.pins.isEmpty)
+        #expect(viewModel.usablePins.isEmpty)
     }
     
 }

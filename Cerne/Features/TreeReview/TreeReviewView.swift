@@ -12,7 +12,7 @@ struct TreeReviewView: View {
     
     var body: some View {
         if viewModel.showValidation {
-            ValidationView(viewModel: ValidationViewModel(tree: viewModel.tree))
+            ValidationView(tree: viewModel.tree)
         } else {
             if viewModel.isLoading {
                 ProgressView()

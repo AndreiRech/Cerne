@@ -7,40 +7,106 @@
 
 @testable import Cerne
 import Foundation
-import SwiftData
+import CloudKit
 
 class MockFootprintService: FootprintServiceProtocol {
     var footprints: [Footprint]
+    var responses: [Response]
+    
     var shouldFail: Bool
     
-    init(shouldFail: Bool = false, footprints: [Footprint] = [Footprint(id: UUID(), total: 2.0, responses: [Response(questionId: 1, optionId: 1, value: 2.0)])]) {
+    init(shouldFail: Bool = false, initialFootprints: [Footprint] = [], initialResponses: [Response] = []) {
         self.shouldFail = shouldFail
-        self.footprints = footprints
+        self.footprints = initialFootprints
+        self.responses = initialResponses
     }
     
-    func fetchFootprints() throws -> [Footprint] {
+    func fetchFootprints() async throws -> [Footprint] {
+        if shouldFail {
+            throw GenericError.serviceError
+        }
+        return footprints
+    }
+    
+    func fetchFootprint(for user: User) async throws -> Footprint? {
+        if shouldFail {
+            throw GenericError.serviceError
+        }
+        guard let userRecordID = user.recordID else {
+            return nil
+        }
+        
+        return footprints.first { $0.userRecordID == userRecordID }
+    }
+    
+    func fetchResponses(for footprint: Footprint) async throws -> [Response] {
+        if shouldFail {
+            throw GenericError.serviceError
+        }
+        guard let footprintRecordID = footprint.recordID else {
+            return []
+        }
+        
+        return responses.filter { $0.footprintRecordID == footprintRecordID }
+    }
+    
+    func createOrUpdateFootprint(for user: User, with responsesData: [ResponseData]) async throws -> Footprint {
         if shouldFail {
             throw GenericError.serviceError
         }
         
-        return footprints
-    }
-    
-    func createOrUpdateFootprint(for user: User, with newResponses: [Response]) throws {
-        if shouldFail {
-            throw NSError(domain: "MockFootprintService", code: 1, userInfo: [NSLocalizedDescriptionKey: "Failed to create or update Footprint"])
+        guard let userRecordID = user.recordID else {
+            throw GenericError.serviceError
         }
         
-        let newTotal = newResponses.reduce(0) { $0 + $1.value }
+        let newTotal = responsesData.reduce(0) { $0 + $1.value }
         
-        user.footprint = Footprint(id: UUID(), total: newTotal, responses: newResponses)
+        var finalFootprint: Footprint
+        
+        if let existingFootprint = try await fetchFootprint(for: user), let footprintIndex = footprints.firstIndex(where: { $0.id == existingFootprint.id }) {
+            responses.removeAll { $0.footprintRecordID == existingFootprint.recordID }
+            
+            footprints[footprintIndex].total = newTotal
+            finalFootprint = footprints[footprintIndex]
+            
+        } else {
+            let newFootprint = Footprint(id: UUID(), total: newTotal, userRecordID: userRecordID)
+            footprints.append(newFootprint)
+            finalFootprint = newFootprint
+        }
+        
+        for responseData in responsesData {
+            let newResponse = Response(id: UUID(), questionId: responseData.questionId, optionId: responseData.optionId, value: responseData.value, footprintRecordID: finalFootprint.recordID!)
+            responses.append(newResponse)
+        }
+        
+        return finalFootprint
     }
-    
+
     func getQuestions(fileName: String) throws -> [Question] {
         if shouldFail {
             throw JsonError.fileNotFound
         }
         
-        return [Question(id: 1, text: "Question", options: [Option(id: 1, text: "Pergunta", value: 1)])]
+        return [
+            Question(id: 1, text: "Qual seu meio de transporte principal?", options: [
+                Option(id: 1, text: "Carro", value: 5.0),
+                Option(id: 2, text: "Transporte Público", value: 2.0),
+                Option(id: 3, text: "Bicicleta ou a pé", value: 0.5)
+            ])
+        ]
+    }
+    
+    func deleteFootprint(_ footprint: Footprint) async throws {
+        if shouldFail {
+            throw GenericError.serviceError
+        }
+        
+        guard let recordID = footprint.recordID else {
+            return
+        }
+        
+        responses.removeAll { $0.footprintRecordID == recordID }
+        footprints.removeAll { $0.recordID == recordID }
     }
 }

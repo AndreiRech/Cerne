@@ -7,44 +7,73 @@
 
 @testable import Cerne
 import Foundation
-import SwiftData
+import CloudKit
 
 class MockScannedTreeService: ScannedTreeServiceProtocol {
     var scannedTrees: [ScannedTree] = []
     var shouldFail: Bool
     
-    init(shouldFail: Bool = false) {
+    init(shouldFail: Bool = false, initialTrees: [ScannedTree] = []) {
         self.shouldFail = shouldFail
+        self.scannedTrees = initialTrees
     }
     
-    func fetchScannedTrees() throws -> [ScannedTree] {
+    func fetchScannedTrees() async throws -> [ScannedTree] {
+        if shouldFail {
+            throw GenericError.serviceError
+        }
+        return scannedTrees
+    }
+    
+    func fetchScannedTree(treeID: CKRecord.ID) async throws -> ScannedTree {
         if shouldFail {
             throw GenericError.serviceError
         }
         
-        return scannedTrees
+        if let tree = scannedTrees.first(where: { $0.recordID == treeID }) {
+            return tree
+        }
+        
+        throw CKError(.unknownItem)
     }
     
-    func createScannedTree(species: String, height: Double, dap: Double, totalCO2: Double) throws -> ScannedTree {
+    func createScannedTree(species: String, height: Double, dap: Double, totalCO2: Double) async throws -> ScannedTree {
         if shouldFail {
-            throw NSError(domain: "MockScannedTreeService", code: 1, userInfo: [NSLocalizedDescriptionKey: "Failed to create ScannedTree"])
+            throw GenericError.serviceError
         }
-        let newTree = ScannedTree(species: species, height: height, dap: dap, totalCO2: totalCO2)
+        
+        var newTree = ScannedTree(species: species, height: height, dap: dap, totalCO2: totalCO2)
+        let newRecordID = CKRecord.ID(recordName: newTree.id.uuidString)
+        newTree.recordID = newRecordID
+        
         scannedTrees.append(newTree)
         return newTree
     }
     
-    func updateScannedTree(tree: ScannedTree, newSpecies: String?, newHeight: Double?, newDap: Double?) throws {
+    func updateScannedTree(tree: ScannedTree) async throws -> ScannedTree {
         if shouldFail {
-            throw NSError(domain: "MockScannedTreeService", code: 2, userInfo: [NSLocalizedDescriptionKey: "FFailed to update ScannedTree"])
+            throw GenericError.serviceError
         }
         
-        if let index = scannedTrees.firstIndex(where: { $0.id == tree.id }) {
-            let treeToUpdate = scannedTrees[index]
-            
-            treeToUpdate.species = newSpecies ?? treeToUpdate.species
-            treeToUpdate.height = newHeight ?? treeToUpdate.height
-            treeToUpdate.dap = newDap ?? treeToUpdate.dap
+        guard let recordID = tree.recordID,
+              let index = scannedTrees.firstIndex(where: { $0.recordID == recordID }) else {
+            throw CKError(.unknownItem)
         }
+        
+        scannedTrees[index] = tree
+        return tree
+    }
+    
+    func deleteScannedTree(_ tree: ScannedTree) async throws {
+        if shouldFail {
+            throw GenericError.serviceError
+        }
+        
+        guard let recordID = tree.recordID,
+              let index = scannedTrees.firstIndex(where: { $0.recordID == recordID }) else {
+            throw CKError(.unknownItem)
+        }
+        
+        scannedTrees.remove(at: index)
     }
 }

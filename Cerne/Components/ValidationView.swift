@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ValidationView: View {
-    @State var viewModel: ValidationViewModel
+    var tree: ScannedTree?
     @EnvironmentObject var router: Router
     
     var body: some View {
@@ -18,7 +18,7 @@ struct ValidationView: View {
                 .fontWeight(.semibold)
             
             VStack(spacing: 7) {
-                Text(viewModel.tree?.species ?? "")
+                Text(tree?.species ?? "")
                     .lineLimit(1)
                     .font(.title3)
                     .fontWeight(.semibold)
@@ -34,7 +34,7 @@ struct ValidationView: View {
             }
             
             VStack(spacing: 7) {
-                Text(String(format: "%.1f kg de CO₂", viewModel.tree?.totalCO2 ?? 0))
+                Text(String(format: "%.1f kg de CO₂", tree?.totalCO2 ?? 0))
                     .font(.title3)
                     .fontWeight(.semibold)
                 
