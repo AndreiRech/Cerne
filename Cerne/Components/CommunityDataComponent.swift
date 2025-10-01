@@ -40,12 +40,12 @@ struct CommunityDataComponent: View {
                     .foregroundStyle(.primitiveSecondary)
 
             case .co2:
-                Text("Correspondem a cerca de \(Text(String(format: "%.1f voltas ao redor da Terra", co2Number ?? 0)).fontWeight(.semibold)) de carro, movido a gasolina")
+                Text("Correspondem a cerca de \(Text(String(format: String(localized: "%.1f voltas ao redor da Terra"), co2Number ?? 0)).fontWeight(.semibold)) de carro, movido a gasolina")
                     .font(.subheadline)
                     .foregroundStyle(.primitiveSecondary)
     
             case .oxygen:
-                Text("Oxigênio capaz de suprir o consumo anual de cerca de \(Text(String(format: "%d pessoas", oxygenNumber ?? 0)).fontWeight(.semibold))")
+                Text("Oxigênio capaz de suprir o consumo anual de cerca de \(Text(String(format: String(localized: "%d pessoas"), oxygenNumber ?? 0)).fontWeight(.semibold))")
                     .font(.subheadline)
                     .foregroundStyle(.primitiveSecondary)
             }

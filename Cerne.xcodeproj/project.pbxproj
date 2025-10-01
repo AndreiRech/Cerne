@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		A3CCE8622E8C65A50045DA3E /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = A3CCE8612E8C65A50045DA3E /* Localizable.xcstrings */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		4DBE41342E6A27A50036B193 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -19,6 +23,7 @@
 /* Begin PBXFileReference section */
 		4DBE3DDC2E68CC950036B193 /* Cerne.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cerne.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DBE41302E6A27A50036B193 /* CerneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CerneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A3CCE8612E8C65A50045DA3E /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = Localizable.xcstrings; path = Cerne/App/Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -68,6 +73,7 @@
 		4DBE3DD32E68CC950036B193 = {
 			isa = PBXGroup;
 			children = (
+				A3CCE8612E8C65A50045DA3E /* Localizable.xcstrings */,
 				4DBE3DDE2E68CC950036B193 /* Cerne */,
 				4DBE41312E6A27A50036B193 /* CerneTests */,
 				4DBE3DDD2E68CC950036B193 /* Products */,
@@ -151,11 +157,13 @@
 				};
 			};
 			buildConfigurationList = 4DBE3DD72E68CC950036B193 /* Build configuration list for PBXProject "Cerne" */;
-			developmentRegion = en;
+			developmentRegion = "pt-BR";
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				"pt-BR",
+				es,
 			);
 			mainGroup = 4DBE3DD32E68CC950036B193;
 			minimizedProjectReferenceProxies = 1;
@@ -175,6 +183,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3CCE8622E8C65A50045DA3E /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,6 +372,7 @@
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -420,6 +430,7 @@
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

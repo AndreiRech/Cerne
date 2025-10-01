@@ -21,8 +21,8 @@ struct HeightView: View {
                 
                 InstructionComponent(
                     imageName: viewModel.firstInstruction ? "figure.walk" : "chevron.up.2",
-                    title: viewModel.firstInstruction ? "Para medirmos a altura, dê alguns passos para longe da árvore até o topo aparecer na tela" : "Mire no ponto mais alto da árvore e adicione o ponto para registrar a altura",
-                    buttonText: viewModel.firstInstruction ? "Encontrar distância ideal" : "Capturar o topo",
+                    title: viewModel.firstInstruction ? String(localized: "Para medirmos a altura, dê alguns passos para longe da árvore até o topo aparecer na tela") : String(localized: "Mire no ponto mais alto da árvore e adicione o ponto para registrar a altura"),
+                    buttonText: viewModel.firstInstruction ? String(localized: "Encontrar distância ideal") : String(localized: "Capturar o topo"),
                     onTap: {
                         if viewModel.firstInstruction {
                             viewModel.firstInstruction.toggle()
@@ -45,7 +45,7 @@ struct HeightView: View {
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundStyle(.CTA)
                             
-                            Text(String(format: "%.2f m de altura", viewModel.isMeasuring ? viewModel.estimatedHeight : viewModel.finalHeight))
+                            Text(String(format: String(localized: "%.2f m de altura"), viewModel.isMeasuring ? viewModel.estimatedHeight : viewModel.finalHeight))
                                 .font(.body)
                                 .fontWeight(.semibold)
                         }
