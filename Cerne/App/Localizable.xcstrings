@@ -1,0 +1,2852 @@
+{
+  "sourceLanguage" : "pt-BR",
+  "strings" : {
+    "" : {
+      "shouldTranslate" : false
+    },
+    "@marinacarvalho" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "@marinacarvalho"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
+    "%.1f t de CO² sequestrados" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%.1f of CO₂ sequestered"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%.1f t de CO₂ secuestrado"
+          }
+        }
+      }
+    },
+    "%.1f t de O² para o planeta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%.1f of O₂ for the planet"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%.1f t de O₂ para el planeta"
+          }
+        }
+      }
+    },
+    "%.1f voltas ao redor da Terra" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%.1f laps around the Earth"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%.1f vueltas alrededor de la Tierra"
+          }
+        }
+      }
+    },
+    "%.2f m de altura" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%.2f m tall"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%.2f m de altura"
+          }
+        }
+      }
+    },
+    "%@" : {
+      "shouldTranslate" : false
+    },
+    "%@ kg de CO² capturado" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ kg of CO₂ captured"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ kg de CO₂ capturado"
+          }
+        }
+      }
+    },
+    "%d pessoas" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d people"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d personas"
+          }
+        }
+      }
+    },
+    "%lld árvores" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld trees"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld árboles"
+          }
+        }
+      }
+    },
+    "%lld espécies diferentes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld different species"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld especies diferentes"
+          }
+        }
+      }
+    },
+    "%lld%%" : {
+      "shouldTranslate" : false
+    },
+    "%lld%% de CO² neutralizado" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld%% of CO₂ neutralized"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld%% de CO₂ neutralizado"
+          }
+        }
+      }
+    },
+    "0 km" : {
+      "shouldTranslate" : false
+    },
+    "0 voos" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "0 flights"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "0 vuelos"
+          }
+        }
+      }
+    },
+    "1 ou 2 ocasionalmente" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 or 2 occasionally"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 o 2 ocasionalmente"
+          }
+        }
+      }
+    },
+    "1 voo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 flight"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 vuelo"
+          }
+        }
+      }
+    },
+    "1-2 voos" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1-2 flights"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1-2 vuelos"
+          }
+        }
+      }
+    },
+    "1,71 metros" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1.71 meters"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1,71 metros"
+          }
+        }
+      }
+    },
+    "2 voos" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2 flights"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2 vuelos"
+          }
+        }
+      }
+    },
+    "3 ou mais voos" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3 or more flights"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3 o más vuelos"
+          }
+        }
+      }
+    },
+    "3-5 voos" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3-5 flights"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3-5 vuelos"
+          }
+        }
+      }
+    },
+    "6 ou mais voos" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "6 or more flights"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "6 o más vuelos"
+          }
+        }
+      }
+    },
+    "50-150 km" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "50-150 km"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "50-150 km"
+          }
+        }
+      }
+    },
+    "A biodiversidade é imensa e cada registro ajuda a %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Biodiversity is immense, and every record %@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La biodiversidad es inmensa y cada registro ayuda a %@"
+          }
+        }
+      }
+    },
+    "A captura dessa árvore equivale à emissão de um caminhão a diesel rodando cerca de %@ km." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The carbon captured by this tree is equivalent to the emissions from a diesel truck driving for about %@ km"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La captura de este árbol equivale a la emisión de un camión diésel recorriendo cerca de %@ km."
+          }
+        }
+      }
+    },
+    "A captura dessa árvore equivale a emissão de um carro, movido a gasolina, rodando %@ km" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The carbon captured by this tree is equivalent to the emissions from a gas-powered car driving for %@ km"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La captura de este árbol equivale a la emisión de un coche a gasolina recorriendo %@ km."
+          }
+        }
+      }
+    },
+    "A captura dessa árvore equivale à emissão de um voo comercial de aproximadamente %@ horas." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The carbon captured by this tree is equivalent to the emissions from a commercial flight of approximately %@ hours"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " La captura de este árbol equivale a la emisión de un vuelo comercial de aproximadamente %@ horas."
+          }
+        }
+      }
+    },
+    "Acompanhe a floresta crescendo bem pertinho de você" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Watch the forest grow right near you"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sigue el bosque creciendo muy cerca de ti"
+          }
+        }
+      }
+    },
+    "Adicionar" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Añadir"
+          }
+        }
+      }
+    },
+    "Adicionar um ponto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add marker"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar un punto"
+          }
+        }
+      }
+    },
+    "Adota alguma dieta ou restrição alimentar?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do you follow any diet or have dietary restrictions?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Sigues alguna dieta o restricción alimentaria?"
+          }
+        }
+      }
+    },
+    "Ainda não conseguimos reconhecer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not recognized yet"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aún no pudimos reconocerlo"
+          }
+        }
+      }
+    },
+    "ajude a aumentar o mapeamento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "help expand the mapping "
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ayuda a ampliar el mapeo"
+          }
+        }
+      }
+    },
+    "Ajustar" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajustar"
+          }
+        }
+      }
+    },
+    "Algumas vezes ao ano" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Several times a year"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Algunas veces al año"
+          }
+        }
+      }
+    },
+    "Alguns frequentemente" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Some frequently "
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Algunos frecuentemente"
+          }
+        }
+      }
+    },
+    "Altura aproximada" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Approximate height"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Altura aproximada"
+          }
+        }
+      }
+    },
+    "Aponte a câmera para a base do tronco e posicione o objeto 3D" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Point the camera at the base of the trunk and position the 3D object"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apunta la cámara a la base del tronco y posiciona el objeto 3D"
+          }
+        }
+      }
+    },
+    "Aproximadamente" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Approximately"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aproximadamente"
+          }
+        }
+      }
+    },
+    "Aqui apareceram os dados mapeados de toda a comunidade, unidos para futuro mais sustentável para todos" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Here is the mapped data from the entire community, united for a more sustainable future for all"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aquí se muestran los datos mapeados de toda la comunidad, unidos para un futuro más sostenible para todos"
+          }
+        }
+      }
+    },
+    "Ar condicionado" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Air conditioning"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aire acondicionado"
+          }
+        }
+      }
+    },
+    "árvores\nregistradas" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tree\nregistered"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "árboles registrados"
+          }
+        }
+      }
+    },
+    "As decisões e hábitos do seu cotidiano estão diretamente associados ao seu impacto no planeta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your daily choices and habits directly shape your impact on the planet"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tus decisiones y hábitos cotidianos están directamente asociados a tu impacto en el planeta"
+          }
+        }
+      }
+    },
+    "Cada novo registro conta para um %@ para todos" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Each new record counts toward %@ for all"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cada nuevo registro cuenta para un %@ para todos"
+          }
+        }
+      }
+    },
+    "Cada novo registro conta para um futuro mais sustentável para todos" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every new entry contributes to a more sustainable future for all"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cada nuevo registro cuenta para un futuro más sostenible para todos"
+          }
+        }
+      }
+    },
+    "Calcular pegada de carbono" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calculate your carbon footprint"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calcular huella de carbono"
+          }
+        }
+      }
+    },
+    "Cálculo ainda não realizado" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calculation not yet performed"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cálculo aún no realizado"
+          }
+        }
+      }
+    },
+    "Cálculo finalizado!" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calculation completed!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Cálculo finalizado!"
+          }
+        }
+      }
+    },
+    "Cancelar" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar"
+          }
+        }
+      }
+    },
+    "Capacidade de sequestro de CO₂ verificada e árvore adicionada ao mapa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CO₂ sequestration capacity verified and tree added to the map"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capacidad de secuestro de CO₂ verificada y árbol añadido al mapa"
+          }
+        }
+      }
+    },
+    "Capacidade de sequestro de CO₂ verificada e árvore adicionada ao mapa." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CO₂ sequestration capacity verified and tree added to the map"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capacidad de secuestro de CO₂ verificada y árbol añadido al mapa"
+          }
+        }
+      }
+    },
+    "Capturar o topo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capture the treetop"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capturar la copa"
+          }
+        }
+      }
+    },
+    "Carro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Car"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auto"
+          }
+        }
+      }
+    },
+    "Com que frequência você compra roupas, eletrônicos ou móveis novos?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How often do you buy new clothes, electronics, or furniture?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Con qué frecuencia compras ropa, electrónicos o muebles nuevos?"
+          }
+        }
+      }
+    },
+    "Com que frequência você usa ar-condicionado?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How often do you use air conditioning? "
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Con qué frecuencia usas el aire acondicionado?"
+          }
+        }
+      }
+    },
+    "Começar Agora" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start Now"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empezar ahora"
+          }
+        }
+      }
+    },
+    "Comece a mapear árvores para acompanhar o CO₂ já capturado pelas suas contribuições" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start mapping trees to track the CO₂ already captured through your contributions"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empieza a mapear árboles para seguir el CO₂ ya capturado por tus contribuciones"
+          }
+        }
+      }
+    },
+    "Como você lida com resíduos/reciclagem?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How do you handle waste/recycling?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Cómo gestionas los residuos/el reciclaje?"
+          }
+        }
+      }
+    },
+    "Comparativo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comparison"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comparativo"
+          }
+        }
+      }
+    },
+    "Compartilhe o App e %@ de zonas com maior potencial de sequestro de CO²" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share the app and of areas with the greatest potential for CO₂ sequestration"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comparte la app y %@ de zonas con mayor potencial de secuestro de CO₂"
+          }
+        }
+      }
+    },
+    "Complete o questionário para calcular sua pegada de carbono e descobrir seu impacto no planeta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Complete the questionnaire to calculate your carbon footprint and discover your impact on the planet"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Completa el cuestionario para calcular tu huella de carbono y descubrir tu impacto en el planeta"
+          }
+        }
+      }
+    },
+    "Compras" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchases"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compras"
+          }
+        }
+      }
+    },
+    "Concluir" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finalizar"
+          }
+        }
+      }
+    },
+    "Concluir edição" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save changes"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finalizar edición"
+          }
+        }
+      }
+    },
+    "Consumo carne diariamente" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I eat meat daily"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Consumo carne diariamente"
+          }
+        }
+      }
+    },
+    "Consumo pouca carne" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I eat little meat"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Consumo poca carne"
+          }
+        }
+      }
+    },
+    "Continuar" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuar"
+          }
+        }
+      }
+    },
+    "Convidar amigos" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invite friends"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invitar amigos"
+          }
+        }
+      }
+    },
+    "Correspondem a cerca de %@ de carro, movido a gasolina" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Equivalent to about %@ by a gasoline-powered car"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " Equivalen a unos %@ en un coche a gasolina"
+          }
+        }
+      }
+    },
+    "Data de registro no Cerne" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registration date in Cerne"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fecha de registro en Cerne"
+          }
+        }
+      }
+    },
+    "de CO²" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "of CO²"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "de CO²"
+          }
+        }
+      }
+    },
+    "de CO² neutralizado" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "of CO₂ neutralized"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CO₂ neutralizado"
+          }
+        }
+      }
+    },
+    "de CO² por ano" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CO₂/year"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "de CO₂ por año"
+          }
+        }
+      }
+    },
+    "Defina seu nome de usuário" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set your username"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Define tu nombre de usuario"
+          }
+        }
+      }
+    },
+    "Deletar" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar"
+          }
+        }
+      }
+    },
+    "Deletar Árvore" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete Tree"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar árbol"
+          }
+        }
+      }
+    },
+    "Deletar conta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete Account"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar cuenta"
+          }
+        }
+      }
+    },
+    "Deletar conta definitivamente" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permanently Delete Account"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar cuenta definitivamente"
+          }
+        }
+      }
+    },
+    "Deletar Registro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete Record"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar registro"
+          }
+        }
+      }
+    },
+    "Denunciar" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Denunciar"
+          }
+        }
+      }
+    },
+    "Denunciar Registro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report Record"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Denunciar registro"
+          }
+        }
+      }
+    },
+    "Descubra o quanto de carbono cada árvore pode capturar" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Discover how much carbon each tree can sequester"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descubre cuánto carbono puede capturar cada árbol"
+          }
+        }
+      }
+    },
+    "Diâmetro do tronco" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trunk diameter"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diámetro del tronco"
+          }
+        }
+      }
+    },
+    "Diesel" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diesel"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diésel"
+          }
+        }
+      }
+    },
+    "Dieta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diet"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dieta"
+          }
+        }
+      }
+    },
+    "Eletrodomésticos de alto consumo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "High-consumption appliances"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Electrodomésticos de alto consumo"
+          }
+        }
+      }
+    },
+    "Encontrar distância ideal" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Find the ideal distance"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Encontrar la distancia ideal"
+          }
+        }
+      }
+    },
+    "Espécie da árvore identificada" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tree species identified"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Especie de árbol identificada"
+          }
+        }
+      }
+    },
+    "Espécie identificada" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Species identified"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Especie identificada"
+          }
+        }
+      }
+    },
+    "Essa ação não pode ser desfeita. Seus dados e conquistas serão removidos de forma definitiva." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This action cannot be undone. Your data and achievements will be permanently removed."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esta acción no se puede deshacer. Tus datos y logros se eliminarán de forma definitiva."
+          }
+        }
+      }
+    },
+    "Este registro será removido e não poderá ser recuperado." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This record will be deleted and cannot be recovered"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este registro será eliminado y no podrá recuperarse."
+          }
+        }
+      }
+    },
+    "Faça parte da comunidade" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Join the community"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Únete a la comunidad"
+          }
+        }
+      }
+    },
+    "Finalizar" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finalizar"
+          }
+        }
+      }
+    },
+    "Fixar 3D na base" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pin 3D at the base"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fijar 3D en la base"
+          }
+        }
+      }
+    },
+    "Força da comunidade" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Community strength"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fuerza de la comunidad"
+          }
+        }
+      }
+    },
+    "Frequentemente" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Frequently"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Frecuentemente"
+          }
+        }
+      }
+    },
+    "futuro mais sustentável" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "a more sustainable future"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "futuro más sostenible "
+          }
+        }
+      }
+    },
+    "Gasolina / Álcool" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gasoline / Ethanol"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gasolina / Alcohol"
+          }
+        }
+      }
+    },
+    "Híbrido / Elétrico" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hybrid / Electric"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Híbrido / Eléctrico"
+          }
+        }
+      }
+    },
+    "Hoje" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hoy"
+          }
+        }
+      }
+    },
+    "Identificar" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Identify"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Identificar"
+          }
+        }
+      }
+    },
+    "Juntos ampliamos o impacto positivo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Together we amplify positive impact"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " Juntos ampliamos el impacto positivo"
+          }
+        }
+      }
+    },
+    "Juntos pela causa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Together for the cause"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Juntos por la causa"
+          }
+        }
+      }
+    },
+    "Mais de 150 km" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More than 150 km"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Más de 150 km"
+          }
+        }
+      }
+    },
+    "Mais pessoas, mais impacto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More people, more impact"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Más personas, más impacto"
+          }
+        }
+      }
+    },
+    "Mantenha o ritmo para atingir a meta anual" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep the pace to reach the annual goal"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mantén el ritmo para alcanzar la meta anual"
+          }
+        }
+      }
+    },
+    "Mapa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Map"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mapa"
+          }
+        }
+      }
+    },
+    "Medir diâmetro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Measure diameter"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medir diámetro"
+          }
+        }
+      }
+    },
+    "Menos de 50 km" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Less than 50 km"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menos de 50 km"
+          }
+        }
+      }
+    },
+    "Meu impacto no planeta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My impact on the planet"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mi impacto en el planeta"
+          }
+        }
+      }
+    },
+    "Meu progresso anual" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My annual progress"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mi progreso anual"
+          }
+        }
+      }
+    },
+    "Minha pegada de carbono" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My carbon footprin"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mi huella de carbono"
+          }
+        }
+      }
+    },
+    "Minhas contribuições" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My contributions"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mis contribuciones"
+          }
+        }
+      }
+    },
+    "Mire no ponto mais alto da árvore e adicione o ponto para registrar a altura" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aim at the treetop and add a point to record the height"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apunta al punto más alto del árbol y agrega el punto para registrar la altura"
+          }
+        }
+      }
+    },
+    "Na altura do peito, use os pontos para registrar o diâmetro do tronco" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "At chest height, use the points to record the trunk's diameter"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A la altura del pecho, usa los puntos para registrar el diámetro del tronco"
+          }
+        }
+      }
+    },
+    "Não reciclo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I don't recycle"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No reciclo"
+          }
+        }
+      }
+    },
+    "Não tenho carro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I don’t have a car"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No tengo auto"
+          }
+        }
+      }
+    },
+    "Não uso" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I don't use it"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No lo uso"
+          }
+        }
+      }
+    },
+    "Nenhum registro encontrado para este ano." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No entries found for this year."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se encontraron registros para este año"
+          }
+        }
+      }
+    },
+    "Nenhuma árvore registrada" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No trees registered"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ningún árbol registrado"
+          }
+        }
+      }
+    },
+    "Objetivo anual: %lld kg de CO²" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annual goal: %lld kg of CO₂"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Objetivo anual: %lld kg de CO₂"
+          }
+        }
+      }
+    },
+    "Objetivo de %@: %lld kg de CO²" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ goal: %2$lld kg of CO₂"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meta de %1$@: %2$lld kg de CO₂"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objetivo de %1$@: %2$lld kg de CO²"
+          }
+        }
+      }
+    },
+    "OK" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
+    "Olá, %@!" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hello, %@!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hola, %@!"
+          }
+        }
+      }
+    },
+    "Olha que legal o App Cerne: ele calcula quanto de carbono as árvores da sua cidade conseguem reter para ajudar a limpar o ar. Achei que você ia gostar. https://apps.apple.com/br/app/cerne-captura-de-co/id6751984534" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check out the cool Cerne app: it calculates how much carbon the trees in your city capture to help clean the air. I thought you'd like it. https://apps.apple.com/br/app/cerne-captura-de-co/id6751984534"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mira qué genial es la app Cerne: calcula cuánto carbono capturan los árboles de tu ciudad para ayudar a limpiar el aire. Pensé que te gustaría. https://apps.apple.com/br/app/cerne-captura-de-co/id6751984534 "
+          }
+        }
+      }
+    },
+    "Oxigênio capaz de suprir o consumo anual de cerca de %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oxygen enough to supply the annual consumption of about %@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oxígeno suficiente para cubrir el consumo anual de unas %@"
+          }
+        }
+      }
+    },
+    "Para **calcular sua pegada de carbono**, precisamos entender alguns **hábitos do seu cotidiano**" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To **calculate your carbon footprint**, we need to understand some of your **daily habits**"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para **calcular tu huella de carbono**, necesitamos comprender algunos de tus **hábitos cotidianos**"
+          }
+        }
+      }
+    },
+    "Para medirmos a altura, dê alguns passos para longe da árvore até o topo aparecer na tela" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To measure the height, step back from the tree until the treetop is visible"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para medir la altura, aléjate unos pasos del árbol hasta que la copa aparezca en la pantalla"
+          }
+        }
+      }
+    },
+    "Pegada de Carbono" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carbon Footprint"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huella de carbono"
+          }
+        }
+      }
+    },
+    "Perfil" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profile"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Perfil"
+          }
+        }
+      }
+    },
+    "Pode ser um detalhe da foto ou da iluminação. Refaça o registro para que possamos analisar de novo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It may be a detail of the photo or the lighting. Please redo the record so we can analyze it again"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puede ser un detalle de la foto o de la iluminación. Vuelve a registrar para que podamos analizarlo de nuevo."
+          }
+        }
+      }
+    },
+    "Posicionar" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Position"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Posicionar"
+          }
+        }
+      }
+    },
+    "Posicione o objeto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Position the object"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coloca el objeto"
+          }
+        }
+      }
+    },
+    "Poucas vezes ao ano" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A few times a year"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pocas veces al año"
+          }
+        }
+      }
+    },
+    "Qual tipo de combustível o seu carro usa?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What type of fuel does your car use?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Qué tipo de combustible usa tu coche?"
+          }
+        }
+      }
+    },
+    "Qual tua altura?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What’s your height?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Cuál es tu altura?"
+          }
+        }
+      }
+    },
+    "Quantos quilômetros você dirige por semana?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How many kilometers do you drive per week? "
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Cuántos kilómetros conduces por semana?"
+          }
+        }
+      }
+    },
+    "Quantos quilômetros você percorre de transporte público por semana?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How many kilometers do you travel by public transport per week? "
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Cuántos kilómetros recorres en transporte público por semana?"
+          }
+        }
+      }
+    },
+    "Quantos voos domésticos você faz por ano?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How many domestic flights do you take per year?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cuántos vuelos nacionales haces al año?"
+          }
+        }
+      }
+    },
+    "Quantos voos internacionais você faz por ano?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How many international flights do you take per year?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cuántos vuelos internacionales haces al año?"
+          }
+        }
+      }
+    },
+    "Quase nunca" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Almost never"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Casi nunca"
+          }
+        }
+      }
+    },
+    "Quilometragem de carro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Car mileage"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kilometraje del coche"
+          }
+        }
+      }
+    },
+    "quilos de CO²\nsequestrados " : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kilograms of CO₂\nsequestered"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kilogramos de CO₂ secuestrados"
+          }
+        }
+      }
+    },
+    "Raramente" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rarely"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Raramente"
+          }
+        }
+      }
+    },
+    "Reciclo algumas coisas" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I recycle some things"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reciclo algunas cosas"
+          }
+        }
+      }
+    },
+    "Reciclo pouco" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I recycle a little"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reciclo poco"
+          }
+        }
+      }
+    },
+    "Reciclo quase tudo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I recycle almost everything"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reciclo casi todo"
+          }
+        }
+      }
+    },
+    "Registrar agora" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record now"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registrar ahora"
+          }
+        }
+      }
+    },
+    "Registrar primeira árvore" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Register first tree"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Añadir tu primer árbol"
+          }
+        }
+      }
+    },
+    "Registro duplicado, incorreto ou não deveria estar no Aplicativo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Duplicate or incorrect record, or it shouldn’t be in the app"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registro duplicado, incorrecto o que no debería estar en la aplicación."
+          }
+        }
+      }
+    },
+    "Relatar um Problema" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report a Problem"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Informar un problema"
+          }
+        }
+      }
+    },
+    "Resíduos e reciclagem" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Waste and recycling"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Residuos y reciclaje"
+          }
+        }
+      }
+    },
+    "Reunimos aqui várias informações sobre sua trajetória dentro do Cerne. Fique a vontade para explorar" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Here we’ve gathered several details about your journey within Cerne. Feel free to explore."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aquí reunimos varios detalles sobre tu trayectoria dentro de Cerne. Siéntete libre de explorar."
+          }
+        }
+      }
+    },
+    "revelar toda essa riqueza" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "reveals its richness"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "revelar toda esa riqueza"
+          }
+        }
+      }
+    },
+    "Revise os dados coletados" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Review the collected data"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revisa los datos recopilados"
+          }
+        }
+      }
+    },
+    "Salvar" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardar"
+          }
+        }
+      }
+    },
+    "Selecionar" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seleccionar"
+          }
+        }
+      }
+    },
+    "Sem registros por enquanto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No records for now"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin registros por el momento"
+          }
+        }
+      }
+    },
+    "Sequestrado da atmosfera" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sequestered from the atmosphere"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secuestrado de la atmósfera"
+          }
+        }
+      }
+    },
+    "sequestrados" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sequestered"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "secuestrados"
+          }
+        }
+      }
+    },
+    "Seus registros fortalecem um banco de dados vivo que revela a biodiversidade e o carbono capturado em todo o mundo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your entries strengthen a living database, revealing biodiversity and captured carbon worldwide"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tus registros fortalecen una base de datos viva que revela la biodiversidad y el carbono capturado en todo el mundo"
+          }
+        }
+      }
+    },
+    "Sobre a árvore" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About the tree"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sobre el árbol"
+          }
+        }
+      }
+    },
+    "Somando esforços pelo futuro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Joining forces for the future."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sumando esfuerzos por el futuro"
+          }
+        }
+      }
+    },
+    "Some seu impacto ao de milhares de pessoas que ajudam a neutralizar CO₂" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add your impact to thousands of others helping to neutralize CO₂"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suma tu impacto al de miles de personas que ayudan a neutralizar el CO₂"
+          }
+        }
+      }
+    },
+    "Sua altura é usada para que a câmera calcule, na hora do mapeamento, com mais precisão a altura das árvores" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your height is used so the camera can calculate tree heights more accurately during mapping"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu altura se utiliza para que la cámara calcule con más precisión la altura de los árboles durante el mapeo."
+          }
+        }
+      }
+    },
+    "Sua trajetória nos inspira!" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your journey inspires us!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Tu trayectoria nos inspira!"
+          }
+        }
+      }
+    },
+    "Tire uma foto capturando o máximo da árvore para identificarmos a espécie" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take a photo of the entire tree so we can identify the species"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toma una foto capturando la mayor parte del árbol para que podamos identificar la especie"
+          }
+        }
+      }
+    },
+    "Transporte público" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Public transportation"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transporte público"
+          }
+        }
+      }
+    },
+    "Use realidade aumentada para identificar a espécies das árvores e calcular a capacidade de sequestro de CO₂" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use augmented reality to identify tree species and calculate their CO₂ sequestration capacity"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usa la realidad aumentada para identificar las especies de los árboles y calcular la capacidad de secuestro de CO₂"
+          }
+        }
+      }
+    },
+    "Uso frequentemente" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I use it frequently"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lo uso frecuentemente"
+          }
+        }
+      }
+    },
+    "Uso ocasionalmente" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I use it occasionally"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lo uso ocasionalmente"
+          }
+        }
+      }
+    },
+    "Usuário responsável pelo mapeamento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "User responsible for the mapping"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usuario responsable del mapeo"
+          }
+        }
+      }
+    },
+    "Vários frequentemente" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Several frequently"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Varios frecuentemente"
+          }
+        }
+      }
+    },
+    "Vegana" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vegan"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vegana"
+          }
+        }
+      }
+    },
+    "Vegetariana" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vegetarian"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vegetariana"
+          }
+        }
+      }
+    },
+    "Verifique se as informações estão corretas e faça ajustes se necessário. Depois salve para concluir." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check if the information is correct and make adjustments if needed. Then save to finish"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verifica si la información es correcta y haz ajustes si es necesario. Luego guarda para finalizar."
+          }
+        }
+      }
+    },
+    "Verifique suas informações antes de concluir o cálculo da sua pegada de carbono" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Review your information before completing your carbon footprint calculation"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revisa tu información antes de finalizar el cálculo de tu huella de carbono"
+          }
+        }
+      }
+    },
+    "Você usa eletrodomésticos de alto consumo (secadora, aquecedor)?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do you use high-consumption appliances (e.g., dryer, heater)?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Usas electrodomésticos de alto consumo (ej. secadora, calentador)?"
+          }
+        }
+      }
+    },
+    "Voos domésticos" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domestic flights"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vuelos domésticos"
+          }
+        }
+      }
+    },
+    "Voos internacionais" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "International flights"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vuelos internacionales"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.1"
+}

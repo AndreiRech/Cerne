@@ -37,20 +37,20 @@ struct TreeReviewView: View {
                         VStack(spacing: 10) {
                             TreeInfoComponent(
                                 title: viewModel.tree?.species ?? "",
-                                subtitle: "Espécie identificada",
+                                subtitle: String(localized: "Espécie identificada"),
                                 value: $viewModel.updateSpecies,
                                 isEditing: $viewModel.isEditing
                             )
                             NumericInfoComponent(
                                 title: String(format: "%.2f m", viewModel.tree?.dap ?? 0.0),
-                                subtitle: "Diâmetro do tronco",
+                                subtitle: String(localized: "Diâmetro do tronco"),
                                 isHeight: false,
                                 value: $viewModel.updateDap,
                                 isEditing: $viewModel.isEditing
                             )
                             NumericInfoComponent(
                                 title: String(format: "%.2f m", viewModel.tree?.height ?? 0.0),
-                                subtitle: "Altura aproximada",
+                                subtitle: String(localized: "Altura aproximada"),
                                 isHeight: true,
                                 value: $viewModel.updateHeight,
                                 isEditing: $viewModel.isEditing

@@ -28,7 +28,13 @@ struct ProfileView: View {
                                 .fontWeight(.semibold)
                             
                             if viewModel.userPins.count == 0 {
-                                EmptyComponent(bgColor: .backgroundSecondary, cornerColor: .primitivePrimary, subtitle: "Nenhuma árvore registrada", description: "Comece a mapear árvores para acompanhar o CO₂ já capturado pelas suas contribuições", buttonTitle: "Registrar primeira árvore", buttonAction: { router.path.append(Route.registerTree) })
+                                EmptyComponent(
+                                    bgColor: .backgroundSecondary,
+                                    cornerColor: .primitivePrimary,
+                                    subtitle: String(localized: "Nenhuma árvore registrada"),
+                                    description: String(localized: "Comece a mapear árvores para acompanhar o CO₂ já capturado pelas suas contribuições"),
+                                    buttonTitle: String(localized: "Registrar primeira árvore"),
+                                    buttonAction: { router.path.append(Route.registerTree) })
                             } else {
                                 HStack(alignment: .center, spacing: 16) {
                                     VStack(alignment: .leading, spacing: 8) {
@@ -104,9 +110,14 @@ struct ProfileView: View {
                                     }
                                 }
                             }
-                            
                             if viewModel.footprint == nil {
-                                EmptyComponent(bgColor: .backgroundPrimary, cornerColor: .primitivePrimary, subtitle: "Cálculo ainda não realizado", description: "Complete o questionário para calcular sua pegada de carbono e descobrir seu impacto no planeta", buttonTitle: "Calcular pegada de carbono", buttonAction: { router.path.append(Route.footprint) })
+                                EmptyComponent(
+                                    bgColor: .backgroundPrimary,
+                                    cornerColor: .primitivePrimary,
+                                    subtitle: String(localized: "Cálculo ainda não realizado"),
+                                    description: String(localized: "Complete o questionário para calcular sua pegada de carbono e descobrir seu impacto no planeta"),
+                                    buttonTitle: String(localized: "Calcular pegada de carbono"),
+                                    buttonAction: { router.path.append(Route.footprint) })
                             } else {
                                 VStack(alignment: .leading, spacing: 8) {
                                     HStack(alignment: .center, spacing: 8) {

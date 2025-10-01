@@ -40,7 +40,7 @@ struct CarbonEmmiters: View {
                     
                     Spacer()
                     
-                    PickerComponent(title: "Selecionar", options: options, isEnabled: isEnabled, selection: $selection)
+                    PickerComponent(title: String(localized: "Selecionar"), options: options, isEnabled: isEnabled, selection: $selection)
                 }
             }
         } else {

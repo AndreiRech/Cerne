@@ -45,7 +45,7 @@ struct TabBar: View {
                 }
                 .id(router.addFlowID)
             } label: {
-                Label("Add", systemImage: "plus")
+                Label("Adicionar", systemImage: "plus")
             }
         }
         .environmentObject(router)

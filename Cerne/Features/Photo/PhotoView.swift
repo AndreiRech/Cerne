@@ -108,8 +108,8 @@ struct PhotoView: View {
                     
                     InstructionComponent(
                         imageName: "camera",
-                        title: "Tire uma foto capturando o máximo da árvore para identificarmos a espécie",
-                        buttonText: "Registrar agora",
+                        title: String(localized: "Tire uma foto capturando o máximo da árvore para identificarmos a espécie"),
+                        buttonText: String(localized: "Registrar agora"),
                         onTap: {
                             viewModel.showInfo.toggle()
                             viewModel.isMeasuring.toggle()

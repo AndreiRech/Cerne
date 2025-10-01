@@ -21,31 +21,31 @@ enum CarbonEmittersEnum: CaseIterable {
 
     var title: String {
         switch self {
-        case .car: return "Carro"
-        case .km: return "Quilometragem de carro"
-        case .bus: return "Transporte público"
-        case .shortHaulFlight: return "Voos domésticos" // Ajustado
-        case .longHaulFlight: return "Voos internacionais" // Ajustado
-        case .diet: return "Dieta"
-        case .airConditioner: return "Ar condicionado"
-        case .purchase: return "Compras" // Ajustado
-        case .houseHold: return "Eletrodomésticos de alto consumo"
-        case .recicle: return "Resíduos e reciclagem"
+        case .car: return String(localized: "Carro")
+        case .km: return String(localized: "Quilometragem de carro")
+        case .bus: return String(localized: "Transporte público")
+        case .shortHaulFlight: return String(localized: "Voos domésticos")
+        case .longHaulFlight: return String(localized: "Voos internacionais")
+        case .diet: return String(localized: "Dieta")
+        case .airConditioner: return String(localized: "Ar condicionado")
+        case .purchase: return String(localized: "Compras")
+        case .houseHold: return String(localized: "Eletrodomésticos de alto consumo")
+        case .recicle: return String(localized: "Resíduos e reciclagem")
         }
     }
 
     var description: String {
         switch self {
-        case .car: return "Qual tipo de combustível o seu carro usa?"
-        case .km: return "Quantos quilômetros você dirige por semana?"
-        case .bus: return "Quantos quilômetros você percorre de transporte público por semana?"
-        case .shortHaulFlight: return "Quantos voos domésticos você faz por ano?"
-        case .longHaulFlight: return "Quantos voos internacionais você faz por ano?"
-        case .diet: return "Adota alguma dieta ou restrição alimentar?"
-        case .airConditioner: return "Com que frequência você usa ar-condicionado?"
-        case .purchase: return "Com que frequência você compra roupas, eletrônicos ou móveis novos?" // Ajustado
-        case .houseHold: return "Você usa eletrodomésticos de alto consumo (secadora, aquecedor)?" // Ajustado
-        case .recicle: return "Como você lida com resíduos/reciclagem?"
+        case .car: return String(localized: "Qual tipo de combustível o seu carro usa?")
+        case .km: return String(localized: "Quantos quilômetros você dirige por semana?")
+        case .bus: return String(localized: "Quantos quilômetros você percorre de transporte público por semana?")
+        case .shortHaulFlight: return String(localized: "Quantos voos domésticos você faz por ano?")
+        case .longHaulFlight: return String(localized: "Quantos voos internacionais você faz por ano?")
+        case .diet: return String(localized: "Adota alguma dieta ou restrição alimentar?")
+        case .airConditioner: return String(localized: "Com que frequência você usa ar-condicionado?")
+        case .purchase: return String(localized: "Com que frequência você compra roupas, eletrônicos ou móveis novos?")
+        case .houseHold: return String(localized: "Você usa eletrodomésticos de alto consumo (secadora, aquecedor)?")
+        case .recicle: return String(localized: "Como você lida com resíduos/reciclagem?")
         }
     }
 
@@ -69,25 +69,25 @@ enum CarbonEmittersEnum: CaseIterable {
         // Nenhuma alteração foi necessária aqui.
         switch self {
         case .car:
-            return ["Selecionar", "Não tenho carro", "Gasolina / Álcool", "Diesel", "Híbrido / Elétrico"]
+            return [String(localized: "Selecionar"), String(localized: "Não tenho carro"), String(localized: "Gasolina / Álcool"), String(localized: "Diesel"), String(localized: "Híbrido / Elétrico")]
         case .km:
-            return ["Selecionar", "0 km", "Menos de 50 km", "50-150 km", "Mais de 150 km"]
+            return [String(localized: "Selecionar"), String(localized: "0 km"), String(localized: "Menos de 50 km"), String(localized: "50-150 km"), String(localized: "Mais de 150 km")]
         case .bus:
-            return ["Selecionar", "0 km", "Menos de 50 km", "50-150 km", "Mais de 150 km"]
+            return [String(localized: "Selecionar"), String(localized: "0 km"), String(localized: "Menos de 50 km"), String(localized: "50-150 km"), String(localized: "Mais de 150 km")]
         case .shortHaulFlight:
-            return ["Selecionar", "0 voos", "1-2 voos", "3-5 voos", "6 ou mais voos"]
+            return [String(localized: "Selecionar"), String(localized: "0 voos"), String(localized: "1-2 voos"), String(localized: "3-5 voos"), String(localized: "6 ou mais voos")]
         case .longHaulFlight:
-            return ["Selecionar", "0 voos", "1 voo", "2 voos", "3 ou mais voos"]
+            return [String(localized: "Selecionar"), String(localized: "0 voos"), String(localized: "1 voo"), String(localized: "2 voos"), String(localized: "3 ou mais voos")]
         case .diet:
-            return ["Selecionar", "Vegana", "Vegetariana", "Consumo pouca carne", "Consumo carne diariamente"]
+            return [String(localized: "Selecionar"), String(localized: "Vegana"), String(localized: "Vegetariana"), String(localized: "Consumo pouca carne"), String(localized: "Consumo carne diariamente")]
         case .airConditioner:
-            return ["Selecionar", "Não uso", "Uso ocasionalmente", "Uso frequentemente"]
+            return [String(localized: "Selecionar"), String(localized: "Não uso"), String(localized: "Uso ocasionalmente"), String(localized: "Uso frequentemente")]
         case .purchase:
-            return ["Selecionar", "Raramente", "Poucas vezes ao ano", "Algumas vezes ao ano", "Frequentemente"]
+            return [String(localized: "Selecionar"), String(localized: "Raramente"), String(localized: "Poucas vezes ao ano"), String(localized: "Algumas vezes ao ano"), String(localized: "Frequentemente")]
         case .houseHold:
-            return ["Selecionar", "Quase nunca", "1 ou 2 ocasionalmente", "Alguns frequentemente", "Vários frequentemente"]
+            return [String(localized: "Selecionar"), String(localized: "Quase nunca"), String(localized: "1 ou 2 ocasionalmente"), String(localized: "Alguns frequentemente"), String(localized: "Vários frequentemente")]
         case .recicle:
-            return ["Selecionar", "Reciclo quase tudo", "Reciclo algumas coisas", "Reciclo pouco", "Não reciclo"]
+            return [String(localized: "Selecionar"), String(localized: "Reciclo quase tudo"), String(localized: "Reciclo algumas coisas"), String(localized: "Reciclo pouco"), String(localized: "Não reciclo")]
         }
     }
 }

@@ -22,8 +22,9 @@ struct DiameterView: View {
                 
                 InstructionComponent(
                     imageName: "ruler",
-                    title: "Na altura do peito, use os pontos para registrar o diâmetro do tronco",
-                    buttonText: "Medir diâmetro") {
+                    title: String(localized: "Na altura do peito, use os pontos para registrar o diâmetro do tronco"),
+                    buttonText: String(localized:"Medir diâmetro")
+                ) {
                         viewModel.showInfo = false
                     }
             } else {

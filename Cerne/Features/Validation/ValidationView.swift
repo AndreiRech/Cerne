@@ -48,7 +48,7 @@ struct ValidationView: View {
                         .font(.footnote)
                 }
             }
-            Text("Capacidade de sequestro de CO₂ verificada e árvore adicionada ao mapa.")
+            Text("Capacidade de sequestro de CO₂ verificada e árvore adicionada ao mapa")
                 .font(.footnote)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
