@@ -30,6 +30,11 @@ class MockCameraService: CameraServiceProtocol {
         self.shouldFail = shouldFail
     }
     
+    func setupSession() {
+        wasCalled = true
+        message = "Setup"
+    }
+    
     func requestPermissions() async -> Bool {
         wasCalled = true
         

@@ -16,11 +16,11 @@ struct DistanceViewModelTests {
         // Given
         let mockARService = MockARService(shouldFail: false)
         let viewModel = DistanceViewModel(
-            arService: mockARService,
             userDefaultService: MockUserDefaultService(),
             userHeight: 0.0,
             measuredDiameter: 0.0,
-            treeImage: UIImage()
+            treeImage: UIImage(),
+            treeSpecies: ""
         )
         
         // When
@@ -34,11 +34,11 @@ struct DistanceViewModelTests {
         // Given
         let mockARService = MockARService(shouldFail: false)
         let viewModel = DistanceViewModel(
-            arService: mockARService,
             userDefaultService: MockUserDefaultService(),
             userHeight: 0.0,
             measuredDiameter: 0.0,
-            treeImage: UIImage()
+            treeImage: UIImage(),
+            treeSpecies: ""
         )
         
         // When
@@ -53,11 +53,11 @@ struct DistanceViewModelTests {
         // Given
         let mockARService = MockARService()
         let viewModel = DistanceViewModel(
-            arService: mockARService,
             userDefaultService: MockUserDefaultService(),
             userHeight: 0.0,
             measuredDiameter: 0.0,
-            treeImage: UIImage()
+            treeImage: UIImage(),
+            treeSpecies: ""
         )
         let inputDistance: Float = 1.2345
         let expectedText = "1.23 longe da arvore"

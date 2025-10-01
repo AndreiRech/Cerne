@@ -11,18 +11,28 @@ import Combine
 
 class MockUserDefaultService: UserDefaultServiceProtocol {
     var isFirst: Bool
+    var isOnboardingDoneVar: Bool
     var pins: [Pin] = []
     
-    init(isFirst: Bool = true) {
+    init(isFirst: Bool = true, isOnboardingDoneVar: Bool = false) {
         self.isFirst = isFirst
+        self.isOnboardingDoneVar = isOnboardingDoneVar
     }
     
     func isFirstTime() -> Bool {
         isFirst
     }
     
-    func setFirstTimeDone() {
-        isFirst = false
+    func setFirstTime(value: Bool = false) {
+        isFirst = value
+    }
+    
+    func setOnboarding(value: Bool = false) {
+        isOnboardingDoneVar = value
+    }
+    
+    func isOnboardingDone() -> Bool {
+        isOnboardingDoneVar
     }
     
     func setPinReported(pin: Pin) {

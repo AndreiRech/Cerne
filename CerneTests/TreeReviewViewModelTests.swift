@@ -21,18 +21,13 @@ struct TreeReviewViewModelTests {
         let mockTreeDataService = MockTreeDataService()
         
         let viewModel = TreeReviewViewModel(
-            cameraService: mockCameraService,
-            scannedTreeService: mockScannedTreeService,
-            treeAPIService: mockTreeAPIService,
-            pinService: mockPinService,
-            treeDataService: mockTreeDataService,
-            userService: MockUserService(),
+            repository: TreeReviewRepository(scannedTreeService: ScannedTreeService(), treeAPIService: TreeAPIService(), pinService: PinService(), treeDataService: TreeDataService(), userService: UserService(), userDefaultService: UserDefaultService()),
             measuredDiameter: 40.0,
             treeImage:  UIImage(),
             estimatedHeight: 5.0,
             pinLatitude: -30.0,
             pinLongitude: -51.0,
-            userDefaultService: MockUserDefaultService(),
+            treeSpecies: ""
         )
         
         //When
@@ -53,18 +48,13 @@ struct TreeReviewViewModelTests {
         let mockTreeDataService = MockTreeDataService()
         
         let viewModel = TreeReviewViewModel(
-            cameraService: mockCameraService,
-            scannedTreeService: mockScannedTreeService,
-            treeAPIService: mockTreeAPIService,
-            pinService: mockPinService,
-            treeDataService: mockTreeDataService,
-            userService: MockUserService(),
+            repository: TreeReviewRepository(scannedTreeService: ScannedTreeService(), treeAPIService: TreeAPIService(), pinService: PinService(), treeDataService: TreeDataService(), userService: UserService(), userDefaultService: UserDefaultService()),
             measuredDiameter: 40.0,
-            treeImage: UIImage(),
+            treeImage:  UIImage(),
             estimatedHeight: 5.0,
             pinLatitude: -30.0,
             pinLongitude: -51.0,
-            userDefaultService: MockUserDefaultService(),
+            treeSpecies: ""
         )
         
         //When
@@ -86,18 +76,13 @@ struct TreeReviewViewModelTests {
 
         
         let viewModel = TreeReviewViewModel(
-            cameraService: mockCameraService,
-            scannedTreeService: mockScannedTreeService,
-            treeAPIService: mockTreeAPIService,
-            pinService: mockPinService,
-            treeDataService: mockTreeDataService,
-            userService: MockUserService(),
+            repository: TreeReviewRepository(scannedTreeService: ScannedTreeService(), treeAPIService: TreeAPIService(), pinService: PinService(), treeDataService: TreeDataService(), userService: UserService(), userDefaultService: UserDefaultService()),
             measuredDiameter: 40.0,
-            treeImage: nil,
+            treeImage:  UIImage(),
             estimatedHeight: 5.0,
             pinLatitude: -30.0,
             pinLongitude: -51.0,
-            userDefaultService: MockUserDefaultService(),
+            treeSpecies: ""
         )
         
         // When
@@ -117,18 +102,13 @@ struct TreeReviewViewModelTests {
 
         
         let viewModel = TreeReviewViewModel(
-            cameraService: MockCameraService(shouldFail: false),
-            scannedTreeService: mockScannedTreeService,
-            treeAPIService: mockTreeAPIService,
-            pinService: mockPinService,
-            treeDataService: mockTreeDataService,
-            userService: MockUserService(),
+            repository: TreeReviewRepository(scannedTreeService: ScannedTreeService(), treeAPIService: TreeAPIService(), pinService: PinService(), treeDataService: TreeDataService(), userService: UserService(), userDefaultService: UserDefaultService()),
             measuredDiameter: 40.0,
-            treeImage: UIImage(),
+            treeImage:  UIImage(),
             estimatedHeight: 5.0,
             pinLatitude: -30.0,
             pinLongitude: -51.0,
-            userDefaultService: MockUserDefaultService(),
+            treeSpecies: ""
         )
         
         // When
@@ -150,18 +130,13 @@ struct TreeReviewViewModelTests {
         let mockTreeDataService = MockTreeDataService()
         
         let viewModel = TreeReviewViewModel(
-            cameraService: mockCameraService,
-            scannedTreeService: mockScannedTreeService,
-            treeAPIService: mockTreeAPIService,
-            pinService: mockPinService,
-            treeDataService: mockTreeDataService,
-            userService: MockUserService(),
+            repository: TreeReviewRepository(scannedTreeService: ScannedTreeService(), treeAPIService: TreeAPIService(), pinService: PinService(), treeDataService: TreeDataService(), userService: UserService(), userDefaultService: UserDefaultService()),
             measuredDiameter: 40.0,
-            treeImage: UIImage(),
+            treeImage:  UIImage(),
             estimatedHeight: 5.0,
             pinLatitude: -30.0,
             pinLongitude: -51.0,
-            userDefaultService: MockUserDefaultService(),
+            treeSpecies: ""
         )
         
         await viewModel.createScannedTree()
@@ -192,18 +167,13 @@ struct TreeReviewViewModelTests {
 
         
         let viewModel = TreeReviewViewModel(
-            cameraService: mockCameraService,
-            scannedTreeService: mockScannedTreeService,
-            treeAPIService: mockTreeAPIService,
-            pinService: mockPinService,
-            treeDataService: mockTreeDataService,
-            userService: MockUserService(),
-            measuredDiameter: 15.0,
-            treeImage: UIImage(),
-            estimatedHeight: 20.0,
+            repository: TreeReviewRepository(scannedTreeService: ScannedTreeService(), treeAPIService: TreeAPIService(), pinService: PinService(), treeDataService: TreeDataService(), userService: UserService(), userDefaultService: UserDefaultService()),
+            measuredDiameter: 40.0,
+            treeImage:  UIImage(),
+            estimatedHeight: 5.0,
             pinLatitude: -30.0,
             pinLongitude: -51.0,
-            userDefaultService: MockUserDefaultService(),
+            treeSpecies: ""
         )
         
         viewModel.isLoading = true
