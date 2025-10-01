@@ -92,10 +92,35 @@ class ProfileRepository: ProfileRepositoryProtocol {
     }
     
     func deleteAccount(for user: User) async throws {
+        guard let userRecordID = user.recordID else { return }
+        
+        async let allPinsTask = pinService.fetchPins()
+        async let userFootprintTask = footprintService.fetchFootprint(for: user)
+        
+        let allPins = try await allPinsTask
+        let userFootprint = try await userFootprintTask
+        
+        let userPins = allPins.filter { $0.userRecordID?.recordName == userRecordID.recordName }
+        
+        try await withThrowingTaskGroup(of: Void.self) { group in
+            if let footprintToDelete = userFootprint {
+                group.addTask {
+                    try await self.footprintService.deleteFootprint(footprintToDelete)
+                }
+            }
+            
+            for pin in userPins {
+                group.addTask {
+                    try await self.pinService.deletePin(pin)
+                }
+            }
+            
+            try await group.waitForAll()
+        }
+        
         try await userService.deleteUser(user)
         
         clearUserCache()
-        
         userDefaultService.setOnboarding(value: false)
         userDefaultService.setFirstTime(value: false)
     }
