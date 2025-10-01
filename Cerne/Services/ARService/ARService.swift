@@ -143,7 +143,7 @@ class ARService: NSObject, ARServiceProtocol, ARSessionDelegate {
     func addMeasurementPoint() {
         let screenCenter = arView.center
         
-        guard let result = performRaycast(from: screenCenter, alignment: .any) else {
+        guard let result = performRaycast(from: screenCenter, alignment: .vertical) else {
             return
         }
         
