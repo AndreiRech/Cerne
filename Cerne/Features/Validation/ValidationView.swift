@@ -24,7 +24,7 @@ struct ValidationView: View {
                     .fontWeight(.semibold)
                 
                 HStack(spacing: 7) {
-                    Image(.identifiedSpecies)
+                    Image(.treeIcon)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 17, height: 17)

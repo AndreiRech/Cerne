@@ -230,6 +230,9 @@ struct ProfileView: View {
                         .navigationBarBackButtonHidden(true)
                     }
                 }
+                .navigationTitle(viewModel.userName)
+                .navigationSubtitle("Perfil")
+                .navigationBarTitleDisplayMode(.inline)
             }
         }
         .task {

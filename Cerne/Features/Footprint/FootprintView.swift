@@ -13,61 +13,73 @@ struct FootprintView: View {
     
     var body: some View {
         ZStack {
-            TabView(selection: $viewModel.currentPage) {
-                
-                ForEach(1...viewModel.totalQuestionPages, id: \.self) { page in
-                    CarbonSheet(
-                        page: page,
-                        isEnabled: true,
-                        selections: viewModel.selections,
-                        emitters: viewModel.emittersForPage(page),
-                        onUpdate: { emitter, newValue in
-                            viewModel.updateSelection(for: emitter, to: newValue)
+            VStack {
+                TabView(selection: $viewModel.currentPage) {
+                    
+                    ForEach(1...viewModel.totalQuestionPages, id: \.self) { page in
+                        CarbonSheet(
+                            page: page,
+                            isEnabled: true,
+                            selections: viewModel.selections,
+                            emitters: viewModel.emittersForPage(page),
+                            onUpdate: { emitter, newValue in
+                                viewModel.updateSelection(for: emitter, to: newValue)
+                            }
+                        )
+                        .background(.backgroundSecondary.opacity(0.6))
+                        .border(.backgroundSecondary.opacity(0.2))
+                        .cornerRadius(34)
+                        .padding(.horizontal, 16)
+                        .tag(page)
+                    }
+                    
+                    VStack {
+                        CarbonSheet(
+                            page: viewModel.totalPages,
+                            isEnabled: false,
+                            selections: viewModel.selections,
+                            emitters: CarbonEmittersEnum.allCases,
+                            onUpdate: { emitter, newValue in
+                                viewModel.updateSelection(for: emitter, to: newValue)
+                            }
+                        )
+                        
+                        Button {
+                            Task {
+                                await viewModel.saveFootprint()
+                            }
+                        } label: {
+                            Text("Salvar")
+                                .fontWeight(.bold)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 13)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 1000)
+                                        .foregroundStyle(viewModel.isAbleToSave ? .CTA : .disabled)
+                                )
+                                .foregroundStyle(.white)
                         }
-                    )
+                        .disabled(!viewModel.isAbleToSave)
+                        .padding()
+                    }
                     .background(.backgroundSecondary.opacity(0.6))
                     .border(.backgroundSecondary.opacity(0.2))
                     .cornerRadius(34)
                     .padding(.horizontal, 16)
-                    .tag(page)
+                    .tag(viewModel.totalPages)
                 }
+                .tabViewStyle(.page(indexDisplayMode: .never))
                 
-                VStack {
-                    CarbonSheet(
-                        page: viewModel.totalPages,
-                        isEnabled: false,
-                        selections: viewModel.selections,
-                        emitters: CarbonEmittersEnum.allCases,
-                        onUpdate: { emitter, newValue in
-                            viewModel.updateSelection(for: emitter, to: newValue)
-                        }
-                    )
-                    
-                    Button {
-                        Task {
-                            await viewModel.saveFootprint()
-                        }
-                    } label: {
-                        Text("Salvar")
-                            .fontWeight(.bold)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 13)
-                            .background(
-                                RoundedRectangle(cornerRadius: 1000)
-                                    .foregroundStyle(viewModel.isAbleToSave ? .CTA : .disabled)
-                            )
-                            .foregroundStyle(.white)
+                HStack(spacing: 8) {
+                    ForEach(1...viewModel.totalPages, id: \.self) { index in
+                        Capsule()
+                            .fill(index == viewModel.currentPage ? Color("Primitive-Primary") : Color.gray.opacity(0.5))
+                            .frame(width: index == viewModel.currentPage ? 24 : 8, height: 8)
                     }
-                    .disabled(!viewModel.isAbleToSave)
-                    .padding()
                 }
-                .background(.backgroundSecondary.opacity(0.6))
-                .border(.backgroundSecondary.opacity(0.2))
-                .cornerRadius(34)
-                .padding(.horizontal, 16)
-                .tag(viewModel.totalPages)
+                .animation(.easeInOut, value: viewModel.currentPage)
+                .padding(.bottom, 20)
             }
-            .tabViewStyle(.page(indexDisplayMode: .always))
             .blur(radius: viewModel.isOverlayVisible ? 1.3 : 0)
             
             if viewModel.isOverlayVisible {
