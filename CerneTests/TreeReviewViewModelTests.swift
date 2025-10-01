@@ -9,106 +9,31 @@ import Foundation
 import Testing
 import UIKit
 @testable import Cerne
+import CloudKit
 
-
+@MainActor
 struct TreeReviewViewModelTests {
-    @Test func shouldCreateScannedTree() async {
-        //Given
-        let mockTreeAPIService = MockTreeAPIService(shouldFail: false, isNetworkError: false)
-        let mockScannedTreeService = MockScannedTreeService(shouldFail: false)
-        let mockPinService = MockPinService(shouldFail: false)
-        let mockCameraService = MockCameraService(shouldFail: false)
-        let mockTreeDataService = MockTreeDataService()
-        
-        let viewModel = TreeReviewViewModel(
-            repository: TreeReviewRepository(scannedTreeService: ScannedTreeService(), treeAPIService: TreeAPIService(), pinService: PinService(), treeDataService: TreeDataService(), userService: UserService(), userDefaultService: UserDefaultService()),
-            measuredDiameter: 40.0,
-            treeImage:  UIImage(),
-            estimatedHeight: 5.0,
-            pinLatitude: -30.0,
-            pinLongitude: -51.0,
-            treeSpecies: ""
-        )
-        
-        //When
-        await viewModel.createScannedTree()
-        
-        // Then
-        #expect(viewModel.isLoading == false)
-        #expect(viewModel.errorMessage != nil)
-        #expect(viewModel.tree != nil)
-    }
     
-    @Test func shouldNotCreatScannedTree() async {
-        //Given
-        let mockTreeAPIService = MockTreeAPIService(shouldFail: false, isNetworkError: false)
-        let mockScannedTreeService = MockScannedTreeService(shouldFail: true)
-        let mockPinService = MockPinService(shouldFail: false)
-        let mockCameraService = MockCameraService(shouldFail: false)
-        let mockTreeDataService = MockTreeDataService()
-        
-        let viewModel = TreeReviewViewModel(
-            repository: TreeReviewRepository(scannedTreeService: ScannedTreeService(), treeAPIService: TreeAPIService(), pinService: PinService(), treeDataService: TreeDataService(), userService: UserService(), userDefaultService: UserDefaultService()),
-            measuredDiameter: 40.0,
-            treeImage:  UIImage(),
-            estimatedHeight: 5.0,
-            pinLatitude: -30.0,
-            pinLongitude: -51.0,
-            treeSpecies: ""
-        )
-        
-        //When
-        await viewModel.createScannedTree()
-        
-        // Then
-        #expect(viewModel.isLoading == false)
-        #expect(viewModel.tree == nil)
-        #expect(viewModel.errorMessage != nil)
-    }
-    
-    @Test func shouldNotCreatScannedTreeWithoutImage() async {
-        //Given
-        let mockTreeAPIService = MockTreeAPIService(shouldFail: false, isNetworkError: false)
-        let mockScannedTreeService = MockScannedTreeService(shouldFail: true)
-        let mockPinService = MockPinService(shouldFail: false)
-        let mockCameraService = MockCameraService(shouldFail: false)
-        let mockTreeDataService = MockTreeDataService()
+    // --- Testes de Criação ---
 
-        
-        let viewModel = TreeReviewViewModel(
-            repository: TreeReviewRepository(scannedTreeService: ScannedTreeService(), treeAPIService: TreeAPIService(), pinService: PinService(), treeDataService: TreeDataService(), userService: UserService(), userDefaultService: UserDefaultService()),
-            measuredDiameter: 40.0,
-            treeImage:  UIImage(),
-            estimatedHeight: 5.0,
-            pinLatitude: -30.0,
-            pinLongitude: -51.0,
-            treeSpecies: ""
-        )
-        
-        // When
-        await viewModel.createScannedTree()
-        
-        // Then
-        #expect(viewModel.errorMessage != nil)
-        #expect(viewModel.errorMessage == "Nenhuma imagem disponível para identificar.")
-    }
-    
-    @Test func shouldSetErrorMessageWhenCreatePinFails() async {
+    @Test("shouldCreateTreeAndPinSuccessfully")
+    func shouldCreateTreeAndPinSuccessfully() async {
         // Given
-        let mockTreeAPIService = MockTreeAPIService(shouldFail: false, isNetworkError: false)
-        let mockScannedTreeService = MockScannedTreeService(shouldFail: false)
-        let mockPinService = MockPinService(shouldFail: true)
-        let mockTreeDataService = MockTreeDataService()
-
+        let mockRepository = MockTreeReviewRepository()
+        // Configure o mock para o cenário de sucesso
+        let initialTree = ScannedTree(species: "Ipê", height: 5.0, dap: 40.0, totalCO2: 120.0)
+        let associatedPin = Pin(image: UIImage(), latitude: -30, longitude: -51, date: Date(), userRecordID: CKRecord.ID(), treeRecordID: CKRecord.ID())
+        mockRepository.mockCreatedTree = initialTree
+        mockRepository.mockCreatedPin = associatedPin
         
         let viewModel = TreeReviewViewModel(
-            repository: TreeReviewRepository(scannedTreeService: ScannedTreeService(), treeAPIService: TreeAPIService(), pinService: PinService(), treeDataService: TreeDataService(), userService: UserService(), userDefaultService: UserDefaultService()),
+            repository: mockRepository,
             measuredDiameter: 40.0,
-            treeImage:  UIImage(),
+            treeImage: UIImage(),
             estimatedHeight: 5.0,
             pinLatitude: -30.0,
             pinLongitude: -51.0,
-            treeSpecies: ""
+            treeSpecies: "Ipê"
         )
         
         // When
@@ -116,32 +41,60 @@ struct TreeReviewViewModelTests {
         
         // Then
         #expect(viewModel.isLoading == false)
-        #expect(viewModel.tree != nil)
-        #expect(viewModel.errorMessage != nil)
+        #expect(viewModel.errorMessage == nil) // Não deve haver erro no sucesso
+        #expect(viewModel.tree != nil) // A árvore foi criada
+        #expect(viewModel.tree?.species == "Ipê")
     }
     
-    
-    @Test func shouldUpdateScannedTree() async throws {
+    @Test("shouldSetErrorMessageWhenCreationFails")
+    func shouldSetErrorMessageWhenCreationFails() async {
         // Given
-        let mockTreeAPIService = MockTreeAPIService(shouldFail: false)
-        let mockScannedTreeService = MockScannedTreeService(shouldFail: false)
-        let mockPinService = MockPinService(shouldFail: false)
-        let mockCameraService = MockCameraService(shouldFail: false)
-        let mockTreeDataService = MockTreeDataService()
+        let mockRepository = MockTreeReviewRepository()
+        // Configure o mock para o cenário de falha
+        mockRepository.shouldFail = true
         
         let viewModel = TreeReviewViewModel(
-            repository: TreeReviewRepository(scannedTreeService: ScannedTreeService(), treeAPIService: TreeAPIService(), pinService: PinService(), treeDataService: TreeDataService(), userService: UserService(), userDefaultService: UserDefaultService()),
+            repository: mockRepository,
             measuredDiameter: 40.0,
-            treeImage:  UIImage(),
+            treeImage: UIImage(),
             estimatedHeight: 5.0,
             pinLatitude: -30.0,
             pinLongitude: -51.0,
-            treeSpecies: ""
+            treeSpecies: "Qualquer"
         )
         
+        // When
+        await viewModel.createScannedTree()
+        
+        // Then
+        #expect(viewModel.isLoading == false)
+        #expect(viewModel.tree == nil) // A árvore não deve ser criada
+        #expect(viewModel.errorMessage != nil) // A mensagem de erro deve ser definida
+        #expect(viewModel.errorMessage == "Ocorreu um erro ao criar a árvore: The operation couldn’t be completed. (Cerne.GenericError error 1.)")
+    }
+
+    // --- Testes de Atualização ---
+    
+    @Test("shouldUpdateScannedTreeSuccessfully")
+    func shouldUpdateScannedTreeSuccessfully() async throws {
+        // Given
+        let mockRepository = MockTreeReviewRepository()
+        let initialTree = ScannedTree(species: "Ipê", height: 5.0, dap: 40.0, totalCO2: 120.0)
+        // O mock deve primeiro "criar" a árvore para que ela exista no ViewModel
+        mockRepository.mockCreatedTree = initialTree
+        mockRepository.mockCreatedPin = Pin(image: UIImage(), latitude: 0, longitude: 0, date: Date(), userRecordID: CKRecord.ID(), treeRecordID: CKRecord.ID())
+        
+        let viewModel = TreeReviewViewModel(repository: mockRepository, measuredDiameter: 40, treeImage: UIImage(), estimatedHeight: 5, pinLatitude: 0, pinLongitude: 0, treeSpecies: "Ipê")
+
+        // Primeiro, crie a árvore para ter um estado inicial
         await viewModel.createScannedTree()
         #expect(viewModel.tree != nil)
         
+        // Agora, configure o mock para a operação de atualização
+        let updatedTreeData = ScannedTree(species: "Pau-Brasil", height: 15.0, dap: 55.0, totalCO2: 250.0)
+        mockRepository.mockUpdatedTree = updatedTreeData
+        
+        // Defina os novos valores no ViewModel
         viewModel.updateSpecies = "Pau-Brasil"
         viewModel.updateHeight = 15.0
         viewModel.updateDap = 55.0
@@ -151,31 +104,22 @@ struct TreeReviewViewModelTests {
         
         // Then
         #expect(viewModel.isLoading == false)
-        let updatedTree = try #require(viewModel.tree)
-        #expect(updatedTree.species == "Pau-Brasil")
-        #expect(updatedTree.height == 15.0)
-        #expect(updatedTree.dap == 55.0)
+        #expect(viewModel.errorMessage == nil)
+        let finalTree = try #require(viewModel.tree) // Garante que a árvore não é nula
+        #expect(finalTree.species == "Pau-Brasil")
+        #expect(finalTree.height == 15.0)
+        #expect(finalTree.dap == 55.0)
     }
-    
-    @Test func shouldCancel() async {
-        // Given
-        let mockTreeAPIService = MockTreeAPIService(shouldFail: false, isNetworkError: false)
-        let mockScannedTreeService = MockScannedTreeService(shouldFail: false)
-        let mockPinService = MockPinService(shouldFail: false)
-        let mockCameraService = MockCameraService(shouldFail: false)
-        let mockTreeDataService = MockTreeDataService()
 
+    // --- Teste de Lógica Interna (não precisa de mock) ---
+
+    @Test("shouldCancelAndResetState")
+    func shouldCancelAndResetState() {
+        // Given
+        let mockRepository = MockTreeReviewRepository() // Mesmo não sendo usado, é necessário para inicializar
+        let viewModel = TreeReviewViewModel(repository: mockRepository, measuredDiameter: 0, treeImage: nil, estimatedHeight: 0, pinLatitude: 0, pinLongitude: 0, treeSpecies: "")
         
-        let viewModel = TreeReviewViewModel(
-            repository: TreeReviewRepository(scannedTreeService: ScannedTreeService(), treeAPIService: TreeAPIService(), pinService: PinService(), treeDataService: TreeDataService(), userService: UserService(), userDefaultService: UserDefaultService()),
-            measuredDiameter: 40.0,
-            treeImage:  UIImage(),
-            estimatedHeight: 5.0,
-            pinLatitude: -30.0,
-            pinLongitude: -51.0,
-            treeSpecies: ""
-        )
-        
+        // Modifica o estado
         viewModel.isLoading = true
         viewModel.errorMessage = "Erro antigo"
         viewModel.updateSpecies = "Alguma espécie"

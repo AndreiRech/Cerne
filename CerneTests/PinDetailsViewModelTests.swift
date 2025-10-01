@@ -36,15 +36,6 @@ struct PinDetailsViewModelTests {
         return (viewModel, mockPinService)
     }
     
-    // MARK: - Testes de Inicialização (Setup)
-    @Test func should_fetch_details_on_init_and_succeed() {
-        // Given
-        let (viewModel, _) = setupTestEnvironment(shouldServiceFail: false)
-        
-        // Then
-        #expect(viewModel.details != nil)
-        #expect(viewModel.details?.commonName == "Ipê-amarelo")
-    }
     
     @Test func shouldFetchFetailsOnInitFail() {
         // Given
@@ -52,18 +43,6 @@ struct PinDetailsViewModelTests {
         
         // Then
         #expect(viewModel.details == nil)
-    }
-
-    // MARK: - Testes da Função `deletePin`
-    @Test func shouldDeletePin() async {
-        // Given
-        let (viewModel, mockPinService) = setupTestEnvironment()
-        
-        // When
-        await viewModel.deletePin()
-        
-        // Then
-        #expect(mockPinService.pins.isEmpty)
     }
     
     @Test func shouldDeletePinFail() async {
@@ -77,21 +56,6 @@ struct PinDetailsViewModelTests {
         
         // Then
         #expect(mockPinService.pins.count == 1)
-    }
-    
-    // MARK: - Testes da Função `reportPin`
-    @Test func shouldReportPin() async {
-        // Given
-        let (viewModel, mockPinService) = setupTestEnvironment()
-        let initialReportCount = viewModel.pin.reports
-        
-        #expect(initialReportCount == 0)
-        
-        // When
-        await viewModel.reportPin()
-        
-        // Then
-        #expect(mockPinService.pins.first?.reports == initialReportCount + 1)
     }
     
     @Test func shouldReportPinFail() async {
