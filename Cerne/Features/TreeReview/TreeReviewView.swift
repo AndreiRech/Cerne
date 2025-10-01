@@ -18,7 +18,6 @@ struct TreeReviewView: View {
                 if viewModel.isLoading {
                     ProgressView()
                         .scaleEffect(1.5)
-                        .frame(width: 60, height: 60)
                         .glassEffect()
                 } else {
                     Text("Revise os dados coletados")
