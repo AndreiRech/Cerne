@@ -14,4 +14,5 @@ protocol FootprintServiceProtocol {
     func fetchResponses(for footprint: Footprint) async throws -> [Response]
     func createOrUpdateFootprint(for user: User, with responsesData: [ResponseData]) async throws -> Footprint
     func getQuestions(fileName: String) throws -> [Question]
+    func deleteFootprint(_ footprint: Footprint) async throws
 }

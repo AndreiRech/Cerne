@@ -142,4 +142,17 @@ class FootprintService: FootprintServiceProtocol {
             throw JsonError.invalidJsonFormat
         }
     }
+    
+    func deleteFootprint(_ footprint: Footprint) async throws {
+        guard let recordID = footprint.recordID else {
+            throw GenericError.serviceError
+        }
+        
+        do {
+            try await publicDB.deleteRecord(withID: recordID)
+        } catch {
+            print("Erro ao deletar Footprint: \(error.localizedDescription)")
+            throw GenericError.serviceError
+        }
+    }
 }
