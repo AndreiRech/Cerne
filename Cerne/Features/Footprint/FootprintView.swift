@@ -106,8 +106,8 @@ struct FootprintView: View {
             
             if viewModel.showDiscardAlert {
                 AlertView(
-                    title: "Descartar os dados?",
-                    message: "Se fechar agora, as respostas inseridas serão perdidas",
+                    title: String(localized: "Descartar os dados?"),
+                    message: String(localized: "Se fechar agora, as respostas inseridas serão perdidas"),
                     onConfirm: {
                         withAnimation {
                             viewModel.showDiscardAlert = false
@@ -126,8 +126,8 @@ struct FootprintView: View {
             
             if viewModel.showConludedAlert {
                 RegisterConcluded(
-                    title: "Registro concluído!",
-                    message: "Pegada de carbono calculada com sucesso!"
+                    title: String(localized: "Registro concluído!"),
+                    message: String(localized: "Pegada de carbono calculada com sucesso!")
                 )
                 .padding(.horizontal, 46)
                 .onAppear {

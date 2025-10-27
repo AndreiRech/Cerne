@@ -35,7 +35,7 @@ class FootprintViewModel: FootprintViewModelProtocol {
     
     var isAbleToSave: Bool {
         let allQuestionsAnswered = selections.count == CarbonEmittersEnum.allCases.count
-        let noPlaceholderAnswers = !selections.values.contains("Selecionar")
+        let noPlaceholderAnswers = !selections.values.contains(String(localized: "Selecionar"))
         
         return allQuestionsAnswered && noPlaceholderAnswers
     }
@@ -48,7 +48,7 @@ class FootprintViewModel: FootprintViewModelProtocol {
         self.repository = repository
         
         for emitter in CarbonEmittersEnum.allCases {
-            selections[emitter] = "Selecionar"
+            selections[emitter] = String(localized: "Selecionar")
         }
     }
     
@@ -91,7 +91,7 @@ class FootprintViewModel: FootprintViewModelProtocol {
     
     func resetSelections() {
         for emitter in CarbonEmittersEnum.allCases {
-            selections[emitter] = "Selecionar"
+            selections[emitter] = String(localized: "Selecionar")
         }
         currentPage = 1
     }

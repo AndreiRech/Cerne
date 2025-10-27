@@ -1257,6 +1257,22 @@
         }
       }
     },
+    "Descartar os dados?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Discard data?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Descartar los datos?"
+          }
+        }
+      }
+    },
     "Descubra o quanto de carbono cada árvore pode capturar" : {
       "localizations" : {
         "en" : {
@@ -1397,6 +1413,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Esta acción no se puede deshacer. Tus datos y logros se eliminarán de forma definitiva."
+          }
+        }
+      }
+    },
+    "Esta espécie foi reconhecida, mas as informações adicionais ainda não estão disponíveis" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This species has been recognized, but additional information is not yet available."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esta especie ha sido reconocida, pero la información adicional aún no está disponible."
           }
         }
       }
@@ -2031,6 +2063,22 @@
         }
       }
     },
+    "Pegada de carbono calculada com sucesso!" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carbon footprint successfully calculated!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Huella de carbono calculada con éxito!"
+          }
+        }
+      }
+    },
     "Perfil" : {
       "localizations" : {
         "en" : {
@@ -2351,6 +2399,22 @@
         }
       }
     },
+    "Registro concluído!" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registration complete!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Registro completado!"
+          }
+        }
+      }
+    },
     "Registro duplicado, incorreto ou não deveria estar no Aplicativo." : {
       "localizations" : {
         "en" : {
@@ -2459,6 +2523,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Guardar"
+          }
+        }
+      }
+    },
+    "Se fechar agora, as respostas inseridas serão perdidas" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your changes will be lost if you close now."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si cierra, se perderán las respuestas."
           }
         }
       }
