@@ -1,0 +1,131 @@
+{
+  "fill" : {
+    "solid" : "display-p3:0.90980,0.99608,0.25490,1.00000"
+  },
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "fill" : {
+            "solid" : "display-p3:0.22417,0.36441,0.21726,1.00000"
+          },
+          "glass" : false,
+          "hidden" : false,
+          "image-name" : "laço front.svg",
+          "name" : "laço front",
+          "position" : {
+            "scale" : 0.45,
+            "translation-in-points" : [
+              43.4749959139064,
+              271.60541059379784
+            ]
+          }
+        }
+      ],
+      "position" : {
+        "scale" : 1,
+        "translation-in-points" : [
+          15.717965974490475,
+          -9.789342719175721
+        ]
+      },
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    },
+    {
+      "blur-material" : 0.5,
+      "layers" : [
+        {
+          "fill" : {
+            "solid" : "srgb:1.00000,1.00000,1.00000,1.00000"
+          },
+          "hidden" : true,
+          "image-name" : "Frame 3.png",
+          "name" : "Frame 3",
+          "position" : {
+            "scale" : 1.5,
+            "translation-in-points" : [
+              -16.8351306461121,
+              11.62086713732685
+            ]
+          }
+        },
+        {
+          "fill" : {
+            "linear-gradient" : [
+              "display-p3:0.68393,1.00000,0.98939,1.00000",
+              "extended-srgb:0.00000,0.53333,1.00000,1.00000"
+            ]
+          },
+          "image-name" : "Vector2.svg",
+          "name" : "Vector2",
+          "position" : {
+            "scale" : 0.45,
+            "translation-in-points" : [
+              0,
+              -2.873302475464495
+            ]
+          }
+        },
+        {
+          "fill" : {
+            "linear-gradient" : [
+              "display-p3:0.61176,0.80784,1.00000,1.00000",
+              "display-p3:0.48620,0.71781,0.96783,1.00000"
+            ]
+          },
+          "hidden" : true,
+          "image-name" : "Group 34.svg",
+          "name" : "Group 34",
+          "position" : {
+            "scale" : 0.5,
+            "translation-in-points" : [
+              0,
+              -276.67797811808697
+            ]
+          }
+        }
+      ],
+      "position" : {
+        "scale" : 1,
+        "translation-in-points" : [
+          15.717965974490475,
+          -9.789342719175721
+        ]
+      },
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : false,
+        "value" : 0.5
+      }
+    },
+    {
+      "layers" : [
+
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "circles" : [
+      "watchOS"
+    ],
+    "squares" : "shared"
+  }
+}
