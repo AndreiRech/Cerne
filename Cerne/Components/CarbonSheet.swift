@@ -35,7 +35,7 @@ struct CarbonSheet: View {
                     options: emitter.getPickerOptions(),
                     isEnabled: isEnabled,
                     selection: Binding(
-                        get: { selections[emitter] ?? "Selecionar" },
+                        get: { selections[emitter] ?? String(localized: "Selecionar") },
                         set: { newValue in onUpdate(emitter, newValue) }
                     )
                 )

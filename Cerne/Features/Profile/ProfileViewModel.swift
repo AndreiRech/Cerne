@@ -140,7 +140,7 @@ class ProfileViewModel: ProfileViewModelProtocol {
             }
         }
 
-        let monthSymbols = calendar.shortMonthSymbols.map { String($0.prefix(1)) }
+        let monthSymbols = calendar.veryShortMonthSymbols
         let objective = Double(monthlyObjective)
             
         self.annualData = monthlyTotals.enumerated().map { (index, total) -> MonthlyData in
