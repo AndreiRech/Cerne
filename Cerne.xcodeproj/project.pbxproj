@@ -6,10 +6,6 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		A3CCE8622E8C65A50045DA3E /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = A3CCE8612E8C65A50045DA3E /* Localizable.xcstrings */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXContainerItemProxy section */
 		4DBE41342E6A27A50036B193 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -23,7 +19,6 @@
 /* Begin PBXFileReference section */
 		4DBE3DDC2E68CC950036B193 /* Cerne.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cerne.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DBE41302E6A27A50036B193 /* CerneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CerneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A3CCE8612E8C65A50045DA3E /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = Localizable.xcstrings; path = Cerne/App/Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -73,7 +68,6 @@
 		4DBE3DD32E68CC950036B193 = {
 			isa = PBXGroup;
 			children = (
-				A3CCE8612E8C65A50045DA3E /* Localizable.xcstrings */,
 				4DBE3DDE2E68CC950036B193 /* Cerne */,
 				4DBE41312E6A27A50036B193 /* CerneTests */,
 				4DBE3DDD2E68CC950036B193 /* Products */,
@@ -183,7 +177,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3CCE8622E8C65A50045DA3E /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
