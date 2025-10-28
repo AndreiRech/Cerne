@@ -87,6 +87,34 @@ class UserService: UserServiceProtocol {
         }
     }
     
+    func fetchCurrentUserIfExists() async throws -> User? {
+        let container = CKContainer.default()
+        
+        do {
+            let userRecordID = try await container.userRecordID()
+            let userIDString = userRecordID.recordName
+
+            let predicate = NSPredicate(format: "CD_id == %@", userIDString)
+            let query = CKQuery(recordType: "CD_User", predicate: predicate)
+
+            let (matchResults, _) = try await publicDB.records(matching: query)
+            let records = matchResults.compactMap { try? $0.1.get() }
+
+            if let existingRecord = records.first, let user = User(record: existingRecord) {
+                CacheService.shared.set(user, forKey: .currentUser)
+                return user
+            } else {
+                return nil
+            }
+        } catch let error as CKError where error.code == .notAuthenticated {
+             print("Erro: Usuário não autenticado no iCloud. \(error.localizedDescription)")
+             throw UserError.iCloudAccountNotFound
+        } catch {
+            print("Erro ao tentar buscar usuário existente: \(error.localizedDescription)")
+            throw GenericError.serviceError
+        }
+    }
+    
     func updateUser(user: User) async throws -> User {
         guard let recordID = user.recordID else {
             throw GenericError.serviceError
