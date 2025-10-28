@@ -54,7 +54,11 @@ struct CarbonSheet: View {
                             let options = emitter.getPickerOptions()
                             
                             if let optionIndex = options.firstIndex(of: newOptionText) {
-                                onUpdate(emitter, optionIndex)
+                                if optionIndex == 0 {
+                                    onUpdate(emitter, -1)
+                                } else {
+                                    onUpdate(emitter, optionIndex)
+                                }
                             } else {
                                 
                                 onUpdate(emitter, -1)
@@ -68,31 +72,3 @@ struct CarbonSheet: View {
         .padding()
     }
 }
-
-//#Preview {
-//    // State é necessário para que as seleções no preview sejam interativas
-//    @Previewable @State var selections: [CarbonEmittersEnum: String] = [
-//        .car: "Gasolina / Álcool",
-//        .km: "Selecionar"
-//    ]
-//    
-//    // Define quais perguntas (emissores) aparecerão nesta visualização
-//    let emittersForPreview: [CarbonEmittersEnum] = [
-//        .car,
-//        .km,
-//        .bus
-//    ]
-//    
-//    // Retorna a view com dados mocados
-//    return CarbonSheet(
-//        page: 1,
-//        isEnabled: true,
-//        selections: selections,
-//        emitters: emittersForPreview,
-//        onUpdate: { emitter, newValue in
-//            selections[emitter] = newValue
-//        }
-//    )
-//    .padding()
-//    //    .background(.gray.opacity(0.1))
-//}

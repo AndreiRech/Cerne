@@ -23,8 +23,8 @@ struct FootprintView: View {
                             isEnabled: true,
                             selections: viewModel.selections,
                             emitters: viewModel.emittersForPage(page),
-                            onUpdate: { emitter, newOptionId in
-                                viewModel.updateSelection(for: emitter, to: newOptionId)
+                            onUpdate: { emitter, newValue in
+                                viewModel.updateSelection(for: emitter, to: newValue)
                             }
                         )
                         .background(.backgroundSecondary.opacity(0.6))
