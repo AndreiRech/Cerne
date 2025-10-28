@@ -18,6 +18,22 @@ enum CarbonEmittersEnum: CaseIterable {
     case purchase
     case houseHold
     case recicle
+    
+    var questionId: Int {
+            switch self {
+            case .airConditioner: return 1
+            case .car: return 2
+            case .km: return 3
+            case .bus: return 4
+            case .shortHaulFlight: return 5
+            case .longHaulFlight: return 6
+            case .diet: return 7
+            case .purchase: return 8
+            case .recicle: return 9
+            case .houseHold: return 10
+            }
+        }
+    
 
     var title: String {
         switch self {

@@ -76,7 +76,7 @@ struct PinDetailsView: View {
                                     .font(.body)
                                     .fontWeight(.semibold)
                                 
-                                Text(viewModel.details?.description ?? "Esta espécie foi reconhecida, mas as informações adicionais ainda não estão disponíveis")
+                                Text(viewModel.details?.description ?? String(localized: "Esta espécie foi reconhecida, mas as informações adicionais ainda não estão disponíveis"))
                                     .foregroundStyle(.primitivePrimary)
                                     .font(.footnote)
                                     .fontWeight(.regular)
@@ -187,7 +187,7 @@ struct PinDetailsView: View {
             }
             .scrollDisabled(true)
             .sheet(isPresented: $isShowingShareSheet) {
-                ShareSheet(items: ["Olha que legal o App Cerne: ele calcula quanto de carbono as árvores da sua cidade conseguem reter para ajudar a limpar o ar. Achei que você ia gostar. https://apps.apple.com/br/app/cerne-captura-de-co/id6751984534"])
+                ShareSheet(items: [String(localized: "Olha que legal o App Cerne: ele calcula quanto de carbono as árvores da sua cidade conseguem reter para ajudar a limpar o ar. Achei que você ia gostar. https://apps.apple.com/br/app/cerne-captura-de-co/id6751984534")])
             }
             .alert("Deletar Registro", isPresented: $isShowingDeleteAlert) {
                 Button("Cancelar", role: .cancel) {

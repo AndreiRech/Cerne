@@ -21,7 +21,7 @@ struct FootprintViewModelTests {
         #expect(viewModel.selections.count == CarbonEmittersEnum.allCases.count)
         
         for emitter in CarbonEmittersEnum.allCases {
-            #expect(viewModel.selections[emitter] == "Selecionar")
+            #expect(viewModel.selections[emitter] == -1)
         }
     }
     
@@ -37,7 +37,7 @@ struct FootprintViewModelTests {
         
         // Assert
         #expect(!viewModel.isLoading)
-        #expect(viewModel.selections[.car] == "Selecionar")
+        #expect(viewModel.selections[.car] == -1)
     }
 
     @Test("isAbleToSave: Deve ser verdadeiro quando todas as questões são respondidas")
@@ -45,7 +45,7 @@ struct FootprintViewModelTests {
         // Arrange
         let viewModel = FootprintViewModel(repository: MockFootprintRepository())
         for emitter in CarbonEmittersEnum.allCases {
-            viewModel.updateSelection(for: emitter, to: "Qualquer Valor Válido")
+            viewModel.updateSelection(for: emitter, to: 2)
         }
         
         // Assert
@@ -56,7 +56,7 @@ struct FootprintViewModelTests {
     func isAbleToSave_whenSomeQuestionsAreNotAnswered_shouldBeFalse() {
         // Arrange
         let viewModel = FootprintViewModel(repository: MockFootprintRepository())
-        viewModel.updateSelection(for: .car, to: "Carro")
+        viewModel.updateSelection(for: .car, to: 1)
 
         // Assert
         #expect(!viewModel.isAbleToSave)
@@ -73,7 +73,7 @@ struct FootprintViewModelTests {
         await viewModel.fetchData()
         
         for emitter in CarbonEmittersEnum.allCases {
-            viewModel.updateSelection(for: emitter, to: "Valor")
+            viewModel.updateSelection(for: emitter, to: 4)
         }
         #expect(viewModel.isAbleToSave)
         

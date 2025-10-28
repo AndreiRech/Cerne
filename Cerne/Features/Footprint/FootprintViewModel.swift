@@ -18,7 +18,7 @@ class FootprintViewModel: FootprintViewModelProtocol {
     private var questions: [Question] = []
     
     var currentPage: Int = 1
-    var selections: [CarbonEmittersEnum: String] = [:]
+    var selections: [CarbonEmittersEnum: Int] = [:]
     var showDiscardAlert: Bool = false
     var showConludedAlert: Bool = false
     var isLoading: Bool = false
@@ -35,7 +35,7 @@ class FootprintViewModel: FootprintViewModelProtocol {
     
     var isAbleToSave: Bool {
         let allQuestionsAnswered = selections.count == CarbonEmittersEnum.allCases.count
-        let noPlaceholderAnswers = !selections.values.contains("Selecionar")
+        let noPlaceholderAnswers = !selections.values.contains(-1)
         
         return allQuestionsAnswered && noPlaceholderAnswers
     }
@@ -48,7 +48,7 @@ class FootprintViewModel: FootprintViewModelProtocol {
         self.repository = repository
         
         for emitter in CarbonEmittersEnum.allCases {
-            selections[emitter] = "Selecionar"
+            selections[emitter] = -1
         }
     }
     
@@ -85,13 +85,13 @@ class FootprintViewModel: FootprintViewModelProtocol {
         return Array(allEmitters[startIndex..<endIndex])
     }
     
-    func updateSelection(for emitter: CarbonEmittersEnum, to newValue: String) {
-        selections[emitter] = newValue
+    func updateSelection(for emitter: CarbonEmittersEnum, to newOptionId: Int) {
+        selections[emitter] = newOptionId
     }
     
     func resetSelections() {
         for emitter in CarbonEmittersEnum.allCases {
-            selections[emitter] = "Selecionar"
+            selections[emitter] = -1
         }
         currentPage = 1
     }
@@ -122,10 +122,9 @@ class FootprintViewModel: FootprintViewModelProtocol {
         var totalEmittedCarbon: Double = 0.0
         var userResponses: [ResponseData] = []
         
-        for (emitter, selectedOptionText) in selections {
-            if let question = questions.first(where: { $0.text == emitter.description }) {
-                if let option = question.options.first(where: { $0.text == selectedOptionText }) {
-                    totalEmittedCarbon += option.value
+        for (emitter, selectedOptionId) in selections {
+            if let question = questions.first(where: { $0.id == emitter.questionId }) {
+                if let option = question.options.first(where: { $0.id == selectedOptionId }) {                    totalEmittedCarbon += option.value
                     
                     let newResponse = ResponseData(questionId: question.id, optionId: option.id, value: option.value)
                     userResponses.append(newResponse)
@@ -137,12 +136,14 @@ class FootprintViewModel: FootprintViewModelProtocol {
     }
     
     func loadUserSelections() {
-        for response in responses {
-            if let question = questions.first(where: { $0.id == response.questionId }),
-               let option = question.options.first(where: { $0.id == response.optionId }),
-               let emitter = CarbonEmittersEnum.allCases.first(where: { $0.description == question.text }) {
-                selections[emitter] = option.text
-            }
+        for emitter in CarbonEmittersEnum.allCases where selections[emitter] == nil {
+            selections[emitter] = -1
         }
+        
+        for response in responses {
+                if let emitter = CarbonEmittersEnum.allCases.first(where: { $0.questionId == response.questionId }) {
+                    selections[emitter] = response.optionId
+                }
+            }
     }
 }
