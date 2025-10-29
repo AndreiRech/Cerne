@@ -14,12 +14,19 @@ struct OnboardingView: View {
                 .ignoresSafeArea()
             
             if viewModel.isCreatingUser {
-                UserCreateView(username: $viewModel.username, height: $viewModel.height, onTap: {
-                    Task {
-                        await viewModel.saveUser()
+                UserCreateView(
+                    username: $viewModel.username,
+                    height: $viewModel.height,
+                    usernameError: $viewModel.usernameError,
+                    heightError: $viewModel.heightError,
+                    heightErrorMessage: $viewModel.heightErrorMessage,
+                    onTap: {
+                        Task {
+                            await viewModel.validateAndSaveUser()
+                        }
                     }
-                })
-                    .frame(height: 612)
+                )
+                    .frame(minHeight: 612)
                     .glassEffect(in: .rect(cornerRadius: 24))
                     .padding(.horizontal, 14)
             } else {
@@ -56,11 +63,15 @@ struct OnboardingView: View {
                     .animation(.easeInOut, value: viewModel.currentPageIndex)
                     .padding(.bottom, 40)
                 }
-                .frame(height: 612)
+                .frame(height: 620)
                 .clipShape(RoundedRectangle(cornerRadius: 34))
                 .padding(.horizontal, 20)
             }
         }
         .animation(.easeInOut, value: viewModel.isCreatingUser)
     }
+}
+
+#Preview {
+    OnboardingView(viewModel: OnboardingViewModel(userDefaultService: UserDefaultService(), userService: UserService()))
 }

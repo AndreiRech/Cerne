@@ -171,7 +171,7 @@ struct PinDetailsView: View {
                     } label: {
                         HStack {
                             Image(systemName: viewModel.isPinFromUser ? "trash" : "exclamationmark.bubble")
-                            Text(viewModel.isPinFromUser ? "Deletar Árvore" : "Relatar um Problema")
+                            Text(viewModel.isPinFromUser ? (viewModel.reportEnabled ? "Deletar Árvore" : "Árvore já denunciada") : "Relatar um Problema")
                         }
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 14)
