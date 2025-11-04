@@ -616,6 +616,22 @@
         }
       }
     },
+    "Árvore já denunciada" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tree already reported"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Árbol ya reportado"
+          }
+        }
+      }
+    },
     "árvores\nregistradas" : {
       "localizations" : {
         "en" : {
@@ -1909,6 +1925,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ningún árbol registrado"
+          }
+        }
+      }
+    },
+    "Nome de usuário não pode estar vazio." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "User name cannot be empty."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El nombre de usuario no puede estar vacío."
           }
         }
       }
