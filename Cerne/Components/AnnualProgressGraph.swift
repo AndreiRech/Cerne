@@ -27,7 +27,7 @@ struct AnnualProgressGraph: View {
                             .font(.largeTitle)
                             .fontWeight(.bold)
                         
-                        Text("de CO² neutralizado")
+                        Text("de CO₂ neutralizado")
                             .foregroundStyle(.primitivePrimary)
                             .font(.title3)
                             .fontWeight(.regular)
@@ -68,7 +68,7 @@ struct AnnualProgressGraph: View {
                     }
                 }
 
-                Text("Objetivo anual: \(annualObjective) kg de CO²")
+                Text("Objetivo anual: \(annualObjective) kg de CO₂")
                     .font(.footnote)
                     .fontWeight(.regular)
                     .foregroundStyle(.primitiveSecondary)

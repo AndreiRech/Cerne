@@ -65,7 +65,7 @@ struct ProfileView: View {
                                             .font(.largeTitle)
                                             .fontWeight(.bold)
                                         
-                                        Text("quilos de CO²\nsequestrados ")
+                                        Text("quilos de CO₂\nsequestrados ")
                                             .foregroundStyle(.primitivePrimary)
                                             .font(.body)
                                             .fontWeight(.regular)
@@ -132,7 +132,7 @@ struct ProfileView: View {
                                                 .font(.largeTitle)
                                                 .fontWeight(.bold)
                                             
-                                            Text("de CO² por ano")
+                                            Text("de CO₂ por ano")
                                                 .foregroundStyle(.primitivePrimary)
                                                 .font(.title3)
                                                 .fontWeight(.regular)
@@ -238,7 +238,8 @@ struct ProfileView: View {
                             viewModel: OnboardingViewModel(
                                 userDefaultService: UserDefaultService(),
                                 userService: UserService()
-                            )
+                            ),
+                            isOnbDone: .constant(false)
                         )
                         .toolbar(.hidden, for: .tabBar)
                         .navigationBarBackButtonHidden(true)

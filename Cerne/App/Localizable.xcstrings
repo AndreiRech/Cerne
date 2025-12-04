@@ -4,23 +4,12 @@
     "" : {
       "shouldTranslate" : false
     },
-    "@marinacarvalho" : {
+    "%.1f t de CO₂ sequestrados" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "@marinacarvalho"
-          }
-        }
-      },
-      "shouldTranslate" : false
-    },
-    "%.1f t de CO² sequestrados" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%.1f of CO₂ sequestered"
+            "value" : "%.1f t of CO₂ sequestered"
           }
         },
         "es" : {
@@ -82,7 +71,7 @@
     "%@" : {
       "shouldTranslate" : false
     },
-    "%@ kg de CO² capturado" : {
+    "%@ kg de CO₂ capturado" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -149,7 +138,7 @@
     "%lld%%" : {
       "shouldTranslate" : false
     },
-    "%lld%% de CO² neutralizado" : {
+    "%lld%% de CO₂ neutralizado" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -921,18 +910,18 @@
         }
       }
     },
-    "Compartilhe o App e %@ de zonas com maior potencial de sequestro de CO²" : {
+    "Compartilhe o App e %@ de zonas com maior potencial de sequestro de CO₂" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Share the app and of areas with the greatest potential for CO₂ sequestration"
+            "value" : "Share the app and help expand the mapping of areas with the greatest potential for CO² sequestration."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Comparte la app y %@ de zonas con mayor potencial de secuestro de CO₂"
+            "value" : "Comparte la aplicación y etiqueta las áreas con mayor potencial de secuestro de CO₂."
           }
         }
       }
@@ -1097,23 +1086,23 @@
         }
       }
     },
-    "de CO²" : {
+    "de CO₂" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "of CO²"
+            "value" : "of CO₂"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "de CO²"
+            "value" : "de CO₂"
           }
         }
       }
     },
-    "de CO² neutralizado" : {
+    "de CO₂ neutralizado" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1124,17 +1113,17 @@
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "CO₂ neutralizado"
+            "value" : "de CO₂ neutralizado"
           }
         }
       }
     },
-    "de CO² por ano" : {
+    "de CO₂ por ano" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "CO₂/year"
+            "value" : "of CO₂ per year"
           }
         },
         "es" : {
@@ -1721,6 +1710,22 @@
         }
       }
     },
+    "marinacarvalho" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "marinacarvalho"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "marinacarvalho"
+          }
+        }
+      }
+    },
     "Medir diâmetro" : {
       "localizations" : {
         "en" : {
@@ -1945,12 +1950,12 @@
         }
       }
     },
-    "Objetivo anual: %lld kg de CO²" : {
+    "Objetivo anual: %lld kg de CO₂" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Annual goal: %lld kg of CO₂"
+            "value" : "Annual target: %lld kg of CO₂"
           }
         },
         "es" : {
@@ -1961,24 +1966,24 @@
         }
       }
     },
-    "Objetivo de %@: %lld kg de CO²" : {
+    "Objetivo de %@: %lld kg de CO₂" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ goal: %2$lld kg of CO₂"
+            "value" : "%1$@ target: %2$lld kg of CO₂"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Meta de %1$@: %2$lld kg de CO₂"
+            "value" : "%1$@ objetivo: %2$lld kg de CO₂"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Objetivo de %1$@: %2$lld kg de CO²"
+            "value" : "Objetivo de %1$@: %2$lld kg de CO₂"
           }
         }
       }
@@ -2319,7 +2324,7 @@
         }
       }
     },
-    "quilos de CO²\nsequestrados " : {
+    "quilos de CO₂\nsequestrados " : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2330,7 +2335,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "kilogramos de CO₂ secuestrados"
+            "value" : "kilogramos de CO₂\nsecuestrados"
           }
         }
       }
@@ -2500,7 +2505,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Here we’ve gathered several details about your journey within Cerne. Feel free to explore."
+            "value" : "Here we’ve gathered several details about your journey within Cerne. Feel free to explore"
           }
         },
         "es" : {
@@ -2767,7 +2772,7 @@
         }
       }
     },
-    "Use realidade aumentada para identificar a espécies das árvores e calcular a capacidade de sequestro de CO₂" : {
+    "Use realidade aumentada para identificar as espécies das árvores e calcular a capacidade de sequestro de CO₂" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2778,7 +2783,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Usa la realidad aumentada para identificar las especies de los árboles y calcular la capacidad de secuestro de CO₂"
+            "value" : "Utilice la realidad aumentada para identificar especies de árboles y calcular su capacidad de secuestro de CO₂."
           }
         }
       }
