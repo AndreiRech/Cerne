@@ -206,7 +206,7 @@ struct ProfileView: View {
                     Button("Deletar", role: .destructive) {
                         Task {
                             await viewModel.deleteAccount()
-                            router.path.append(Route.onBoarding)
+//                            router.path.append(Route.onBoarding)
                         }
                     }
                 } message: {

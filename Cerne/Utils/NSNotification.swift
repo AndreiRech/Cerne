@@ -10,3 +10,7 @@ import Foundation
 extension NSNotification.Name {
     static let didUpdateUserData = NSNotification.Name("didUpdateUserData")
 }
+
+extension Notification.Name {
+    static let didDeleteAccount = Notification.Name("didDeleteAccount")
+}

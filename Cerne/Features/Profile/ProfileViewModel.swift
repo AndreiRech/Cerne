@@ -70,7 +70,7 @@ class ProfileViewModel: ProfileViewModelProtocol {
                 }
             }
             self.totalCO2 = String(format: "%.0f", total)
-
+            
             calculateAnnualProgress()
         } catch {
             print("Erro ao buscar dados do repositório: \(error.localizedDescription)")
@@ -85,6 +85,11 @@ class ProfileViewModel: ProfileViewModelProtocol {
             guard let user = self.user else { return }
             
             try await repository.deleteAccount(for: user)
+            
+            await MainActor.run {
+                NotificationCenter.default.post(name: .didDeleteAccount, object: nil)
+            }
+            
         } catch {
             print("Erro ao deletar o usuário: \(error.localizedDescription)")
         }
@@ -104,21 +109,21 @@ class ProfileViewModel: ProfileViewModelProtocol {
         if annualObjective == 0 {
             return 0
         }
-            
+        
         let calendar = Calendar.current
         let currentYear = calendar.component(.year, from: Date())
-
+        
         let currentYearPins = userPins.filter {
             calendar.component(.year, from: $0.date) == currentYear
         }
         let totalNeutralized = currentYearPins.compactMap { pin in
             getTree(for: pin)?.totalCO2
         }.reduce(0, +)
-
+        
         let percentage = (totalNeutralized / annualObjective) * 100.0
-            
+        
         let finalPercentage = Int(round(max(0, min(percentage, 100.0))))
-            
+        
         return finalPercentage
     }
     
@@ -126,11 +131,11 @@ class ProfileViewModel: ProfileViewModelProtocol {
         let calendar = Calendar.current
         let currentYear = calendar.component(.year, from: Date())
         var monthlyTotals = Array(repeating: 0.0, count: 12)
-
+        
         let currentYearPins = userPins.filter {
             calendar.component(.year, from: $0.date) == currentYear
         }
-
+        
         for pin in currentYearPins {
             let month = calendar.component(.month, from: pin.date) - 1
             if month >= 0 && month < 12 {
@@ -139,10 +144,10 @@ class ProfileViewModel: ProfileViewModelProtocol {
                 }
             }
         }
-
+        
         let monthSymbols = calendar.veryShortMonthSymbols
         let objective = Double(monthlyObjective)
-            
+        
         self.annualData = monthlyTotals.enumerated().map { (index, total) -> MonthlyData in
             var normalizedHeight = 0.0
             
@@ -150,7 +155,7 @@ class ProfileViewModel: ProfileViewModelProtocol {
                 let percentage = total / objective
                 normalizedHeight = min(percentage, 1.0)
             }
-                    
+            
             return MonthlyData(month: monthSymbols[index], normalizedHeight: normalizedHeight)
         }
     }

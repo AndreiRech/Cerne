@@ -78,6 +78,9 @@ class UserService: UserServiceProtocol {
                 guard let newUser = User(record: savedRecord) else {
                     throw GenericError.serviceError
                 }
+                
+                CacheService.shared.set(newUser, forKey: .currentUser)
+                
                 return newUser
             }
         } catch {

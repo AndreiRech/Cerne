@@ -37,39 +37,87 @@ class TodayViewModel: TodayViewModelProtocol {
         )
     }
     
+//    func fetchData() async {
+//        self.isLoading = true
+//        defer { self.isLoading = false }
+//        
+//        do {
+//            let data = try await repository.fetchTodayData()
+//            
+//            self.userName = data.currentUser.name
+//            self.allPins = data.allPins
+//            self.allTrees = data.allTrees
+//            
+//            if let userFootprint = data.userFootprint {
+//                self.monthlyObjective = Int(userFootprint.total / 12)
+//            } else {
+//                self.userFootprint = nil
+//                self.monthlyObjective = 0
+//            }
+//            
+//            self.userPins = []
+//            self.totalCO2Double = 0.0
+//            
+//            self.userPins = data.allPins.filter { $0.userRecordID == data.currentUser.recordID }
+//            
+//            for pin in data.allPins {
+//                if let tree = getTree(for: pin) {
+//                    totalCO2Double += tree.totalCO2
+//                }
+//            }
+//            
+//        } catch {
+//            print("Erro ao buscar dados do repositório: \(error.localizedDescription)")
+//        }
+//    }
+    
     func fetchData() async {
-        self.isLoading = true
-        defer { self.isLoading = false }
-        
-        do {
-            let data = try await repository.fetchTodayData()
-            
-            self.userName = data.currentUser.name
-            self.allPins = data.allPins
-            self.allTrees = data.allTrees
-            
-            if let userFootprint = data.userFootprint {
-                self.monthlyObjective = Int(userFootprint.total / 12)
-            } else {
-                self.userFootprint = nil
-                self.monthlyObjective = 0
-            }
-            
-            self.userPins = []
-            self.totalCO2Double = 0.0
-            
-            self.userPins = data.allPins.filter { $0.userRecordID == data.currentUser.recordID }
-            
-            for pin in data.allPins {
-                if let tree = getTree(for: pin) {
-                    totalCO2Double += tree.totalCO2
+            // 1. TENTATIVA RÁPIDA (CACHE):
+            // Verifica se o usuário já está na memória local.
+            // Isso garante que o nome apareça instantaneamente, mesmo se o banco demorar.
+            if let cachedUser: User = CacheService.shared.get(forKey: .currentUser) {
+                await MainActor.run {
+                    self.userName = cachedUser.name
                 }
             }
             
-        } catch {
-            print("Erro ao buscar dados do repositório: \(error.localizedDescription)")
+            self.isLoading = true
+            defer { self.isLoading = false }
+            
+            do {
+                // 2. TENTATIVA ROBUSTA (BANCO):
+                // Busca os dados completos para garantir consistência e pegar pins/pegada atualizados
+                let data = try await repository.fetchTodayData()
+                
+                // Atualiza a UI na thread principal para evitar erros roxos
+                await MainActor.run {
+                    self.userName = data.currentUser.name
+                    self.allPins = data.allPins
+                    self.allTrees = data.allTrees
+                    
+                    if let userFootprint = data.userFootprint {
+                        self.monthlyObjective = Int(userFootprint.total / 12)
+                    } else {
+                        self.userFootprint = nil
+                        self.monthlyObjective = 0
+                    }
+                    
+                    self.userPins = []
+                    self.totalCO2Double = 0.0
+                    
+                    self.userPins = data.allPins.filter { $0.userRecordID == data.currentUser.recordID }
+                    
+                    for pin in data.allPins {
+                        if let tree = getTree(for: pin) {
+                            totalCO2Double += tree.totalCO2
+                        }
+                    }
+                }
+                
+            } catch {
+                print("Erro ao buscar dados do repositório: \(error.localizedDescription)")
+            }
         }
-    }
     
     func totalCO2Sequestration() -> Double {
         return totalCO2Double / 1000.0

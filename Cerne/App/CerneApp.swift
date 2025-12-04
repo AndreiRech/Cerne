@@ -56,8 +56,23 @@ struct CerneApp: App {
                                 .environmentObject(appDelegate.quickActionService)
                         }
                     case .error:
-                        OnboardingView(viewModel: OnboardingViewModel(userDefaultService: userDefaultService, userService: userService), isOnbDone: $isOnboardingDone)
+                        if isOnboardingDone {
+                            TabBar()
+                                .environmentObject(appDelegate.quickActionService)
+                        } else {
+                            OnboardingView(
+                                viewModel: OnboardingViewModel(
+                                    userDefaultService: UserDefaultService(),
+                                    userService: userService
+                                ),
+                                isOnbDone: $isOnboardingDone
+                            )
+                        }
                     }
+                }
+                .onReceive(NotificationCenter.default.publisher(for: .didDeleteAccount)) { _ in
+                    self.isOnboardingDone = false
+                    self.userCheckStatus = .newUser
                 }
             }
         }
