@@ -34,9 +34,9 @@ struct NeutralizedCarbonComponent: View {
             }
             
             VStack(alignment: .leading, spacing: 4) {
-                Text("\(neutralizedPercentage)% de CO² neutralizado")
+                Text("\(neutralizedPercentage)% de CO₂ neutralizado")
                     .font(.system(.title3, weight: .semibold))
-                Text("Objetivo de \(month): \(Int(monthlyObjective)) kg de CO²")
+                Text("Objetivo de \(month): \(Int(monthlyObjective)) kg de CO₂")
                     .font(.footnote)
                     .foregroundStyle(.primitivePrimary)
                 

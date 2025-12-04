@@ -92,7 +92,7 @@ struct PinDetailsView: View {
                                 .frame(width: 26, height: 26, alignment: .center)
                             
                             VStack(alignment: .leading, spacing: 4) {
-                                Text("\(viewModel.formattedTotalCO2) kg de CO² capturado")
+                                Text("\(viewModel.formattedTotalCO2) kg de CO₂ capturado")
                                     .foregroundStyle(.primitivePrimary)
                                     .font(.body)
                                     .fontWeight(.semibold)

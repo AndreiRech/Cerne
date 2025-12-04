@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TodayView: View {
-    @State var viewModel: any TodayViewModelProtocol
+    @State var viewModel: TodayViewModel
     @EnvironmentObject var router: Router
     
     var body: some View {
@@ -121,7 +121,7 @@ struct TodayView: View {
                                         )
                                         CommunityDataComponent(
                                             icon: .co2Cloud,
-                                            title: String(format: String(localized: "%.1f t de CO² sequestrados"), viewModel.totalCO2Sequestration()),
+                                            title: String(format: String(localized: "%.1f t de CO₂ sequestrados"), viewModel.totalCO2Sequestration()),
                                             infoType: .co2,
                                             co2Number: viewModel.lapsEarth(totalCO2: viewModel.totalCO2Sequestration())
                                         )

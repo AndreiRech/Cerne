@@ -30,7 +30,7 @@ struct OnboardingView: View {
                                     Task {
                                         await viewModel.validateAndSaveUser()
                                     }
-                                    isOnbDone = true
+//                                    isOnbDone = true
                                 }
                             )
                             .glassEffect(in: .rect(cornerRadius: 24))

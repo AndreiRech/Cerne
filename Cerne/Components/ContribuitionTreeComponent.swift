@@ -40,7 +40,7 @@ struct ContribuitionTreeComponent: View {
                         Text(String(format: "%.0f kg", treeCO2))
                             .font(.system(.title2, weight: .bold))
                         
-                        Text("de CO²")
+                        Text("de CO₂")
                             .font(.body)
                     }
                     Text("sequestrados")

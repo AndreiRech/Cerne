@@ -35,7 +35,7 @@ struct UserCreateView: View {
                     .fontWeight(.semibold)
                     .padding(.bottom, 6)
                 
-                TextField("", text: $username, prompt: Text("@marinacarvalho").foregroundStyle(.primitivePrimary.opacity(0.6)))
+                TextField("", text: $username, prompt: Text("marinacarvalho").foregroundStyle(.primitivePrimary.opacity(0.6)))
                     .padding(20)
                     .frame(height: 62)
                     .background(
