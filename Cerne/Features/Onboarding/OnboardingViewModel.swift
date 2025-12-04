@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import SwiftUI // Importar SwiftUI para usar withAnimation
+import SwiftUI
 
 @Observable
 class OnboardingViewModel: OnboardingViewModelProtocol {
@@ -19,6 +19,9 @@ class OnboardingViewModel: OnboardingViewModelProtocol {
     var heightErrorMessage: String = ""
     var errorMessage: String?
     var currentPageIndex: Int? = 0
+    
+    var isLoading: Bool = false
+    var isOnboardingFinished: Bool = false
     
     var username: String = "" {
         didSet {
@@ -57,6 +60,8 @@ class OnboardingViewModel: OnboardingViewModelProtocol {
     
     @MainActor
     func validateAndSaveUser() async {
+        guard !isLoading else { return }
+        
         let trimmedUsername = username.trimmingCharacters(in: .whitespaces)
         let trimmedHeight = height.trimmingCharacters(in: .whitespaces).replacingOccurrences(of: ",", with: ".")
         
@@ -89,15 +94,21 @@ class OnboardingViewModel: OnboardingViewModelProtocol {
             return
         }
         
+        isLoading = true
         await saveUser()
+        isLoading = false
     }
     
     private func saveUser() async {
         let doubleHeight = Double(height.replacingOccurrences(of: ",", with: ".")) ?? 1.65
         
         do {
-            let _ = try await userService.fetchOrCreateCurrentUser(name: username, height: doubleHeight)
+            let user = try await userService.fetchOrCreateCurrentUser(name: username, height: doubleHeight)
+            
+            CacheService.shared.set(user, forKey: .currentUser)
+            
             userDefaultService.setOnboarding(value: true)
+            self.isOnboardingFinished = true
             self.errorMessage = nil
         } catch let error as UserValidationError {
             self.errorMessage = error.errorDescription ?? "Ocorreu um erro de validação."

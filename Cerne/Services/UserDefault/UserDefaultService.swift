@@ -13,7 +13,7 @@ class UserDefaultService: UserDefaultServiceProtocol {
     private let reportsKey = "reports"
     
     func isOnboardingDone() -> Bool {
-        return UserDefaults.standard.bool(forKey: self.onboardingKey) == false
+        return UserDefaults.standard.bool(forKey: self.onboardingKey) == true
     }
     
     func setOnboarding(value: Bool = true) {

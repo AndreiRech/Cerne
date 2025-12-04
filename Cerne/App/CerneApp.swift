@@ -8,16 +8,15 @@
 import SwiftUI
 import SwiftData
 
-
 @main
 struct CerneApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @AppStorage("onboarding") var isOnboardingDone: Bool = false
     @State private var isSplashScreenActive = true
     @State private var userCheckStatus: UserCheckStatus = .checking
-    
     private let userService = UserService()
-    
+    private let userDefaultService = UserDefaultService()
+        
     var body: some Scene {
         WindowGroup {
             if isSplashScreenActive {
@@ -44,13 +43,20 @@ struct CerneApp: App {
                         TabBar()
                             .environmentObject(appDelegate.quickActionService)
                     case .newUser:
-                        if isOnboardingDone == false {
-                            OnboardingView(viewModel: OnboardingViewModel(userDefaultService: UserDefaultService(), userService: userService))
+                        if !isOnboardingDone {
+                            OnboardingView(
+                                viewModel: OnboardingViewModel(
+                                    userDefaultService: UserDefaultService(),
+                                    userService: userService
+                                ),
+                                isOnbDone: $isOnboardingDone
+                            )
                         } else {
-                            OnboardingView(viewModel: OnboardingViewModel(userDefaultService: UserDefaultService(), userService: userService))
+                            TabBar()
+                                .environmentObject(appDelegate.quickActionService)
                         }
                     case .error:
-                        OnboardingView(viewModel: OnboardingViewModel(userDefaultService: UserDefaultService(), userService: userService))
+                        OnboardingView(viewModel: OnboardingViewModel(userDefaultService: userDefaultService, userService: userService), isOnbDone: $isOnboardingDone)
                     }
                 }
             }

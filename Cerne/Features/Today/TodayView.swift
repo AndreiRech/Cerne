@@ -176,7 +176,7 @@ struct TodayView: View {
                             .toolbar(.hidden, for: .tabBar)
                             .navigationBarBackButtonHidden(true)
                         case .onBoarding:
-                            OnboardingView(viewModel: OnboardingViewModel(userDefaultService: UserDefaultService(), userService: UserService()))
+                            OnboardingView(viewModel: OnboardingViewModel(userDefaultService: UserDefaultService(), userService: UserService()), isOnbDone: .constant(false))
                         }
                     }
                     .toolbar(content: {

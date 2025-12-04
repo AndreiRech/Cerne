@@ -2,6 +2,7 @@ import SwiftUI
 
 struct OnboardingView: View {
     @State var viewModel: OnboardingViewModel
+    @Binding var isOnbDone: Bool
     
     var body: some View {
         ZStack {
@@ -14,21 +15,34 @@ struct OnboardingView: View {
                 .ignoresSafeArea()
             
             if viewModel.isCreatingUser {
-                UserCreateView(
-                    username: $viewModel.username,
-                    height: $viewModel.height,
-                    usernameError: $viewModel.usernameError,
-                    heightError: $viewModel.heightError,
-                    heightErrorMessage: $viewModel.heightErrorMessage,
-                    onTap: {
-                        Task {
-                            await viewModel.validateAndSaveUser()
+                GeometryReader { geometry in
+                    ScrollView(.vertical, showsIndicators: false) {
+                        VStack(spacing: 0) {
+                            Spacer()
+                            
+                            UserCreateView(
+                                username: $viewModel.username,
+                                height: $viewModel.height,
+                                usernameError: $viewModel.usernameError,
+                                heightError: $viewModel.heightError,
+                                heightErrorMessage: $viewModel.heightErrorMessage,
+                                onTap: {
+                                    Task {
+                                        await viewModel.validateAndSaveUser()
+                                    }
+                                    isOnbDone = true
+                                }
+                            )
+                            .glassEffect(in: .rect(cornerRadius: 24))
+                            .padding(.horizontal, 14)
+                            .padding(.bottom, 20)
+                            
+                            Spacer()
                         }
+                        .frame(minWidth: geometry.size.width, minHeight: geometry.size.height)
                     }
-                )
-                    .frame(minHeight: 612)
-                    .glassEffect(in: .rect(cornerRadius: 24))
-                    .padding(.horizontal, 14)
+                    .ignoresSafeArea(.keyboard, edges: .bottom)
+                }
             } else {
                 VStack {
                     ScrollView(.horizontal, showsIndicators: false) {
@@ -69,9 +83,16 @@ struct OnboardingView: View {
             }
         }
         .animation(.easeInOut, value: viewModel.isCreatingUser)
+        .onChange(of: viewModel.isOnboardingFinished) {
+            if viewModel.isOnboardingFinished {
+                withAnimation {
+                    isOnbDone = true
+                }
+            }
+        }
     }
 }
 
-#Preview {
-    OnboardingView(viewModel: OnboardingViewModel(userDefaultService: UserDefaultService(), userService: UserService()))
-}
+//#Preview {
+//    OnboardingView(viewModel: OnboardingViewModel(userDefaultService: UserDefaultService(), userService: UserService()))
+//}
